@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
 /* 러뉴얼 컬러 값 변수 세팅 */
@@ -45,6 +43,24 @@ a {
 
 a:hover {
   color: #3399ff;
+}
+
+a.btn {
+  display: block;
+  text-align: center;
+  border-radius: 0.3rem;
+  outline: none;
+  padding: 0.625rem;
+  border: 0;
+  font-size: 1rem;
+  box-shadow: 0px 2px 5px #3333;
+  transition: 0.2s all;
+  color: #fff;
+  cursor: pointer;
+}
+
+a.btn:hover {
+  box-shadow: 0px 3px 6px #3338;
 }
 
 h1 {
@@ -297,6 +313,165 @@ label {
       > span {
         color: #aaa;
         font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* 공통 & 학생 대시보드 사이드바 */
+.sidebar {
+  width: 18rem;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: -18rem;
+  background-color: #fff;
+  z-index: 2000;
+  box-shadow: 3px 0px 10px #3333;
+  transition: 0.3s all;
+
+  &.on {
+    left: 0;
+  }
+
+  ul {
+    a {
+      &:hover {
+        color: var(--student-color);
+      }
+    }
+  }
+
+  .btn-close {
+    width: 2rem;
+    min-height: 2rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    a {
+      display: block;
+      width: 100%;
+      min-height: 2rem;
+      font-size: 0;
+      background: url("/asset/icon/sidebar_close.svg") no-repeat center/contain;
+
+      &:hover {
+        background: url("/asset/icon/sidebar_close_hover_student.svg") no-repeat
+          center/contain;
+      }
+    }
+  }
+
+  .user-info {
+    padding: 1rem;
+
+    .user-info-img {
+      width: 6rem;
+      min-height: 2.5rem;
+      font-size: 0;
+      background: url("/asset/logo/learnual-logo-text.svg") no-repeat
+        center/contain;
+    }
+
+    .user-greeting {
+      margin: 1rem 0;
+
+      .user-name {
+        color: #111;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+    }
+
+    .user-info-btns {
+      display: flex;
+      gap: 0.625rem;
+
+      .btn {
+        width: 50%;
+      }
+
+      .btn-mypage {
+        background-color: var(--student-color);
+      }
+
+      .btn-logout {
+        background-color: #aaa;
+      }
+    }
+  }
+}
+
+/* 강사 대시보드 사이드바 */
+.sidebar.tutor {
+  ul {
+    a {
+      &:hover {
+        color: var(--tutor-color);
+      }
+    }
+  }
+
+  .user-info {
+    .user-info-btns {
+      .btn-mypage {
+        background-color: var(--tutor-color);
+      }
+    }
+  }
+}
+
+/* sidebar 내 아코디언 메뉴 공통 css */
+.sidebar-menu {
+  > li {
+    position: relative;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0px 2px 5px #00000025;
+
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0.85rem 1rem;
+      color: #111;
+      font-weight: 700;
+    }
+
+    .btn-toggle {
+      width: 1.5rem;
+      min-height: 1.5rem;
+      position: absolute;
+      top: 50%;
+      right: 0.85rem;
+      transform: translateY(-50%);
+
+      a {
+        display: block;
+        height: 100%;
+        background: url("/asset/icon/arrow_down.svg") no-repeat center/contain;
+        font-size: 0;
+      }
+    }
+
+    .btn-toggle.on {
+      a {
+        background: url("/asset/icon/arrow_up.svg") no-repeat center/contain;
+      }
+    }
+  }
+
+  ul {
+    margin-top: 0.5rem;
+    li {
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        text-indent: 0.5rem;
       }
     }
   }
@@ -772,25 +947,6 @@ label {
     }
   }
 
-/* sidebar 작업 시작 */
-  .sidebar {
-    width: 15rem;
-    height: 100%;
-    border: 1px solid red;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #fff;
-    z-index: 2000;
-
-    .user-info {
-      border: 1px solid blue;
-      min-height: 15rem;
-    }
-  }
-  
-/* sidebar 작업 시작 */
-
   .header {
     position: fixed;
     top: 0;
@@ -811,6 +967,7 @@ label {
         display: flex;
         justify-content: space-between;
         min-height: 3rem;
+        position: relative;
 
         .btn-menu {
           /* border: 1px solid red; */
@@ -877,39 +1034,43 @@ label {
             top: 0.25rem;
             right: 0;
           }
+        }
 
-          .notification-box {
-            /* display: none; */
-            min-width: 15rem;
-            position: absolute;
-            top: 100%;
-            right: 0;
+        .notification-box {
+          display: none;
+          min-width: 15rem;
+          position: absolute;
+          top: 100%;
+          right: 0;
 
-            .notification-deco {
-              min-height: 1.5rem;
-              display: flex;
-              justify-content: flex-end;
+          &.on {
+            display: block;
+          }
 
-              .tri {
-                background-color: #fffce4;
-                clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-                margin-right: 0.5rem;
-                width: 1.5rem;
-                height: 1.5rem;
-              }
-            }
+          .notification-deco {
+            min-height: 1.5rem;
+            display: flex;
+            justify-content: flex-end;
 
-            .notification-content {
+            .tri {
               background-color: #fffce4;
-              box-shadow: 0px 2px 5px #3333;
+              clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+              margin-right: 0.5rem;
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
 
-              li {
-                border-bottom: 1px solid #ccc;
-                a {
-                  display: block;
-                  height: 100%;
-                  padding: 1rem;
-                }
+          .notification-content {
+            background-color: #fffce4;
+            box-shadow: 0px 2px 5px #3333;
+
+            li {
+              border-bottom: 1px solid #ccc;
+              a {
+                display: block;
+                height: 100%;
+                padding: 1rem;
               }
             }
           }
@@ -1002,19 +1163,7 @@ label {
         }
 
         .btn-notification {
-          width: 2.5rem;
-          min-height: 3rem;
-          transform: translateX(5px);
-          position: relative;
-
           > a {
-            display: block;
-            height: 100%;
-            font-size: 0;
-            background: url("/asset/icon/notification.svg") no-repeat
-              center/contain;
-            transition: 0.2s all;
-
             &:hover {
               background: url("/asset/icon/notification_hover_tutor.svg")
                 no-repeat center/contain;
@@ -1023,42 +1172,6 @@ label {
 
           .badge {
             background-color: var(--tutor-color);
-          }
-
-          .notification-box {
-            /* display: none; */
-            min-width: 15rem;
-            position: absolute;
-            top: 100%;
-            right: 0;
-
-            .notification-deco {
-              min-height: 1.5rem;
-              display: flex;
-              justify-content: flex-end;
-
-              .tri {
-                background-color: #fffce4;
-                clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-                margin-right: 0.5rem;
-                width: 1.5rem;
-                height: 1.5rem;
-              }
-            }
-
-            .notification-content {
-              background-color: #fffce4;
-              box-shadow: 0px 2px 5px #3333;
-
-              li {
-                border-bottom: 1px solid #ccc;
-                a {
-                  display: block;
-                  height: 100%;
-                  padding: 1rem;
-                }
-              }
-            }
           }
         }
       }

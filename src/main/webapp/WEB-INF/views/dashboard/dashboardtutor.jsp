@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>대시보드-강사</title>
     <link rel="stylesheet" href="/css/common.css" type="text/css" />
+    <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
+    <script src="/js/common.js" type="text/javascript"></script>
   </head>
 
   <body>
@@ -18,7 +20,7 @@
               <a href="#">menu</a>
             </div>
             <div class="logo">
-              <a href="#">logo</a>
+              <a href="/">logo</a>
             </div>
             <div class="btn-notification">
               <a href="#">notification</a>
