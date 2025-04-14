@@ -14,7 +14,7 @@
       <div class="header">
         <div class="header-wrapper">
           <h1 class="header-logo">
-            <a href="#">로고</a>
+            <a href="/">로고</a>
           </h1>
 
           <div class="header-right">
@@ -26,13 +26,13 @@
                 <a href="#">Product</a>
               </li>
               <li>
-                <a href="#">Menu3</a>
+                <a href="/dashboard/student">학생대시보드</a>
               </li>
               <li>
-                <a href="#">Menu4</a>
+                <a href="/dashboard/tutor">강사대시보드</a>
               </li>
               <li>
-                <a href="#">Menu5</a>
+                <a href="#">관리자페이지</a>
               </li>
             </ul>
           </div>
@@ -83,11 +83,11 @@
             <div class="search-inactive">
               <p>학원 또는 강좌명 검색은 로그인이 필요합니다.</p>
               <div class="btn-area">
-                <a href="#">
+                <a href="/login">
                   <div class="login-overlay">login-overlay</div>
                   <span>러뉴얼 로그인</span>
                 </a>
-                <a href="#">
+                <a href="/regist">
                   <div class="login-overlay">login-overlay</div>
                   <span>회원 가입</span>
                 </a>

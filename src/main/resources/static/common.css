@@ -772,6 +772,7 @@ label {
     }
   }
 
+/* sidebar 작업 시작 */
   .sidebar {
     width: 15rem;
     height: 100%;
@@ -787,6 +788,8 @@ label {
       min-height: 15rem;
     }
   }
+  
+/* sidebar 작업 시작 */
 
   .header {
     position: fixed;
