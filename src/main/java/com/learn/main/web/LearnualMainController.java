@@ -23,13 +23,13 @@ public class LearnualMainController {
 	}
 	
 	// 임시 대시보드 매핑
-	@GetMapping("/dashboard/student")
-	public String goStudentDashboard() {
-		return "dashboard/dashboardstudent";
+	@GetMapping("/dashboard/usr")
+	public String goUsrDashboard() {
+		return "dashboard/dashboardusr";
 	}
 	
-	@GetMapping("/dashboard/tutor")
-	public String goTutorDashboard() {
-		return "dashboard/dashboardtutor";
+	@GetMapping("/dashboard/eduad")
+	public String goEduadDashboard() {
+		return "dashboard/dashboardeduad";
 	}
 }
