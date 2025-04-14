@@ -39,6 +39,8 @@ public class WebConfig implements WebMvcConfigurer{
 				.addResourceLocations("classpath:/static/");
 		registry.addResourceHandler("/css/**")
 				.addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/asset/**") // asset 폴더에 대한 핸들러 추가
+        		.addResourceLocations("classpath:/static/asset/"); // asset 폴더의 위치
 	}
 	
 //	@Override
