@@ -1,13 +1,14 @@
-package com.learn.web;
+package com.learn.main.web;
 
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController("/learnual")
 public class LearnualHomeController {
 	
 	@GetMapping("/")
 	public String leanualHome() {
-		return "home";
+		return "mainhome";
 	}
 }
