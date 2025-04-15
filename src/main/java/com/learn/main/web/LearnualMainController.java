@@ -37,4 +37,14 @@ public class LearnualMainController {
 	public String goEduadDashboard() {
 		return "dashboard/dashboardeduad";
 	}
+	
+	@GetMapping("/insttn")
+	public String goMainInsttn() {
+		return "insttn/maininsttn";
+	}
+	
+	@GetMapping("/insttn/course")
+	public String goManageCourse() {
+		return "insttn/managecourse";
+	}
 }

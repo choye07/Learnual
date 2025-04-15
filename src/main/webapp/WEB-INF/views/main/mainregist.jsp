@@ -26,13 +26,13 @@
                 <a href="#">Product</a>
               </li>
               <li>
-                <a href="#">학생대시보드</a>
+                <a href="/dashboard/usr">학생대시보드</a>
               </li>
               <li>
-                <a href="#">강사대시보드</a>
+                <a href="/dashboard/eduad">강사대시보드</a>
               </li>
               <li>
-                <a href="#">관리자페이지</a>
+                <a href="/insttn">학원페이지</a>
               </li>
             </ul>
           </div>
