@@ -17,6 +17,11 @@ public class LearnualMainController {
 		return "main/mainlogin";
 	}
 	
+	@GetMapping("/regist/agreement")
+	public String goMainRegistAgreement() {
+		return "main/mainagreement";
+	}
+	
 	@GetMapping("/regist")
 	public String goMainRegist() {
 		return "main/mainregist";

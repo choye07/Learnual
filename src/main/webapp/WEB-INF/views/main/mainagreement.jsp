@@ -58,7 +58,7 @@
       </div>
 
       <div class="regist-section2">
-        <form id="regist-agreement-form" action="#">
+        <form id="regist-agreement-form" action="/regist">
           <div class="regist-agreement-form-wrapper">
             <div class="regist-terms">
               <h2>이용약관</h2>
