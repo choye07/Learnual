@@ -87,7 +87,7 @@
                   <div class="login-overlay">login-overlay</div>
                   <span>러뉴얼 로그인</span>
                 </a>
-                <a href="/regist">
+                <a href="/regist/agreement">
                   <div class="login-overlay">login-overlay</div>
                   <span>회원 가입</span>
                 </a>
