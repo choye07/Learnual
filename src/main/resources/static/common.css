@@ -65,10 +65,14 @@ a.btn:hover {
   box-shadow: 0px 3px 6px #3338;
 }
 
+select {
+  outline: none;
+}
+
 h1 {
   margin: 0;
   padding: 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 h2 {
@@ -152,7 +156,166 @@ label {
   cursor: pointer;
 }
 
-/* 게시판 공통 css / element에 class 추가 시 활성 */
+.modal {
+  background-color: #0007;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+
+/* 게시판 쓰기 css */
+.board-write {
+  width: 50%;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 0.625rem;
+  box-shadow: 0 0 10px #0000001a;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+
+    .form-group {
+      /* border: 1px solid red; */
+      display: flex;
+      gap: 0.625rem;
+
+      > label {
+        width: 4rem;
+        color: #555;
+        display: flex;
+        align-items: center;
+      }
+
+      &.category-area {
+        label {
+          color: #555;
+        }
+      }
+
+      input[type="text"],
+      input[type="file"] {
+        width: 100%;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 20rem;
+        border: 1px solid #ccc;
+        border-radius: 0.625rem;
+        padding: 0.625rem;
+        outline: none;
+      }
+
+      textarea:focus {
+        background-color: #3399ff11;
+      }
+    }
+
+    .btn-area {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.625rem;
+
+      > button {
+        background-color: var(--manager-color);
+      }
+    }
+  }
+}
+
+/* 강좌 생성 form css */
+.course-create {
+  width: 50%;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 0.625rem;
+  box-shadow: 0 0 10px #0000001a;
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+
+    .form-group {
+      /* border: 1px solid red; */
+      display: flex;
+      gap: 0.625rem;
+
+      > label {
+        width: 5rem;
+        color: #555;
+        display: flex;
+        align-items: center;
+      }
+
+      &.category-area {
+        label {
+          color: #555;
+        }
+      }
+
+      select {
+        border: 1px solid #ccc;
+        width: 100%;
+      }
+
+      input[type="text"],
+      input[type="datetime-local"] {
+        width: 100%;
+      }
+    }
+
+    .btn-area {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.625rem;
+
+      > button {
+        background-color: var(--manager-color);
+      }
+    }
+  }
+
+  #selected-subject-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+
+    .subject-item {
+      border: 1px solid #ccc;
+      border-radius: 0.625rem;
+      padding: 0.1rem 0.625rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+
+      .remove-button {
+        cursor: pointer;
+        display: block;
+        width: 1.5rem;
+        min-height: 1.5rem;
+        font-size: 0;
+        background: url("/asset/icon/backspace.svg") no-repeat center/contain;
+      }
+    }
+  }
+}
+
+/* 메인에서 출력하는 게시판 css */
 .article {
   background: #fff;
   border-radius: 0.625rem;
@@ -424,9 +587,29 @@ label {
   }
 }
 
+/* 플랫폼 관리자(학원) 사이드바 */
+.sidebar.insttn {
+  ul {
+    a {
+      &:hover {
+        color: var(--manager-color);
+      }
+    }
+  }
+
+  .user-info {
+    .user-info-btns {
+      .btn-mypage {
+        background-color: var(--manager-color);
+      }
+    }
+  }
+}
+
 /* sidebar 내 아코디언 메뉴 공통 css */
 .sidebar-menu {
   > li {
+    background-color: #fff;
     position: relative;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
@@ -475,6 +658,32 @@ label {
         font-size: 0.8rem;
         text-indent: 0.5rem;
       }
+    }
+  }
+}
+
+/* 러뉴얼 홈과 학원페이지 visual css */
+.visual {
+  width: 100%;
+  background: url("/asset/visual/learnual_visual.jpg") no-repeat center/cover;
+  height: 12.5rem;
+  font-size: 0;
+}
+
+/* footer 공통 css */
+.footer {
+  padding: 2.5rem 0;
+
+  .footer-wrapper {
+    display: flex;
+
+    .footer-logo {
+      width: 5.625rem;
+    }
+
+    .footer-contents {
+      flex-grow: 1;
+      display: flex;
     }
   }
 }
@@ -550,14 +759,6 @@ label {
   /* home.html */
   .home-main {
     margin-top: 5rem;
-
-    .visual {
-      width: 100%;
-      background: url("/asset/visual/learnual_visual.jpg") no-repeat
-        center/cover;
-      height: 12.5rem;
-      font-size: 0;
-    }
 
     .contents {
       background-color: #f7f7f7;
@@ -821,7 +1022,7 @@ label {
     }
   }
 
-  /* 러뉴얼 회원가입 main */
+  /* 러뉴얼 회원가입 main css */
   /* regist.html */
   .regist-main {
     padding: 5rem 0;
@@ -880,36 +1081,6 @@ label {
           box-shadow: 0px 3px 6px #3338;
         }
       }
-
-      .student-area {
-        width: 50%;
-
-        .regist-student-direct {
-          a {
-            background: var(--light-gradient-background);
-          }
-        }
-
-        .regist-student-text {
-          margin-top: 1.25rem;
-          text-align: center;
-        }
-      }
-
-      .manager-area {
-        width: 50%;
-
-        .regist-manager-direct {
-          a {
-            background: var(--deep-gradient-background);
-          }
-        }
-
-        .regist-manager-text {
-          margin-top: 1.25rem;
-          text-align: center;
-        }
-      }
     }
 
     /* 러뉴얼 회원가입-학생 main */
@@ -918,19 +1089,54 @@ label {
     }
   }
 
-  .footer {
-    padding: 2.5rem 0;
+  /* 러뉴얼 회원가입 이전 동의 절차 css */
+  .regist-main.agreement {
+    label {
+      color: #333;
+    }
 
-    .footer-wrapper {
-      display: flex;
-
-      .footer-logo {
-        width: 5.625rem;
-      }
-
-      .footer-contents {
-        flex-grow: 1;
+    .regist-section2 {
+      #regist-agreement-form {
         display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+
+        .regist-agreement-form-wrapper {
+          display: flex;
+          gap: 2.5rem;
+
+          > div {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+
+            > .textbox {
+              border: 1px solid #ccc;
+              height: 20rem;
+              overflow-y: scroll;
+            }
+          }
+        }
+
+        .regist-option {
+          display: flex;
+          gap: 0.625rem;
+        }
+
+        .regist-btns {
+          display: flex;
+          justify-content: center;
+          gap: 0.625rem;
+
+          button:nth-child(1) {
+            background: var(--light-gradient-background);
+          }
+
+          button:nth-child(2) {
+            background: #aaa;
+          }
+        }
       }
     }
   }
@@ -1095,9 +1301,9 @@ label {
 
   .dashboard-main {
     margin-top: 6rem;
-    padding-top: 2.5rem;
+    padding: 2.5rem 0;
     background-color: #eaf5ff;
-    height: 100vh;
+    min-height: auto !important;
     display: flex;
 
     .main-wrapper {
@@ -1194,5 +1400,170 @@ label {
 
   .dashboard-main {
     background-color: #f3f2f7;
+  }
+}
+
+/* 플랫폼관리자 대시보드(학원 페이지) */
+.dashboard.insttn {
+  .header {
+    .header-top {
+      border-bottom: 3px solid var(--manager-color);
+
+      .header-top-wrapper {
+        min-height: 4rem;
+
+        .btn-menu {
+          a {
+            background: url("/asset/icon/setting.svg") no-repeat center/contain;
+
+            &:hover {
+              background: url("/asset/icon/setting_hover.svg") no-repeat
+                center/contain;
+            }
+          }
+        }
+
+        /* 학원 메인 header height조정으로 인한 수정 */
+        .btn-notification {
+          .badge {
+            top: 0.65rem;
+          }
+        }
+
+        .insttn-area {
+          display: flex;
+          gap: 1.25rem;
+          align-items: center;
+        }
+
+        .btn-notification {
+          .badge {
+            background-color: var(--manager-color);
+          }
+        }
+      }
+    }
+  }
+
+  .dashboard-main.insttn {
+    padding-top: 0;
+    margin-top: 4rem;
+    background-color: #ebf0f5;
+
+    /* 학원 메인 페이지 */
+    .main-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .widget-wrapper {
+        display: flex;
+        flex-direction: row;
+
+        .dashboard-col1 {
+          width: 50%;
+
+          .widget-article {
+            height: 100%;
+          }
+        }
+
+        .dashboard-col2 {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+
+          .widget-article {
+            height: auto;
+          }
+        }
+      }
+    }
+
+    /* 학원 -> 강좌 관리 페이지 main-wrapper */
+    .main-wrapper.course-manage {
+      padding-top: 2.5rem;
+      flex-direction: column;
+      gap: 0;
+      min-height: calc(100vh - 20rem);
+
+      .course-top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 2rem 0;
+
+        .course-top-btns {
+          .btn-add-course {
+            a {
+              padding: 0.625rem;
+              background-color: var(--manager-color);
+              color: #fff;
+
+              &:hover {
+                background-color: #2f6ac0;
+              }
+            }
+          }
+        }
+      }
+
+      .course-wrapper {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+
+        > div:nth-child(1) {
+          width: 60%;
+        }
+
+        > div:nth-child(2) {
+          width: 40%;
+        }
+
+        .article-direct {
+          gap: 0;
+          border-radius: 0;
+          overflow: visible;
+          a {
+            padding: 0.625rem;
+          }
+        }
+      }
+    }
+  }
+
+  .widget-article {
+    height: 100%;
+
+    .article-content {
+      > li {
+        position: relative;
+
+        .period {
+          color: #ccc;
+          font-size: 0.8rem;
+        }
+
+        .article-direct {
+          position: absolute;
+          top: 50%;
+          right: 1.25rem;
+          transform: translateY(-50%);
+          border-radius: 0.625rem;
+          overflow: hidden;
+
+          .btn {
+            background-color: var(--manager-color);
+            color: #eee;
+
+            &:hover {
+              background-color: #2f6ac0 !important;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
   }
 }
