@@ -28,9 +28,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-public class UserController {
+public class UsrController {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UsrController.class);
 
     @Autowired
     private UsrService usrService;
