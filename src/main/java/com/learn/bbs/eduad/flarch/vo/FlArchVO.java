@@ -1,5 +1,11 @@
 package com.learn.bbs.eduad.flarch.vo;
 
+import java.util.List;
+
+import com.learn.bbs.file.vo.FlVO;
+
+//TODO 회원 되면은 private MembersVO memberVO; 추가하기
+
 /**
  * @TableName FL_ARCH
  * @TableComment null
@@ -80,9 +86,10 @@ public class FlArchVO {
     /**
      * @ColumnName INSTR_ID
      * @ColumnType VARCHAR2(50)
-     * @ColumnComment 강사의 고유한 아이디
+     * @ColumnComment 강사의 계정 아이디(이메일 형식)
      */
     private String instrId;
+    
 
     /**
      * @ColumnName ARTC_ID
@@ -90,8 +97,26 @@ public class FlArchVO {
      * @ColumnComment 게시판을 구분할 고유한 문자열
      */
     private String artcId;
+    
+    /**
+     * 파일을 여러개 업로드 할 수 있도록 리스트로 받아온다.
+     */
+    private List<FlVO> flList;
 
-    public String getFlArchId() {
+    //TODO 멤버(회원) 추가하기
+    
+    
+    
+    
+    public List<FlVO> getFlList() {
+      return flList;
+   }
+
+   public void setFlList(List<FlVO> flList) {
+      this.flList = flList;
+   }
+
+   public String getFlArchId() {
         return this.flArchId;
     }
     

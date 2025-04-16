@@ -36,18 +36,18 @@ public class CrclmVO {
     private String crclmUpdtDt;
 
     /**
-     * @ColumnName SBJ_ID2
+     * @ColumnName SBJ_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 과목을 구별하는 고유한 번호
      */
-    private String sbjId2;
+    private String sbjId;
 
     /**
-     * @ColumnName CRS_INF_ID2
+     * @ColumnName CRS_INF_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 강좌 정보를 구분할 고유한 문자열(CRS_INF-YYYYMMDD-NNNNNN)
      */
-    private String crsInfId2;
+    private String crsInfId;
 
     public String getCrclmId() {
         return this.crclmId;
@@ -81,24 +81,24 @@ public class CrclmVO {
         this.crclmUpdtDt = crclmUpdtDt;
     }
     
-    public String getSbjId2() {
-        return this.sbjId2;
+    public String getSbjId() {
+        return this.sbjId;
     }
     
-    public void setSbjId2(String sbjId2) {
-        this.sbjId2 = sbjId2;
+    public void setSbjId(String sbjId) {
+        this.sbjId = sbjId;
     }
     
-    public String getCrsInfId2() {
-        return this.crsInfId2;
+    public String getCrsInfId() {
+        return this.crsInfId;
     }
     
-    public void setCrsInfId2(String crsInfId2) {
-        this.crsInfId2 = crsInfId2;
+    public void setCrsInfId(String crsInfId) {
+        this.crsInfId = crsInfId;
     }
     
     @Override
     public String toString() {
-        return "CrclmVO(crclmId: " + crclmId + ", crclmDesc: " + crclmDesc + ", crclmRgstDt: " + crclmRgstDt + ", crclmUpdtDt: " + crclmUpdtDt + ", sbjId2: " + sbjId2 + ", crsInfId2: " + crsInfId2 + ", )";
+        return "CrclmVO(crclmId: " + crclmId + ", crclmDesc: " + crclmDesc + ", crclmRgstDt: " + crclmRgstDt + ", crclmUpdtDt: " + crclmUpdtDt + ", sbjId: " + sbjId + ", crsInfId: " + crsInfId + ", )";
     }
 }

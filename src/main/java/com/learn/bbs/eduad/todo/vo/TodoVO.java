@@ -64,11 +64,11 @@ public class TodoVO {
     private String crsInfId;
 
     /**
-     * @ColumnName SBJ_ID2
+     * @ColumnName SBJ_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 과목을 구별하는 고유한 번호
      */
-    private String sbjId2;
+    private String sbjId;
 
     /**
      * @ColumnName ARTC_ID
@@ -141,12 +141,12 @@ public class TodoVO {
         this.crsInfId = crsInfId;
     }
     
-    public String getSbjId2() {
-        return this.sbjId2;
+    public String getSbjId() {
+        return this.sbjId;
     }
     
-    public void setSbjId2(String sbjId2) {
-        this.sbjId2 = sbjId2;
+    public void setSbjId(String sbjId) {
+        this.sbjId = sbjId;
     }
     
     public String getArtcId() {
@@ -159,6 +159,6 @@ public class TodoVO {
     
     @Override
     public String toString() {
-        return "TodoVO(todoId: " + todoId + ", todoCtt: " + todoCtt + ", todoFinishYn: " + todoFinishYn + ", todoRgstDt: " + todoRgstDt + ", todoUpdtDt: " + todoUpdtDt + ", todoDelDt: " + todoDelDt + ", todoDelYn: " + todoDelYn + ", crsInfId: " + crsInfId + ", sbjId2: " + sbjId2 + ", artcId: " + artcId + ", )";
+        return "TodoVO(todoId: " + todoId + ", todoCtt: " + todoCtt + ", todoFinishYn: " + todoFinishYn + ", todoRgstDt: " + todoRgstDt + ", todoUpdtDt: " + todoUpdtDt + ", todoDelDt: " + todoDelDt + ", todoDelYn: " + todoDelYn + ", crsInfId: " + crsInfId + ", sbjId: " + sbjId + ", artcId: " + artcId + ", )";
     }
 }

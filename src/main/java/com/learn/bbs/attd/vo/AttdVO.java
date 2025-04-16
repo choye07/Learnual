@@ -135,11 +135,11 @@ public class AttdVO {
     private String usrId;
 
     /**
-     * @ColumnName SBJ_ID2
+     * @ColumnName SBJ_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 과목을 구별하는 고유한 번호
      */
-    private String sbjId2;
+    private String sbjId;
 
     public String getAttdId() {
         return this.attdId;
@@ -285,16 +285,16 @@ public class AttdVO {
         this.usrId = usrId;
     }
     
-    public String getSbjId2() {
-        return this.sbjId2;
+    public String getSbjId() {
+        return this.sbjId;
     }
     
-    public void setSbjId2(String sbjId2) {
-        this.sbjId2 = sbjId2;
+    public void setSbjId(String sbjId) {
+        this.sbjId = sbjId;
     }
     
     @Override
     public String toString() {
-        return "AttdVO(attdId: " + attdId + ", attdDlyYn: " + attdDlyYn + ", attdTm: " + attdTm + ", attdTdYn: " + attdTdYn + ", attdTdTm: " + attdTdTm + ", attdErlvYn: " + attdErlvYn + ", attdEalvTm: " + attdEalvTm + ", attdAbsRsn: " + attdAbsRsn + ", attdAbsTm: " + attdAbsTm + ", attdOtngYn: " + attdOtngYn + ", attdOtngTm: " + attdOtngTm + ", attdRtTm: " + attdRtTm + ", attdRgstDt: " + attdRgstDt + ", attdUpdtDt: " + attdUpdtDt + ", attdDelDt: " + attdDelDt + ", attdDelYn: " + attdDelYn + ", crsInfId: " + crsInfId + ", usrId: " + usrId + ", sbjId2: " + sbjId2 + ", )";
+        return "AttdVO(attdId: " + attdId + ", attdDlyYn: " + attdDlyYn + ", attdTm: " + attdTm + ", attdTdYn: " + attdTdYn + ", attdTdTm: " + attdTdTm + ", attdErlvYn: " + attdErlvYn + ", attdEalvTm: " + attdEalvTm + ", attdAbsRsn: " + attdAbsRsn + ", attdAbsTm: " + attdAbsTm + ", attdOtngYn: " + attdOtngYn + ", attdOtngTm: " + attdOtngTm + ", attdRtTm: " + attdRtTm + ", attdRgstDt: " + attdRgstDt + ", attdUpdtDt: " + attdUpdtDt + ", attdDelDt: " + attdDelDt + ", attdDelYn: " + attdDelYn + ", crsInfId: " + crsInfId + ", usrId: " + usrId + ", sbjId: " + sbjId + ", )";
     }
 }

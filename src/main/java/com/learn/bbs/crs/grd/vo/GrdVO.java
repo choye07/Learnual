@@ -64,11 +64,11 @@ public class GrdVO {
     private String crsInfId;
 
     /**
-     * @ColumnName SBJ_ID2
+     * @ColumnName SBJ_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 과목을 구별하는 고유한 번호
      */
-    private String sbjId2;
+    private String sbjId;
 
     public String getGrdId() {
         return this.grdId;
@@ -134,16 +134,16 @@ public class GrdVO {
         this.crsInfId = crsInfId;
     }
     
-    public String getSbjId2() {
-        return this.sbjId2;
+    public String getSbjId() {
+        return this.sbjId;
     }
     
-    public void setSbjId2(String sbjId2) {
-        this.sbjId2 = sbjId2;
+    public void setSbjId(String sbjId) {
+        this.sbjId = sbjId;
     }
     
     @Override
     public String toString() {
-        return "GrdVO(grdId: " + grdId + ", grdScr: " + grdScr + ", grdExamDt: " + grdExamDt + ", grdRgstDt: " + grdRgstDt + ", crsInfUpdtDt: " + crsInfUpdtDt + ", grdDelDt: " + grdDelDt + ", grdDelYn: " + grdDelYn + ", crsInfId: " + crsInfId + ", sbjId2: " + sbjId2 + ", )";
+        return "GrdVO(grdId: " + grdId + ", grdScr: " + grdScr + ", grdExamDt: " + grdExamDt + ", grdRgstDt: " + grdRgstDt + ", crsInfUpdtDt: " + crsInfUpdtDt + ", grdDelDt: " + grdDelDt + ", grdDelYn: " + grdDelYn + ", crsInfId: " + crsInfId + ", sbjId: " + sbjId + ", )";
     }
 }

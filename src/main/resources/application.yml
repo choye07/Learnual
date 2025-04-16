@@ -3,7 +3,7 @@
 #mybatis 설정
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
-  mapper-locations: classpath:com/hello/**/mapper/*Mapper.xml
+  mapper-locations: classpath:com/learn/**/mapper/*Mapper.xml
 #hello-spring-edu 전용 설정
 app:
   multipart:
