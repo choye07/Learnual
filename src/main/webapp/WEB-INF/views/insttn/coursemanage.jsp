@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>    
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>강좌 관리</title>
+  <title>강좌 관리(관리자)</title>
   <link rel="stylesheet" href="/css/common.css" type="text/css" />
   <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
@@ -69,114 +70,20 @@
 
   <div class="dashboard insttn">
     <!-- 관리자 권한이 있는 유저만 활성화 가능 -->
-    <div class="sidebar insttn">
-      <div class="btn-close">
-        <a href="#">close</a>
-      </div>
-      <div class="user-info">
-        <div class="user-info-img">
-          user-info-img
-        </div>
-        <p class="user-greeting">
-          <span class="user-name">홍길동</span> 님 안녕하세요!
-        </p>
-        <div class="user-info-btns">
-          <a class="btn-mypage btn" href="#">마이페이지</a>
-          <a class="btn-logout btn" href="#">로그아웃</a>
-        </div>
-      </div>
-      <!-- sidebar menu wrapper -->
-      <div class="menu-wrapper">
-        <!-- sidebar menu1 -->
-        <ul class="menu1 sidebar-menu">
-          <li class="sidebar-main-menu">
-            <a href="#">나의 정보</a>
-            <div class="btn-toggle on">
-              <a href="#">toggle</a>
-            </div>
-          </li>
-          <ul class="menu-list">
-            <li><a href="#">마이페이지</a></li>
-            <li><a href="#">출결현황</a></li>
-            <li><a href="#">내가 쓴 글</a></li>
-            <li><a href="#">나의 정보 수정</a></li>
-          </ul>
-        </ul>
-        <!-- sidebar menu2 -->
-        <ul class="menu2 sidebar-menu">
-          <li class="sidebar-main-menu">
-            <a href="#">게시판</a>
-            <div class="btn-toggle on">
-              <a href="#">toggle</a>
-            </div>
-          </li>
-          <ul class="menu-list">
-            <li><a href="#">공지사항</a></li>
-            <li><a href="#">자료실</a></li>
-            <li><a href="#">과제 게시판</a></li>
-            <li><a href="#">시험 게시판</a></li>
-            <li><a href="#">질문 게시판</a></li>
-          </ul>
-        </ul>
-        <!-- sidebar menu3 -->
-        <ul class="menu3 sidebar-menu">
-          <li class="sidebar-main-menu">
-            <a href="#">문의하기</a>
-            <div class="btn-toggle on">
-              <a href="#">toggle</a>
-            </div>
-          </li>
-          <ul class="menu-list">
-            <li><a href="#">상담 신청 및 현황</a></li>
-            <li><a href="#">관리자 문의</a></li>
-          </ul>
-        </ul>
-      </div>
-    </div>
+    <jsp:include page="/WEB-INF/views/common/component/insttnsidebar.jsp" />
 
-    <div class="header">
-      <div class="header-top">
-        <div class="header-top-wrapper">
-          <!-- 관리자 권한이 있는 사람만 보임 -->
-          <div class="btn-menu">
-            <a href="#">setting</a>
-          </div>
-          <div class="insttn-area">
-            <div class="insttn-logo">학원 logo</div>
-            <h2>KT ds University</h2>
-          </div>
-          <div class="btn-notification">
-            <a href="#">notification</a>
-            <div class="badge"></div>
-          </div>
-          <div class="notification-box">
-            <div class="notification-deco">
-              <div class="tri"></div>
-            </div>
-            <ul class="notification-content">
-              <li>
-                <a href="#"> 과제게시판 알림이 도착했습니다. </a>
-              </li>
-              <li>
-                <a href="#"> 과제게시판 알림이 도착했습니다. </a>
-              </li>
-              <li>
-                <a href="#"> 과제게시판 알림이 도착했습니다. </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+	<jsp:include page="/WEB-INF/views/common/component/insttnheader.jsp" />
 
     <div class="dashboard-main insttn">
 
       <div class="main-wrapper course-manage">
-        <div class="course-top">
+        <div class="main-wrapper-top">
           <h1>강좌 관리</h1>
-          <div class="course-top-btns">
-            <div class="btn-add-course">
-              <a href="#">강좌 추가</a>
+          <div class="board-toolbox">
+            <div class="board-manager-toolbox">
+              <div class="btn-add-notice">
+                <a href="#">강좌 추가 +</a>
+              </div>
             </div>
           </div>
         </div>
@@ -184,7 +91,7 @@
         <div class="course-wrapper">
           <div class="active-courses">
             <div class="course-article widget-article">
-              <div>
+              <div class="article-title">
                 <h2>현재 개설 중인 강좌</h2>
                 <a href="#">더보기</a>
               </div>
@@ -199,10 +106,18 @@
                         ~
                         <span>2025-06-20</span>
                       </p>
+                      <p class="available-capa">
+                        수강인원 :
+                        <span class="current-capa">16</span>
+                        /
+                        <span class="max-capa">30</span>
+                        명
+                      </p>
                     </a>
                     <div class="article-direct">
                       <a class="btn-modify" href="#">수정</a>
                       <a class="btn-delete" href="#">삭제</a>
+                      <a class="btn-shutdown" href="#">마감</a>
                     </div>
                   </li>
 
@@ -214,10 +129,18 @@
                         ~
                         <span>2025-06-20</span>
                       </p>
+                      <p class="available-capa">
+                        수강인원 :
+                        <span class="current-capa">16</span>
+                        /
+                        <span class="max-capa">30</span>
+                        명
+                      </p>
                     </a>
                     <div class="article-direct">
                       <a class="btn-modify" href="#">수정</a>
                       <a class="btn-delete" href="#">삭제</a>
+                      <a class="btn-shutdown" href="#">마감</a>
                     </div>
                   </li>
 
@@ -237,7 +160,7 @@
           </div>
           <div class="inactive-courses">
             <div class="course-article widget-article">
-              <div>
+              <div class="article-title">
                 <h2>신청 마감 강좌</h2>
                 <a href="#">더보기</a>
               </div>
@@ -284,38 +207,8 @@
       </div>
     </div>
 
-    <div class="footer insttn">
-      <div class="footer-wrapper">
-        <div class="footer-logo">하단 로고</div>
-
-        <div class="footer-contents">
-          <div class="footer-content1">
-            <p>Use cases</p>
-            <ul class="footer-content1-list">
-              <li>UI design</li>
-              <li>UX design</li>
-              <li>Wireframing</li>
-            </ul>
-          </div>
-
-          <div class="footer-content2">
-            <p>Explore</p>
-            <ul class="footer-content2-list">
-              <li>Design</li>
-              <li>Prototyping</li>
-            </ul>
-          </div>
-
-          <div class="footer-content3">
-            <p>Resources</p>
-            <ul class="footer-content3-list">
-              <li>Blog</li>
-              <li>Best practices</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+	<jsp:include page="/WEB-INF/views/common/component/insttnfooter.jsp" />
+	
   </div>
 </body>
 
