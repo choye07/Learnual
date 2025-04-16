@@ -12,7 +12,7 @@ import com.learn.bbs.usr.service.UsrService;
  * 사용자
  */
 @Controller
-public class UsrController {
+public class usrController {
 
     @Autowired
     private UsrService usrService;
