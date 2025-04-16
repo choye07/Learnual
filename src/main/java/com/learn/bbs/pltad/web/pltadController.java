@@ -7,6 +7,6 @@ import org.springframework.stereotype.Controller;
  * 플랫폼 관리자
  */
 @Controller()
-public class pltadController {
+public class PltadController {
 
 }
