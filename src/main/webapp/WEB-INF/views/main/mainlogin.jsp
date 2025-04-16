@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>    
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,33 +12,7 @@
 
   <body>
     <div class="wrapper">
-      <div class="header">
-        <div class="header-wrapper">
-          <h1 class="header-logo">
-            <a href="/">로고</a>
-          </h1>
-
-          <div class="header-right">
-            <ul class="header-right-nav">
-              <li>
-                <a href="#">About</a>
-              </li>
-              <li>
-                <a href="#">Product</a>
-              </li>
-              <li>
-                <a href="/dashboard/usr">학생대시보드</a>
-              </li>
-              <li>
-                <a href="/dashboard/eduad">강사대시보드</a>
-              </li>
-              <li>
-                <a href="/insttn">학원페이지</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <jsp:include page="/WEB-INF/views/common/component/learnualheader.jsp" />
 
       <div class="login-main">
         <div class="login-main-wrapper">
@@ -87,38 +62,7 @@
         </div>
       </div>
 
-      <div class="footer">
-        <div class="footer-wrapper">
-          <div class="footer-logo">하단 로고</div>
-
-          <div class="footer-contents">
-            <div class="footer-content1">
-              <p>Use cases</p>
-              <ul class="footer-content1-list">
-                <li>UI design</li>
-                <li>UX design</li>
-                <li>Wireframing</li>
-              </ul>
-            </div>
-
-            <div class="footer-content2">
-              <p>Explore</p>
-              <ul class="footer-content2-list">
-                <li>Design</li>
-                <li>Prototyping</li>
-              </ul>
-            </div>
-
-            <div class="footer-content3">
-              <p>Resources</p>
-              <ul class="footer-content3-list">
-                <li>Blog</li>
-                <li>Best practices</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <jsp:include page="/WEB-INF/views/common/component/learnualfooter.jsp" />
     </div>
   </body>
 </html>

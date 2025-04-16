@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,91 +16,9 @@
 <body>
   <div class="dashboard insttn">
     <!-- 관리자 권한이 있는 유저만 활성화 가능 -->
-    <div class="sidebar insttn">
-      <div class="btn-close">
-        <a href="#">close</a>
-      </div>
-      <div class="user-info">
-        <div class="user-info-img">
-          user-info-img
-        </div>
-        <p class="user-greeting">
-          <span class="user-name">홍길동</span> 님 안녕하세요!
-        </p>
-        <div class="user-info-btns">
-          <a class="btn-mypage btn" href="#">마이페이지</a>
-          <a class="btn-logout btn" href="#">로그아웃</a>
-        </div>
-      </div>
-      <!-- sidebar menu wrapper -->
-      <div class="menu-wrapper">
-        <!-- sidebar menu1 -->
-        <ul class="menu1 sidebar-menu">
-          <li class="sidebar-main-menu">
-            <a href="#">관리자 메인메뉴1</a>
-            <div class="btn-toggle on">
-              <a href="#">toggle</a>
-            </div>
-          </li>
-          <ul class="menu-list">
-            <li><a href="#">관리자 sub메뉴1</a></li>
-            <li><a href="#">관리자 sub메뉴2</a></li>
-            <li><a href="#">관리자 sub메뉴3</a></li>
-            <li><a href="#">관리자 sub메뉴4</a></li>
-          </ul>
-        </ul>
-        <!-- sidebar menu2 -->
-        <ul class="menu2 sidebar-menu">
-          <li class="sidebar-main-menu">
-            <a href="#">관리자 메인메뉴2</a>
-            <div class="btn-toggle on">
-              <a href="#">toggle</a>
-            </div>
-          </li>
-          <ul class="menu-list">
-            <li><a href="#">관리자 sub메뉴1</a></li>
-            <li><a href="#">관리자 sub메뉴2</a></li>
-            <li><a href="#">관리자 sub메뉴3</a></li>
-            <li><a href="#">관리자 sub메뉴4</a></li>
-          </ul>
-        </ul>
-      </div>
-    </div>
+    <jsp:include page="/WEB-INF/views/common/component/insttnsidebar.jsp" />
 
-    <div class="header">
-      <div class="header-top">
-        <div class="header-top-wrapper">
-          <!-- 관리자 권한이 있는 사람만 보임 -->
-          <div class="btn-menu">
-            <a href="#">setting</a>
-          </div>
-          <div class="insttn-area">
-            <div class="insttn-logo">학원 logo</div>
-            <h2>KT ds University</h2>
-          </div>
-          <div class="btn-notification">
-            <a href="#">notification</a>
-            <div class="badge"></div>
-          </div>
-          <div class="notification-box">
-            <div class="notification-deco">
-              <div class="tri"></div>
-            </div>
-            <ul class="notification-content">
-              <li>
-                <a href="#"> 과제게시판 알림이 도착했습니다. </a>
-              </li>
-              <li>
-                <a href="#"> 과제게시판 알림이 도착했습니다. </a>
-              </li>
-              <li>
-                <a href="#"> 과제게시판 알림이 도착했습니다. </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+	<jsp:include page="/WEB-INF/views/common/component/insttnheader.jsp" />
 
     <div class="dashboard-main insttn">
       <div class="main-wrapper">
@@ -234,38 +153,8 @@
       </div>
     </div>
 
-    <div class="footer insttn">
-      <div class="footer-wrapper">
-        <div class="footer-logo">하단 로고</div>
-
-        <div class="footer-contents">
-          <div class="footer-content1">
-            <p>Use cases</p>
-            <ul class="footer-content1-list">
-              <li>UI design</li>
-              <li>UX design</li>
-              <li>Wireframing</li>
-            </ul>
-          </div>
-
-          <div class="footer-content2">
-            <p>Explore</p>
-            <ul class="footer-content2-list">
-              <li>Design</li>
-              <li>Prototyping</li>
-            </ul>
-          </div>
-
-          <div class="footer-content3">
-            <p>Resources</p>
-            <ul class="footer-content3-list">
-              <li>Blog</li>
-              <li>Best practices</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+	<jsp:include page="/WEB-INF/views/common/component/insttnfooter.jsp" />
+    
   </div>
 </body>
 
