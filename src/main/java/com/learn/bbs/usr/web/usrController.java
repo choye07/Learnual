@@ -1,8 +1,20 @@
 package com.learn.bbs.usr.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Controller()
-public class usrController {
+import com.learn.bbs.usr.service.UsrService;
+
+
+
+/**
+ * @author 최예진
+ * 사용자
+ */
+@Controller
+public class UsrController {
+
+    @Autowired
+    private UsrService usrService;
 
 }
