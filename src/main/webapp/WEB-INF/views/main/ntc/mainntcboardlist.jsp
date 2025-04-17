@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>러뉴얼 홈</title>
+<title>러뉴얼 공지사항</title>
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
 </head>
 
@@ -37,12 +37,8 @@
 						</div>
 					</div>
 
-					<p>
-						공지사항 등록: 총 <span>${mainNtcList.ntcCnt}</span>건
-					</p>
 					<div class="board-body">
 						<div class="board-list-top">
-							<div>No</div>
 							<div>제목</div>
 							<div>작성자</div>
 							<div>작성시간</div>
@@ -50,19 +46,30 @@
 						<ul class="board-list-wrapper">
 							<c:choose>
 								<c:when test="${not empty mainNtcList.ntcList}">
+									<c:set var="hasVisibleNotice" value="false" />
 									<c:forEach items="${mainNtcList.ntcList}" var="mainNtc">
-										<li class="fix"><a href="#">
-												<div class="board-list-no">${mainNtc.ntcId}</div>
-												<div class="board-list-title">${mainNtc.ntcTtl}</div>
-												<div class="board-list-writer">작성자이름</div>
-												<div class="board-list-time">${mainNtc.ntcRgstDt}</div>
-										</a></li>
+										<c:if test="${mainNtc.ntcDelYn != 'Y'}">
+											<!-- 삭제되지 않은 공지사항만 표시 -->
+											<li><a href="/ntc/view/${mainNtc.ntcId}">
+													<div class="board-list-title">${mainNtc.ntcTtl}</div>
+													<div class="board-list-writer">작성자이름</div>
+													<div class="board-list-time">${mainNtc.ntcRgstDt}</div>
+											</a></li>
+											<c:set var="hasVisibleNotice" value="true" />
+											<!-- 표시된 공지사항이 있음을 기록 -->
+										</c:if>
 									</c:forEach>
+									<c:if test="${not hasVisibleNotice}">
+										<!-- 표시된 공지사항이 없을 경우 -->
+										<li class="empty-notice-list">
+											작성된 공지사항이 없습니다.
+										</li>
+									</c:if>
 								</c:when>
 								<c:otherwise>
-									<li class="fix"><a href="#">
-											<p>작성된 공지사항이 없습니다.</p>
-									</a></li>
+									<li class="empty-notice-list">
+										작성된 공지사항이 없습니다.
+									</li>
 								</c:otherwise>
 							</c:choose>
 						</ul>

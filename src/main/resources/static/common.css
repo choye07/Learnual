@@ -263,7 +263,7 @@ label {
     .board-list-top {
       border-bottom: 1px solid #ccc;
       display: grid;
-      grid-template-columns: 5rem 1fr 7rem 7rem;
+      grid-template-columns: 1fr 10rem 10rem;
 
       > div {
         padding: 0.625rem;
@@ -283,7 +283,7 @@ label {
 
         a {
           display: grid;
-          grid-template-columns: 5rem 1fr 7rem 7rem;
+          grid-template-columns: 1fr 10rem 10rem;
           text-align: center;
 
           > div {
@@ -362,7 +362,8 @@ label {
     }
   }
 }
-
+/* 게시판 공통 css end */
+/* ==================================== */
 /* 게시판 custom css start */
 
 /* 성연 파트 */
@@ -524,9 +525,22 @@ label {
   }
 }
 
-/* 게시판 css end */
-/* ================================== */
+/* 휘원 파트 */
+/* 메인 공지사항 custom css */
+.board.learnual-notice {
+	.board-body {
+		.board-list-wrapper {
+			.empty-notice-list {
+				padding: 3rem 0;
+				text-align: center;
+			}
+		}
+	}
 
+}
+
+/* 게시판 custom css end */
+/* ================================== */
 /* 강좌 생성 form css */
 .course-create {
   width: 50%;
@@ -610,7 +624,8 @@ label {
   }
 }
 
-/* 메인에서 출력하는 게시판 css */
+/* ================================== */
+/* 메인에서 출력하는 게시판 공통 css start */
 .article {
   background: #fff;
   border-radius: 0.625rem;
@@ -676,8 +691,9 @@ label {
     }
   }
 }
-
-/* 대시보드에 보이는 게시판 위젯 css */
+/* 메인에서 출력하는 게시판 공통 css end */
+/* ==================================== */
+/* 대시보드에 보이는 게시판 공통 위젯 css */
 .widget-article {
   background: #fff;
   border-radius: 0.625rem;
@@ -749,8 +765,8 @@ label {
     }
   }
 }
-
-/* 검색 결과 ul 공통 css */
+/* ==================================== */
+/* 검색 결과 ul 공통 css start */
 .list-wrapper {
   li {
     border-bottom: 3px solid #efefef;
@@ -778,8 +794,9 @@ label {
     }
   }
 }
-
-/* 공통 & 학생 대시보드 사이드바 */
+/* 검색 결과 ul 공통 css end */
+/* ==================================== */
+/* 공통 & 학생 대시보드 사이드바 공통 css */
 .sidebar {
   width: 18rem;
   height: 100%;
@@ -863,6 +880,8 @@ label {
     }
   }
 }
+/* 공통 & 학생 대시보드 사이드바 공통 css end */
+/* ==================================== */
 
 /* 강사 대시보드 사이드바 */
 .sidebar.tutor {
@@ -902,6 +921,7 @@ label {
   }
 }
 
+/* ==================================== */
 /* sidebar 내 아코디언 메뉴 공통 css */
 .sidebar-menu {
   > li {
@@ -957,16 +977,15 @@ label {
     }
   }
 }
-
-/* 러뉴얼 홈과 학원페이지 visual css */
+/* ==================================== */
+/* 러뉴얼 홈과 학원페이지 visual 공통 css */
 .visual {
   width: 100%;
   background: url("/asset/visual/learnual_visual.jpg") no-repeat center/cover;
   height: 12.5rem;
   font-size: 0;
-  margin-bottom: 1.25rem;
 }
-
+/* ==================================== */
 /* 학원페이지 내 관리자 전용 버튼 박스 */
 .manager-toolbox {
   /* display: none; */
@@ -983,7 +1002,7 @@ label {
     }
   }
 }
-
+/* ==================================== */
 /* 게시판 사용자 버튼 박스 */
 /* *추후 수정 필요 */
 .user-toolbox {
@@ -1000,7 +1019,7 @@ label {
     }
   }
 }
-
+/* ==================================== */
 /* 게시판 내 버튼 박스 */
 .board-toolbox {
   display: flex;
@@ -1053,7 +1072,7 @@ label {
     }
   }
 }
-
+/* ==================================== */
 /* footer 공통 css */
 .footer {
   padding: 2.5rem 0;
@@ -1071,8 +1090,9 @@ label {
     }
   }
 }
-
-/* ======= 러뉴얼 홈페이지 css start ======= */
+/* ==================================== */
+/* 페이지 wrapper 공통 css */
+/* wrapper 내부의 공통 css 다수 존재 */
 .wrapper {
   width: 80%;
   min-width: 75rem;
@@ -1138,7 +1158,8 @@ label {
       }
     }
   }
-
+  
+/* ==================================== */
   /* 슈퍼관리자 main */
   /* mainsuper.jsp */
   .super-main {
@@ -1231,7 +1252,7 @@ label {
       }
     }
   }
-
+/* ==================================== */
   /* 관리 보드 공통 css */
   /* .manage-board */
   .manage-board {
@@ -1312,7 +1333,7 @@ label {
       }
     }
   }
-
+/* ==================================== */
   /* 러뉴얼 홈 main */
   /* home.html */
   .home-main {
@@ -1475,7 +1496,7 @@ label {
       }
     }
   }
-
+/* ==================================== */
   /* 러뉴얼 로그인 main */
   /* login.html */
   .login-main {
@@ -1579,7 +1600,7 @@ label {
       }
     }
   }
-
+/* ==================================== */
   /* 러뉴얼 회원가입 main css */
   /* regist.html */
   .regist-main {
@@ -1646,7 +1667,7 @@ label {
       display: block;
     }
   }
-
+/* ==================================== */
   /* 러뉴얼 회원가입 이전 동의 절차 css */
   .regist-main.agreement {
     label {
@@ -1699,10 +1720,9 @@ label {
     }
   }
 }
-/* ======= 러뉴얼 홈페이지 css end ======= */
-
-/* ======= 대시보드 css start ======= */
-/* 학생 대시보드 */
+/* 러뉴얼 홈페이지 css end */
+/* ==================================== */
+/* 대시보드 공통 css start */
 .dashboard {
   .widget-article {
     a {
@@ -1858,10 +1878,10 @@ label {
   }
 
   .dashboard-main {
+    min-height: calc(100vh - 6rem);
     margin-top: 6rem;
     padding: 2.5rem 0;
     background-color: #eaf5ff;
-    min-height: auto !important;
     display: flex;
 
     .main-wrapper {
@@ -1869,6 +1889,7 @@ label {
       min-width: 75rem;
       margin: 0 auto;
       display: flex;
+      gap: 1.25rem;
 
       > .main-wrapper-top {
         display: flex;
@@ -1883,19 +1904,26 @@ label {
         gap: 1.25rem;
       }
 
+      > .dashboard-col1, .dashboard-col2, .dashboard-col3 {
+        display: flex;
+        flex-direction: column;
+      }
+
       .dashboard-col1 {
-        /* border: 1px solid red; */
         width: 38%;
+        gap: 1.25rem;
       }
 
       .dashboard-col2 {
         /* border: 1px solid blue; */
         width: 38%;
+        gap: 1.25rem;
       }
 
       .dashboard-col3 {
         border: 1px solid green;
         width: 24%;
+        gap: 1.25rem;
       }
     }
   }
@@ -2021,6 +2049,7 @@ label {
       flex-direction: column;
 
       .widget-wrapper {
+      	margin-top: 1.25rem;
         display: flex;
         flex-direction: row;
 
