@@ -1139,6 +1139,180 @@ label {
     }
   }
 
+  /* 슈퍼관리자 main */
+  /* mainsuper.jsp */
+  .super-main {
+    padding: 8rem 0;
+
+    .super-main-header {
+      border-bottom: 3px solid var(--manager-medium-color);
+      padding-bottom: 1rem;
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .super-main-wrapper {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 0.625rem;
+      box-shadow: 0 0 10px #0000001a;
+      width: 100%;
+      min-width: 60rem;
+      margin: 3rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      /* 관리자 기능 버튼 영역 */
+      .super-fn-area {
+        display: flex;
+        gap: 1rem;
+
+        > div {
+          width: 25%;
+          opacity: 0.8;
+          transition: 0.2s opacity;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          > a {
+            border-radius: 1rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+            background: var(--deep-gradient-background);
+
+            > h2 {
+              font-size: 1.7rem;
+              font-weight: 700;
+              color: #eee;
+            }
+
+            > .icon-img {
+              font-size: 0;
+              width: 80%;
+              height: 12rem;
+            }
+
+            &.btn-academy-manage {
+              > .icon-img {
+                background: url("/asset/icon/icon_academy_white.svg") no-repeat
+                  center/contain;
+              }
+            }
+            &.btn-academy-manager-manage {
+              > .icon-img {
+                background: url("/asset/icon/icon_manager_white.svg") no-repeat
+                  center/contain;
+              }
+            }
+            &.btn-menu-manage {
+              > .icon-img {
+                background: url("/asset/icon/icon_setting_menu_white.svg")
+                  no-repeat center/contain;
+              }
+            }
+            &.btn-notice {
+              > .icon-img {
+                background: url("/asset/icon/icon_notice_white.svg") no-repeat
+                  center/contain;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* 관리 보드 공통 css */
+  /* .manage-board */
+  .manage-board {
+    min-height: 50rem;
+    padding: 8rem 0;
+
+    .manage-board-wrapper {
+      padding: 2rem;
+      border-radius: 0.625rem;
+      box-shadow: 0 0 10px #0000001a;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .manage-board-header {
+        border-bottom: 3px solid var(--manager-color);
+        padding-bottom: 1rem;
+
+        h1 {
+          font-size: 2rem;
+        }
+      }
+
+      .board-toolbox {
+        display: flex;
+        justify-content: space-between;
+
+        > div {
+          display: flex;
+          gap: 1rem;
+          a {
+            padding: 0.625rem 1.5rem;
+            font-size: 1.3rem;
+          }
+        }
+      }
+
+      .manage-board-body {
+        .list-top {
+          display: grid;
+          grid-template-columns: 2fr 2fr 1fr 3fr;
+          text-align: center;
+
+          > div {
+            padding: 0.625rem;
+            background-color: #eee;
+          }
+        }
+        .list-wrapper {
+          li {
+            border: 1px solid #fff;
+            a {
+              padding: 0;
+              gap: 0;
+              text-align: center;
+              display: grid;
+              grid-template-columns: 2fr 2fr 1fr 3fr;
+
+              > div {
+                border: 1px solid #eee;
+                padding: 0.625rem;
+              }
+            }
+          }
+        }
+        .pagination {
+          margin: 1.25rem auto;
+          display: flex;
+          justify-content: center;
+
+          > li {
+            display: flex;
+            a {
+              padding: 0.3rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
   /* 러뉴얼 홈 main */
   /* home.html */
   .home-main {
