@@ -1,11 +1,14 @@
 package com.learn.bbs.crs.sbj.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.crs.sbj.dao.SbjDao;
+import com.learn.bbs.crs.sbj.vo.SbjVO;
 
 
 /**
@@ -22,6 +25,11 @@ public class SbjDaoImpl extends SqlSessionDaoSupport implements SbjDao {
     public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
         super.setSqlSessionTemplate(sqlSessionTemplate);
     }
+
+	@Override
+	public List<SbjVO> selectAllSubjects() {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAllSubjects");
+	}
 
 
 }

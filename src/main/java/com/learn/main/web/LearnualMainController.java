@@ -42,4 +42,15 @@ public class LearnualMainController {
 	public String goMainInsttn() {
 		return "insttn/maininsttn";
 	}
+	
+	// 학생의 강좌 신청 페이지
+	@GetMapping("/insttn/usr")
+	public String goRegistCourse() {
+		return "insttn/courseregist";
+	}
+	
+	@GetMapping("/insttn/pltad")
+	public String goManageCourse() {
+		return "insttn/coursemanage";
+	}
 }

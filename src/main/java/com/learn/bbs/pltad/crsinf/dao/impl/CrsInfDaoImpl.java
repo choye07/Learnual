@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.pltad.crsinf.dao.CrsInfDao;
+import com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO;
 
 
 /**
@@ -23,6 +24,16 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
     public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
         super.setSqlSessionTemplate(sqlSessionTemplate);
     }
+
+	@Override
+	public int insertOneCourse(CrsInfRegistRequestVO crsInfRegistRequestVO) {
+		return this.getSqlSession().insert(NAME_SPACE + "insertOneCourse", crsInfRegistRequestVO);
+	}
+
+	@Override
+	public int countCourseName(String crsInfNm) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "countCourseName", crsInfNm);
+	}
 
 
 }

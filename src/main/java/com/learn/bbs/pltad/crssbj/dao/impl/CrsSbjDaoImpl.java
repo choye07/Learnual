@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.pltad.crssbj.dao.CrsSbjDao;
+import com.learn.bbs.pltad.crssbj.vo.CrsSbjRegistRequestVO;
 
 
 /**
@@ -24,5 +25,8 @@ public class CrsSbjDaoImpl extends SqlSessionDaoSupport implements CrsSbjDao {
         super.setSqlSessionTemplate(sqlSessionTemplate);
     }
 
-
+	@Override
+	public int insertOneCourseSubject(CrsSbjRegistRequestVO crsSbjRegistRequestVO) {
+		return this.getSqlSession().insert(NAME_SPACE + "insertOneCourseSubject", crsSbjRegistRequestVO);
+	}
 }

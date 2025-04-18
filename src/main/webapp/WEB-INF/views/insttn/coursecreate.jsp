@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>    
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,56 +15,101 @@
 </head>
 
 <body>
-  <div class="course-create">
-    <h1>강의 추가</h1>
-    <form id="course-create-form">
-      <div class="title-area form-group">
-        <label for="course-title">강의제목</label>
-        <input type="text" id="course-title" name="course-title" required />
-      </div>
+      <div class="course-create">
+      <h1>강의 추가</h1>
+      <form:form modelAttribute="crsInfRegistRequestVO" id="course-create-form">
+        <div class="title-area form-group">
+          <label for="crsInfNm">강의제목</label>
+          <input type="text" id="course-title" name="crsInfNm" value="${userRegistInfo.crsInfNm}" required />
+          <form:errors path="crsInfNm" element="div" cssClass="error" />
+          <c:if test="${not empty duplicateTitleError}">
+		      <div class="error">${duplicateTitleError}</div>
+		  </c:if>
+        </div>
 
-      <div class="classroom-area form-group">
-        <label for="course-classroom">강의실</label>
-        <input type="text" id="course-classroom" name="course-classroom" required />
-      </div>
+        <div class="classroom-area form-group">
+          <label for="course-classroom">강의실</label>
+          <input type="text" id="course-classroom" name="crsInfCrsRoomNm" value="${userRegistInfo.crsInfCrsRoomNm}" required />
+          <form:errors path="crsInfCrsRoomNm" element="div" cssClass="error" />
+        </div>
 
-      <div class="subject-area form-group">
-        <label for="course-subject">과목</label>
-        <select id="course-subject" multiple>
-          <option value="과목1">과목1</option>
-          <option value="과목2">과목2</option>
-          <option value="과목3">과목3</option>
-        </select>
-      </div>
+		<div class="subject-area form-group">
+		  <label>과목</label>
+		  <div>
+		    <c:forEach var="subject" items="${subjectList}">
+		      <label class="each-checkbox">
+		        <input type="checkbox" name="subjects" value="${subject.sbjId}"
+		          ${selectedSubjects != null && selectedSubjects.contains(subject.sbjId) ? 'checked' : ''} />
+		        ${subject.sbjNm}
+		      </label>
+		    </c:forEach>
+		  </div>
+		  <form:errors path="subjects" element="div" cssClass="error" />
+		</div>
+		
+		<input type="hidden" id="selected-subjects-input" name="selectedSubjects" />
 
-      <div id="selected-subject-box"></div>
-      <input type="hidden" name="course-subjects" id="selected-subjects-input" />
+        <div class="course-capacity-area form-group">
+          <label for="course-capacity">수강 인원</label>
+          <input type="text" id="course-capacity" name="crsInfPrsCnt"
+                 value="${userRegistInfo.crsInfPrsCnt}"
+                 required
+                 oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+          <div id="crsInfPrsCnt-zero-error" class="error"></div>
+          <form:errors path="crsInfPrsCnt" element="div" cssClass="error" />
+        </div>
 
-      <div class="course-startDate-area form-group">
-        <label for="course-startDate">강의시작일</label>
-        <input type="datetime-local" id="course-startDate" name="course-startDate" required />
-      </div>
+        <div class="course-startDate-area form-group">
+          <label for="course-startDate">강좌시작일</label>
+          <input type="datetime-local" id="course-startDate" name="crsInfStDt" value="${userRegistInfo.crsInfStDt}" required />
+          <form:errors path="crsInfStDt" element="div" cssClass="error" />
+          <c:if test="${not empty crsInfStDtThanToday}">
+              <div class="error">${crsInfStDtThanToday}</div>
+          </c:if>
+          <c:if test="${not empty appDtAfterThanStDt}">
+              <div class="error">${appDtAfterThanStDt}</div>
+          </c:if>
+        </div>
 
-      <div class="course-endDate-area form-group">
-        <label for="course-endDate">강좌종료일</label>
-        <input type="datetime-local" id="course-endDate" name="course-endDate" required />
-      </div>
+        <div class="course-endDate-area form-group">
+          <label for="course-endDate">강좌종료일</label>
+          <input type="datetime-local" id="course-endDate" name="crsInfEndDt" value="${userRegistInfo.crsInfEndDt}" required />
+          <form:errors path="crsInfEndDt" element="div" cssClass="error" />
+          <c:if test="${not empty crsInfEndDtThanToday}">
+              <div class="error">${crsInfEndDtThanToday}</div>
+          </c:if>
+          <c:if test="${not empty crsLateErrorMessage}">
+              <div class="error">${crsLateErrorMessage}</div>
+          </c:if>
+        </div>
 
-      <div class="course-registStart-area form-group">
-        <label for="course-registStart">신청시작일</label>
-        <input type="datetime-local" id="course-registStart" name="course-registStart" required />
-      </div>
+        <div class="course-registStart-area form-group">
+          <label for="course-registStart">신청시작일</label>
+          <input type="datetime-local" id="course-registStart" name="crsInfAppDt" value="${userRegistInfo.crsInfAppDt}" required />
+          <form:errors path="crsInfAppDt" element="div" cssClass="error" />
+          <c:if test="${not empty crsInfAppDtThanToday}">
+              <div class="error">${crsInfAppDtThanToday}</div>
+          </c:if>
+        </div>
 
-      <div class="course-registEnd-area form-group">
-        <label for="course-registEnd">신청종료일</label>
-        <input type="datetime-local" id="course-registEnd" name="course-registEnd" required />
-      </div>
+        <div class="course-registEnd-area form-group">
+          <label for="course-registEnd">신청마감일</label>
+          <input type="datetime-local" id="course-registEnd" name="crsInfDdlnDt" value="${userRegistInfo.crsInfDdlnDt}" required />
+          <form:errors path="crsInfDdlnDt" element="div" cssClass="error" />
+          <c:if test="${not empty crsInfDdlnDtThanToday}">
+              <div class="error">${crsInfDdlnDtThanToday}</div>
+          </c:if>
+          <c:if test="${not empty appLateErrorMessage}">
+              <div class="error">${appLateErrorMessage}</div>
+          </c:if>
+        </div>
 
-      <div class="btn-area">
-        <button type="submit">등록</button>
-      </div>
-    </form>
-  </div>
+        <div class="btn-area">
+          <button class="btn-submit" type="submit">등록</button>
+          <button class="btn-cancel" type="button">취소</button>
+        </div>
+      </form:form>
+    </div>
 </body>
 
 </html>
