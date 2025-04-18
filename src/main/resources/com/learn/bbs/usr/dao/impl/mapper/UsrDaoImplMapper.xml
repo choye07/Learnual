@@ -7,49 +7,55 @@
     <insert id="insertNewUsr" 
             parameterType="com.learn.bbs.usr.vo.UsrRegistRequestVO">
 		INSERT INTO USR(
-		   	USR_ID, 
-		   	USR_PW, 
-		   	USR_NM, 
-		   	USR_PN, 
-		   	USR_ADRS, 
-		   	USR_ML, 
-		   	USR_RGST_DT, 
-		   	USR_UPDT_DT, 
-		   	USR_DEL_DT, 
-		   	USR_DEL_YN, 
-		   	USR_RCRT_YN, 
-		   	USR_SLT, 
-		   	USR_LGN_IP, 
-		   	USR_LST_PW_MDFY_DT, 
-		   	USR_LST_LGN_DT, 
-		   	USR_LST_LGN_FAIL_DT, 
-		   	USR_LGN_FAIL_CNT, 
-		   	USR_LGN_YN, 
-		   	USR_BLK_YN, 
-		   	CMCD_ID, 
-		   	INSTTN_ID)
+				USR_ID,
+				USR_PW,
+				USR_NM,
+				USR_PN,
+				USR_ADRS,
+				USR_ML,
+				USR_RGST_DT,
+				USR_UPDT_DT,
+				USR_DEL_DT,
+				USR_DEL_YN,
+				USR_RCRT_YN,
+				USR_SLT,
+				USR_LGN_IP,
+				USR_LST_PW_MDFY_DT,
+				USR_LST_LGN_DT,
+				USR_LST_LGN_FAIL_DT,
+				USR_LGN_FAIL_CNT,
+				USR_LGN_YN,
+				USR_BLK_YN,
+				CMCD_ID,
+				INSTTN_ID,
+				USR_RCPT_AGR_YN)
 		VALUES(
-			'USR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_USR_PK.NEXTVAL, 6, '0'), 
-			#{usrPw}, 
-			#{usrNm}, 
-			#{usrPn}, 
-			#{usrAdrs}, 
-			#{usrMl}, 
-			SYSDATE, 
-			null, 
-			null, 
-			'N' , 
-			'N' , 
-			#{usrSlt}, 
-			null, 
-			null, 
-			null, 
-			null, 
-			0, 
-			'N' , 
-			'N' , 
-			'회원권한 코드아이디 들어갈예정', 
-			'기관 아이디 들어갈 예정')
+				'USR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_USR_PK.NEXTVAL, 6,
+				'0'),
+				#{usrPw},
+				#{usrNm},
+				#{usrPn},
+				#{usrAdrs},
+				#{usrMl},
+				SYSDATE,
+				null,
+				null,
+				'N' ,
+				'N' ,
+				#{usrSlt},
+				null,
+				null,
+				null,
+				null,
+				0,
+				'N' ,
+				'N' ,
+				'회원권한 코드아이디 들어갈예정',
+				'기관 아이디 들어갈 예정',
+				CASE
+				WHEN #{usrRcptAgrYn} = 'Y' THEN 'Y'
+				ELSE 'N'
+				END)
     </insert>
     
     <select id="selectUsrCountBy"
@@ -128,5 +134,29 @@
 	   USR_DEL_DT = SYSDATE
 	 WHERE USR_ML = #{_parameter}
     </update>
+
+	<update id="updateOneUsrEditMyinformation"
+		parameterType="com.learn.bbs.usr.vo.UsrEditMyinformationVO">
+		UPDATE USR
+		SET
+		<if test="usrPw != null and usrPw != ''">
+			USR_PW = #{usrPw},
+		</if>
+		<if test="usrSlt != null and usrSlt != ''">
+			USR_SLT = #{usrSlt},
+		</if>
+		<if test="usrNm != null and usrNm != ''">
+		USR_NM = #{usrNm},
+		</if>
+		<if test="usrPn != null and usrPn != ''">
+		USR_PN = #{usrPn},
+		</if>
+		<if test="usrAdrs != null and usrAdrs != ''">
+		USR_ADRS = #{usrAdrs},
+		</if>
+		USR_UPDT_DT = SYSDATE,
+		USR_LST_PW_MDFY_DT = SYSDATE
+		WHERE USR_ML = #{usrMl}
+	</update>
     
 </mapper>

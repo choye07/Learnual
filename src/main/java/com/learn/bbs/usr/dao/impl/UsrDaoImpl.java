@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.usr.dao.UsrDao;
+import com.learn.bbs.usr.vo.UsrEditMyinformationVO;
 import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 import com.learn.bbs.usr.vo.UsrVO;
 
@@ -57,6 +58,12 @@ public class UsrDaoImpl extends SqlSessionDaoSupport implements UsrDao {
 	public int deleteOneUsrBy(String usrMl) {
 		return this.getSqlSession().update(NAME_SPACE + "deleteOneUsrBy",usrMl);
 	}
+	@Override
+	public int updateOneUsrEditMyinformation(UsrEditMyinformationVO usrEditMyinformationVO) {
+		// TODO Auto-generated method stub
+		return this.getSqlSession().update(NAME_SPACE + "updateOneUsrEditMyinformation",usrEditMyinformationVO);
+	}
+	
 	
 	
 }

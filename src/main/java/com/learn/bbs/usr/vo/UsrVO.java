@@ -153,6 +153,13 @@ public class UsrVO {
      * @ColumnComment 기관(학원) 정보의 고유한 아이디(INSTTN-YYYYMMDD-NNNNNN)
      */
     private String insttnId;
+    
+    /**
+     * @ColumnName USR_RCPT_AGR_YN
+     * @ColumnType CHAR(1)
+     * @ColumnComment 회원 수신 동의 여부
+     */
+    private String usrRcptAgrYn;
 
     public String getUsrId() {
         return this.usrId;
@@ -322,8 +329,22 @@ public class UsrVO {
         this.insttnId = insttnId;
     }
     
-    @Override
-    public String toString() {
-        return "UsrVO(usrId: " + usrId + ", usrPw: " + usrPw + ", usrNm: " + usrNm + ", usrPn: " + usrPn + ", usrAdrs: " + usrAdrs + ", usrMl: " + usrMl + ", usrRgstDt: " + usrRgstDt + ", usrUpdtDt: " + usrUpdtDt + ", usrDelDt: " + usrDelDt + ", usrDelYn: " + usrDelYn + ", usrRcrtYn: " + usrRcrtYn + ", usrSlt: " + usrSlt + ", usrLgnIp: " + usrLgnIp + ", usrLstPwMdfyDt: " + usrLstPwMdfyDt + ", usrLstLgnDt: " + usrLstLgnDt + ", usrLstLgnFailDt: " + usrLstLgnFailDt + ", usrLgnFailCnt: " + usrLgnFailCnt + ", usrLgnYn: " + usrLgnYn + ", usrBlkYn: " + usrBlkYn + ", cmcdId: " + cmcdId + ", insttnId: " + insttnId + ", )";
-    }
+    public String getUsrRcptAgrYn() {
+		return usrRcptAgrYn;
+	}
+
+	public void setUsrRcptAgrYn(String usrRcptAgrYn) {
+		this.usrRcptAgrYn = usrRcptAgrYn;
+	}
+
+	@Override
+	public String toString() {
+		return "UsrVO [usrId=" + usrId + ", usrPw=" + usrPw + ", usrNm=" + usrNm + ", usrPn=" + usrPn + ", usrAdrs="
+				+ usrAdrs + ", usrMl=" + usrMl + ", usrRgstDt=" + usrRgstDt + ", usrUpdtDt=" + usrUpdtDt + ", usrDelDt="
+				+ usrDelDt + ", usrDelYn=" + usrDelYn + ", usrRcrtYn=" + usrRcrtYn + ", usrSlt=" + usrSlt
+				+ ", usrLgnIp=" + usrLgnIp + ", usrLstPwMdfyDt=" + usrLstPwMdfyDt + ", usrLstLgnDt=" + usrLstLgnDt
+				+ ", usrLstLgnFailDt=" + usrLstLgnFailDt + ", usrLgnFailCnt=" + usrLgnFailCnt + ", usrLgnYn=" + usrLgnYn
+				+ ", usrBlkYn=" + usrBlkYn + ", cmcdId=" + cmcdId + ", insttnId=" + insttnId + ", usrRcptAgrYn="
+				+ usrRcptAgrYn + "]";
+	}
 }

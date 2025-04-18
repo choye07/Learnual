@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +35,7 @@
 			</div>
 
 			<div class="regist-section2">
-				<form id="regist-agreement-form" action="/regist">
+				<form id="regist-agreement-form" action="/usr/regist">
 					<div class="regist-agreement-form-wrapper">
 						<div class="regist-terms">
 							<h2>이용약관</h2>
@@ -254,15 +255,19 @@
 							</div>
 						</div>
 					</div>
-					<div class="regist-option">
-						<p>고객 혜택 제공을 위한 개인정보 수집 및 이용 관련 동의 (선택)</p>
-						<input type="checkbox" id="all-agreement" name="all-agree" /> <label
-							for="all-agreement"> 동의함 </label>
-					</div>
-					<div class="regist-btns">
-						<button type="submit">동의하기</button>
-						<button type="button">취소하기</button>
-					</div>
+
+					<form:form modelAttribute="usrRegistRequestVO"
+						class="regist-usr-form">
+						<div class="regist-option">
+							<p>고객 혜택 제공을 위한 개인정보 수집 및 이용 관련 동의 (선택)</p>
+							<input type="checkbox" id="usrRcptAgrYn" name="usrRcptAgrYn"
+								value="Y" /> <label for="usrRcptAgrYn"> 동의함 </label>
+						</div>
+						<div class="regist-btns">
+							<button type="submit">동의하기</button>
+							<button type="button">취소하기</button>
+						</div>
+					</form:form>
 				</form>
 			</div>
 		</div>
