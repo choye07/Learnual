@@ -1,0 +1,35 @@
+09:06:11.143 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=46s194ms).
+09:06:11.200 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+09:06:11.203 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+09:06:18.028 [RMI TCP Connection(24)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin -- Application shutdown requested.
+09:06:18.133 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.b.a.ApplicationAvailabilityBean -- Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+09:06:18.192 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext -- Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@25e04fe7, started on Thu Apr 17 20:08:53 KST 2025
+09:06:18.548 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.c.s.DefaultLifecycleProcessor -- Stopping beans in phase 2147482623
+09:06:18.673 [RMI TCP Connection(24)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown -- Commencing graceful shutdown. Waiting for active requests to complete
+09:06:18.715 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol -- Pausing ProtocolHandler ["http-nio-8080"]
+09:06:18.856 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown -- Graceful shutdown complete
+09:06:18.862 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.c.s.DefaultLifecycleProcessor -- Stopping beans in phase 2147481599
+09:06:18.869 [RMI TCP Connection(24)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol -- Stopping ProtocolHandler ["http-nio-8080"]
+09:06:18.879 [tomcat-shutdown] DEBUG o.s.c.s.DefaultLifecycleProcessor -- Bean 'webServerGracefulShutdown' completed its stop procedure
+09:06:18.998 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.c.s.DefaultLifecycleProcessor -- Bean 'webServerStartStop' completed its stop procedure
+09:06:18.999 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.c.s.DefaultLifecycleProcessor -- Stopping beans in phase 1073741823
+09:06:18.999 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.c.s.DefaultLifecycleProcessor -- Bean 'applicationTaskExecutor' completed its stop procedure
+09:06:18.999 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.c.s.DefaultLifecycleProcessor -- Stopping beans in phase -2147483647
+09:06:19.000 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.c.s.DefaultLifecycleProcessor -- Bean 'springBootLoggingLifecycle' completed its stop procedure
+09:06:19.009 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.s.c.ThreadPoolTaskExecutor -- Shutting down ExecutorService 'applicationTaskExecutor'
+09:06:19.047 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.j.e.a.AnnotationMBeanExporter -- Unregistering JMX-exposed beans on shutdown
+09:06:19.050 [RMI TCP Connection(24)-127.0.0.1] DEBUG o.s.j.e.a.AnnotationMBeanExporter -- Unregistering JMX-exposed beans
+09:06:19.088 [RMI TCP Connection(24)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource -- HikariPool-1 - Shutdown initiated...
+09:06:19.090 [RMI TCP Connection(24)-127.0.0.1] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Before shutdown stats (total=10, active=0, idle=10, waiting=0)
+09:06:19.103 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@b25cac9: (connection evicted)
+09:06:19.968 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@7942878c: (connection evicted)
+09:06:20.548 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@410fa38b: (connection evicted)
+09:06:20.864 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@5c631c4f: (connection evicted)
+09:06:21.110 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@4523cc3e: (connection evicted)
+09:06:21.240 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@4cb66fa8: (connection evicted)
+09:06:21.430 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@2293513f: (connection evicted)
+09:06:21.671 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@376da20c: (connection evicted)
+09:06:21.815 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@66acddde: (connection evicted)
+09:06:21.968 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Closing connection oracle.jdbc.driver.T4CConnection@a55af36: (connection evicted)
+09:06:22.126 [RMI TCP Connection(24)-127.0.0.1] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+09:06:22.131 [RMI TCP Connection(24)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource -- HikariPool-1 - Shutdown completed.

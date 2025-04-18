@@ -1,0 +1,128 @@
+09:11:00.397 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+09:11:00.422 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+09:11:01.840 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 200 OK
+09:11:02.017 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/css/common.css", parameters={}
+09:11:02.017 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/js/common.js", parameters={}
+09:11:02.058 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/]]
+09:11:02.058 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/]]
+09:11:02.074 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:02.074 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:02.181 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/sidebar_close.svg", parameters={}
+09:11:02.181 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/logo/learnual-logo-text.svg", parameters={}
+09:11:02.184 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/arrow_up.svg", parameters={}
+09:11:02.188 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+09:11:02.188 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+09:11:02.188 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+09:11:02.196 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:02.196 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:02.197 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:02.212 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/notification.svg", parameters={}
+09:11:02.212 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/setting.svg", parameters={}
+09:11:02.213 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+09:11:02.213 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+09:11:02.214 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:02.214 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:04.352 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/notification_hover_student.svg", parameters={}
+09:11:04.382 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+09:11:04.492 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 200 OK
+09:11:05.066 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/insttn/pltad/create", parameters={}
+09:11:05.077 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to com.learn.bbs.crs.sbj.web.SbjController#showSubjectList(Model)
+09:11:05.092 [http-nio-8080-exec-6] DEBUG org.mybatis.spring.SqlSessionUtils -- Creating a new SqlSession
+09:11:05.094 [http-nio-8080-exec-6] DEBUG org.mybatis.spring.SqlSessionUtils -- SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@13dd31b9] was not registered for synchronization because synchronization is not active
+09:11:05.095 [http-nio-8080-exec-6] DEBUG o.s.jdbc.datasource.DataSourceUtils -- Fetching JDBC Connection from DataSource
+09:11:05.265 [http-nio-8080-exec-6] DEBUG o.m.s.t.SpringManagedTransaction -- JDBC Connection [HikariProxyConnection@488295858 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] will not be managed by Spring
+09:11:05.267 [http-nio-8080-exec-6] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- ==>  Preparing: SELECT SBJ_ID, SBJ_NM, SBJ_RGST_DT, SBJ_UPDT_DT, SBJ_DEL_DT, SBJ_DEL_YN, CLSS_CD_ID FROM SBJ WHERE SBJ_DEL_YN = 'N'
+09:11:05.293 [http-nio-8080-exec-6] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- ==> Parameters: 
+09:11:05.407 [http-nio-8080-exec-6] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- <==      Total: 3
+09:11:05.409 [http-nio-8080-exec-6] DEBUG org.mybatis.spring.SqlSessionUtils -- Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@13dd31b9]
+09:11:05.412 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView -- View name [insttn/coursecreate], model {subjectList=[SbjVO(sbjId: SBJ-001, sbjNm: Mathematics 101, sbjRgstDt: 2023-01-01 10:30:00, sbjUpdtDt: 2023-06-15 14:00:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-01, ), SbjVO(sbjId: SBJ-002, sbjNm: Physics 101, sbjRgstDt: 2023-02-15 11:45:00, sbjUpdtDt: 2023-07-20 16:30:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-02, ), SbjVO(sbjId: SBJ-003, sbjNm: Chemistry 101, sbjRgstDt: 2023-03-10 09:00:00, sbjUpdtDt: 2023-08-01 13:30:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-03, )]}
+09:11:05.414 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView -- Forwarding to [/WEB-INF/views/insttn/coursecreate.jsp]
+09:11:05.434 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 200 OK
+09:11:30.426 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+09:11:30.443 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+09:11:32.428 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- POST "/insttn/pltad/create", parameters={masked}
+09:11:32.436 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to com.learn.bbs.pltad.crsinf.web.CrsInfController#registerCourse(CrsInfRegistRequestVO, BindingResult, Model)
+09:11:32.703 [http-nio-8080-exec-7] DEBUG o.s.beans.CachedIntrospectionResults -- Not strongly caching class [com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO] because it is not cache-safe
+09:11:32.987 [http-nio-8080-exec-7] DEBUG org.mybatis.spring.SqlSessionUtils -- Creating a new SqlSession
+09:11:32.990 [http-nio-8080-exec-7] DEBUG org.mybatis.spring.SqlSessionUtils -- SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@55745803] was not registered for synchronization because synchronization is not active
+09:11:32.991 [http-nio-8080-exec-7] DEBUG o.s.jdbc.datasource.DataSourceUtils -- Fetching JDBC Connection from DataSource
+09:11:33.043 [http-nio-8080-exec-7] DEBUG o.m.s.t.SpringManagedTransaction -- JDBC Connection [HikariProxyConnection@523611139 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] will not be managed by Spring
+09:11:33.043 [http-nio-8080-exec-7] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- ==>  Preparing: SELECT SBJ_ID, SBJ_NM, SBJ_RGST_DT, SBJ_UPDT_DT, SBJ_DEL_DT, SBJ_DEL_YN, CLSS_CD_ID FROM SBJ WHERE SBJ_DEL_YN = 'N'
+09:11:33.044 [http-nio-8080-exec-7] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- ==> Parameters: 
+09:11:33.098 [http-nio-8080-exec-7] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- <==      Total: 3
+09:11:33.098 [http-nio-8080-exec-7] DEBUG org.mybatis.spring.SqlSessionUtils -- Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@55745803]
+09:11:33.106 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView -- View name [/insttn/coursecreate], model {crsInfRegistRequestVO=com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO@6c23391e, org.springframework.validation.BindingResult.crsInfRegistRequestVO=org.springframework.validation.BeanPropertyBindingResult: 3 errors
+Field error in object 'crsInfRegistRequestVO' on field 'crsInfCrsRoomNm': rejected value []; codes [NotBlank.crsInfRegistRequestVO.crsInfCrsRoomNm,NotBlank.crsInfCrsRoomNm,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [crsInfRegistRequestVO.crsInfCrsRoomNm,crsInfCrsRoomNm]; arguments []; default message [crsInfCrsRoomNm]]; default message [강의실명은 필수 항목입니다.]
+Field error in object 'crsInfRegistRequestVO' on field 'subjects': rejected value [null]; codes [NotEmpty.crsInfRegistRequestVO.subjects,NotEmpty.subjects,NotEmpty.java.util.List,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [crsInfRegistRequestVO.subjects,subjects]; arguments []; default message [subjects]]; default message [과목은 최소 1개이상 선택해야 합니다.]
+Field error in object 'crsInfRegistRequestVO' on field 'crsInfNm': rejected value []; codes [NotBlank.crsInfRegistRequestVO.crsInfNm,NotBlank.crsInfNm,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [crsInfRegistRequestVO.crsInfNm,crsInfNm]; arguments []; default message [crsInfNm]]; default message [강좌명은 필수 항목입니다.], selectedSubjects=null, subjectList=[SbjVO(sbjId: SBJ-001, sbjNm: Mathematics 101, sbjRgstDt: 2023-01-01 10:30:00, sbjUpdtDt: 2023-06-15 14:00:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-01, ), SbjVO(sbjId: SBJ-002, sbjNm: Physics 101, sbjRgstDt: 2023-02-15 11:45:00, sbjUpdtDt: 2023-07-20 16:30:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-02, ), SbjVO(sbjId: SBJ-003, sbjNm: Chemistry 101, sbjRgstDt: 2023-03-10 09:00:00, sbjUpdtDt: 2023-08-01 13:30:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-03, )], userRegistInfo=com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO@6c23391e, org.springframework.validation.BindingResult.userRegistInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+09:11:33.109 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView -- Forwarding to [/WEB-INF/views//insttn/coursecreate.jsp]
+09:11:33.158 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 200 OK
+09:11:33.256 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/js/common.js", parameters={}
+09:11:33.256 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/css/common.css", parameters={}
+09:11:33.262 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/]]
+09:11:33.262 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/]]
+09:11:33.269 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:33.270 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+09:11:38.921 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet -- POST "/insttn/pltad/create", parameters={masked}
+09:11:38.936 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to com.learn.bbs.pltad.crsinf.web.CrsInfController#registerCourse(CrsInfRegistRequestVO, BindingResult, Model)
+09:11:38.977 [http-nio-8080-exec-9] DEBUG org.mybatis.spring.SqlSessionUtils -- Creating a new SqlSession
+09:11:38.978 [http-nio-8080-exec-9] DEBUG org.mybatis.spring.SqlSessionUtils -- SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2607a11f] was not registered for synchronization because synchronization is not active
+09:11:38.978 [http-nio-8080-exec-9] DEBUG o.s.jdbc.datasource.DataSourceUtils -- Fetching JDBC Connection from DataSource
+09:11:39.008 [http-nio-8080-exec-9] DEBUG o.m.s.t.SpringManagedTransaction -- JDBC Connection [HikariProxyConnection@1661287355 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] will not be managed by Spring
+09:11:39.008 [http-nio-8080-exec-9] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- ==>  Preparing: SELECT SBJ_ID, SBJ_NM, SBJ_RGST_DT, SBJ_UPDT_DT, SBJ_DEL_DT, SBJ_DEL_YN, CLSS_CD_ID FROM SBJ WHERE SBJ_DEL_YN = 'N'
+09:11:39.009 [http-nio-8080-exec-9] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- ==> Parameters: 
+09:11:39.038 [http-nio-8080-exec-9] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- <==      Total: 3
+09:11:39.040 [http-nio-8080-exec-9] DEBUG org.mybatis.spring.SqlSessionUtils -- Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2607a11f]
+09:11:39.041 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView -- View name [/insttn/coursecreate], model {crsInfRegistRequestVO=com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO@22383180, org.springframework.validation.BindingResult.crsInfRegistRequestVO=org.springframework.validation.BeanPropertyBindingResult: 1 errors
+Field error in object 'crsInfRegistRequestVO' on field 'crsInfNm': rejected value []; codes [NotBlank.crsInfRegistRequestVO.crsInfNm,NotBlank.crsInfNm,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [crsInfRegistRequestVO.crsInfNm,crsInfNm]; arguments []; default message [crsInfNm]]; default message [강좌명은 필수 항목입니다.], selectedSubjects=[SBJ-001], subjectList=[SbjVO(sbjId: SBJ-001, sbjNm: Mathematics 101, sbjRgstDt: 2023-01-01 10:30:00, sbjUpdtDt: 2023-06-15 14:00:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-01, ), SbjVO(sbjId: SBJ-002, sbjNm: Physics 101, sbjRgstDt: 2023-02-15 11:45:00, sbjUpdtDt: 2023-07-20 16:30:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-02, ), SbjVO(sbjId: SBJ-003, sbjNm: Chemistry 101, sbjRgstDt: 2023-03-10 09:00:00, sbjUpdtDt: 2023-08-01 13:30:00, sbjDelDt: 2023-12-31 23:59:59, sbjDelYn: N, clssCdId: CLSS-03, )], userRegistInfo=com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO@22383180, org.springframework.validation.BindingResult.userRegistInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+09:11:39.042 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView -- Forwarding to [/WEB-INF/views//insttn/coursecreate.jsp]
+09:11:39.111 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 200 OK
+09:11:44.776 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet -- POST "/insttn/pltad/create", parameters={masked}
+09:11:44.806 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to com.learn.bbs.pltad.crsinf.web.CrsInfController#registerCourse(CrsInfRegistRequestVO, BindingResult, Model)
+09:11:44.869 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Creating a new SqlSession
+09:11:44.869 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5ef87082] was not registered for synchronization because synchronization is not active
+09:11:44.870 [http-nio-8080-exec-8] DEBUG o.s.jdbc.datasource.DataSourceUtils -- Fetching JDBC Connection from DataSource
+09:11:44.922 [http-nio-8080-exec-8] DEBUG o.m.s.t.SpringManagedTransaction -- JDBC Connection [HikariProxyConnection@1346340141 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] will not be managed by Spring
+09:11:44.922 [http-nio-8080-exec-8] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- ==>  Preparing: SELECT SBJ_ID, SBJ_NM, SBJ_RGST_DT, SBJ_UPDT_DT, SBJ_DEL_DT, SBJ_DEL_YN, CLSS_CD_ID FROM SBJ WHERE SBJ_DEL_YN = 'N'
+09:11:44.924 [http-nio-8080-exec-8] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- ==> Parameters: 
+09:11:44.953 [http-nio-8080-exec-8] DEBUG c.l.b.c.s.d.i.S.selectAllSubjects -- <==      Total: 3
+09:11:44.954 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5ef87082]
+09:11:44.970 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Creating a new SqlSession
+09:11:44.970 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@11c3cd12] was not registered for synchronization because synchronization is not active
+09:11:44.976 [http-nio-8080-exec-8] DEBUG o.s.jdbc.datasource.DataSourceUtils -- Fetching JDBC Connection from DataSource
+09:11:44.976 [http-nio-8080-exec-8] DEBUG o.m.s.t.SpringManagedTransaction -- JDBC Connection [HikariProxyConnection@1574194677 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] will not be managed by Spring
+09:11:44.976 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.countCourseName -- ==>  Preparing: SELECT COUNT(*) FROM CRS_INF WHERE CRS_INF_NM = ? AND CRS_INF_DEL_YN = 'N' AND CRS_INF_DDLN_YN = 'N'
+09:11:45.010 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.countCourseName -- ==> Parameters: ㅈㄷ(String)
+09:11:45.106 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.countCourseName -- <==      Total: 1
+09:11:45.106 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@11c3cd12]
+09:11:45.157 [http-nio-8080-exec-8] DEBUG o.s.j.support.JdbcTransactionManager -- Creating new transaction with name [com.learn.bbs.pltad.crsinf.service.impl.CrsInfServiceImpl.insertOneCourse]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+09:11:45.158 [http-nio-8080-exec-8] DEBUG o.s.j.support.JdbcTransactionManager -- Acquired Connection [HikariProxyConnection@1623879302 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] for JDBC transaction
+09:11:45.165 [http-nio-8080-exec-8] DEBUG o.s.j.support.JdbcTransactionManager -- Switching JDBC Connection [HikariProxyConnection@1623879302 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] to manual commit
+09:11:45.166 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Creating a new SqlSession
+09:11:45.167 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7981c23c]
+09:11:45.170 [http-nio-8080-exec-8] DEBUG o.m.s.t.SpringManagedTransaction -- JDBC Connection [HikariProxyConnection@1623879302 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] will be managed by Spring
+09:11:45.170 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourse!selectKey -- ==>  Preparing: SELECT 'CRS_INF-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(CRS_INF_SEQ.NEXTVAL, 6, '0') FROM DUAL
+09:11:45.170 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourse!selectKey -- ==> Parameters: 
+09:11:45.191 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourse!selectKey -- <==      Total: 1
+09:11:45.191 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourse -- ==>  Preparing: INSERT INTO CRS_INF ( CRS_INF_ID, CRS_INF_ST_DT, CRS_INF_END_DT, CRS_INF_NM, CRS_INF_CRS_ROOM_NM, CRS_INF_PRS_CNT, CRS_INF_RGST_DT, CRS_INF_DEL_YN, CRS_INF_APP_DT, CRS_INF_DDLN_DT, CRS_INF_DDLN_YN ) VALUES ( ?, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), ?, ?, ?, SYSDATE, 'N', TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), 'N' )
+09:11:45.204 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourse -- ==> Parameters: CRS_INF-20250418-000057(String), 2025-05-03 09:11:00(String), 2025-05-28 09:11:00(String), ㅈㄷ(String), ㅇㅇ(String), 12(Integer), 2025-04-24 09:11:00(String), 2025-05-02 09:11:00(String)
+09:11:45.276 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourse -- <==    Updates: 1
+09:11:45.278 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7981c23c]
+09:11:45.280 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7981c23c] from current transaction
+09:11:45.281 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourseSubject -- ==>  Preparing: INSERT INTO CRS_SBJ ( CRS_INF_ID, SBJ_ID ) VALUES ( ?, ? )
+09:11:45.282 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourseSubject -- ==> Parameters: CRS_INF-20250418-000057(String), SBJ-001(String)
+09:11:45.304 [http-nio-8080-exec-8] DEBUG c.l.b.p.c.d.i.C.insertOneCourseSubject -- <==    Updates: 1
+09:11:45.304 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7981c23c]
+09:11:45.304 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7981c23c]
+09:11:45.304 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7981c23c]
+09:11:45.305 [http-nio-8080-exec-8] DEBUG org.mybatis.spring.SqlSessionUtils -- Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7981c23c]
+09:11:45.305 [http-nio-8080-exec-8] DEBUG o.s.j.support.JdbcTransactionManager -- Initiating transaction commit
+09:11:45.305 [http-nio-8080-exec-8] DEBUG o.s.j.support.JdbcTransactionManager -- Committing JDBC transaction on Connection [HikariProxyConnection@1623879302 wrapping oracle.jdbc.driver.T4CConnection@4f371f93]
+09:11:45.351 [http-nio-8080-exec-8] DEBUG o.s.j.support.JdbcTransactionManager -- Releasing JDBC Connection [HikariProxyConnection@1623879302 wrapping oracle.jdbc.driver.T4CConnection@4f371f93] after transaction
+09:11:45.360 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.RedirectView -- View name [redirect:], model {}
+09:11:45.362 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 302 FOUND
+09:11:45.387 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/insttn/pltad", parameters={}
+09:11:45.388 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to com.learn.main.web.LearnualMainController#goManageCourse()
+09:11:45.390 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView -- View name [insttn/coursemanage], model {}
+09:11:45.391 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView -- Forwarding to [/WEB-INF/views/insttn/coursemanage.jsp]
+09:11:45.406 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 200 OK

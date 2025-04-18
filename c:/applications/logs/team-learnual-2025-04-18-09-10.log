@@ -1,0 +1,8 @@
+09:10:00.336 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+09:10:00.354 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+09:10:30.357 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+09:10:30.391 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+09:10:59.302 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/insttn/pltad", parameters={}
+09:10:59.345 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to com.learn.main.web.LearnualMainController#goManageCourse()
+09:10:59.649 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView -- View name [insttn/coursemanage], model {}
+09:10:59.660 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView -- Forwarding to [/WEB-INF/views/insttn/coursemanage.jsp]
