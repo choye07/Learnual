@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>	
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,19 +10,16 @@
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
 <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script src="/js/common.js" type="text/javascript"></script>
-<title>exam-board-list(학습관리자)</title>
+<title>tst-board-list(학습관리자)</title>
 </head>
 
 <body>
-	<div class="exam-list board tutor">
+	<div class="tst-board board tutor list">
 		<div class="board-header">
 			<h1>시험 게시판</h1>
 			<div class="board-toolbox">
-				<!-- 학습관리자(강사)에게만 노출되는 박스 -->
-				<div class="board-tutor-toolbox">
-					<div class="btn-add-exam">
-						<a href="#">시험 제출 +</a>
-					</div>
+				<div class="btn-write">
+					<a href="#">시험 작성</a>
 				</div>
 			</div>
 		</div>

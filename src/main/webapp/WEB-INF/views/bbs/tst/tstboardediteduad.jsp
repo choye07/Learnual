@@ -10,22 +10,18 @@
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
 <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script src="/js/common.js" type="text/javascript"></script>
-<title>tst-board-view(학습관리자)</title>
+<title>tst-board-edit(강사)</title>
 </head>
 
 <body>
-	<div class="tst-board board tutor view">
+	<div class="tst-board board tutor edit">
 		<div class="board-header">
 			<h1>시험 게시판</h1>
 			<div class="board-toolbox">
-				<div class="btn-go-list">
-					<a href="#">목록 보기</a>
-				</div>
-				<div class="btn-modify">
-					<a href="#">시험 수정</a>
-				</div>
-				<div class="btn-delete">
-					<a href="#">시험 삭제</a>
+				<div class="board-tutor-toolbox">
+					<div class="btn-go-list">
+						<a href="#">목록 보기</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -48,10 +44,15 @@
 						<label>강사명</label> <input type="text" value="박성연" />
 					</div>
 					<div class="tstRspnsPth-area">
-						<label>응답 URL</label> <a href="#">https://google.com/forms/asdf</a>
+						<label>응답 URL</label> <input type="text"
+							value="https://google.com/forms/asdf" />
 					</div>
 					<div class="tstEdtPth-area">
-						<label>편집 URL</label> <a href="#">https://google.com/forms/asdf</a>
+						<label>편집 URL</label> <input type="text"
+							value="https://google.com/forms/asdf" />
+					</div>
+					<div class="btn-area">
+						<button type="submit">변경사항 저장</button>
 					</div>
 				</form>
 			</div>
