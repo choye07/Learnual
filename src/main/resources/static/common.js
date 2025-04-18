@@ -76,4 +76,25 @@ $(document).ready(function () {
   });
 
   /* 강좌 생성 이벤트 end */
+  
+  
+  /* 사용자 회원 가입시 동의 여부 이벤트 start*/
+  // 개인정보 수집 및 이용 동의 라디오 버튼 확인
+  $("input[name='private-agreement']").on("change", function () {
+    privateAgreed = $("input[name='private-agreement']:checked").val() === "agree";
+    if (!privateAgreed) {
+      alert("개인정보 수집 및 이용에 동의해주셔야 회원가입이 완료됩니다.");
+    }
+  });
+
+  // 폼 제출 시 유효성 검사
+  $("#regist-agreement-form").on("submit", function (e) {
+    if (!termsAgreed || !privateAgreed) {
+      alert("모든 동의 사항에 체크하셔야 회원가입이 완료됩니다.");
+      e.preventDefault(); // 폼 제출 방지
+      return false;
+    }
+  });
+  /* 사용자 회원 가입시 동의 여부 이벤트 end*/
+  
 });

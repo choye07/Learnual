@@ -1,5 +1,6 @@
 package com.learn.bbs.usr.service;
 
+import com.learn.bbs.usr.vo.UsrEditMyinformationVO;
 import com.learn.bbs.usr.vo.UsrLoginRequestVO;
 import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 import com.learn.bbs.usr.vo.UsrVO;
@@ -20,4 +21,7 @@ public interface UsrService {
 	
 	// 사용자 계정 삭제 기능
 	public boolean doDeleteUsr(String usrMl);
+	
+	// 사용자 나의 정보 수정 기능
+	public boolean updateUsrEditMyinformation(UsrEditMyinformationVO usrEditMyinformationVO);
 }
