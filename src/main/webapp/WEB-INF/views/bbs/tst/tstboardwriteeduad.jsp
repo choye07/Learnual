@@ -10,22 +10,17 @@
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
 <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script src="/js/common.js" type="text/javascript"></script>
-<title>tst-board-view(학습관리자)</title>
+<title>tst-board-write(강사)</title>
 </head>
-
 <body>
-	<div class="tst-board board tutor view">
+	<div class="tst-board board tutor write">
 		<div class="board-header">
 			<h1>시험 게시판</h1>
 			<div class="board-toolbox">
-				<div class="btn-go-list">
-					<a href="#">목록 보기</a>
-				</div>
-				<div class="btn-modify">
-					<a href="#">시험 수정</a>
-				</div>
-				<div class="btn-delete">
-					<a href="#">시험 삭제</a>
+				<div class="board-tutor-toolbox">
+					<div class="btn-go-list">
+						<a href="#">목록 보기</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -37,26 +32,27 @@
 					<!-- name은 VO의 멤버변수 값과 똑같이 만드세요 -->
 					<!-- p.s 직접 하시는 게 좋을 것 같아 놔두었어요. -->
 					<div class="tstTtl-area">
-						<label>시험명</label> <input type="text" value="자바 기초 시험" />
+						<label>시험명</label> <input type="text" />
 					</div>
 					<div class="tstExamDt-area">
-						<label>정규 시험 날짜</label> <input type="text"
-							value="2025-04-25 09:00:00" />
+						<label>정규 시험 날짜</label> <input type="datetime-local" />
 					</div>
-					<!-- VO에 없음 주의 -->
+					<!-- 강사명은 시험 테이블에 없음 주의 -->
 					<div class="tutorNm-area">
 						<label>강사명</label> <input type="text" value="박성연" />
 					</div>
 					<div class="tstRspnsPth-area">
-						<label>응답 URL</label> <a href="#">https://google.com/forms/asdf</a>
+						<label>응답 URL</label> <input type="text" />
 					</div>
 					<div class="tstEdtPth-area">
-						<label>편집 URL</label> <a href="#">https://google.com/forms/asdf</a>
+						<label>편집 URL</label> <input type="text" />
+					</div>
+					<div class="btn-area">
+						<button type="submit">시험 저장</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </body>
-
 </html>
