@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>러뉴얼 홈</title>
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
+<script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -21,7 +23,7 @@
 				<div class="notice article">
 					<div>
 						<h2>러뉴얼 공지사항</h2>
-						<a href="#">더보기</a>
+						<a href="/ntc/list">더보기</a>
 					</div>
 
 					<div>
