@@ -105,20 +105,6 @@ public class CrsInfVO {
      */
     private int crsInfPrsCnt;
 
-    /**
-     * @ColumnName CRS_INF_ST_TM
-     * @ColumnType DATE
-     * @ColumnComment 강좌 시작 시간
-     */
-    private String crsInfStTm;
-
-    /**
-     * @ColumnName CRS_INF_END_TM
-     * @ColumnType DATE
-     * @ColumnComment 강좌 종료 시간
-     */
-    private String crsInfEndTm;
-
     public String getCrsInfId() {
         return this.crsInfId;
     }
@@ -231,24 +217,8 @@ public class CrsInfVO {
         this.crsInfPrsCnt = crsInfPrsCnt;
     }
     
-    public String getCrsInfStTm() {
-        return this.crsInfStTm;
-    }
-    
-    public void setCrsInfStTm(String crsInfStTm) {
-        this.crsInfStTm = crsInfStTm;
-    }
-    
-    public String getCrsInfEndTm() {
-        return this.crsInfEndTm;
-    }
-    
-    public void setCrsInfEndTm(String crsInfEndTm) {
-        this.crsInfEndTm = crsInfEndTm;
-    }
-    
     @Override
     public String toString() {
-        return "CrsInfVO(crsInfId: " + crsInfId + ", crsInfStDt: " + crsInfStDt + ", crsInfEndDt: " + crsInfEndDt + ", crsInfNm: " + crsInfNm + ", crsInfCrsRoomNm: " + crsInfCrsRoomNm + ", crsInfUpdtDt: " + crsInfUpdtDt + ", crsInfRgstDt: " + crsInfRgstDt + ", crsInfDelDt: " + crsInfDelDt + ", crsInfDelYn: " + crsInfDelYn + ", crsInfAppDt: " + crsInfAppDt + ", crsInfDdlnDt: " + crsInfDdlnDt + ", crsInfDdlnYn: " + crsInfDdlnYn + ", instrId: " + instrId + ", crsInfPrsCnt: " + crsInfPrsCnt + ", crsInfStTm: " + crsInfStTm + ", crsInfEndTm: " + crsInfEndTm + ", )";
+        return "CrsInfVO(crsInfId: " + crsInfId + ", crsInfStDt: " + crsInfStDt + ", crsInfEndDt: " + crsInfEndDt + ", crsInfNm: " + crsInfNm + ", crsInfCrsRoomNm: " + crsInfCrsRoomNm + ", crsInfUpdtDt: " + crsInfUpdtDt + ", crsInfRgstDt: " + crsInfRgstDt + ", crsInfDelDt: " + crsInfDelDt + ", crsInfDelYn: " + crsInfDelYn + ", crsInfAppDt: " + crsInfAppDt + ", crsInfDdlnDt: " + crsInfDdlnDt + ", crsInfDdlnYn: " + crsInfDdlnYn + ", instrId: " + instrId + ", crsInfPrsCnt: " + crsInfPrsCnt + ", crsInfStTm: " + ", )";
     }
 }

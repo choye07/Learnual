@@ -1,0 +1,36 @@
+19:57:00.769 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Added connection oracle.jdbc.driver.T4CConnection@43209edd
+19:57:00.814 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - After adding stats (total=5, active=0, idle=5, waiting=0)
+19:57:01.389 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 200 OK
+19:57:01.873 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/logo/learnual-logo-text.svg", parameters={}
+19:57:01.879 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/arrow_up.svg", parameters={}
+19:57:01.874 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/setting.svg", parameters={}
+19:57:01.875 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/sidebar_close.svg", parameters={}
+19:57:01.876 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/notification.svg", parameters={}
+19:57:02.219 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+19:57:02.221 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+19:57:02.223 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+19:57:02.221 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+19:57:02.220 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+19:57:02.271 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+19:57:02.271 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+19:57:02.271 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+19:57:02.272 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+19:57:02.272 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+19:57:02.461 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Added connection oracle.jdbc.driver.T4CConnection@1654bbe
+19:57:02.493 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - After adding stats (total=6, active=0, idle=6, waiting=0)
+19:57:02.939 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Added connection oracle.jdbc.driver.T4CConnection@1103ee16
+19:57:02.974 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - After adding stats (total=7, active=0, idle=7, waiting=0)
+19:57:03.243 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Added connection oracle.jdbc.driver.T4CConnection@1a39475b
+19:57:03.278 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - After adding stats (total=8, active=0, idle=8, waiting=0)
+19:57:03.557 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Added connection oracle.jdbc.driver.T4CConnection@8bb6afd
+19:57:03.593 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - After adding stats (total=9, active=0, idle=9, waiting=0)
+19:57:03.862 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Added connection oracle.jdbc.driver.T4CConnection@2ae462cd
+19:57:03.893 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - After adding stats (total=10, active=0, idle=10, waiting=0)
+19:57:03.894 [HikariPool-8 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+19:57:07.768 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/asset/icon/backspace.svg", parameters={}
+19:57:07.791 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping -- Mapped to ResourceHttpRequestHandler [classpath [static/asset/]]
+19:57:07.799 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 304 NOT_MODIFIED
+19:57:28.240 [HikariPool-8 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Pool stats (total=10, active=0, idle=10, waiting=0)
+19:57:28.283 [HikariPool-8 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Fill pool skipped, pool has sufficient level or currently being filled.
+19:57:58.296 [HikariPool-8 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Pool stats (total=10, active=0, idle=10, waiting=0)
+19:57:58.339 [HikariPool-8 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-8 - Fill pool skipped, pool has sufficient level or currently being filled.

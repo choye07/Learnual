@@ -1,91 +1,79 @@
 $(document).ready(function () {
   /* 대시보드 이벤트 start */
-  // header 상단 메뉴버튼 클릭 시 sidebar 활성화
+
+  // sidebar 초기 상태 숨김
   $(".sidebar").hide();
+
+  // 메뉴 버튼 클릭 시 sidebar 활성화
   $(".btn-menu").on("click", function () {
     $(".sidebar").stop().show().addClass("on");
   });
 
-  // sidebar close버튼 클릭시 sidebar 비활성화
+  // sidebar 닫기 버튼 클릭 시 sidebar 비활성화
   $(".btn-close").on("click", function () {
     $(".sidebar").stop().removeClass("on");
   });
 
-  // sidebar menu accordion
+  // sidebar 메뉴
   $(".sidebar-main-menu").on("click", function () {
     $(this).closest(".sidebar-menu").find(".menu-list").stop().slideToggle();
   });
 
-  // header 상단 알림버튼 클릭 시 알림박스 활성화 (toggle)
+  // 알림 버튼 클릭 시 알림 박스 토글
   $(".btn-notification").on("click", function () {
     $(".notification-box").toggleClass("on");
   });
 
   /* 대시보드 이벤트 end */
-  // ========================================================
+
   /* 강좌 생성 이벤트 start */
 
-  // 모달 레이어 강좌 추가
-  $(".modal").hide();
-  $(".btn-add-course").on("click", function () {
-    $(".modal").fadeIn();
-  });
-  $(".btn-cancel").on("click", function () {
-    $(".modal").fadeOut();
-  });
+  // 선택된 과목 ID 저장용 Set
+  const selectedSubjects = new Set();
 
-  // 강좌 생성 제어
-  const selectedSubjects = new Set(); // 선택된 과목을 저장할 Set
+  // 과목 체크박스 선택 시 Set에 추가/제거
+  $('input[name="subjects"]').change(function () {
+    const subjectId = $(this).val();
 
-  $("#course-subject").change(function () {
-    const selectedOptions = $(this).val(); // 선택된 옵션의 값 배열
+    if ($(this).is(':checked')) {
+      selectedSubjects.add(subjectId);
+    } else {
+      selectedSubjects.delete(subjectId);
+    }
 
-    // 선택된 과목을 Set에 추가
-    selectedOptions.forEach((subject) => selectedSubjects.add(subject));
-
-    // 선택된 과목을 표시
-    $("#selected-subject-box").empty(); // 기존 표시 초기화
-    selectedSubjects.forEach((subject) => {
-      $("#selected-subject-box").append(`
-              <div class="subject-item" data-subject="${subject}">
-                  ${subject}
-                  <span class="remove-button">x</span>
-              </div>
-          `);
-    });
-
-    updateHiddenInput(); // 숨겨진 입력 필드 업데이트
+    updateHiddenInput();
   });
 
-  // 선택된 과목 삭제
-  $("#selected-subject-box").on("click", ".remove-button", function () {
-    const subject = $(this).parent(".subject-item").data("subject");
-    selectedSubjects.delete(subject); // Set에서 과목 제거
-    $(this).parent(".subject-item").remove(); // 표시에서 제거
-    updateHiddenInput(); // 숨겨진 입력 필드 업데이트
-  });
-
-  // 숨겨진 입력 필드 업데이트 함수
+  // 숨겨진 input에 선택된 과목들 저장
   function updateHiddenInput() {
-    $("#selected-subjects-input").val(Array.from(selectedSubjects).join(",")); // 선택된 과목을 쉼표로 구분하여 저장
+    $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
   }
 
-  // // // 폼 제출 이벤트
-  // $("#course-create-form").submit(function (event) {
-  //   // event.preventDefault(); // 기본 제출 방지
+  // 제출 버튼 클릭 시 폼 전송
+  $('.btn-submit').on('click', function (e) {
+    e.preventDefault();
 
-  //   alert(
-  //     "강좌가 성공적으로 등록되었습니다!" +
-  //       "(과목명: " +
-  //       Array.from(selectedSubjects) +
-  //       ")"
-  //   );
+    $('#crsInfPrsCnt-error').text('');
 
-  //   // 실제 폼 제출 (AJAX 또는 기본 제출)
-  //   // $(this).unbind("submit").submit(); // 기본 제출
-  //   // 또는 AJAX를 사용하여 전송
-  //   // $.post('/your-endpoint', $(this).serialize());
-  // });
+    // 수강 인원 체크; 0이나 빈 값일시
+    const prsCnt = parseInt($('#course-capacity').val());
+    if (isNaN(prsCnt) || prsCnt < 1) {
+      $('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
+      $('#course-capacity').focus();
+      return;
+    }
+    
+    // 선택된 과목들 hidden input에 반영
+    $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+
+    // 폼 전송
+    $('#course-create-form')
+      .attr({
+        method: 'POST',
+        action: '/insttn/pltad/create'
+      })
+      .submit();
+  });
 
   /* 강좌 생성 이벤트 end */
 });

@@ -1,5 +1,6 @@
 package com.learn.bbs.pltad.crssbj.service;
 
+import com.learn.bbs.pltad.crssbj.vo.CrsSbjRegistRequestVO;
 
 /**
  * @TableName CRS_SBJ
@@ -7,5 +8,5 @@ package com.learn.bbs.pltad.crssbj.service;
  * 강좌 과목
  */
 public interface CrsSbjService {
-
+	public boolean insertOneCourseSubject(CrsSbjRegistRequestVO crsSbjRegistRequestVO);
 }

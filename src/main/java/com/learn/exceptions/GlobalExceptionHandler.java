@@ -52,6 +52,15 @@ public class GlobalExceptionHandler {
 		return "error/404";
 	}
 	
+	@ExceptionHandler(CrsInfRegistException.class)
+	public String viewCrsInfRegistExcpetionPage(CrsInfRegistException cire) {
+		return "error/404";
+	}
+	
+	@ExceptionHandler(CrsSbjRegistException.class)
+	public String viewCrsSbjRegistExceptionPage(CrsSbjRegistException csre) {
+		return "error/404";
+	}
 	
 	//항상 끝에 있어야한다.
 	//제일 위에 있어버리면 모든 exception을 다 먹어버리기 때문에 항상 무조건 맨 끝에 적어줘야한다.

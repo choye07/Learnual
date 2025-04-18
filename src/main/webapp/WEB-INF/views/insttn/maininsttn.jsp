@@ -30,7 +30,8 @@
             <div class="notice widget-article">
               <div>
                 <h2>학원 강좌 목록</h2>
-                <a href="#">더보기</a>
+                <!-- session에서 학생일 시 usr, 아닐시 pltad  -->
+                <a href="/insttn/pltad">더보기</a>
               </div>
 
               <div>

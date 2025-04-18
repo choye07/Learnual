@@ -1,0 +1,11 @@
+16:45:43.835 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- GET "/board/list", parameters={}
+16:45:43.907 [http-nio-8080-exec-5] WARN  o.s.web.servlet.PageNotFound -- No mapping for GET /board/list
+16:45:44.033 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver -- Using @ExceptionHandler com.learn.exceptions.GlobalExceptionHandler#viewNoHandlerFoundExceptionPage(NoHandlerFoundException)
+16:45:44.052 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver -- Resolved [org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /board/list.] to ModelAndView [view="error/404"; model={}]
+16:45:44.054 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- Using resolved error view: ModelAndView [view="error/404"; model={}]
+16:45:44.065 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView -- View name [error/404], model {}
+16:45:44.070 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView -- Forwarding to [/WEB-INF/views/error/404.jsp]
+16:45:44.082 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 404 NOT_FOUND
+16:45:44.089 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- "ERROR" dispatch for GET "/error", parameters={}
+16:45:44.096 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+16:45:44.318 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet -- Exiting from "ERROR" dispatch, status 404

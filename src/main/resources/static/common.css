@@ -361,6 +361,7 @@ label {
 .course-create {
   width: 50%;
   margin: 0 auto;
+  margin-top: 3.25rem;
   background: white;
   padding: 2rem;
   border-radius: 0.625rem;
@@ -379,6 +380,7 @@ label {
       /* border: 1px solid red; */
       display: flex;
       gap: 0.625rem;
+      flex-direction: column;
 
       > label {
         width: 5rem;
@@ -414,30 +416,15 @@ label {
       }
     }
   }
+}
 
-  #selected-subject-box {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
+.course-create .each-checkbox {
+	margin: 0 2rem 2rem 0;
+}
 
-    .subject-item {
-      border: 1px solid #ccc;
-      border-radius: 0.625rem;
-      padding: 0.1rem 0.625rem;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-
-      .remove-button {
-        cursor: pointer;
-        display: block;
-        width: 1.5rem;
-        min-height: 1.5rem;
-        font-size: 0;
-        background: url("/asset/icon/backspace.svg") no-repeat center/contain;
-      }
-    }
-  }
+.course-create .error {
+	font-size: 0.785rem;
+    color: red;
 }
 
 /* 메인에서 출력하는 게시판 css */
@@ -836,7 +823,7 @@ label {
 
     /* 관리자 전용 버튼 박스 */
     &.board-manager-toolbox {
-      display: none;
+      /* display: none; */
     }
   }
 }
