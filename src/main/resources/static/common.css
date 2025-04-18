@@ -6,7 +6,7 @@
 :root {
   --student-color: #1f7bda;
   --student-light-color: #eaf5ff;
-  --student-medium-color: #6eb6fe;
+  --student-medium-color: #48a1fa;
   --tutor-color: #6554c0;
   --tutor-light-color: #ebebeb6c;
   --tutor-medium-color: #a89bea;
@@ -366,10 +366,12 @@ label {
 /* ==================================== */
 /* 게시판 custom css start */
 
-/* 성연 파트 */
+/* 0417성연 파트 start */
+/* 0418성연 파트 수정 */
 /* 시험 게시판 전체보기 css */
-.board.exam-list {
+.board.tst-board {
   .board-body {
+    /* 시험 게시판 목록보기 css start */
     .board-list-top {
       grid-template-columns: 3fr 1fr 1fr 1fr;
     }
@@ -386,157 +388,156 @@ label {
         }
       }
     }
-  }
+    /* 시험 게시판 목록보기 css end */
 
-  /* 시험 게시판 전체보기 학생 뷰 css */
-  &.student {
-    .board-header {
-      border-bottom: 3px solid var(--student-color);
-    }
-  }
-
-  /* 시험 게시판 전체보기 강사 뷰 css */
-  &.tutor {
-    .board-header {
-      border-bottom: 3px solid var(--tutor-color);
-    }
-  }
-}
-
-/* 시험 게시판 시험 자세히보기 css */
-.board.exam-view {
-  label {
-    color: var(--tutor-color);
-  }
-
-  .board-info {
-    display: grid;
-    grid-template-columns: 8rem 1fr 8rem 1fr;
-    gap: 0.125rem;
-
-    > div {
-      padding: 0.625rem;
-
-      &.exam-url-area {
+    .board-wrapper {
+      #tst-form {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        margin-top: 1rem;
-        padding: 0;
-        grid-column: 1 / -1;
 
-        .response-url-area,
-        .edit-url-area {
-          padding-left: 0;
+        > div {
           display: flex;
+          align-items: center;
+          gap: 0.625rem;
 
           > label {
+            display: block;
             width: 8rem;
           }
 
-          > .input-box {
-            width: 65%;
-          }
-          input {
-            width: 75%;
+          > input {
+            width: 50%;
+            pointer-events: none;
+            border: 0;
+            font-size: 1rem;
+            color: #333;
           }
 
           > a {
-            width: 100%;
-            padding-left: 1.3rem;
-            display: flex;
-            height: 100%;
-            align-items: center;
-          }
-
-          .btn-edit,
-          .btn-save {
-            margin-left: 0.3rem;
-            color: #333;
-            padding: 0.3rem 0.625rem;
+            padding-left: 0.625rem;
           }
         }
       }
-
-      &.submit-url-area {
-        display: flex;
-      }
-    }
-  }
-
-  .board-content {
-    display: block;
-
-    h2 {
-      margin: 1.5rem 0 0.5rem 0;
-    }
-
-    > div {
-      padding: 0;
-    }
-
-    .exam-usr-header {
-      background-color: var(--tutor-light-color);
-      text-align: center;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      color: #111;
-      font-weight: 600;
-
-      > div {
-        border: 1px solid #ccc;
-        padding: 0.625rem;
-      }
-    }
-
-    /* 시험 응시 명단 */
-    .exam-usr-wrapper {
-      > li.exam-usr-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-
-        > div {
-          text-align: center;
-          border: 1px solid #ccc;
-          padding: 0.625rem;
-        }
-      }
-    }
-  }
-
-  &.tutor {
-    label {
-      color: var(--tutor-color);
-    }
-
-    .board-header {
-      border-bottom: 3px solid var(--tutor-color);
-    }
-  }
-
-  &.student {
-    label {
-      color: var(--student-color);
-    }
-
-    .board-header {
-      border-bottom: 3px solid var(--student-color);
     }
   }
 }
 
-/* 휘원 파트 */
+/* 시험 게시판 작성 css start */
+.board.tst-board.write {
+  .board-body {
+    .board-wrapper {
+      #tst-form {
+        > div {
+          /* 시험 작성은 input 수정 가능 */
+          > input {
+            pointer-events: all;
+            border: 1px solid #ccc;
+          }
+
+          /* 강사명은 input 수정 불가능 */
+          &.tutorNm-area {
+            input {
+              pointer-events: none;
+              border: 0;
+            }
+          }
+
+          &.btn-area {
+            justify-content: flex-start;
+          }
+        }
+      }
+    }
+  }
+}
+/* 시험 게시판 작성 css end */
+/* 시험 게시판 수정 css start */
+.board.tst-board.edit {
+  .board-body {
+    .board-wrapper {
+      #tst-form {
+        > div {
+          /* 시험 작성은 input 수정 가능 */
+          > input {
+            pointer-events: all;
+            border: 1px solid #ccc;
+          }
+
+          /* 강사명은 input 수정 불가능 */
+          &.tutorNm-area {
+            input {
+              pointer-events: none;
+              border: 0;
+            }
+          }
+
+          &.btn-area {
+            justify-content: flex-start;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 시험 게시판 전체보기 학생 뷰 css */
+.board.tst-board.student {
+  .board-header {
+    .board-toolbox {
+      a {
+        background-color: var(--student-color);
+      }
+    }
+  }
+
+  label {
+    color: var(--student-color);
+  }
+
+  .board-header {
+    border-bottom: 3px solid var(--student-color);
+  }
+
+  button {
+    background-color: var(--student-color);
+  }
+}
+
+/* 시험 게시판 전체보기 학습관리자 뷰 css */
+.board.tst-board.tutor {
+  .board-header {
+    .board-toolbox {
+      a {
+        background-color: var(--tutor-color);
+      }
+    }
+  }
+
+  label {
+    color: var(--tutor-color);
+  }
+  .board-header {
+    border-bottom: 3px solid var(--tutor-color);
+  }
+
+  button {
+    background-color: var(--tutor-color);
+  }
+}
+
+/* 0417성연 파트 end */
+
 /* 메인 공지사항 custom css */
 .board.learnual-notice {
-	.board-body {
-		.board-list-wrapper {
-			.empty-notice-list {
-				padding: 3rem 0;
-				text-align: center;
-			}
-		}
-	}
-
+  .board-body {
+    .board-list-wrapper {
+      .empty-notice-list {
+        padding: 3rem 0;
+        text-align: center;
+      }
+    }
+  }
 }
 
 /* 게시판 custom css end */
@@ -1158,8 +1159,8 @@ label {
       }
     }
   }
-  
-/* ==================================== */
+
+  /* ==================================== */
   /* 슈퍼관리자 main */
   /* mainsuper.jsp */
   .super-main {
@@ -1252,7 +1253,7 @@ label {
       }
     }
   }
-/* ==================================== */
+  /* ==================================== */
   /* 관리 보드 공통 css */
   /* .manage-board */
   .manage-board {
@@ -1333,7 +1334,97 @@ label {
       }
     }
   }
-/* ==================================== */
+
+  /* 관리보드 custom css */
+  /* 0418소희 파트 start */
+  /* 나의 정보 관리 공통 css */
+  .manage-board.myinfo {
+    .manage-board-header {
+      border-color: var(--student-color);
+
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+
+    .regist-usr-form {
+      flex-direction: column;
+      gap: 2.5rem;
+      width: 100%;
+
+      > div {
+        border-top: 1px solid #ccc;
+        padding: 0.625rem 0;
+        display: flex;
+
+        .email-input-area {
+          width: 100%;
+          display: flex;
+          gap: 2rem;
+
+          .btn-email-check {
+            width: 10rem;
+            font-size: 0.9rem;
+            background: var(--student-color);
+
+            &:hover {
+              background: var(--student-medium-color);
+            }
+          }
+        }
+
+        label {
+          display: flex;
+          align-self: center;
+          text-indent: 0.625rem;
+          font-weight: 700;
+          width: 10rem;
+          color: #111;
+        }
+
+        input {
+          width: 100%;
+          border: 0;
+          pointer-events: none;
+          background-color: #fff;
+        }
+      }
+
+      /* 회원가입 버튼 영역 */
+      .btn-area {
+        justify-content: center;
+        padding-top: 2rem;
+
+        > button {
+          padding: 0.625rem 2rem;
+          font-size: 1.1rem;
+          font-weight: 700;
+          background: var(--student-color);
+
+          &:hover {
+            background: var(--student-medium-color);
+          }
+        }
+      }
+    }
+  }
+
+  /* 나의 정보 수정 css */
+  .manage-board.myinfo.edit {
+    input {
+      &#usrNm,
+      &#usrPw,
+      &#confirmUsrPw,
+      &#usrAdrs,
+      &#usrPn {
+        border: 1px solid #ccc;
+        pointer-events: all;
+      }
+    }
+  }
+  /* 0418소희 파트 end */
+
+  /* ==================================== */
   /* 러뉴얼 홈 main */
   /* home.html */
   .home-main {
@@ -1496,7 +1587,7 @@ label {
       }
     }
   }
-/* ==================================== */
+  /* ==================================== */
   /* 러뉴얼 로그인 main */
   /* login.html */
   .login-main {
@@ -1600,7 +1691,7 @@ label {
       }
     }
   }
-/* ==================================== */
+  /* ==================================== */
   /* 러뉴얼 회원가입 main css */
   /* regist.html */
   .regist-main {
@@ -1624,10 +1715,19 @@ label {
         line-height: 1.5;
 
         .text-title {
+          h1 {
+            font-size: 2rem;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--manager-medium-color);
+          }
+
           p {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            color: #111;
+            color: #3332;
+            font-style: italic;
+            text-align: right;
           }
         }
       }
@@ -1641,11 +1741,68 @@ label {
     }
 
     .regist-section2 {
+      margin-top: 3rem;
       display: flex;
-      gap: 2.5rem;
-      min-height: 15rem;
 
-      a {
+      .regist-usr-form {
+        flex-direction: column;
+        gap: 2.5rem;
+        width: 100%;
+
+        > div {
+          border-top: 1px solid #ccc;
+          padding: 0.625rem 0;
+          display: flex;
+
+          .email-input-area {
+            width: 100%;
+            display: flex;
+            gap: 2rem;
+
+            .btn-email-check {
+              width: 10rem;
+              font-size: 0.9rem;
+              background: var(--student-color);
+
+              &:hover {
+                background: var(--student-medium-color);
+              }
+            }
+          }
+
+          label {
+            display: flex;
+            align-self: center;
+            text-indent: 0.625rem;
+            font-weight: 700;
+            width: 10rem;
+            color: #111;
+          }
+
+          input {
+            width: 100%;
+          }
+        }
+
+        /* 회원가입 버튼 영역 */
+        .btn-area {
+          justify-content: center;
+          padding-top: 2rem;
+
+          .btn-regist {
+            padding: 0.625rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--student-color);
+
+            &:hover {
+              background: var(--student-medium-color);
+            }
+          }
+        }
+      }
+
+      /* a {
         display: block;
         font-size: 1.5rem;
         font-weight: 600;
@@ -1659,7 +1816,7 @@ label {
         &:hover {
           box-shadow: 0px 3px 6px #3338;
         }
-      }
+      } */
     }
 
     /* 러뉴얼 회원가입-학생 main */
@@ -1667,7 +1824,7 @@ label {
       display: block;
     }
   }
-/* ==================================== */
+  /* ==================================== */
   /* 러뉴얼 회원가입 이전 동의 절차 css */
   .regist-main.agreement {
     label {
@@ -1703,17 +1860,26 @@ label {
           gap: 0.625rem;
         }
 
+        /* 회원 가입 동의 버튼 영역 */
         .regist-btns {
           display: flex;
           justify-content: center;
           gap: 0.625rem;
+          font-size: 1.1rem;
 
           button:nth-child(1) {
-            background: var(--light-gradient-background);
+            background: var(--student-color);
+            padding: 0.625rem 2rem;
+            font-weight: 600;
+
+            &:hover {
+              background: var(--student-medium-color);
+            }
           }
 
           button:nth-child(2) {
             background: #aaa;
+            padding: 0.625rem 2rem;
           }
         }
       }
@@ -1904,7 +2070,9 @@ label {
         gap: 1.25rem;
       }
 
-      > .dashboard-col1, .dashboard-col2, .dashboard-col3 {
+      > .dashboard-col1,
+      .dashboard-col2,
+      .dashboard-col3 {
         display: flex;
         flex-direction: column;
       }
@@ -2049,7 +2217,7 @@ label {
       flex-direction: column;
 
       .widget-wrapper {
-      	margin-top: 1.25rem;
+        margin-top: 1.25rem;
         display: flex;
         flex-direction: row;
 
