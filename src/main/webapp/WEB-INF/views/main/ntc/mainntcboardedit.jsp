@@ -23,9 +23,9 @@
 
 			<div class="contents">
 
-				<div class="learnual-notice board">
+				<div class="learnual-notice board edit">
 					<div class="board-header">
-						<h1>러뉴얼 공지사항 작성</h1>
+						<h1>러뉴얼 공지사항 수정</h1>
 					</div>
 
 					<form:form modelAttribute="ntcWriteRequestVO"
@@ -35,19 +35,19 @@
 								name="writer" value="작성자" required />
 						</div>
 						<div class="ntcTtl-area form-group">
-							<label for="ntcTtl">제목</label> <input type="text" id="ntcTtl" value="${usrWriteNtc.ntcTtl}"
+							<label for="ntcTtl">제목</label> <input type="text" id="ntcTtl" value="${toModifyNtcVO.ntcTtl}"
 								name="ntcTtl" required />
 						</div>
 						<form:errors path="ntcTtl" element="div" cssClass="error" />
 						<div class="ntcCtt-area form-group">
 							<label for="ntcCtt">내용</label>
-							<textarea id="ntcCtt" name="ntcCtt" rows="5" required>${usrWriteNtc.ntcCtt}</textarea>
+							<textarea id="ntcCtt" name="ntcCtt" rows="5" required>${toModifyNtcVO.ntcCtt}</textarea>
 						</div>
 						<form:errors path="ntcCtt" element="div" cssClass="error" />
 						<div class="btn-area">
 							<button type="button" class="btn-list btn"
 								onclick='location.href="/ntc/list"'>목록 보기</button>
-							<button type="button" class="btn-submit btn">작성 완료</button>
+							<button type="button" class="btn-submit btn">수정 완료</button>
 						</div>
 					</form:form>
 				</div>

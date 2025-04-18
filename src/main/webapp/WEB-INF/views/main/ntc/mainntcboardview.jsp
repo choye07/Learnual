@@ -26,13 +26,13 @@
 						<div class="board-toolbox">
 							<div class="board-user-toolbox">
 								<div class="btn-go-list">
-									<a href="#">목록 보기</a>
+									<a href="/ntc/list">목록 보기</a>
 								</div>
 								<div class="btn-add">
-									<a href="#">게시글 작성 +</a>
+									<a href="#">게시글 작성</a>
 								</div>
 								<div class="btn-modify">
-									<a href="#">게시글 수정</a>
+									<a href="/ntc/modify/${selectedNotice.ntcId}">게시글 수정</a>
 								</div>
 								<div class="btn-delete">
 									<a href="/ntc/delete/${selectedNotice.ntcId}">게시글 삭제</a>
@@ -40,14 +40,13 @@
 							</div>
 							<div class="board-manager-toolbox">
 								<div class="btn-add-notice">
-									<a href="#">공지글 작성 +</a>
+									<a href="#">공지글 작성</a>
 								</div>
 							</div>
 						</div>
 					</div>
 
 					<div class="board-body">
-						<div class="board-list-top"></div>
 						<div class="board-wrapper">
 							<div class="board-info">
 								<label>작성자</label>

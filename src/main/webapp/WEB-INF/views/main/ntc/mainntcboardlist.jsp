@@ -31,7 +31,7 @@
 							</div>
 							<div class="board-manager-toolbox">
 								<div class="btn-add-notice">
-									<a href="/ntc/write">공지글 작성 +</a>
+									<a href="/ntc/write">공지글 작성</a>
 								</div>
 							</div>
 						</div>

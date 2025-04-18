@@ -288,8 +288,13 @@ label {
 
           > div {
             padding: 1.25rem 0.625rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             &.board-list-title {
+              display: flex;
+              justify-content: flex-start;
               text-align: left;
             }
           }
@@ -528,6 +533,8 @@ label {
 
 /* 0417성연 파트 end */
 
+/* ----------------------------------- */
+/* 0418휘원 css 수정 시작 */
 /* 메인 공지사항 custom css */
 .board.learnual-notice {
   .board-body {
@@ -538,7 +545,25 @@ label {
       }
     }
   }
+  
+  /* form:form error css */
+  #learnual-notice-form {
+    .writer-area {
+    	input {
+    		pointer-events: none;
+            border: 0;
+    	}
+    }
+  	.error {
+  		color: #f00;
+  		font-size: 0.8rem;
+  	}
+  }
 }
+
+
+/* 0418휘원 css 수정 끝 */
+/* ----------------------------------- */
 
 /* 게시판 custom css end */
 /* ================================== */
@@ -1414,6 +1439,16 @@ label {
 
       .notice {
         width: 52%;
+        
+        .article-content {
+        	.empty-notice-list {
+        		display: flex;
+        		justify-content: center;
+        		align-items: center;
+        		padding: 5rem 0;
+        		color: #ccc;
+        	}
+        }
       }
 
       .search {
@@ -1421,6 +1456,7 @@ label {
         background: #fff;
         border-radius: 0.625rem;
         box-shadow: 0px 2px 5px #3333;
+        padding: 2rem 0;
 
         .search-inactive {
           height: 100%;

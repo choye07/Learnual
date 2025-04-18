@@ -28,13 +28,7 @@
 
 					<div>
 						<ul class="article-content">
-							<li><a href="#">
-									<h3>러뉴얼 서비스 오픈 기념 할인 행사!</h3> <span>2025.03.29 홍길동</span>
-							</a></li>
-
-							<li><a href="#">
-									<h3>기능 개발자 채용 공고</h3> <span>2025.03.29 홍길동</span>
-							</a></li>
+							<li class="empty-notice-list">작성한 공지사항이 없습니다.</li>
 						</ul>
 
 						<ul class="pagination">
