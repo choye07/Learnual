@@ -36,9 +36,87 @@
     
     <select id="countCourseName" resultType="int" parameterType="string">
 	    SELECT COUNT(*) 
-	    FROM CRS_INF 
-	    WHERE CRS_INF_NM = #{crsInfNm} 
-	    AND CRS_INF_DEL_YN = 'N'
-	    AND CRS_INF_DDLN_YN = 'N'
+	      FROM CRS_INF 
+	     WHERE CRS_INF_NM = #{crsInfNm} 
+	       AND CRS_INF_DEL_YN = 'N'
+	       AND CRS_INF_DDLN_YN = 'N'
+    </select>
+    
+    <select id="selectAllCourseForPltad" resultType="com.learn.bbs.pltad.crsinf.vo.CrsInfPltadReadResponseVO">
+        SELECT C.CRS_INF_ID
+			 , C.CRS_INF_NM
+			 , C.CRS_INF_ST_DT
+			 , C.CRS_INF_END_DT
+			 , C.CRS_INF_DDLN_DT
+			 , C.CRS_INF_PRS_CNT
+			 , COUNT(A.APP_HSTR_ID) AS CRS_CUR_PRS_CNT
+		  FROM CRS_INF C
+		  LEFT JOIN APP_HSTR A 
+		    ON C.CRS_INF_ID = A.CRS_INF_ID
+		  LEFT JOIN CNCL_HSTR CN 
+		    ON A.APP_HSTR_ID = CN.APP_HSTR_ID
+		 WHERE C.CRS_INF_DEL_YN = 'N'
+		   AND C.CRS_INF_DDLN_YN = 'N'
+		   AND CN.CNCL_HSTR_ID IS NULL
+		 GROUP BY C.CRS_INF_ID
+		     , C.CRS_INF_NM
+		     , C.CRS_INF_ST_DT
+		     , C.CRS_INF_END_DT
+		     , C.CRS_INF_DDLN_DT
+		     , C.CRS_INF_PRS_CNT
+		 ORDER BY C.CRS_INF_ST_DT DESC
+    </select>
+    
+    <select id="selectAllFinishedCourseForPltad" resultType="com.learn.bbs.pltad.crsinf.vo.CrsInfPltadFinishedReadResponseVO">
+        SELECT C.CRS_INF_ID
+             , C.CRS_INF_NM
+			 , C.CRS_INF_ST_DT
+			 , C.CRS_INF_END_DT
+		  FROM CRS_INF C
+		 WHERE C.CRS_INF_DEL_YN = 'N'
+		   AND C.CRS_INF_DDLN_YN = 'Y'
+		 GROUP BY C.CRS_INF_ID
+		     , C.CRS_INF_NM
+		     , C.CRS_INF_ST_DT
+		     , C.CRS_INF_END_DT
+		     , C.CRS_INF_PRS_CNT
+	     ORDER BY C.CRS_INF_ST_DT DESC
+    </select>
+    
+    <update id="updateOneCourse" parameterType="com.learn.bbs.pltad.crsinf.vo.CrsInfModifyRequestVO">
+        UPDATE CRS_INF
+		   SET CRS_INF_ST_DT = TO_DATE(#{crsInfStDt}, 'YYYY-MM-DD HH24:MI:SS')
+		     , CRS_INF_END_DT = TO_DATE(#{crsInfEndDt}, 'YYYY-MM-DD HH24:MI:SS')
+		     , CRS_INF_NM = #{crsInfNm}
+		     , CRS_INF_CRS_ROOM_NM = #{crsInfCrsRoomNm}
+		     , CRS_INF_PRS_CNT = #{crsInfPrsCnt}
+		     , CRS_INF_RGST_DT = SYSDATE
+		     , CRS_INF_UPDT_DT = SYSDATE
+		     , CRS_INF_DEL_YN = 'N'
+		     , CRS_INF_APP_DT = TO_DATE(#{crsInfAppDt}, 'YYYY-MM-DD HH24:MI:SS')
+		     , CRS_INF_DDLN_DT = TO_DATE(#{crsInfDdlnDt}, 'YYYY-MM-DD HH24:MI:SS')
+		     , CRS_INF_DDLN_YN = 'N'
+		WHERE CRS_INF_ID = #{crsInfId}
+    </update>
+    
+    <select id="selectAllInfoFromOneCourse" resultType="com.learn.bbs.pltad.crsinf.vo.CrsInfModifyRequestVO" parameterType="string">
+        SELECT *
+		  FROM CRS_INF
+		 WHERE CRS_INF_ID = #{crsInfId}
+    </select>
+    
+    <update id="deleteOneCourse" parameterType="string">
+        UPDATE CRS_INF
+		   SET CRS_INF_DEL_YN = 'Y'
+		     , CRS_INF_DEL_DT = SYSDATE
+		 WHERE CRS_INF_ID = #{crsInfId}
+    </update>
+    
+    <select id="selectAvailableCourses" resultType="com.learn.bbs.pltad.crsinf.vo.CrsInfAvailableReadResponseVO">
+        SELECT *
+		  FROM CRS_INF
+		 WHERE SYSDATE BETWEEN CRS_INF_ST_DT AND CRS_INF_END_DT
+		   AND CRS_INF_DEL_YN = 'N'
+		   AND CRS_INF_DDLN_YN = 'N'
     </select>
 </mapper>

@@ -1,0 +1,4 @@
+18:58:06.464 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-2 - Pool stats (total=10, active=0, idle=10, waiting=0)
+18:58:06.483 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-2 - Fill pool skipped, pool has sufficient level or currently being filled.
+18:58:36.486 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-2 - Pool stats (total=10, active=0, idle=10, waiting=0)
+18:58:36.488 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-2 - Fill pool skipped, pool has sufficient level or currently being filled.
