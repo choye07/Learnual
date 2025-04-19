@@ -32,7 +32,7 @@ spring:
   application:
     name: learnual
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521:XE
+    url: jdbc:oracle:thin:@192.168.211.11:1521:XE
     driver-class-name: oracle.jdbc.driver.OracleDriver
     username: TEAM_A
     password: TEAM_A

@@ -1,12 +1,12 @@
-package com.learn.bbs.pltad.crsinf.dao;
+package com.learn.bbs.crs.crsinf.dao;
 
 import java.util.List;
 
-import com.learn.bbs.pltad.crsinf.vo.CrsInfAvailableReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfModifyRequestVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfPltadReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
 
 /**
  * @TableName CRS_INF

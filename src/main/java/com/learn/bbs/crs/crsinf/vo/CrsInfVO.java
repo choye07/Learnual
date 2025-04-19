@@ -1,4 +1,4 @@
-package com.learn.bbs.pltad.crsinf.vo;
+package com.learn.bbs.crs.crsinf.vo;
 
 /**
  * @TableName CRS_INF

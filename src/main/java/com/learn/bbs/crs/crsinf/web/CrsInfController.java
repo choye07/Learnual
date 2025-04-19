@@ -1,4 +1,4 @@
-package com.learn.bbs.pltad.crsinf.web;
+package com.learn.bbs.crs.crsinf.web;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.learn.bbs.crs.crsinf.service.CrsInfService;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
 import com.learn.bbs.crs.sbj.service.SbjService;
 import com.learn.bbs.crs.sbj.vo.SbjVO;
-import com.learn.bbs.pltad.crsinf.service.CrsInfService;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfAvailableReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfModifyRequestVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfPltadReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO;
 
 import jakarta.validation.Valid;
 

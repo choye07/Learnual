@@ -1,4 +1,4 @@
-package com.learn.bbs.pltad.crsinf.service.impl;
+package com.learn.bbs.crs.crsinf.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.learn.bbs.pltad.crsinf.dao.CrsInfDao;
-import com.learn.bbs.pltad.crsinf.service.CrsInfService;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfAvailableReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfModifyRequestVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfPltadReadResponseVO;
-import com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO;
+import com.learn.bbs.crs.crsinf.dao.CrsInfDao;
+import com.learn.bbs.crs.crsinf.service.CrsInfService;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
 import com.learn.bbs.pltad.crssbj.dao.CrsSbjDao;
 import com.learn.bbs.pltad.crssbj.vo.CrsSbjRegistRequestVO;
 import com.learn.exceptions.CrsInfDeleteException;
