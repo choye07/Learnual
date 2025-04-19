@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.insttn.dao.InsttnDao;
+import com.learn.insttn.vo.InsttnRegistRequestVO;
 
 
 /**
@@ -22,6 +23,24 @@ public class InsttnDaoImpl extends SqlSessionDaoSupport implements InsttnDao {
     public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
         super.setSqlSessionTemplate(sqlSessionTemplate);
     }
+
+    
+    /**
+     * 기관(학원) 등록
+     */
+	@Override
+	public int insertNewInsttn(InsttnRegistRequestVO insttnRegistRequestVO) {
+		return this.getSqlSession().insert(NAME_SPACE+"insertNewInsttn",insttnRegistRequestVO);
+	}
+
+
+	/**
+	 *  
+	 */
+	@Override
+	public int selectCheckDuplicateInsttn(InsttnRegistRequestVO insttnRegistRequestVO) {
+		return this.getSqlSession().selectOne(NAME_SPACE+"selectCheckDuplicateInsttn");
+	}
 
 
 }

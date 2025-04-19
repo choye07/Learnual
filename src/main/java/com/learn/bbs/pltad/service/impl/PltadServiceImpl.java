@@ -1,14 +1,15 @@
 package com.learn.bbs.pltad.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.learn.bbs.pltad.dao.PltadDao;
-import com.learn.bbs.pltad.service.PltadService;
+import com.learn.bbs.pltad.dao.PltAdDao;
+import com.learn.bbs.pltad.service.PltAdService;
 
 @Service
-public class PltadServiceImpl implements PltadService{
+public class PltAdServiceImpl implements PltAdService {
 
-	@Autowired
-	private PltadDao platDao;
+    @Autowired
+    private PltAdDao pltAdDao;
+
 }
