@@ -12,16 +12,4 @@
 		    #{sbjId}
 		)
     </insert>
-    
-    <delete id="deleteCourseSubject" parameterType="string">
-        DELETE 
-		  FROM CRS_SBJ
-		 WHERE CRS_INF_ID = #{crsInfId}
-    </delete>
-    
-    <select id="selectSubjectList" resultType="com.learn.bbs.pltad.crssbj.vo.CrsSbjRegistRequestVO" parameterType="string">
-        SELECT *
-		  FROM CRS_SBJ
-		 WHERE CRS_INF_ID = #{crsInfId}
-    </select>
 </mapper>

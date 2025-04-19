@@ -52,10 +52,10 @@ public class LearnualMainController {
 		return "dashboard/dashboardeduad";
 	}
 
-//	@GetMapping("/insttn")
-//	public String goMainInsttn() {
-//		return "insttn/maininsttn";
-//	}
+	@GetMapping("/insttn")
+	public String goMainInsttn() {
+		return "insttn/maininsttn";
+	}
 
 	// 학생의 강좌 신청 페이지
 	@GetMapping("/insttn/usr")
@@ -63,10 +63,10 @@ public class LearnualMainController {
 		return "insttn/courseregist";
 	}
 
-//	@GetMapping("/insttn/pltad")
-//	public String goManageCourse() {
-//		return "insttn/coursemanage";
-//	}
+	@GetMapping("/insttn/pltad")
+	public String goManageCourse() {
+		return "insttn/coursemanage";
+	}
 
 	@GetMapping("/editmyinformation")
 	public String goEditMyInformation(HttpSession session, Model model) {

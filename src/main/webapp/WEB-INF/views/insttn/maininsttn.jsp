@@ -21,7 +21,7 @@
 	<jsp:include page="/WEB-INF/views/common/component/insttnheader.jsp" />
 
     <div class="dashboard-main insttn">
-      <div class="main-wrapper course-main">
+      <div class="main-wrapper">
         <div class="visual">
           insttn-main-visual
         </div>
@@ -30,32 +30,40 @@
             <div class="notice widget-article">
               <div>
                 <h2>학원 강좌 목록</h2>
-                <!-- session에서 학생일 시 /insttn/usr - a 태그 이름은 신청하기, 아닐시 /insttn/pltad - a 태그 이름은 관리하기  -->
+                <!-- session에서 학생일 시 usr, 아닐시 pltad  -->
                 <a href="/insttn/pltad">더보기</a>
               </div>
-            <div class="course-wrapper">
-              <div class="course-article">
+
+              <div>
                 <ul class="article-content">
-                  <c:forEach var="availableCourse" items="${availableCourses}">
-                    <li>
-                        <h3>${availableCourse.crsInfNm}</h3>
-                        <p class="period">
-                          <span>${availableCourse.crsInfStDt}</span> ~ <span>${availableCourse.crsInfEndDt}</span>
-                        </p>
-<%--                         <p class="available-capa">
-                          수강인원 :
-                          <span class="current-capa">${activeCourse.crsCurPrsCnt}</span> /
-                          <span class="max-capa">${activeCourse.crsInfPrsCnt}</span> 명
-                        </p> --%>
-<%--                       <div class="article-direct">
-                        <a class="btn-modify" href="/insttn/pltad/modify/${activeCourse.crsInfId}">수정</a>
-                        <a class="btn-delete" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">삭제</a>
-                        <c:if test="${activeCourse.deadlineToday}">
-                            <a class="btn-shutdown" href="#">마감</a> 
-                        </c:if>
-                      </div> --%>
-                    </li>
-                  </c:forEach>
+                  <li>
+                    <a href="#">
+                      <h3>(채용예정자 전형) 풀스택 전문가 양성 과정</h3>
+                      <p class="period">
+                        <span>2025-01-17</span>
+                        ~
+                        <span>2025-06-20</span>
+                      </p>
+                    </a>
+                    <div class="article-direct">
+                      <a class="btn" href="#">자세히보기</a>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <h3>(재직자 대상) AZURE 심화 과정</h3>
+                      <p class="period">
+                        <span>2025-01-17</span>
+                        ~
+                        <span>2025-06-20</span>
+                      </p>
+                    </a>
+                    <div class="article-direct">
+                      <a class="btn" href="#">자세히보기</a>
+                    </div>
+                  </li>
+
                 </ul>
 
                 <ul class="pagination">
@@ -67,7 +75,6 @@
                   <li><a href="#">5</a></li>
                   <li><a href="#">다음</a></li>
                 </ul>
-              </div>
               </div>
             </div>
           </div>
