@@ -1,0 +1,32 @@
+19:02:06.654 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-2 - Pool stats (total=10, active=0, idle=10, waiting=0)
+19:02:06.669 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-2 - Fill pool skipped, pool has sufficient level or currently being filled.
+19:02:21.458 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- POST "/insttn/pltad/delete/undefined", parameters={}
+19:02:21.495 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to com.learn.bbs.pltad.crsinf.web.CrsInfController#doDeleteCourse(String)
+19:02:21.564 [http-nio-8080-exec-7] DEBUG o.s.j.support.JdbcTransactionManager -- Creating new transaction with name [com.learn.bbs.pltad.crsinf.service.impl.CrsInfServiceImpl.deleteOneCourse]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+19:02:21.611 [http-nio-8080-exec-7] DEBUG o.s.j.support.JdbcTransactionManager -- Acquired Connection [HikariProxyConnection@1682156309 wrapping oracle.jdbc.driver.T4CConnection@6c8a3eab] for JDBC transaction
+19:02:21.612 [http-nio-8080-exec-7] DEBUG o.s.j.support.JdbcTransactionManager -- Switching JDBC Connection [HikariProxyConnection@1682156309 wrapping oracle.jdbc.driver.T4CConnection@6c8a3eab] to manual commit
+19:02:21.614 [http-nio-8080-exec-7] DEBUG org.mybatis.spring.SqlSessionUtils -- Creating a new SqlSession
+19:02:21.615 [http-nio-8080-exec-7] DEBUG org.mybatis.spring.SqlSessionUtils -- Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4db596d8]
+19:02:21.617 [http-nio-8080-exec-7] DEBUG o.m.s.t.SpringManagedTransaction -- JDBC Connection [HikariProxyConnection@1682156309 wrapping oracle.jdbc.driver.T4CConnection@6c8a3eab] will be managed by Spring
+19:02:21.618 [http-nio-8080-exec-7] DEBUG c.l.b.p.c.d.i.C.deleteOneCourse -- ==>  Preparing: UPDATE CRS_INF SET CRS_INF_DEL_YN = 'Y' , CRS_INF_DEL_DT = SYSDATE WHERE CRS_INF_ID = ?
+19:02:21.627 [http-nio-8080-exec-7] DEBUG c.l.b.p.c.d.i.C.deleteOneCourse -- ==> Parameters: undefined(String)
+19:02:21.662 [http-nio-8080-exec-7] DEBUG c.l.b.p.c.d.i.C.deleteOneCourse -- <==    Updates: 0
+19:02:21.664 [http-nio-8080-exec-7] DEBUG org.mybatis.spring.SqlSessionUtils -- Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4db596d8]
+19:02:21.665 [http-nio-8080-exec-7] DEBUG org.mybatis.spring.SqlSessionUtils -- Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4db596d8]
+19:02:21.665 [http-nio-8080-exec-7] DEBUG org.mybatis.spring.SqlSessionUtils -- Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4db596d8]
+19:02:21.665 [http-nio-8080-exec-7] DEBUG o.s.j.support.JdbcTransactionManager -- Initiating transaction rollback
+19:02:21.666 [http-nio-8080-exec-7] DEBUG o.s.j.support.JdbcTransactionManager -- Rolling back JDBC transaction on Connection [HikariProxyConnection@1682156309 wrapping oracle.jdbc.driver.T4CConnection@6c8a3eab]
+19:02:21.685 [http-nio-8080-exec-7] DEBUG o.s.j.support.JdbcTransactionManager -- Releasing JDBC Connection [HikariProxyConnection@1682156309 wrapping oracle.jdbc.driver.T4CConnection@6c8a3eab] after transaction
+19:02:21.696 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver -- Using @ExceptionHandler com.learn.exceptions.GlobalExceptionHandler#viewCrsInfDeleteExceptionPage(CrsInfDeleteException)
+19:02:21.701 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver -- Resolved [com.learn.exceptions.CrsInfDeleteException: DB 삭제(Soft delete)에 실패하였습니다.] to ModelAndView [view="error/404"; model={}]
+19:02:21.701 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- Using resolved error view: ModelAndView [view="error/404"; model={}]
+19:02:21.715 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView -- View name [error/404], model {}
+19:02:21.719 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView -- Forwarding to [/WEB-INF/views/error/404.jsp]
+19:02:21.728 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- Completed 404 NOT_FOUND
+19:02:21.731 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- "ERROR" dispatch for POST "/error", parameters={}
+19:02:21.735 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping -- Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+19:02:21.787 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor -- Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+19:02:21.801 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor -- Writing [{timestamp=Fri Apr 18 19:02:21 KST 2025, status=404, error=Not Found, trace=com.learn.exceptions.Crs (truncated)...]
+19:02:21.837 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet -- Exiting from "ERROR" dispatch, status 404
+19:02:36.676 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-2 - Pool stats (total=10, active=0, idle=10, waiting=0)
+19:02:36.682 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-2 - Fill pool skipped, pool has sufficient level or currently being filled.
