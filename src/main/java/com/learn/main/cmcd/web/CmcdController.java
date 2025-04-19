@@ -1,9 +1,11 @@
-package com.learn.bbs.pltad.cmcd.web;
+package com.learn.main.cmcd.web;
 
 import org.springframework.stereotype.Controller;
+
+import com.learn.main.cmcd.service.CmcdService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.learn.bbs.pltad.cmcd.service.CmcdService;
 
 
 /**

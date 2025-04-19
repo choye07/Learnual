@@ -1,4 +1,4 @@
-package com.learn.bbs.pltad.cmcd.vo;
+package com.learn.main.cmcd.vo;
 
 /**
  * @TableName CM_CODE

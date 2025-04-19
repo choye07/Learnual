@@ -1,4 +1,4 @@
-package com.learn.bbs.pltad.cmcd.dao;
+package com.learn.main.cmcd.service;
 
 
 /**
@@ -6,6 +6,6 @@ package com.learn.bbs.pltad.cmcd.dao;
  * @TableComment null
  * 공통 코드
  */
-public interface CmcdDao {
+public interface CmcdService {
 
 }
