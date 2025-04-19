@@ -1,4 +1,4 @@
-package com.learn.bbs.eduad.asgmt.vo;
+package com.learn.bbs.asgmt.vo;
 
 /**
  * @TableName ASGMT_ARTC

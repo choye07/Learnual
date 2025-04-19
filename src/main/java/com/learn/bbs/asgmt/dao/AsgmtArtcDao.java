@@ -1,4 +1,4 @@
-package com.learn.bbs.eduad.asgmt.dao;
+package com.learn.bbs.asgmt.dao;
 
 
 /**

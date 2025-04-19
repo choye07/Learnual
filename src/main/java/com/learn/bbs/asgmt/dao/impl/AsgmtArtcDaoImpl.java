@@ -1,11 +1,11 @@
-package com.learn.bbs.eduad.asgmt.dao.impl;
+package com.learn.bbs.asgmt.dao.impl;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.learn.bbs.eduad.asgmt.dao.AsgmtArtcDao;
+import com.learn.bbs.asgmt.dao.AsgmtArtcDao;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.learn.bbs.eduad.asgmt.service;
+package com.learn.bbs.asgmt.service;
 
 
 

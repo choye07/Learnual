@@ -1,10 +1,10 @@
-package com.learn.bbs.eduad.asgmt.service.impl;
+package com.learn.bbs.asgmt.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.learn.bbs.eduad.asgmt.dao.AsgmtArtcDao;
-import com.learn.bbs.eduad.asgmt.service.AsgmtArtcService;
+import com.learn.bbs.asgmt.dao.AsgmtArtcDao;
+import com.learn.bbs.asgmt.service.AsgmtArtcService;
 
 
 /**
