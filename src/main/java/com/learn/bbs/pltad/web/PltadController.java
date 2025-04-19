@@ -1,13 +1,14 @@
 package com.learn.bbs.pltad.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.learn.bbs.pltad.service.PltadService;
+import com.learn.bbs.pltad.service.PltAdService;
 
-@Controller()
-public class PltadController {
+@Controller
+public class PltAdController {
 
-	@Autowired
-	private PltadService pltadService;
+    @Autowired
+    private PltAdService pltAdService;
+
 }
