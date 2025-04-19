@@ -2220,6 +2220,8 @@ label {
 
     /* 학원 -> 강좌 관리 페이지 main-wrapper */
     /* 관리자 전용 */
+    /* 2025-04-18 강준식 수정 */
+    /* ------------------------------------------- */
     .main-wrapper.course-manage {
       padding-top: 2.5rem;
       flex-direction: column;
@@ -2231,7 +2233,16 @@ label {
         flex-direction: row;
         gap: 1.25rem;
         height: 100%;
-
+        
+        .article-content {
+            li {
+                padding: 1rem;
+                h3 {
+                font-size: 1.0rem;
+                }
+            }
+        }
+    /* ------------------------------------------- */
         > div:nth-child(1) {
           width: 60%;
         }
@@ -2250,6 +2261,52 @@ label {
         }
       }
     }
+   /* 학원 -> 강 페이지 main-wrapper */
+   /* 2025-04-19 강준식 수정 */
+   /* ------------------------------------------- */
+    .main-wrapper.course-main {
+      flex-direction: column;
+      gap: 0;
+      min-height: calc(100vh - 20rem);
+
+      .course-wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 1.25rem;
+        height: 100%;
+        
+        .article-content {
+            li {
+                padding: 1rem;
+                min-width: 40rem; /* 이거 맞나 */
+                h3 {
+                font-size: 1.0rem;
+                }
+            }
+        }
+        /*
+        > div:nth-child(1) {
+          width: 60%;
+        }
+
+        > div:nth-child(2) {
+          width: 40%;
+        }
+        */
+
+        /*
+        .article-direct {
+          gap: 0;
+          border-radius: 0;
+          overflow: visible;
+          a {
+            padding: 0.625rem;
+          }
+        }
+        */
+      }
+    }
+    /* ------------------------------------------- */
 
     /* 학원 -> 강좌 신청 페이지 main-wrapper */
     /* 사용자 전용 */

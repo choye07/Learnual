@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.crssbj.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,15 @@ public class CrsSbjDaoImpl extends SqlSessionDaoSupport implements CrsSbjDao {
 	@Override
 	public int insertOneCourseSubject(CrsSbjRegistRequestVO crsSbjRegistRequestVO) {
 		return this.getSqlSession().insert(NAME_SPACE + "insertOneCourseSubject", crsSbjRegistRequestVO);
+	}
+
+	@Override
+	public int deleteCourseSubject(String crsInfId) {
+		return this.getSqlSession().delete(NAME_SPACE + "deleteCourseSubject", crsInfId);
+	}
+
+	@Override
+	public List<CrsSbjRegistRequestVO> selectSubjectList(String crsInfId) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectSubjectList", crsInfId);
 	}
 }
