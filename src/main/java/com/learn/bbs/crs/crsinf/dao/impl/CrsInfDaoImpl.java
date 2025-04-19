@@ -23,7 +23,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
 @Repository
 public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 
-    private final String NAME_SPACE = "com.learn.bbs.pltad.crsinf.dao.impl.CrsInfDaoImpl.";
+    private final String NAME_SPACE = "com.learn.bbs.crs.crsinf.dao.impl.CrsInfDaoImpl.";
 
     @Autowired
     @Override

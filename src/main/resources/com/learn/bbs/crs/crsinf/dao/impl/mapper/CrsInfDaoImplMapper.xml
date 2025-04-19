@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.learn.bbs.pltad.crsinf.dao.impl.CrsInfDaoImpl">
-    <insert id="insertOneCourse" parameterType="com.learn.bbs.pltad.crsinf.vo.CrsInfRegistRequestVO">
+<mapper namespace="com.learn.bbs.crs.crsinf.dao.impl.CrsInfDaoImpl">
+    <insert id="insertOneCourse" parameterType="com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO">
         <selectKey keyProperty="crsInfId" resultType="string" order="BEFORE">
-            SELECT 'CRS_INF-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(CRS_INF_SEQ.NEXTVAL, 6, '0') FROM DUAL
+            SELECT 'CRS_INF-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CRS_INF_PK.NEXTVAL, 6, '0') FROM DUAL
         </selectKey>
         INSERT INTO CRS_INF (
         CRS_INF_ID,
@@ -42,7 +42,7 @@
 	       AND CRS_INF_DDLN_YN = 'N'
     </select>
     
-    <select id="selectAllCourseForPltad" resultType="com.learn.bbs.pltad.crsinf.vo.CrsInfPltadReadResponseVO">
+    <select id="selectAllCourseForPltad" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO">
         SELECT C.CRS_INF_ID
 			 , C.CRS_INF_NM
 			 , C.CRS_INF_ST_DT
@@ -67,7 +67,7 @@
 		 ORDER BY C.CRS_INF_ST_DT DESC
     </select>
     
-    <select id="selectAllFinishedCourseForPltad" resultType="com.learn.bbs.pltad.crsinf.vo.CrsInfPltadFinishedReadResponseVO">
+    <select id="selectAllFinishedCourseForPltad" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO">
         SELECT C.CRS_INF_ID
              , C.CRS_INF_NM
 			 , C.CRS_INF_ST_DT
@@ -83,7 +83,7 @@
 	     ORDER BY C.CRS_INF_ST_DT DESC
     </select>
     
-    <update id="updateOneCourse" parameterType="com.learn.bbs.pltad.crsinf.vo.CrsInfModifyRequestVO">
+    <update id="updateOneCourse" parameterType="com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO">
         UPDATE CRS_INF
 		   SET CRS_INF_ST_DT = TO_DATE(#{crsInfStDt}, 'YYYY-MM-DD HH24:MI:SS')
 		     , CRS_INF_END_DT = TO_DATE(#{crsInfEndDt}, 'YYYY-MM-DD HH24:MI:SS')
@@ -99,7 +99,7 @@
 		WHERE CRS_INF_ID = #{crsInfId}
     </update>
     
-    <select id="selectAllInfoFromOneCourse" resultType="com.learn.bbs.pltad.crsinf.vo.CrsInfModifyRequestVO" parameterType="string">
+    <select id="selectAllInfoFromOneCourse" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO" parameterType="string">
         SELECT *
 		  FROM CRS_INF
 		 WHERE CRS_INF_ID = #{crsInfId}
@@ -112,7 +112,7 @@
 		 WHERE CRS_INF_ID = #{crsInfId}
     </update>
     
-    <select id="selectAvailableCourses" resultType="com.learn.bbs.pltad.crsinf.vo.CrsInfAvailableReadResponseVO">
+    <select id="selectAvailableCourses" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO">
         SELECT *
 		  FROM CRS_INF
 		 WHERE SYSDATE BETWEEN CRS_INF_ST_DT AND CRS_INF_END_DT
