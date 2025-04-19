@@ -45,26 +45,52 @@
 
               <div>
                 <ul class="article-content">
-				  <c:forEach var="activeCourse" items="${activeCourses}">
-				    <li>
-				        <h3>${activeCourse.crsInfNm}</h3>
-				        <p class="period">
-				          <span>${activeCourse.crsInfStDt}</span> ~ <span>${activeCourse.crsInfEndDt}</span>
-				        </p>
-				        <p class="available-capa">
-				          수강인원 :
-				          <span class="current-capa">${activeCourse.crsCurPrsCnt}</span> /
-				          <span class="max-capa">${activeCourse.crsInfPrsCnt}</span> 명
-				        </p>
-				      <div class="article-direct">
-				        <a class="btn-modify" href="/insttn/pltad/modify/${activeCourse.crsInfId}">수정</a>
-				        <a class="btn-delete" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">삭제</a>
-				        <c:if test="${activeCourse.deadlineToday}">
-                            <a class="btn-shutdown" href="#">마감</a>	
-				        </c:if>
-				      </div>
-				    </li>
-				  </c:forEach>
+                  <li>
+                    <a href="#">
+                      <h3>(채용예정자 전형) 풀스택 전문가 양성 과정</h3>
+                      <p class="period">
+                        <span>2025-01-17</span>
+                        ~
+                        <span>2025-06-20</span>
+                      </p>
+                      <p class="available-capa">
+                        수강인원 :
+                        <span class="current-capa">16</span>
+                        /
+                        <span class="max-capa">30</span>
+                        명
+                      </p>
+                    </a>
+                    <div class="article-direct">
+                      <a class="btn-modify" href="#">수정</a>
+                      <a class="btn-delete" href="#">삭제</a>
+                      <a class="btn-shutdown" href="#">마감</a>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <h3>(재직자 대상) AZURE 심화 과정</h3>
+                      <p class="period">
+                        <span>2025-01-17</span>
+                        ~
+                        <span>2025-06-20</span>
+                      </p>
+                      <p class="available-capa">
+                        수강인원 :
+                        <span class="current-capa">16</span>
+                        /
+                        <span class="max-capa">30</span>
+                        명
+                      </p>
+                    </a>
+                    <div class="article-direct">
+                      <a class="btn-modify" href="#">수정</a>
+                      <a class="btn-delete" href="#">삭제</a>
+                      <a class="btn-shutdown" href="#">마감</a>
+                    </div>
+                  </li>
+
                 </ul>
 
                 <ul class="pagination">
@@ -88,16 +114,28 @@
 
               <div>
                 <ul class="article-content">
-                    <c:forEach var="inactiveCourse" items="${inactiveCourses}">
-	                  <li>
-	                      <h3>${inactiveCourse.crsInfNm}</h3>
-	                      <p class="period">
-	                        <span>${inactiveCourse.crsInfStDt}</span>
-	                        ~
-	                        <span>${inactiveCourse.crsInfEndDt}</span>
-	                      </p>
-	                  </li>
-	                </c:forEach>
+                  <li>
+                    <a href="#">
+                      <h3>(채용예정자 전형) 풀스택 전문가 양성 과정</h3>
+                      <p class="period">
+                        <span>2025-01-17</span>
+                        ~
+                        <span>2025-06-20</span>
+                      </p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <h3>(재직자 대상) AZURE 심화 과정</h3>
+                      <p class="period">
+                        <span>2025-01-17</span>
+                        ~
+                        <span>2025-06-20</span>
+                      </p>
+                    </a>
+                  </li>
+
                 </ul>
 
                 <ul class="pagination">
