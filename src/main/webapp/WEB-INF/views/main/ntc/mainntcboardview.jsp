@@ -53,6 +53,8 @@
 								<div>${selectedNotice.ntcWrtrId}</div>
 								<label>작성시간</label>
 								<div>${selectedNotice.ntcRgstDt}</div>
+								<label>제목</label>
+								<div>${selectedNotice.ntcTtl}</div>
 							</div>
 							<div class="board-content">
 								<label>내용</label>

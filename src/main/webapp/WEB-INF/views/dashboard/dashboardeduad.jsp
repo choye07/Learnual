@@ -169,9 +169,91 @@
 						</div>
 					</div>
 				</div>
-				<div class="dashboard-col3"></div>
+				<div class="dashboard-col3">
+					<!-- 0419 todo 추가 start -->
+					<div class="attd-status-widget right-widget">
+						<div class="widget-wrapper">
+							<h2>출석현황</h2>
+							<div class="attd-status-data">
+								<div class="attd-data1">
+									<p>출석</p>
+									<span>20</span>
+								</div>
+								<div class="attd-data1">
+									<p>결석</p>
+									<span>0</span>
+								</div>
+								<div class="attd-data1">
+									<p>지각</p>
+									<span>0</span>
+								</div>
+							</div>
+							<div class="btn-area">
+								<div class="btn-req-attd">
+									<button class="btn">출석 요청</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="todo right-widget">
+						<div class="widget-wrapper">
+							<div class="todo-contents">
+								<div class="todo-date">
+									<div class="todo-date1">
+										<div class="todo-date1-box1">
+											<div class="todo-date1-date">20</div>
+										</div>
+										<div class="todo-date1-box2">
+											<div class="todo-date1-month">04</div>
+											<div class="todo-date1-year">2025</div>
+										</div>
+									</div>
+									<div class="todo-date2">
+										<div class="todo-date2-day">MONDAY</div>
+									</div>
+								</div>
+								<!-- 강의계획서 엑셀에서 만약 해당 날짜에
+                       데이터가 존재한다면 로딩하는 영역 -->
+								<div class="today-course">
+									<p>금일 예정 계획</p>
+									<div class="today-data">엑셀에서 불러온 데이터</div>
+								</div>
+								<div class="todo-custom">
+									<p>추가 계획</p>
+									<!-- 강사가 추가한 todo list 목록 -->
+									<ul class="todo-item-wrapper">
+										<!-- 템플릿으로 추가될 todo list item -->
+									</ul>
+									<!-- 숨겨져 있다가 btn-todo-edit클릭 시 나타나는 영역 -->
+									<div class="todo-edit-area">
+										<input class="custom-todo-input" type="text"
+											placeholder="추가할 계획을 작성하세요" />
+										<button class="btn-add">추가</button>
+									</div>
+								</div>
+							</div>
+							<div class="btn-todo-edit">
+								<a href="#">+</a>
+							</div>
+						</div>
+					</div>
+					<!-- 0419 todo 추가 end -->
+				</div>
 			</div>
 		</div>
 	</div>
+
+	<!-- 0419 todo 추가 start -->
+	<template id="todo-item-template">
+		<li class="todo-item">
+			<div class="todo-item-content"></div>
+			<div class="todo-item-manage on">
+				<div class="btn-todo-delete">
+					<a href="#">del</a>
+				</div>
+			</div>
+		</li>
+	</template>
+	<!-- 0419 todo 추가 end -->
 </body>
 </html>

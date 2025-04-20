@@ -32,7 +32,7 @@ $(document).ready(function() {
 		}
 	});
 	/* 메인 공지사항 작성 폼 이벤트 */
-	$("#learnual-notice-form").find(".btn-submit").on("click", function(){
+	$("#learnual-notice-form").find(".btn-submit").on("click", function() {
 		$(this).closest("#learnual-notice-form")
 			.attr({
 				method: "POST",
@@ -40,7 +40,7 @@ $(document).ready(function() {
 			})
 			.submit();
 	});
-	
+
 	/* 휘원 0418 추가한 부분 end */
 	/* ================================ */
 
@@ -122,84 +122,183 @@ $(document).ready(function() {
 			.submit();
 	});
 
-  /* 강좌 생성 이벤트 end */
-  
-  
-  /* 사용자 회원 가입시 동의 여부 이벤트 start*/
-  // 개인정보 수집 및 이용 동의 라디오 버튼 확인
-  $("input[name='private-agreement']").on("change", function () {
-    privateAgreed = $("input[name='private-agreement']:checked").val() === "agree";
-    if (!privateAgreed) {
-      alert("개인정보 수집 및 이용에 동의해주셔야 회원가입이 완료됩니다.");
-    }
-  });
+	/* 강좌 생성 이벤트 end */
 
-  // 폼 제출 시 유효성 검사
-  $("#regist-agreement-form").on("submit", function (e) {
-    if (!termsAgreed || !privateAgreed) {
-      alert("모든 동의 사항에 체크하셔야 회원가입이 완료됩니다.");
-      e.preventDefault(); // 폼 제출 방지
-      return false;
-    }
-  });
-  /* 사용자 회원 가입시 동의 여부 이벤트 end*/
-  
-  /* 강좌 수정 이벤트 start */
-    
-    // 수정 로직
-    $('.btn-update').on('click', function (e) {
-      e.preventDefault();
 
-      $('#crsInfPrsCnt-error').text('');
+	/* 사용자 회원 가입시 동의 여부 이벤트 start*/
+	// 개인정보 수집 및 이용 동의 라디오 버튼 확인
+	$("input[name='private-agreement']").on("change", function() {
+		privateAgreed = $("input[name='private-agreement']:checked").val() === "agree";
+		if (!privateAgreed) {
+			alert("개인정보 수집 및 이용에 동의해주셔야 회원가입이 완료됩니다.");
+		}
+	});
 
-      // 수강 인원 체크; 0이나 빈 값일시
-      const prsCnt = parseInt($('#course-capacity').val());
-      if (isNaN(prsCnt) || prsCnt < 1) {
-        $('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
-        $('#course-capacity').focus();
-        return;
-      }
-      
-      const courseId = $('#crsInfId').val();
-      
-      // 선택된 과목들 hidden input에 반영
-      $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+	// 폼 제출 시 유효성 검사
+	$("#regist-agreement-form").on("submit", function(e) {
+		if (!termsAgreed || !privateAgreed) {
+			alert("모든 동의 사항에 체크하셔야 회원가입이 완료됩니다.");
+			e.preventDefault(); // 폼 제출 방지
+			return false;
+		}
+	});
+	/* 사용자 회원 가입시 동의 여부 이벤트 end*/
 
-      // 폼 전송
-      $('#course-create-form')
-        .attr({
-          method: 'POST',
-          action: '/insttn/pltad/modify/' + courseId
-        })
-        .submit();
-    });
-    
-    /* 강좌 수정 이벤트 end */
-    
-    /* 강좌 삭제 이벤트 start */
-    
-    // 삭제 로직
-    $(".btn-delete").on("click", function() {
-        var crsInfId = $(this).data("id");
-        console.log("crsInfId is: " + crsInfId);
+	/* 강좌 수정 이벤트 start */
 
-        // 삭제 확인
-        if (confirm("정말 해당 강좌를 삭제하시겠습니까?")) {
-            $.ajax({
-                url: "/insttn/pltad/delete/" + crsInfId,
-                type: "POST",
-                success: function(response) {
-                    // 삭제 성공 후 처리
-                    alert("삭제가 완료되었습니다.");
-                    window.location.href = "/insttn/pltad";
-                },
-                error: function(xhr, status, error) {
-                    // 오류 처리
-                    alert("삭제에 실패했습니다.");
-                }
-            });
-        }
-    });
-    
-    /* 강좌 삭제 이벤트 end */
+	// 수정 로직
+	$('.btn-update').on('click', function(e) {
+		e.preventDefault();
+
+		$('#crsInfPrsCnt-error').text('');
+
+		// 수강 인원 체크; 0이나 빈 값일시
+		const prsCnt = parseInt($('#course-capacity').val());
+		if (isNaN(prsCnt) || prsCnt < 1) {
+			$('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
+			$('#course-capacity').focus();
+			return;
+		}
+
+		const courseId = $('#crsInfId').val();
+
+		// 선택된 과목들 hidden input에 반영
+		$('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+
+		// 폼 전송
+		$('#course-create-form')
+			.attr({
+				method: 'POST',
+				action: '/insttn/pltad/modify/' + courseId
+			})
+			.submit();
+	});
+
+	/* 강좌 수정 이벤트 end */
+
+	/* 강좌 삭제 이벤트 start */
+
+	// 삭제 로직
+	$(".btn-delete").on("click", function() {
+		var crsInfId = $(this).data("id");
+		console.log("crsInfId is: " + crsInfId);
+
+		// 삭제 확인
+		if (confirm("정말 해당 강좌를 삭제하시겠습니까?")) {
+			$.ajax({
+				url: "/insttn/pltad/delete/" + crsInfId,
+				type: "POST",
+				success: function(response) {
+					// 삭제 성공 후 처리
+					alert("삭제가 완료되었습니다.");
+					window.location.href = "/insttn/pltad";
+				},
+				error: function(xhr, status, error) {
+					// 오류 처리
+					alert("삭제에 실패했습니다.");
+				}
+			});
+		}
+	});
+
+	/* 강좌 삭제 이벤트 end */
+
+	/* ================================= */
+	/* 0419 유진 파트 start */
+	/* 자료실 게시판 - 게시글 생성 이벤트 start */
+	// 글 작성 페이지 이벤트
+	// 1. 글 작성시 파일을 추가하면 밑에 또 파일을 추가하는 input이 생긴다.
+	// 2. 파일을 첨부할 수 있는 최대 개수는 4개로 제한한다.
+	$("form.flarch-write-form")
+		.find(".file-area")
+		.on("change", "input[type='file']", function() {
+			var fileInputs = $(".file-area input[type='file']");
+			var maxFiles = 4;
+
+			if (this.files.length === 0) {
+				// 파일을 선택하지 않았으면 아무것도 하지 않음
+				return;
+			} else if (fileInputs.length >= maxFiles) {
+				alert("파일은 최대 4개까지만 첨부할 수 있습니다.");
+				return;
+			} else {
+				// 정상적인 상황이니 file-item template으로 생성한 file-item dom을
+				// file-container에 추가
+				// 1. flarch-file-item-template을 이용한 dom 생성
+				var newItemDom = $($("#flarch-file-item-template").html());
+
+				// 2. 생성한 dom을 file-container에 append
+				$(this)
+					.closest("form.flarch-write-form")
+					.find(".file-container")
+					.append(newItemDom);
+			}
+		});
+
+	// 2.글 작성 완료시 post로 서버에 전송한다.(내용이 없으면 전송 안됨)
+	$("form.flarch-write-form")
+		.find(".btn-flarch-submit")
+		.on("click", function() {
+			var invalidInputs = $("input:invalid, textarea:invalid");
+			if (invalidInputs.length > 0) {
+				// 작성한 내용이 없으면 아무것도 하지 않음
+				return;
+			}
+
+			// 전송
+			$("form.flarch-write-form")
+				.attr({
+					method: "POST",
+					action: "/eduad/flarch/write",
+				})
+				.submit();
+		});
+	// 글 작성 페이지 이벤트 종료
+	/* 
+	1. +버튼 클릭 시 
+	  1-1. input영역 미끄러져 내려오기 (toggle)
+	  1-2. 삭제 버튼 보이기
+	*/
+	$(".btn-todo-edit").on("click", function() {
+		$(".todo-edit-area").slideToggle(300);
+		$(".todo-item-manage").toggleClass("on");
+	});
+
+	/* 2. input에 값을 적고 추가 버튼 클릭할 경우 todo-item append */
+	$(".todo-edit-area")
+		.find(".btn-add")
+		.on("click", function() {
+			var userInput = $(this)
+				.closest(".todo-edit-area")
+				.find(".custom-todo-input")
+				.val();
+
+			var todoItemDom = $($("#todo-item-template").html());
+			todoItemDom.find(".todo-item-content").text(userInput);
+			todoItemDom.on("click", function() {
+				$(this).toggleClass("done");
+			});
+			todoItemDom.find(".btn-todo-delete").on("click", function() {
+				$(this).closest(".todo-item").remove();
+			});
+			$(".right-widget.todo").find(".todo-item-wrapper").append(todoItemDom);
+		});
+
+	/* 3. todo-item을 클릭하면 done toggle 처리 */
+	// $(".right-widget.todo")
+	//   .find(".todo-item")
+	//   .on("click", function () {
+	//     $(this).toggleClass("done");
+	//   });
+
+	/* 4. todo-item 삭제버튼을 클릭하면 todo-item 지워짐*/
+	// $(".right-widget.todo")
+	//   .find(".todo-item")
+	//   .find(".btn-todo-delete")
+	//   .on(".click", function () {
+	//     $(this).closest(".todo-item").remove();
+	//   });
+	
+	/* 0419 유진 파트 end */
+	/* ================================= */
 });
