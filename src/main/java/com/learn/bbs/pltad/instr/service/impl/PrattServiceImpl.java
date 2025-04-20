@@ -3,7 +3,7 @@ package com.learn.bbs.pltad.instr.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.learn.bbs.pltad.instr.dao.PrattDao;
+import com.learn.bbs.pltad.instr.dao.InstrPrattDao;
 import com.learn.bbs.pltad.instr.service.PrattService;
 
 
@@ -16,6 +16,6 @@ import com.learn.bbs.pltad.instr.service.PrattService;
 public class PrattServiceImpl implements PrattService {
 
     @Autowired
-    private PrattDao prattDao;
+    private InstrPrattDao prattDao;
 
 }

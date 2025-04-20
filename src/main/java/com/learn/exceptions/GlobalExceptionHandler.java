@@ -89,6 +89,26 @@ public class GlobalExceptionHandler {
 	public String viewCnclHstrInsertExceptionPage(CnclHstrInsertException chie) {
 		return "error/404";
 	}
+	/**
+	 * 플랫폼 관리자 등록 Exception
+	 * @param plre
+	 * @return
+	 */
+	@ExceptionHandler(PltadRegistException.class)
+	public String viewPltadRegistExceptionPage(PltadRegistException plre , Model model) {
+		return"error/404";
+	}
+	
+	/**
+	 * 강사(학습 관리자) 등록 Exception
+	 * @param ire
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(InstrRegistException.class)
+	public String viewInstrRegistExceptionPage(InstrRegistException ire, Model model) {
+		return "error/404";
+	}
 	
 	//항상 끝에 있어야한다.
 	//제일 위에 있어버리면 모든 exception을 다 먹어버리기 때문에 항상 무조건 맨 끝에 적어줘야한다.
