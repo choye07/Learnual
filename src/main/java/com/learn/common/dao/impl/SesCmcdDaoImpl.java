@@ -21,8 +21,8 @@ public class SesCmcdDaoImpl extends SqlSessionDaoSupport implements SesCmcdDao{
     }
 
 	@Override
-	public String selectOneSesCmcd(String CmcdNm) {
-		return this.getSqlSession().selectOne(NAME_SPACE+"selectOneSesCmcd" ,CmcdNm);
+	public SesCmcdVO selectOneCmcd(String cmcdNm) {
+		return this.getSqlSession().selectOne(NAME_SPACE+"selectOneCmcd" ,cmcdNm);
 	}
 
 }

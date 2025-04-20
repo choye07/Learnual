@@ -1,6 +1,5 @@
 package com.learn.bbs.pltad.instr.dao;
 
-import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
 
 /**
  * @TableName INSTR
@@ -8,7 +7,5 @@ import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
  * 강사
  */
 public interface InstrDao {
-	
-	public int insertNewInstr(InstrRegistRequestVO instrRegistRequestVO);
 
 }

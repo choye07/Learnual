@@ -6,6 +6,6 @@ package com.learn.bbs.pltad.instr.dao;
  * @TableComment null
  * 강사 이력
  */
-public interface InstrPrattDao {
+public interface PrattDao {
 
 }

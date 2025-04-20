@@ -111,55 +111,6 @@ public class PltadmVO {
      */
     private String platadmLgnSlt;
 
-    /**
-     * @ColumnName PLTADM_LGN_IP
-     * @ColumnType VARCHAR2(39)
-     * @ColumnComment 관리자의 최근 접속 IP
-     */
-    private String pltadmLgnIp;
-
-    /**
-     * @ColumnName PLTADM_LST_PW_MDFY_DT
-     * @ColumnType DATE
-     * @ColumnComment 관리자의 최근 비밀번호 변경 날짜
-     */
-    private String pltadmLstPwMdfyDt;
-
-    /**
-     * @ColumnName PLTADM_LST_LGN_DT
-     * @ColumnType DATE
-     * @ColumnComment 관리자의 최근 로그인 날짜
-     */
-    private String pltadmLstLgnDt;
-
-    /**
-     * @ColumnName PLTADM_LST_LGN_FAIL_DT
-     * @ColumnType DATE
-     * @ColumnComment 관리자의 최근 로그인 실패 날짜
-     */
-    private String pltadmLstLgnFailDt;
-
-    /**
-     * @ColumnName PLTADM_LGN_FAIL_CNT
-     * @ColumnType NUMBER(1, 0)
-     * @ColumnComment 관리자가 로그인에 실패한 횟수
-     */
-    private int pltadmLgnFailCnt;
-
-    /**
-     * @ColumnName PLTADM_LGN_YN
-     * @ColumnType CHAR(1)
-     * @ColumnComment 관리자 로그인 여부
-     */
-    private String pltadmLgnYn;
-
-    /**
-     * @ColumnName PLTADM_BLK_YN
-     * @ColumnType CHAR(1)
-     * @ColumnComment 관리자 계정 잠금 여부
-     */
-    private String pltadmBlkYn;
-
     public String getPltadmId() {
         return this.pltadmId;
     }
@@ -280,64 +231,8 @@ public class PltadmVO {
         this.platadmLgnSlt = platadmLgnSlt;
     }
     
-    public String getPltadmLgnIp() {
-        return this.pltadmLgnIp;
-    }
-    
-    public void setPltadmLgnIp(String pltadmLgnIp) {
-        this.pltadmLgnIp = pltadmLgnIp;
-    }
-    
-    public String getPltadmLstPwMdfyDt() {
-        return this.pltadmLstPwMdfyDt;
-    }
-    
-    public void setPltadmLstPwMdfyDt(String pltadmLstPwMdfyDt) {
-        this.pltadmLstPwMdfyDt = pltadmLstPwMdfyDt;
-    }
-    
-    public String getPltadmLstLgnDt() {
-        return this.pltadmLstLgnDt;
-    }
-    
-    public void setPltadmLstLgnDt(String pltadmLstLgnDt) {
-        this.pltadmLstLgnDt = pltadmLstLgnDt;
-    }
-    
-    public String getPltadmLstLgnFailDt() {
-        return this.pltadmLstLgnFailDt;
-    }
-    
-    public void setPltadmLstLgnFailDt(String pltadmLstLgnFailDt) {
-        this.pltadmLstLgnFailDt = pltadmLstLgnFailDt;
-    }
-    
-    public int getPltadmLgnFailCnt() {
-        return this.pltadmLgnFailCnt;
-    }
-    
-    public void setPltadmLgnFailCnt(int pltadmLgnFailCnt) {
-        this.pltadmLgnFailCnt = pltadmLgnFailCnt;
-    }
-    
-    public String getPltadmLgnYn() {
-        return this.pltadmLgnYn;
-    }
-    
-    public void setPltadmLgnYn(String pltadmLgnYn) {
-        this.pltadmLgnYn = pltadmLgnYn;
-    }
-    
-    public String getPltadmBlkYn() {
-        return this.pltadmBlkYn;
-    }
-    
-    public void setPltadmBlkYn(String pltadmBlkYn) {
-        this.pltadmBlkYn = pltadmBlkYn;
-    }
-    
     @Override
     public String toString() {
-        return "PltadmVO(pltadmId: " + pltadmId + ", pltadmLgnId: " + pltadmLgnId + ", pltadmLgnPw: " + pltadmLgnPw + ", pltadmNm: " + pltadmNm + ", pltadmPn: " + pltadmPn + ", pltadmEmail: " + pltadmEmail + ", pltadmBrtDt: " + pltadmBrtDt + ", pltadmAdrs: " + pltadmAdrs + ", pltadmRgstDt: " + pltadmRgstDt + ", pltadmUpdtDt: " + pltadmUpdtDt + ", pltadmDelDt: " + pltadmDelDt + ", pltadmDelYn: " + pltadmDelYn + ", insttnId: " + insttnId + ", cmcdId: " + cmcdId + ", platadmLgnSlt: " + platadmLgnSlt + ", pltadmLgnIp: " + pltadmLgnIp + ", pltadmLstPwMdfyDt: " + pltadmLstPwMdfyDt + ", pltadmLstLgnDt: " + pltadmLstLgnDt + ", pltadmLstLgnFailDt: " + pltadmLstLgnFailDt + ", pltadmLgnFailCnt: " + pltadmLgnFailCnt + ", pltadmLgnYn: " + pltadmLgnYn + ", pltadmBlkYn: " + pltadmBlkYn + ", )";
+        return "PltadmVO(pltadmId: " + pltadmId + ", pltadmLgnId: " + pltadmLgnId + ", pltadmLgnPw: " + pltadmLgnPw + ", pltadmNm: " + pltadmNm + ", pltadmPn: " + pltadmPn + ", pltadmEmail: " + pltadmEmail + ", pltadmBrtDt: " + pltadmBrtDt + ", pltadmAdrs: " + pltadmAdrs + ", pltadmRgstDt: " + pltadmRgstDt + ", pltadmUpdtDt: " + pltadmUpdtDt + ", pltadmDelDt: " + pltadmDelDt + ", pltadmDelYn: " + pltadmDelYn + ", insttnId: " + insttnId + ", cmcdId: " + cmcdId + ", platadmLgnSlt: " + platadmLgnSlt + ", )";
     }
 }

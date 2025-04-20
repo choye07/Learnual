@@ -5,7 +5,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.learn.bbs.pltad.instr.dao.InstrPrattDao;
+import com.learn.bbs.pltad.instr.dao.PrattDao;
 
 /**
  * @TableName PRATT
@@ -13,9 +13,9 @@ import com.learn.bbs.pltad.instr.dao.InstrPrattDao;
  * 강사 이력
  */
 @Repository
-public class InstrPrattDaoImpl extends SqlSessionDaoSupport implements InstrPrattDao {
+public class PrattDaoImpl extends SqlSessionDaoSupport implements PrattDao {
 
-    private final String NAME_SPACE = "com.learn.pltad.instr.dao.impl.InstrPrattDaoImpl.";
+    private final String NAME_SPACE = "com.learn.pltad.instr.dao.impl.PrattDaoImpl.";
 
     @Autowired
     @Override
