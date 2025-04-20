@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,11 +35,7 @@
 			</div>
 
 			<div class="regist-section2">
-				<!-- <form:form
-            modelAttribute="usrRegistRequestVO"
-            class="regist-usr-form"
-          > -->
-				<form class="regist-usr-form">
+				<form:form modelAttribute="usrRegistRequestVO" class="regist-usr-form">
 					<div class="email-area">
 						<label for="email">이메일</label>
 						<div class="email-input-area">
@@ -47,7 +44,7 @@
 							<button class="btn2 btn-email-check">이메일 중복체크</button>
 						</div>
 
-						<!-- <c:if test="${not empty emailErrorMessage}">
+ 						<c:if test="${not empty emailErrorMessage}">
                 <div class="error emailDuplicateError">
                   ${emailErrorMessage}
                 </div>
@@ -56,56 +53,55 @@
                 path="usrMl"
                 element="div"
                 cssClass="error emailDuplicateError"
-              /> -->
+              />
 					</div>
 
 					<div class="name-area">
 						<label for="name">이름</label> <input id="usrNm" name="usrNm"
 							type="text" value="${userInputRegist.usrNm}" required />
-						<!-- <form:errors path="usrNm" element="div" cssClass="error" /> -->
+						 <form:errors path="usrNm" element="div" cssClass="error" /> 
 					</div>
 
 					<div class="password-area">
 						<label for="password">비밀번호</label> <input id="usrPw" name="usrPw"
 							type="password" required />
-						<!-- <c:if test="${not empty errorMessage}">
+						 <c:if test="${not empty errorMessage}">
                 <div class="error passwordEqualError">${errorMessage}</div>
               </c:if>
               <form:errors
                 path="usrPw"
                 element="div"
                 cssClass="error passwordPatternError"
-              /> -->
+              /> 
 					</div>
 					<div class="confirm-password-area">
 						<label for="password">비밀번호 확인</label> <input id="confirmUsrPw"
 							name="confirmUsrPw" required="password" />
-						<!-- <c:if test="${not empty errorMessage}">
+						 <c:if test="${not empty errorMessage}">
                 <div class="error passwordEqualError">${errorMessage}</div>
               </c:if>
               <form:errors
                 path="confirmUsrPw"
                 element="div"
                 cssClass="error passwordPatternError"
-              /> -->
+              /> 
 					</div>
 
 					<div class="address-area">
 						<label for="address">주소</label> <input id="usrAdrs" name="usrAdrs"
 							type="text" value="${userInputRegist.usrAdrs}" required />
-						<!-- <form:errors path="usrAdrs" element="div" cssClass="error" /> -->
+						 <form:errors path="usrAdrs" element="div" cssClass="error" />
 					</div>
 					<div class="phone-area">
 						<label for="phone">전화번호</label> <input id="usrPn" name="usrPn"
 							type="text" value="${userInputRegist.usrPn}" required />
-						<!-- <form:errors path="usrPn" element="div" cssClass="error" /> -->
+						 <form:errors path="usrPn" element="div" cssClass="error" />
 					</div>
 
 					<div class="btn-area">
 						<button class="btn2 btn-regist" type="submit">회원가입</button>
 					</div>
-					<!-- </form:form> -->
-				</form>
+				</form:form>
 			</div>
 		</div>
 

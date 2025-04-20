@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.learn.bbs.usr.dao.UsrDao;
 import com.learn.bbs.usr.service.UsrService;
+import com.learn.bbs.usr.vo.UsrEditMyinformationVO;
 import com.learn.bbs.usr.vo.UsrLoginRequestVO;
 import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 import com.learn.bbs.usr.vo.UsrVO;
@@ -47,7 +48,7 @@ public class UsrServiceImpl implements UsrService {
 
     @Transactional(readOnly= true)
 	@Override
-	public boolean checkDuplicateEmail(String usrMl) {
+	public boolean checkDuplicateEmail(String usrMl) { // 이메일 중복 체크
 		// true 라면 쓸 수 없는 email
 		return this.usrDao.selectUsrCountBy(usrMl) == 1;
 	}
@@ -114,4 +115,47 @@ public class UsrServiceImpl implements UsrService {
     	return this.usrDao.deleteOneUsrBy(usrMl) > 0;
     }
 
+    @Transactional
+	@Override
+	public boolean updateUsrEditMyinformation(UsrEditMyinformationVO usrEditMyinformationVO) {
+    	// 1. user 테이블에 email 이 있는지  조회한다.
+    	boolean emailCheck = checkDuplicateEmail(usrEditMyinformationVO.getUsrMl());
+    	
+    	
+    	if(emailCheck) { // true 시 해당 계정이 있다면
+    		
+    		
+    		if(usrEditMyinformationVO.getUsrPw() != null && !usrEditMyinformationVO.getUsrPw().isEmpty()) {
+    		// 2. 수정 정보에 비밀번호 변경 데이터가 있다면 암호화를 진행.
+    		String salt=  this.sha.generateSalt();
+    		
+    		String password =  usrEditMyinformationVO.getUsrPw();
+    		password = this.sha.getEncrypt(password, salt); 
+    		usrEditMyinformationVO.setUsrPw(password);
+    		usrEditMyinformationVO.setUsrSlt(salt);
+    		} else { 
+    			// 만약 비밀번호가 없다면?
+    			// 1. email 로 회원의 모든 정보를 조회한 후에 해당 계정의 비밀번호를 저장해준다. 
+    			UsrVO usrVO = this.usrDao.selectOneUsrBy(usrEditMyinformationVO.getUsrMl());
+    			usrEditMyinformationVO.setUsrPw(usrVO.getUsrPw());
+    			usrEditMyinformationVO.setUsrSlt(usrVO.getUsrSlt());
+    			
+    		}
+    		
+    		//if(usrEditMyinformationVO.getUsrNm() != null || usrEditMyinformationVO.getUsrNm() != "") {
+        		// 3. 수정 정보에 해당 변경 데이터들의  데이터를 넣어준다.
+    			usrEditMyinformationVO.setUsrNm(usrEditMyinformationVO.getUsrNm());
+    			usrEditMyinformationVO.setUsrPn(usrEditMyinformationVO.getUsrPn());
+    			usrEditMyinformationVO.setUsrAdrs(usrEditMyinformationVO.getUsrAdrs());
+
+        	//}
+    		
+    			return this.usrDao.updateOneUsrEditMyinformation(usrEditMyinformationVO) > 0;
+    		
+    	}
+    	
+    	return false;
+    	
+	}
+    
 }

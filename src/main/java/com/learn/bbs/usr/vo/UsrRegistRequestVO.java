@@ -36,6 +36,9 @@ public class UsrRegistRequestVO {
 	@NotEmpty(message = "주소를 입력해주세요.")
 	private String usrAdrs;
 	
+	// 회원 수신 동의 여부
+    private String usrRcptAgrYn; 
+	
 	// 회원의 비밀번호 암호화를 위한 문자열
 	private String usrSlt;
 
@@ -94,7 +97,13 @@ public class UsrRegistRequestVO {
 	public void setUsrSlt(String usrSlt) {
 		this.usrSlt = usrSlt;
 	}
-	
-	
+
+	public String getUsrRcptAgrYn() {
+		return usrRcptAgrYn;
+	}
+
+	public void setUsrRcptAgrYn(String usrRcptAgrYn) {
+		this.usrRcptAgrYn = usrRcptAgrYn;
+	}
 
 }

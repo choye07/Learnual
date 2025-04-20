@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.bbs.crs.crsinf.dao.impl.CrsInfDaoImpl">
+    <insert id="insertOneCourse" parameterType="com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO">
+        <selectKey keyProperty="crsInfId" resultType="string" order="BEFORE">
+            SELECT 'CRS_INF-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CRS_INF_PK.NEXTVAL, 6, '0') FROM DUAL
+        </selectKey>
+        INSERT INTO CRS_INF (
+        CRS_INF_ID,
+        CRS_INF_ST_DT,
+        CRS_INF_END_DT,
+        CRS_INF_NM,
+        CRS_INF_CRS_ROOM_NM,
+        CRS_INF_PRS_CNT,
+        CRS_INF_RGST_DT,
+        CRS_INF_DEL_YN,
+        CRS_INF_APP_DT,
+        CRS_INF_DDLN_DT,
+        CRS_INF_DDLN_YN
+    ) VALUES (
+        #{crsInfId},
+        TO_DATE(#{crsInfStDt}, 'YYYY-MM-DD HH24:MI:SS'),
+        TO_DATE(#{crsInfEndDt}, 'YYYY-MM-DD HH24:MI:SS'),
+        #{crsInfNm},
+        #{crsInfCrsRoomNm},
+        #{crsInfPrsCnt},
+        SYSDATE,
+        'N',
+        TO_DATE(#{crsInfAppDt}, 'YYYY-MM-DD HH24:MI:SS'),
+        TO_DATE(#{crsInfDdlnDt}, 'YYYY-MM-DD HH24:MI:SS'),
+        'N'
+    )
+    </insert>
+    
+    <select id="countCourseName" resultType="int" parameterType="string">
+	    SELECT COUNT(*) 
+	      FROM CRS_INF 
+	     WHERE CRS_INF_NM = #{crsInfNm} 
+	       AND CRS_INF_DEL_YN = 'N'
+	       AND CRS_INF_DDLN_YN = 'N'
+    </select>
+    
+    <select id="selectAllCourseForPltad" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO">
+        SELECT C.CRS_INF_ID
+			 , C.CRS_INF_NM
+			 , C.CRS_INF_ST_DT
+			 , C.CRS_INF_END_DT
+			 , C.CRS_INF_DDLN_DT
+			 , C.CRS_INF_PRS_CNT
+			 , COUNT(A.APP_HSTR_ID) AS CRS_CUR_PRS_CNT
+		  FROM CRS_INF C
+		  LEFT JOIN APP_HSTR A 
+		    ON C.CRS_INF_ID = A.CRS_INF_ID
+		  LEFT JOIN CNCL_HSTR CN 
+		    ON A.APP_HSTR_ID = CN.APP_HSTR_ID
+		 WHERE C.CRS_INF_DEL_YN = 'N'
+		   AND C.CRS_INF_DDLN_YN = 'N'
+		   AND CN.CNCL_HSTR_ID IS NULL
+		 GROUP BY C.CRS_INF_ID
+		     , C.CRS_INF_NM
+		     , C.CRS_INF_ST_DT
+		     , C.CRS_INF_END_DT
+		     , C.CRS_INF_DDLN_DT
+		     , C.CRS_INF_PRS_CNT
+		 ORDER BY C.CRS_INF_ST_DT DESC
+    </select>
+    
+    <select id="selectAllFinishedCourseForPltad" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO">
+        SELECT C.CRS_INF_ID
+             , C.CRS_INF_NM
+			 , C.CRS_INF_ST_DT
+			 , C.CRS_INF_END_DT
+		  FROM CRS_INF C
+		 WHERE C.CRS_INF_DEL_YN = 'N'
+		   AND C.CRS_INF_DDLN_YN = 'Y'
+		 GROUP BY C.CRS_INF_ID
+		     , C.CRS_INF_NM
+		     , C.CRS_INF_ST_DT
+		     , C.CRS_INF_END_DT
+		     , C.CRS_INF_PRS_CNT
+	     ORDER BY C.CRS_INF_ST_DT DESC
+    </select>
+    
+    <update id="updateOneCourse" parameterType="com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO">
+        UPDATE CRS_INF
+		   SET CRS_INF_ST_DT = TO_DATE(#{crsInfStDt}, 'YYYY-MM-DD HH24:MI:SS')
+		     , CRS_INF_END_DT = TO_DATE(#{crsInfEndDt}, 'YYYY-MM-DD HH24:MI:SS')
+		     , CRS_INF_NM = #{crsInfNm}
+		     , CRS_INF_CRS_ROOM_NM = #{crsInfCrsRoomNm}
+		     , CRS_INF_PRS_CNT = #{crsInfPrsCnt}
+		     , CRS_INF_RGST_DT = SYSDATE
+		     , CRS_INF_UPDT_DT = SYSDATE
+		     , CRS_INF_DEL_YN = 'N'
+		     , CRS_INF_APP_DT = TO_DATE(#{crsInfAppDt}, 'YYYY-MM-DD HH24:MI:SS')
+		     , CRS_INF_DDLN_DT = TO_DATE(#{crsInfDdlnDt}, 'YYYY-MM-DD HH24:MI:SS')
+		     , CRS_INF_DDLN_YN = 'N'
+		WHERE CRS_INF_ID = #{crsInfId}
+    </update>
+    
+    <select id="selectAllInfoFromOneCourse" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO" parameterType="string">
+        SELECT *
+		  FROM CRS_INF
+		 WHERE CRS_INF_ID = #{crsInfId}
+    </select>
+    
+    <update id="deleteOneCourse" parameterType="string">
+        UPDATE CRS_INF
+		   SET CRS_INF_DEL_YN = 'Y'
+		     , CRS_INF_DEL_DT = SYSDATE
+		 WHERE CRS_INF_ID = #{crsInfId}
+    </update>
+    
+    <select id="selectAvailableCourses" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO">
+        SELECT *
+		  FROM CRS_INF
+		 WHERE SYSDATE BETWEEN CRS_INF_ST_DT AND CRS_INF_END_DT
+		   AND CRS_INF_DEL_YN = 'N'
+		   AND CRS_INF_DDLN_YN = 'N'
+    </select>
+</mapper>

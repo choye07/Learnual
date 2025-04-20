@@ -22,6 +22,7 @@ import com.learn.bbs.usr.vo.UsrLoginRequestVO;
 import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
+import com.learn.exceptions.UsrRegistException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -41,11 +42,11 @@ public class UsrController {
     		BindingResult bindingResult,
     		Model model
 		) {
-    	
+		
     	// TODO 파라미터 유효성 검사.
     	if(bindingResult.hasErrors()) {
     		model.addAttribute("userInputRegist", usrRegistRequestVO);
-    		return "member/memberregist";	
+    		return "main/mainregist";	
     	}
 
     	// 비밀번호화 비밀번호 재입력이 같은지 확인. (유효값만으론 비교를 못하기 때문에 별도 체크)
@@ -61,13 +62,12 @@ public class UsrController {
     	try {
     		this.usrService.createNewUsr(usrRegistRequestVO);
     	}
-    	catch (IllegalArgumentException iae) { 
-    		// 이미 존재하는 이메일
-    		model.addAttribute("emailErrorMessage", iae.getMessage());
-    		model.addAttribute("userInputRegist", usrRegistRequestVO);
-    		return "member/memberregist";
-		}
-    	return "redirect:/member/login"; // 페이지 바뀔 예정.	
+    	catch (UsrRegistException iae) {
+    	    model.addAttribute("emailErrorMessage", iae.getMessage());
+    	    model.addAttribute("userInputRegist", usrRegistRequestVO);
+    	    return "main/mainregist";
+    	}
+    	return "redirect:/"; // 페이지 바뀔 예정.	
     } 
 	
     @ResponseBody 
@@ -88,12 +88,12 @@ public class UsrController {
     	return "/main/mainlogin";
     }
     
-    
-    @PostMapping("/usr/login")
+    // 사용자가 로그인 정보 입력 후 성공할 경우 / 화면으로 간다. 
+    @PostMapping("/login")
     public String doLogin(
     		@Valid @ModelAttribute UsrLoginRequestVO usrLoginRequestVO,
 			BindingResult bindingResult,
-			//@RequestParam String nextUrl, // -> 어떻게 쓰일지 미정이라 주석 처리함.
+			@RequestParam String nextUrl, // -> 어떻게 쓰일지 미정이라 주석 처리함.
 			Model model,
 			HttpSession session,
 			HttpServletRequest request) {
@@ -101,10 +101,9 @@ public class UsrController {
 		// 사용자의 IP 를 가져올 때 HttpServeltRequest 가 사용.
 		String userIp = request.getRemoteAddr();
 		LOGGER.debug(userIp);
-    	
     	if(bindingResult.hasErrors()) {
     		model.addAttribute("userInput", usrLoginRequestVO);
-    		return "usr/test"; // 페이지 바뀔 예정.
+    		return "/main/mainlogin";
     	}
     	
     	//try {
@@ -117,7 +116,7 @@ public class UsrController {
     		// 해당 사용자의 고유한 세션의 아이디를 브라우저에게 "Cookie" 로 보내준다.
     		session.setAttribute("__LOGIN_USER__", usrVO);
 
-    	return "/main/mainhome"; // 경로 바꿀 수도 있음.
+    	return "redirect:/";
     }
     
     
@@ -130,7 +129,7 @@ public class UsrController {
     	
     	// 세션 폐기 (로그아웃)
     	session.invalidate(); 
-    	return "/main/mainlogin";
+    	return "redirect:/";
     }
     
     @GetMapping("/usr/delete-me")

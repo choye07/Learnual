@@ -17,6 +17,10 @@
 		<jsp:include page="/WEB-INF/views/common/component/learnualheader.jsp" />
 
 		<div class="home-main">
+
+			<div>
+				<jsp:include page="/WEB-INF/views/main/mainloginstatus.jsp" />
+			</div>
 			<div class="visual">main visual</div>
 
 			<div class="contents">

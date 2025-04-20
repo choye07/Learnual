@@ -3,5 +3,38 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.insttn.dao.impl.InsttnDaoImpl">
+
+<insert id="insertNewInsttn"
+parameterType="com.learn.insttn.vo.InsttnRegistRequestVO">
+	<selectKey order="BEFORE" resultType="string" keyProperty="insttnId">
+			<!-- 아이디 값을 생성해주는 태그 -->
+			SELECT 'INSTTN-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_INSTTN_PK.NEXTVAL, 6,
+				'0')
+				FROM DUAL
+		</selectKey>
+	INSERT INTO
+	INSTTN (
+		INSTTN_ID,
+		INSTTN_NM,
+		INSTTN_BSNS_NB,
+		INSTTN_CEO_NM,
+		INSTTN_ADRS,
+		INSTTN_PN,
+		INSTTN_RGST_DT,
+		INSTTN_UPDT_DT,
+		INSTTN_DEL_DT,
+		INSTTN_DEL_YN)
+	VALUES(
+		#{insttnId},
+		#{insttnNm},
+		#{insttnBsnsNb},
+		#{insttnCeoNm},
+		#{insttnAdrs},
+		#{insttnPn},
+		SYSDATE,
+		NULL ,
+		NULL,
+		'N' )
+</insert>
     
 </mapper>
