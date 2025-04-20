@@ -1,14 +1,18 @@
 package com.learn.bbs.crs.crsinf.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.learn.bbs.crs.apphstr.vo.AppHstrVO;
+import com.learn.bbs.crs.cncl.vo.CnclCancellationRequestVO;
 import com.learn.bbs.crs.crsinf.dao.CrsInfDao;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
@@ -39,6 +43,11 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	@Override
 	public int countCourseName(String crsInfNm) {
 		return this.getSqlSession().selectOne(NAME_SPACE + "countCourseName", crsInfNm);
+	}
+	
+	@Override
+	public String selectCourseName(String crsInfId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseName", crsInfId);
 	}
 
 	@Override
@@ -71,5 +80,8 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableCourses");
 	}
 
-
+	@Override
+	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseDetail", crsInfId);
+	}
 }

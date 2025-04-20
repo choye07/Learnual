@@ -3,7 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.crs.crsinf.dao.impl.CrsInfDaoImpl">
-    <insert id="insertOneCourse" parameterType="com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO">
+
+<resultMap id="courseDetailMap" type="com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO">
+    <result property="crsInfId" column="CRS_INF_ID"/>
+    <result property="crsInfNm" column="CRS_INF_NM"/>
+    <result property="crsInfStDt" column="CRS_INF_ST_DT"/>
+    <result property="crsInfEndDt" column="CRS_INF_END_DT"/>
+    <result property="crsInfAppDt" column="CRS_INF_APP_DT"/>
+    <result property="crsInfDdlnDt" column="CRS_INF_DDLN_DT"/>
+    <result property="crsInfCrsRoomNm" column="CRS_INF_CRS_ROOM_NM"/>
+    
+    <collection property="curriculumList" ofType="com.learn.bbs.eduad.crclm.vo.CrclmSbjVO">
+        <result property="crclmId" column="CRCLM_ID" />
+        <result property="sbjNm" column="SBJ_NM"/>
+        <result property="crclmDesc" column="CRCLM_DESC"/>
+    </collection>
+</resultMap>
+
+    <insert id="insertOneCourse" parameterType="com.learn.bbs.eduad.crclm.vo.CrclmVO">
         <selectKey keyProperty="crsInfId" resultType="string" order="BEFORE">
             SELECT 'CRS_INF-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CRS_INF_PK.NEXTVAL, 6, '0') FROM DUAL
         </selectKey>
@@ -40,6 +57,14 @@
 	     WHERE CRS_INF_NM = #{crsInfNm} 
 	       AND CRS_INF_DEL_YN = 'N'
 	       AND CRS_INF_DDLN_YN = 'N'
+    </select>
+    
+    <select id="selectCourseName" resultType="string" parameterType="string">
+        SELECT CRS_INF_NM 
+          FROM CRS_INF 
+         WHERE CRS_INF_ID = #{crsInfId} 
+           AND CRS_INF_DEL_YN = 'N'
+           AND CRS_INF_DDLN_YN = 'N'
     </select>
     
     <select id="selectAllCourseForPltad" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO">
@@ -118,5 +143,24 @@
 		 WHERE SYSDATE BETWEEN CRS_INF_ST_DT AND CRS_INF_END_DT
 		   AND CRS_INF_DEL_YN = 'N'
 		   AND CRS_INF_DDLN_YN = 'N'
+    </select>
+    
+    <select id="selectCourseDetail" resultMap="courseDetailMap">
+    SELECT ci.CRS_INF_ID
+         , ci.CRS_INF_NM
+         , ci.CRS_INF_ST_DT
+         , ci.CRS_INF_END_DT
+         , ci.CRS_INF_APP_DT
+         , ci.CRS_INF_DDLN_DT
+         , ci.CRS_INF_CRS_ROOM_NM
+         , sbj.SBJ_NM
+         , crclm.CRCLM_ID
+         , crclm.CRCLM_DESC
+    FROM CRS_INF ci
+    LEFT OUTER JOIN CRCLM crclm
+      ON ci.CRS_INF_ID = crclm.CRS_INF_ID
+    LEFT JOIN SBJ sbj 
+      ON sbj.SBJ_ID = crclm.SBJ_ID
+   WHERE ci.CRS_INF_ID = #{crsInfId}
     </select>
 </mapper>

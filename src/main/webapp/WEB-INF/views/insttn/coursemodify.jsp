@@ -11,16 +11,16 @@
   <link rel="stylesheet" href="/css/common.css" type="text/css" />
   <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
-  <title>강의 수정(관리자)</title>
+  <title>강좌 수정(관리자)</title>
 </head>
 
 <body>
       <div class="course-create">
-      <h1>강의 수정</h1>
-      <form:form modelAttribute="crsInfRegistRequestVO" id="course-create-form" class="modify-form">
+      <h1>강좌 수정</h1>
+      <form:form modelAttribute="crsInfModifyRequestVO" id="course-create-form" class="modify-form">
         <input type="hidden" id="crsInfId" name="crsInfId" value="${userRegistInfo.crsInfId}" />
         <div class="title-area form-group">
-          <label for="crsInfNm">강의제목</label>
+          <label for="crsInfNm">강좌명</label>
           <input type="text" id="course-title" name="crsInfNm" value="${userRegistInfo.crsInfNm}" required />
           <form:errors path="crsInfNm" element="div" cssClass="error" />
           <c:if test="${not empty duplicateTitleError}">

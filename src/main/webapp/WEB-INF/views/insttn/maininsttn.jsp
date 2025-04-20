@@ -31,7 +31,8 @@
               <div>
                 <h2>학원 강좌 목록</h2>
                 <!-- session에서 학생일 시 /insttn/usr - a 태그 이름은 신청하기, 아닐시 /insttn/pltad - a 태그 이름은 관리하기  -->
-                <a href="/insttn/pltad">더보기</a>
+                <a href="/insttn/pltad">관리하기</a>
+                <a href="/insttn/usr">신청하기</a>
               </div>
             <div class="course-wrapper">
               <div class="course-article">

@@ -16,10 +16,10 @@
 
 <body>
       <div class="course-create">
-      <h1>강의 추가</h1>
+      <h1>강좌 추가</h1>
       <form:form modelAttribute="crsInfRegistRequestVO" id="course-create-form">
         <div class="title-area form-group">
-          <label for="crsInfNm">강의제목</label>
+          <label for="crsInfNm">강좌명</label>
           <input type="text" id="course-title" name="crsInfNm" value="${userRegistInfo.crsInfNm}" required />
           <form:errors path="crsInfNm" element="div" cssClass="error" />
           <c:if test="${not empty duplicateTitleError}">
