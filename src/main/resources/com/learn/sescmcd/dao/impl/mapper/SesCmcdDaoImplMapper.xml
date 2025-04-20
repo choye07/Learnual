@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.common.dao.impl.SesCmcdDaoImpl">
+
+	<select id="selectOneCmcd" parameterType="string"
+		resultType="string">
+
+		SELECT
+		CMCD_ID
+		FROM CM_CODE
+		WHERE CMCD_NM= #{_parameter}
+
+	</select>
+</mapper>

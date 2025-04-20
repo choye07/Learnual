@@ -6,6 +6,6 @@ package com.learn.bbs.pltad.instr.service;
  * @TableComment null
  * 강사 이력
  */
-public interface PrattService {
+public interface InstrPrattService {
 
 }

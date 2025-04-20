@@ -80,13 +80,24 @@ public class GlobalExceptionHandler {
 		return "error/404";
 	}
 	
-	@ExceptionHandler(AppHstrInsertException.class)
-	public String viewAppHstrInsertExceptionPage(AppHstrInsertException ahie) {
-		return "error/404";
+	/**
+	 * 플랫폼 관리자 등록 Exception
+	 * @param plre
+	 * @return
+	 */
+	@ExceptionHandler(PltadRegistException.class)
+	public String viewPltadRegistExceptionPage(PltadRegistException plre , Model model) {
+		return"error/404";
 	}
 	
-	@ExceptionHandler(CnclHstrInsertException.class)
-	public String viewCnclHstrInsertExceptionPage(CnclHstrInsertException chie) {
+	/**
+	 * 강사(학습 관리자) 등록 Exception
+	 * @param ire
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(InstrRegistException.class)
+	public String viewInstrRegistExceptionPage(InstrRegistException ire, Model model) {
 		return "error/404";
 	}
 	

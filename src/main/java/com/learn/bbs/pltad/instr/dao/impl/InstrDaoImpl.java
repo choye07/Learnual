@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.pltad.instr.dao.InstrDao;
+import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
 
 
 /**
@@ -23,6 +24,12 @@ public class InstrDaoImpl extends SqlSessionDaoSupport implements InstrDao {
     public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
         super.setSqlSessionTemplate(sqlSessionTemplate);
     }
+
+	@Override
+	public int insertNewInstr(InstrRegistRequestVO instrRegistRequestVO) {
+		return this.getSqlSession().insert(NAME_SPACE+"insertNewInstr",instrRegistRequestVO);
+	}
+
 
 
 }
