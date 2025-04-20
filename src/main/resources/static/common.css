@@ -288,13 +288,8 @@ label {
 
           > div {
             padding: 1.25rem 0.625rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
 
             &.board-list-title {
-              display: flex;
-              justify-content: flex-start;
               text-align: left;
             }
           }
@@ -367,6 +362,83 @@ label {
     }
   }
 }
+
+/* usr 게시판 ui색 변경 css */
+.board.student {
+  .board-header {
+    .board-toolbox {
+      a {
+        background-color: var(--student-color);
+        &:hover {
+          background-color: var(--student-medium-color);
+        }
+      }
+    }
+  }
+
+  label {
+    color: var(--student-color);
+  }
+
+  .board-header {
+    border-bottom: 3px solid var(--student-color);
+  }
+
+  button {
+    background-color: var(--student-color) !important;
+  }
+}
+
+/* eduad 게시판 ui색 변경 css */
+.board.tutor {
+  .board-header {
+    .board-toolbox {
+      a {
+        background-color: var(--tutor-color);
+        &:hover {
+          background-color: var(--tutor-medium-color);
+        }
+      }
+    }
+  }
+
+  label {
+    color: var(--tutor-color);
+  }
+  .board-header {
+    border-bottom: 3px solid var(--tutor-color);
+  }
+
+  button {
+    background-color: var(--tutor-color) !important;
+  }
+}
+
+/* pltad 게시판 ui색 변경 css */
+.board.pltad {
+  .board-header {
+    .board-toolbox {
+      a {
+        background-color: var(--manager-color);
+        &:hover {
+          background-color: var(--manager-medium-color);
+        }
+      }
+    }
+  }
+
+  label {
+    color: var(--manager-color);
+  }
+  .board-header {
+    border-bottom: 3px solid var(--manager-color);
+  }
+
+  button {
+    background-color: var(--manager-color) !important;
+  }
+}
+
 /* 게시판 공통 css end */
 /* ==================================== */
 /* 게시판 custom css start */
@@ -486,55 +558,8 @@ label {
   }
 }
 
-/* 시험 게시판 전체보기 학생 뷰 css */
-.board.tst-board.student {
-  .board-header {
-    .board-toolbox {
-      a {
-        background-color: var(--student-color);
-      }
-    }
-  }
+/* 0417 성연 파트 end */
 
-  label {
-    color: var(--student-color);
-  }
-
-  .board-header {
-    border-bottom: 3px solid var(--student-color);
-  }
-
-  button {
-    background-color: var(--student-color);
-  }
-}
-
-/* 시험 게시판 전체보기 학습관리자 뷰 css */
-.board.tst-board.tutor {
-  .board-header {
-    .board-toolbox {
-      a {
-        background-color: var(--tutor-color);
-      }
-    }
-  }
-
-  label {
-    color: var(--tutor-color);
-  }
-  .board-header {
-    border-bottom: 3px solid var(--tutor-color);
-  }
-
-  button {
-    background-color: var(--tutor-color);
-  }
-}
-
-/* 0417성연 파트 end */
-
-/* ----------------------------------- */
-/* 0418휘원 css 수정 시작 */
 /* 메인 공지사항 custom css */
 .board.learnual-notice {
   .board-body {
@@ -545,25 +570,127 @@ label {
       }
     }
   }
-  
-  /* form:form error css */
-  #learnual-notice-form {
-    .writer-area {
-    	input {
-    		pointer-events: none;
-            border: 0;
-    	}
+}
+
+/* ---------------------------------- */
+/* 0419 유진 파트 */
+/* 자료실 게시판 custom css */
+.board.flarch-write-board {
+  /* 자료실 게시판 form */
+  .flarch-write-form {
+    .form-group {
+      &.file-area {
+        /* border: 1px solid blue; */
+        .file-container {
+          /* border: 1px solid red; */
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+          .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            /* border: 1px solid green; */
+            > .btn-file-remove {
+              background-color: #aaa;
+              padding: 0.5rem 0.8rem;
+
+              &:hover {
+                background-color: #ccc;
+              }
+            }
+          }
+        }
+      }
     }
-  	.error {
-  		color: #f00;
-  		font-size: 0.8rem;
-  	}
   }
 }
 
+/* 이력서 게시판 custom css */
+.board.rsm-board {
+  .board-body {
+    /* 이력서 게시판 목록보기 css start */
+    .board-list-top {
+      grid-template-columns: 3fr 2fr;
+    }
 
-/* 0418휘원 css 수정 끝 */
-/* ----------------------------------- */
+    .board-list-wrapper {
+      > li {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+
+        > div {
+          &.rsm-content-area {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            justify-content: center;
+
+            .rsm-content-time {
+              font-size: 0.8rem;
+              color: #ccc;
+            }
+          }
+
+          &.rsm-manage-area {
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            > a {
+              display: inline-block;
+              font-size: 0.85rem;
+              color: #eee;
+              background: var(--student-color);
+              border-radius: 0.625rem;
+              padding: 0.5rem 0.8rem;
+              width: 5rem;
+
+              &:hover {
+                background: var(--student-medium-color);
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+    /* 이력서 게시판 목록보기 css end */
+  }
+}
+
+/* 이력서 게시판 작성,수정 css start */
+.board.rsm-board.write,
+.board.rsm-board.edit {
+  .board-body {
+    .board-wrapper {
+      #rsm-form {
+        .form-group {
+          label {
+            width: 8rem;
+          }
+
+          /* 작성자는 세션으로 받아오기 때문에 input 수정 불가 적용 */
+          &.writer-area {
+            input {
+              pointer-events: none;
+              border: 0;
+            }
+          }
+        }
+
+        .btn-area {
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+}
+/* 이력서 게시판 작성,수정 css end */
+
+/* ---------------------------------- */
 
 /* 게시판 custom css end */
 /* ================================== */
@@ -629,12 +756,12 @@ label {
 }
 
 .course-create .each-checkbox {
-	margin: 0 2rem 2rem 0;
+  margin: 0 2rem 2rem 0;
 }
 
 .course-create .error {
-	font-size: 0.785rem;
-    color: red;
+  font-size: 0.785rem;
+  color: red;
 }
 
 /* ================================== */
@@ -778,6 +905,247 @@ label {
     }
   }
 }
+/* ==================================== */
+/* 대시보드 오른쪽 위젯 공통 css */
+.right-widget {
+  background: #fff;
+  border-radius: 0.625rem;
+  box-shadow: 0px 2px 5px #3333;
+  padding: 1rem;
+}
+/* ------------------------------------ */
+/*  출석현황 강사 right-widget */
+.right-widget.attd-status-widget {
+  .widget-wrapper {
+    h2 {
+      padding-bottom: 0.625rem;
+      border-bottom: 3px solid var(--tutor-color);
+    }
+
+    .attd-status-data {
+      display: flex;
+      gap: 0.625rem;
+      justify-content: center;
+      > div {
+        width: 33.33%;
+        text-align: center;
+        > p {
+          font-size: 0.8rem;
+        }
+        > span {
+          font-size: 1.8rem;
+          font-weight: 800;
+          color: var(--tutor-medium-color);
+        }
+      }
+    }
+
+    .btn-area {
+      button {
+        width: 100%;
+        background-color: var(--tutor-color);
+
+        &:hover {
+          background-color: var(--tutor-medium-color);
+        }
+      }
+    }
+  }
+}
+/* ------------------------------------ */
+/*  todo 강사 right-widget */
+.right-widget.todo {
+  padding: 1rem;
+  background-color: #fff;
+  color: var(--tutor-color);
+
+  .widget-wrapper {
+    padding: 0.5rem 0.5rem 3rem 0.5rem;
+    background-color: #eee;
+    border-radius: 0.625rem;
+    position: relative;
+
+    .todo-contents {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: #fff;
+      border-radius: 0.325rem;
+      padding: 1rem;
+
+      .todo-date {
+        display: flex;
+        justify-content: space-between;
+
+        .todo-date1 {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          > div {
+            .todo-date1-date {
+              font-size: 2rem;
+              font-weight: 700;
+            }
+
+            .todo-date1-month {
+              text-align: right;
+              font-size: 0.8rem;
+              font-weight: 700;
+            }
+
+            .todo-date1-year {
+              font-size: 0.8rem;
+              color: #aaa;
+            }
+          }
+        }
+
+        .todo-date2 {
+          display: flex;
+          align-items: center;
+          .todo-date2-day {
+            font-size: 0.8rem;
+            font-weight: 700;
+          }
+        }
+      }
+
+      /* 엑셀에서 불러온 정보 로딩 영역 */
+      .today-course {
+        p {
+          font-size: 0.8rem;
+          margin-bottom: 0.325rem;
+          color: #ccc;
+        }
+        .today-data {
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+      }
+
+      /* 엑셀에서 불러온 정보 로딩 영역 */
+      .todo-custom {
+        p {
+          font-size: 0.8rem;
+          margin-bottom: 0.325rem;
+          color: #ccc;
+        }
+        /* 강사가 추가한 todo list 목록 */
+        .todo-item-wrapper {
+          .todo-item {
+            padding: 0.325rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.625rem;
+            cursor: pointer;
+
+            &:hover {
+              background-color: var(--tutor-light-color);
+            }
+
+            /* todo-item을 클릭한 경우 
+            .done class부여할 때 css */
+            &.done {
+              background-color: #efefef;
+              color: #ccc;
+              text-decoration: line-through;
+            }
+
+            /* + 버튼 클릭 시 보임 */
+            .todo-item-manage {
+              visibility: hidden;
+              display: flex;
+
+              &.on {
+                visibility: visible;
+              }
+
+              a {
+                display: block;
+                font-size: 0;
+                width: 1.3rem;
+                height: 1.3rem;
+              }
+
+              .btn-done {
+                a {
+                  background: url("/asset/icon/check.svg") no-repeat
+                    center/contain;
+
+                  &:hover {
+                    background-color: var(--student-medium-color);
+                  }
+                }
+              }
+
+              .btn-todo-delete {
+                a {
+                  background: url("/asset/icon/delete.svg") no-repeat
+                    center/contain;
+
+                  &:hover {
+                    background-color: #ff9c9c;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /* todo widget 하단 부 수정 버튼 */
+    .btn-todo-edit {
+      position: absolute;
+      width: 3rem;
+      height: 3rem;
+      bottom: 0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+
+      a {
+        background-color: var(--tutor-light-color);
+        border-radius: 50%;
+        font-size: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        padding-bottom: 0.1875rem;
+        box-shadow: 0px 3px 3px #3333;
+
+        &:hover {
+          background-color: var(--tutor-medium-color);
+        }
+      }
+    }
+
+    /* 숨겨져 있다가 btn-todo-edit클릭 시
+    나타나는 영역 */
+    .todo-edit-area {
+      display: none;
+      border: 1px solid #eee;
+      margin: 1rem 0;
+      padding: 0.625rem;
+
+      .custom-todo-input {
+        width: 100%;
+        margin-bottom: 0.625rem;
+      }
+
+      button {
+        width: 100%;
+        background-color: var(--tutor-medium-color);
+        padding: 0.3rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
 /* ==================================== */
 /* 검색 결과 ul 공통 css start */
 .list-wrapper {
@@ -1000,6 +1368,7 @@ label {
 }
 /* ==================================== */
 /* 학원페이지 내 관리자 전용 버튼 박스 */
+/* *추후 수정 필요 */
 .manager-toolbox {
   /* display: none; */
   > div {
@@ -1045,35 +1414,10 @@ label {
     a {
       display: block;
       padding: 0.625rem;
-      background-color: var(--manager-color);
       color: #fff;
-
-      &:hover {
-        background-color: #2f6ac0;
-      }
-    }
-
-    }
-
-    /* 학습관리자(강사) 전용 버튼 박스 */
-    &.board-tutor-toolbox {
-      > div {
-        a {
-          background-color: var(--tutor-color);
-
-          &:hover {
-            background-color: #a89bea;
-          }
-        }
-      }
-    }
-
-    /* 관리자 전용 버튼 박스 */
-    &.board-manager-toolbox {
-      /* display: none; */
     }
   }
-
+}
 /* ==================================== */
 /* footer 공통 css */
 .footer {
@@ -1439,16 +1783,6 @@ label {
 
       .notice {
         width: 52%;
-        
-        .article-content {
-        	.empty-notice-list {
-        		display: flex;
-        		justify-content: center;
-        		align-items: center;
-        		padding: 5rem 0;
-        		color: #ccc;
-        	}
-        }
       }
 
       .search {
@@ -1456,7 +1790,6 @@ label {
         background: #fff;
         border-radius: 0.625rem;
         box-shadow: 0px 2px 5px #3333;
-        padding: 2rem 0;
 
         .search-inactive {
           height: 100%;
@@ -2101,7 +2434,6 @@ label {
       }
 
       .dashboard-col3 {
-        border: 1px solid green;
         width: 24%;
         gap: 1.25rem;
       }
@@ -2269,16 +2601,16 @@ label {
         flex-direction: row;
         gap: 1.25rem;
         height: 100%;
-        
+
         .article-content {
-            li {
-                padding: 1rem;
-                h3 {
-                font-size: 1.0rem;
-                }
+          li {
+            padding: 1rem;
+            h3 {
+              font-size: 1rem;
             }
+          }
         }
-    /* ------------------------------------------- */
+        /* ------------------------------------------- */
         > div:nth-child(1) {
           width: 60%;
         }
@@ -2297,9 +2629,9 @@ label {
         }
       }
     }
-   /* 학원 -> 강 페이지 main-wrapper */
-   /* 2025-04-19 강준식 수정 */
-   /* ------------------------------------------- */
+    /* 학원 -> 강 페이지 main-wrapper */
+    /* 2025-04-19 강준식 수정 */
+    /* ------------------------------------------- */
     .main-wrapper.course-main {
       flex-direction: column;
       gap: 0;
@@ -2310,15 +2642,15 @@ label {
         flex-direction: row;
         gap: 1.25rem;
         height: 100%;
-        
+
         .article-content {
-            li {
-                padding: 1rem;
-                min-width: 40rem; /* 이거 맞나 */
-                h3 {
-                font-size: 1.0rem;
-                }
+          li {
+            padding: 1rem;
+            min-width: 40rem; /* 이거 맞나 */
+            h3 {
+              font-size: 1rem;
             }
+          }
         }
         /*
         > div:nth-child(1) {

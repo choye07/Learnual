@@ -28,8 +28,9 @@
 						<h1>러뉴얼 공지사항 수정</h1>
 					</div>
 
-					<form:form modelAttribute="ntcWriteRequestVO"
+					<form:form modelAttribute="ntcUpdateRequestVO"
 						id="learnual-notice-form">
+						<input type="hidden" name="ntcId" value="${toModifyNtcVO.ntcId}" />
 						<div class="writer-area form-group">
 							<label for="writer">작성자</label> <input type="text" id="writer"
 								name="writer" value="작성자" required />
