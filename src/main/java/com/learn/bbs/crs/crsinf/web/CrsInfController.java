@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.learn.bbs.crs.apphstr.vo.AppHstrVO;
 import com.learn.bbs.crs.crsinf.service.CrsInfService;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
@@ -74,6 +75,45 @@ public class CrsInfController {
 
         return "/insttn/maininsttn";
     }
+    
+    @GetMapping("/insttn/usr")
+    public String showAvailableCoursesForUser(Model model) {
+        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfService.selectAvailableCourses();
+
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        for (CrsInfAvailableReadResponseVO course : availableCourses) {
+            LocalDate availableDate = LocalDate.parse(course.getCrsInfDdlnDt().substring(0, 10), formatter);
+            course.setAvailableToday(availableDate.isEqual(today));
+        }
+
+        model.addAttribute("availableCourses", availableCourses);
+
+        return "/insttn/courseregist";
+    }
+    
+    @GetMapping("/insttn/usr/detail/{crsInfId}")
+    public String showAllAvailableForUser(@PathVariable String crsInfId,
+    									  Model model) {
+    	String usrId = "USR_20250419_000002"; // 로그인된 유저의 ID <- 여기서 session 사용하시면 될듯!
+    	
+        boolean showCancelButton = crsInfService.isAppliedOrCancelled(crsInfId, usrId);
+        
+        model.addAttribute("showCancelButton", showCancelButton);
+        
+    	model.addAttribute("courseDetail", this.crsInfService.selectCourseDetail(crsInfId));
+    	
+    	return "/insttn/coursedetail";
+    }
+    
+    @GetMapping("/insttn/pltad/detail/{crsInfId}")
+    public String showAllAvailableForPltAd(@PathVariable String crsInfId,
+    									   Model model) {
+    	model.addAttribute("courseDetail", this.crsInfService.selectCourseDetail(crsInfId));
+    	
+		return "/insttn/coursedetail";
+}
     
     @PostMapping("/insttn/pltad/create")
     public String registerCourse(@Valid CrsInfRegistRequestVO crsInfRegistRequestVO,
@@ -218,13 +258,17 @@ public class CrsInfController {
 			return "/insttn/coursemodify";
 		}
 		
-		if (this.crsInfService.countCourseName(crsInfModifyRequestVO.getCrsInfNm())) {
-		model.addAttribute("duplicateTitleError", "이미 등록된 강좌 이름입니다. 다른 이름을 입력해주세요.");
-		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
-		model.addAttribute("subjectList", subjectList);
-		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
-		
-		return "/insttn/coursemodify";
+		String newName = crsInfModifyRequestVO.getCrsInfNm();
+		String currentName = crsInfService.selectCourseName(crsInfModifyRequestVO.getCrsInfId());
+
+		// 동일한 강좌 이름이 존재하나, 그것이 현재의 강좌 이름이 아닐 경우 중복
+		if (crsInfService.countCourseName(newName) && !newName.equals(currentName)) {
+		    model.addAttribute("duplicateTitleError", "이미 등록된 강좌 이름입니다. 다른 이름을 입력해주세요.");
+		    model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		    model.addAttribute("subjectList", subjectList);
+		    model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
+
+		    return "/insttn/coursemodify";
 		}
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");

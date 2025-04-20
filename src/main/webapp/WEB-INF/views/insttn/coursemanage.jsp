@@ -47,7 +47,7 @@
                 <ul class="article-content">
 				  <c:forEach var="activeCourse" items="${activeCourses}">
 				    <li>
-				        <h3>${activeCourse.crsInfNm}</h3>
+				        <a href="/insttn/pltad/detail/${activeCourse.crsInfId}"><h3>${activeCourse.crsInfNm}</h3></a>
 				        <p class="period">
 				          <span>${activeCourse.crsInfStDt}</span> ~ <span>${activeCourse.crsInfEndDt}</span>
 				        </p>

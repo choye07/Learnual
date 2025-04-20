@@ -58,9 +58,14 @@ public class LearnualMainController {
 //	}
 
 	// 학생의 강좌 신청 페이지
-	@GetMapping("/insttn/usr")
-	public String goRegistCourse() {
-		return "insttn/courseregist";
+//	@GetMapping("/insttn/usr")
+//	public String goRegistCourse() {
+//		return "insttn/courseregist";
+//	}
+	
+	@GetMapping("/insttn/usr/detail")
+	public String goCourseDetail() {
+		return "insttn/coursedetail";
 	}
 
 //	@GetMapping("/insttn/pltad")

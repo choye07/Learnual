@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.learn.bbs.crs.apphstr.dao.AppHstrDao;
+import com.learn.bbs.crs.cncl.dao.CnclHstrDao;
+import com.learn.bbs.crs.cncl.vo.CnclCancellationRequestVO;
 import com.learn.bbs.crs.crsinf.dao.CrsInfDao;
 import com.learn.bbs.crs.crsinf.service.CrsInfService;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
@@ -31,6 +35,10 @@ public class CrsInfServiceImpl implements CrsInfService {
     private CrsInfDao crsInfDao;
     @Autowired
     private CrsSbjDao crsSbjDao;
+    @Autowired
+    private AppHstrDao appHstrDao;
+    @Autowired
+    private CnclHstrDao cnclHstrDao;
 
     @Transactional
     @Override
@@ -40,7 +48,7 @@ public class CrsInfServiceImpl implements CrsInfService {
         
         // 강좌 정보 DB 저장 실패 시 예외 처리
         if (isInsertedCourse == 0) {
-            throw new CrsInfRegistException();
+            throw new CrsInfRegistException(crsInfRegistRequestVO.getCrsInfId());
         }
 
         String crsInfId = crsInfRegistRequestVO.getCrsInfId();
@@ -59,10 +67,16 @@ public class CrsInfServiceImpl implements CrsInfService {
         return isInsertedCourse > 0;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
 	@Override
 	public boolean countCourseName(String crsInfNm) {
 		return this.crsInfDao.countCourseName(crsInfNm) > 0;
+	}
+    
+    @Transactional(readOnly = true)
+	@Override
+	public String selectCourseName(String crsInfId) {
+		return this.crsInfDao.selectCourseName(crsInfId);
 	}
 
     @Transactional(readOnly = true)
@@ -86,7 +100,7 @@ public class CrsInfServiceImpl implements CrsInfService {
         
         // 강좌 정보 DB 저장 실패 시 예외 처리
         if (isUpdatedCourse == 0) {
-            throw new CrsInfUpdateException();
+            throw new CrsInfUpdateException(crsInfModifyRequestVO.getCrsInfId());
         }
 
         String crsInfId = crsInfModifyRequestVO.getCrsInfId();
@@ -128,14 +142,36 @@ public class CrsInfServiceImpl implements CrsInfService {
 		int isUpdated = this.crsInfDao.deleteOneCourse(crsInfId);
 		
 		if(isUpdated == 0) {
-			throw new CrsInfDeleteException();
+			throw new CrsInfDeleteException(crsInfId);
 		}
 		
 		return isUpdated > 0;
 	}
 
+    @Transactional
 	@Override
 	public List<CrsInfAvailableReadResponseVO> selectAvailableCourses() {
 		return this.crsInfDao.selectAvailableCourses();
 	}
+
+    @Transactional(readOnly = true)
+	@Override
+	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId) {
+    	return this.crsInfDao.selectCourseDetail(crsInfId);
+	}
+
+    @Transactional(readOnly = true)
+    public boolean isAppliedOrCancelled(String crsInfId, String usrId) {
+        // 신청 내역 ID 조회
+        String appHstrId = this.appHstrDao.findAppHstrId(crsInfId, usrId);
+
+        if (appHstrId == null) {
+            // 신청 안 했으면 -> 신청 버튼 보여줌
+            return false;
+        }
+
+        // 신청은 했고, 취소 안 했으면 -> 신청 취소 버튼 보여줌
+        boolean isCancelled = this.cnclHstrDao.existsCancelledAppHstr(appHstrId);
+        return !isCancelled;
+    }
 }

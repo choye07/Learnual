@@ -3,5 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.crs.cncl.dao.impl.CnclHstrDaoImpl">
+    <insert id="insertCancelledAppHstr" parameterType="com.learn.bbs.crs.cncl.vo.CnclCancellationRequestVO">
+    <selectKey keyProperty="cnclHstrId" resultType="string" order="BEFORE">
+        SELECT 'CNCL_HSTR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CNCL_HSTR_PK.NEXTVAL, 6, '0') FROM DUAL
+    </selectKey>
+    INSERT INTO CNCL_HSTR (
+        CNCL_HSTR_ID,
+        CNCL_HSTR_RGST_DT,
+        APP_HSTR_ID
+    ) VALUES (
+        #{cnclHstrId},
+        SYSDATE,
+        #{appHstrId}
+    )
+    </insert>
     
+    <select id="existsCancelledAppHstr" resultType="boolean">
+        SELECT CASE 
+                 WHEN COUNT(*) > 0 THEN 1 
+                 ELSE 0 
+               END AS result
+          FROM CNCL_HSTR
+         WHERE APP_HSTR_ID = #{appHstrId}
+    </select>
 </mapper>

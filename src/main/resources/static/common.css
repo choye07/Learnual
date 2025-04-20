@@ -1414,6 +1414,8 @@ label {
     a {
       display: block;
       padding: 0.625rem;
+      /* 2025-04-20 강준식 btn 배경색 추가 */
+      background-color: var(--manager-color);
       color: #fff;
     }
   }
@@ -2589,6 +2591,7 @@ label {
     /* 학원 -> 강좌 관리 페이지 main-wrapper */
     /* 관리자 전용 */
     /* 2025-04-18 강준식 수정 */
+    /* 2025-04-20 강준식 수정 */
     /* ------------------------------------------- */
     .main-wrapper.course-manage {
       padding-top: 2.5rem;
@@ -2601,16 +2604,19 @@ label {
         flex-direction: row;
         gap: 1.25rem;
         height: 100%;
-
-        .article-content {
-          li {
-            padding: 1rem;
-            h3 {
-              font-size: 1rem;
-            }
-          }
+        a{
+            padding: 0;
         }
-        /* ------------------------------------------- */
+        
+        .article-content {
+            li {
+                padding: 1rem;
+                h3 {
+                font-size: 1.0rem;
+                }
+            }
+        }
+    /* ------------------------------------------- */
         > div:nth-child(1) {
           width: 60%;
         }
@@ -2629,8 +2635,9 @@ label {
         }
       }
     }
-    /* 학원 -> 강 페이지 main-wrapper */
+    /* 학원 -> 강좌 페이지 main-wrapper */
     /* 2025-04-19 강준식 수정 */
+    /* 2025-04-20 강준식 수정 */
     /* ------------------------------------------- */
     .main-wrapper.course-main {
       flex-direction: column;
@@ -2642,56 +2649,53 @@ label {
         flex-direction: row;
         gap: 1.25rem;
         height: 100%;
-
+        
         .article-content {
-          li {
-            padding: 1rem;
-            min-width: 40rem; /* 이거 맞나 */
-            h3 {
-              font-size: 1rem;
+            li {
+                padding: 1rem;
+                h3 {
+                font-size: 1.0rem;
+                }
             }
-          }
         }
-        /*
-        > div:nth-child(1) {
-          width: 60%;
-        }
-
-        > div:nth-child(2) {
-          width: 40%;
-        }
-        */
-
-        /*
-        .article-direct {
-          gap: 0;
-          border-radius: 0;
-          overflow: visible;
-          a {
-            padding: 0.625rem;
-          }
-        }
-        */
       }
     }
     /* ------------------------------------------- */
 
     /* 학원 -> 강좌 신청 페이지 main-wrapper */
     /* 사용자 전용 */
+    /* 2025-04-19 강준식 수정 */
+    /* ------------------------------------------- */
     .main-wrapper.course-regist {
       padding-top: 2.5rem;
       min-height: calc(100vh - 20rem);
 
       .course-wrapper {
         height: 100%;
+        a {
+            padding: 0;
+        }
+        
+        .article-content {
+            li {
+                padding: 1rem;
+                h3 {
+                font-size: 1.0rem;
+                }
+            }
+        }
       }
     }
+    /* ------------------------------------------- */
 
     /* 학원 -> 강좌 상세 페이지 main-wrapper */
+   /* 2025-04-19 강준식 수정 */
+    /* 2025-04-20 강준식 수정 */
+    /* ------------------------------------------- */
     .main-wrapper.course-detail {
-      padding: 4rem 0;
+      padding: 1.5rem 0;
       gap: 0;
-
+    
       h1 {
         margin: 2rem 0;
       }
@@ -2721,6 +2725,24 @@ label {
           }
         }
       }
+      
+      .button-wrapper {
+          display: flex;
+          justify-content: center;
+          gap: 1.5rem;
+          
+          a {
+            display: block;
+            padding: 0.625rem;
+            background-color: var(--manager-color);
+            color: #fff;
+            
+            &:hover {
+                background-color: #2f6ac0;
+            }
+          }
+      }
+/* ------------------------------------------- */
     }
   }
 

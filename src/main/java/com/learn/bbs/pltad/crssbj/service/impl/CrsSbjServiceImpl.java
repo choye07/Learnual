@@ -31,7 +31,7 @@ public class CrsSbjServiceImpl implements CrsSbjService {
     	
     	// db 저장 실패; throw error
 		if(isInserted == 0) {
-			throw new CrsSbjRegistException();
+			throw new CrsSbjRegistException(crsSbjRegistRequestVO.getCrsInfId());
 		}
 		
 		// db 저장 성공
@@ -44,7 +44,7 @@ public class CrsSbjServiceImpl implements CrsSbjService {
     	
     	// db 삭제 실패; throw error
 		if(isDeleted == 0) {
-			throw new CrsSbjDeleteException();
+			throw new CrsSbjDeleteException(crsInfId);
 		}
 		
 		// db 삭제 성공
