@@ -3,5 +3,66 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.pltad.dao.impl.PltAdDaoImpl">
-    
+
+	<insert id="insertNewPltad"
+		parameterType="com.learn.bbs.pltad.vo.PltadRegistRequestVO">
+		<selectKey order="BEFORE" resultType="string"
+			keyProperty="pltadmId">
+			<!-- 아이디 값을 생성해주는 태그 -->
+			SELECT 'PL-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' ||
+			LPAD(SEQ_PLTAD_PK.NEXTVAL, 6, '0') FROM DUAL
+		</selectKey>
+		INSERT INTO PLTADM (
+			PLTADM_ID,
+			PLTADM_LGN_ID,
+			PLTADM_LGN_PW,
+			PLTADM_NM,
+			PLTADM_PN,
+			PLTADM_EMAIL,
+			PLTADM_BRT_DT,
+			PLTADM_ADRS,
+			PLTADM_RGST_DT,
+			PLTADM_UPDT_DT,
+			PLTADM_DEL_DT,
+			PLTADM_DEL_YN,
+			INSTTN_ID,
+			CMCD_ID,
+			PLATADM_LGN_SLT,
+			PLTADM_LGN_IP,
+			PLTADM_LST_PW_MDFY_DT,
+			PLTADM_LST_LGN_DT,
+			PLTADM_LST_LGN_FAIL_DT,
+			PLTADM_LGN_FAIL_CNT,
+			PLTADM_LGN_YN,
+			PLTADM_BLK_YN
+		) VALUES (
+			#{pltadmId},
+			#{pltadmLgnId},
+			#{pltadmLgnPw},
+			#{pltadmNm},
+			#{pltadmPn},
+			#{pltadmEmail},
+			TO_DATE(#{pltadmBrtDt},'YYYY-MM-DD'),
+			#{pltadmAdrs},
+			SYSDATE
+			, NULL
+			, NULL
+			, 'N'
+			, #{insttnId}
+			, #{cmcdId}
+			, #{platadmLgnSlt}
+			, NULL
+			, NULL
+			, NULL
+			, NULL
+			, 0
+			, 'N'
+			, 'N')
+	</insert>
+	<select id="selectPltadCount" parameterType="string"
+		resultType="_int">
+		SELECT COUNT(PLTADM_LGN_ID)
+		  FROM PLTADM
+		 WHERE PLTADM_LGN_ID = #{_parameter}
+	</select>
 </mapper>

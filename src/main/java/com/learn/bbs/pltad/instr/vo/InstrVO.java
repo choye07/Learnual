@@ -3,7 +3,6 @@ package com.learn.bbs.pltad.instr.vo;
 /**
  * @TableName INSTR
  * @TableComment null
- * 강사
  */
 public class InstrVO {
 
@@ -111,6 +110,55 @@ public class InstrVO {
      * @ColumnComment 코드를 구별하는 고유한 번호(CM-YYYYMMDD-NNNNNN)
      */
     private String cmcdId;
+
+    /**
+     * @ColumnName INSTR_LGN_IP
+     * @ColumnType VARCHAR2(39)
+     * @ColumnComment 강사의 최근 접속 IP
+     */
+    private String instrLgnIp;
+
+    /**
+     * @ColumnName INSTR_LST_PW_MDFY_DT
+     * @ColumnType DATE
+     * @ColumnComment 강사의 최근 비밀번호 변경 날짜
+     */
+    private String instrLstPwMdfyDt;
+
+    /**
+     * @ColumnName INSTR_LST_LGN_DT
+     * @ColumnType DATE
+     * @ColumnComment 강사의 최근 로그인 날짜
+     */
+    private String instrLstLgnDt;
+
+    /**
+     * @ColumnName INSTR_LST_LGN_FAIL_DT
+     * @ColumnType DATE
+     * @ColumnComment 강사의 최근 로그인 실패 날짜
+     */
+    private String instrLstLgnFailDt;
+
+    /**
+     * @ColumnName INSTR_LGN_FAIL_CNT
+     * @ColumnType NUMBER(1, 0)
+     * @ColumnComment 강사가 로그인에 실패한 횟수
+     */
+    private int instrLgnFailCnt;
+
+    /**
+     * @ColumnName INSTR_LGN_YN
+     * @ColumnType CHAR(1)
+     * @ColumnComment 강사 로그인 여부
+     */
+    private String instrLgnYn;
+
+    /**
+     * @ColumnName INSTR_BLK_YN
+     * @ColumnType CHAR(1)
+     * @ColumnComment 강사 계정 잠금 여부
+     */
+    private String instrBlkYn;
 
     public String getInstrId() {
         return this.instrId;
@@ -232,8 +280,64 @@ public class InstrVO {
         this.cmcdId = cmcdId;
     }
     
+    public String getInstrLgnIp() {
+        return this.instrLgnIp;
+    }
+    
+    public void setInstrLgnIp(String instrLgnIp) {
+        this.instrLgnIp = instrLgnIp;
+    }
+    
+    public String getInstrLstPwMdfyDt() {
+        return this.instrLstPwMdfyDt;
+    }
+    
+    public void setInstrLstPwMdfyDt(String instrLstPwMdfyDt) {
+        this.instrLstPwMdfyDt = instrLstPwMdfyDt;
+    }
+    
+    public String getInstrLstLgnDt() {
+        return this.instrLstLgnDt;
+    }
+    
+    public void setInstrLstLgnDt(String instrLstLgnDt) {
+        this.instrLstLgnDt = instrLstLgnDt;
+    }
+    
+    public String getInstrLstLgnFailDt() {
+        return this.instrLstLgnFailDt;
+    }
+    
+    public void setInstrLstLgnFailDt(String instrLstLgnFailDt) {
+        this.instrLstLgnFailDt = instrLstLgnFailDt;
+    }
+    
+    public int getInstrLgnFailCnt() {
+        return this.instrLgnFailCnt;
+    }
+    
+    public void setInstrLgnFailCnt(int instrLgnFailCnt) {
+        this.instrLgnFailCnt = instrLgnFailCnt;
+    }
+    
+    public String getInstrLgnYn() {
+        return this.instrLgnYn;
+    }
+    
+    public void setInstrLgnYn(String instrLgnYn) {
+        this.instrLgnYn = instrLgnYn;
+    }
+    
+    public String getInstrBlkYn() {
+        return this.instrBlkYn;
+    }
+    
+    public void setInstrBlkYn(String instrBlkYn) {
+        this.instrBlkYn = instrBlkYn;
+    }
+    
     @Override
     public String toString() {
-        return "InstrVO(instrId: " + instrId + ", instrLgnId: " + instrLgnId + ", instrLgnPw: " + instrLgnPw + ", instrLgnSltPw: " + instrLgnSltPw + ", instrNm: " + instrNm + ", instrPn: " + instrPn + ", instrMl: " + instrMl + ", instrBrtDt: " + instrBrtDt + ", instrAdrs: " + instrAdrs + ", instrRgstDt: " + instrRgstDt + ", instrUpdtDt: " + instrUpdtDt + ", instrDelDt: " + instrDelDt + ", instrDelYn: " + instrDelYn + ", insttnId: " + insttnId + ", cmcdId: " + cmcdId + ", )";
+        return "InstrVO(instrId: " + instrId + ", instrLgnId: " + instrLgnId + ", instrLgnPw: " + instrLgnPw + ", instrLgnSltPw: " + instrLgnSltPw + ", instrNm: " + instrNm + ", instrPn: " + instrPn + ", instrMl: " + instrMl + ", instrBrtDt: " + instrBrtDt + ", instrAdrs: " + instrAdrs + ", instrRgstDt: " + instrRgstDt + ", instrUpdtDt: " + instrUpdtDt + ", instrDelDt: " + instrDelDt + ", instrDelYn: " + instrDelYn + ", insttnId: " + insttnId + ", cmcdId: " + cmcdId + ", instrLgnIp: " + instrLgnIp + ", instrLstPwMdfyDt: " + instrLstPwMdfyDt + ", instrLstLgnDt: " + instrLstLgnDt + ", instrLstLgnFailDt: " + instrLstLgnFailDt + ", instrLgnFailCnt: " + instrLgnFailCnt + ", instrLgnYn: " + instrLgnYn + ", instrBlkYn: " + instrBlkYn + ", )";
     }
 }

@@ -2,7 +2,7 @@ package com.learn.bbs.pltad.instr.web;
 
 import org.springframework.stereotype.Controller;
 
-import com.learn.bbs.pltad.instr.service.PrattService;
+import com.learn.bbs.pltad.instr.service.InstrPrattService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 강사 이력
  */
 @Controller
-public class PrattController {
+public class InsttrPrattController {
 
     @Autowired
-    private PrattService prattService;
+    private InstrPrattService prattService;
 
 }
