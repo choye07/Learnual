@@ -16,9 +16,9 @@
 <body>
 	<div class="dashboard insttn">
 		<!-- 관리자 권한이 있는 유저만 활성화 가능 -->
-		<jsp:include page="/WEB-INF/views/common/component/crssidebar.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/sidebar/crssidebar.jsp" />
 
-		<jsp:include page="/WEB-INF/views/common/component/crsheader.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/header/crsheader.jsp" />
 
 		<div class="dashboard-main insttn">
 
@@ -76,7 +76,7 @@
 			</div>
 		</div>
 
-		<jsp:include page="/WEB-INF/views/common/component/insttnfooter.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/footer/insttnfooter.jsp" />
 
 	</div>
 </body>

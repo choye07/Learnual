@@ -16,7 +16,7 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="/WEB-INF/views/common/component/learnualheader.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
 
 		<div class="regist-main">
 			<div class="regist-section1">
@@ -105,7 +105,7 @@
 			</div>
 		</div>
 
-		<jsp:include page="/WEB-INF/views/common/component/learnualfooter.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
 	</div>
 </body>
 </html>

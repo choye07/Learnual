@@ -14,40 +14,9 @@
 
 <body>
 	<div class="dashboard tutor">
-		<jsp:include page="/WEB-INF/views/common/component/eduadsidebar.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/sidebar/eduadsidebar.jsp" />
 
-		<div class="header">
-			<div class="header-top">
-				<div class="header-top-wrapper">
-					<div class="btn-menu">
-						<a href="#">menu</a>
-					</div>
-					<div class="logo">
-						<a href="/">logo</a>
-					</div>
-					<div class="btn-notification">
-						<a href="#">notification</a>
-						<div class="badge"></div>
-						<div class="notification-box">
-							<div class="notification-deco">
-								<div class="tri"></div>
-							</div>
-							<ul class="notification-content">
-								<li><a href="#"> 과제게시판 알림이 도착했습니다. </a></li>
-								<li><a href="#"> 과제게시판 알림이 도착했습니다. </a></li>
-								<li><a href="#"> 과제게시판 알림이 도착했습니다. </a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="header-bottom">
-				<div class="header-bottom-wrapper">
-					<h2>KT ds University 25기 풀스택 전문가 양성과정</h2>
-					<span>2025.01.24 ~ 2025.06.17</span>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="/WEB-INF/views/common/component/header/dashboardheadereduad.jsp" />
 
 		<div class="dashboard-main">
 			<div class="main-wrapper">

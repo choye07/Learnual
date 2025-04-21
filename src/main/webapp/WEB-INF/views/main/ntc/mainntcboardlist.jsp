@@ -13,7 +13,8 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="/WEB-INF/views/common/component/learnualheader.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
 
 		<div class="home-main">
 			<div class="visual">main visual</div>
@@ -24,15 +25,11 @@
 					<div class="board-header">
 						<h1>러뉴얼 공지사항</h1>
 						<div class="board-toolbox">
-							<div class="board-user-toolbox">
-								<div class="btn-goMain">
-									<a href="/">홈으로</a>
-								</div>
+							<div class="btn-goMain">
+								<a href="/">홈으로</a>
 							</div>
-							<div class="board-manager-toolbox">
-								<div class="btn-add-notice">
-									<a href="/ntc/write">공지글 작성</a>
-								</div>
+							<div class="btn-add-notice">
+								<a href="/ntc/write">공지글 작성</a>
 							</div>
 						</div>
 					</div>
@@ -61,15 +58,11 @@
 									</c:forEach>
 									<c:if test="${not hasVisibleNotice}">
 										<!-- 표시된 공지사항이 없을 경우 -->
-										<li class="empty-notice-list">
-											작성된 공지사항이 없습니다.
-										</li>
+										<li class="empty-notice-list">작성된 공지사항이 없습니다.</li>
 									</c:if>
 								</c:when>
 								<c:otherwise>
-									<li class="empty-notice-list">
-										작성된 공지사항이 없습니다.
-									</li>
+									<li class="empty-notice-list">작성된 공지사항이 없습니다.</li>
 								</c:otherwise>
 							</c:choose>
 						</ul>
@@ -98,7 +91,8 @@
 			</div>
 		</div>
 
-		<jsp:include page="/WEB-INF/views/common/component/learnualfooter.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
 	</div>
 
 </body>

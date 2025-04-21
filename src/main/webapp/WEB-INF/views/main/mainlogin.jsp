@@ -15,8 +15,7 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="/WEB-INF/views/common/component/learnualheader.jsp" />
-		<jsp:include page="/WEB-INF/views/common/component/learnualheader.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
 		<form:form modelAttribute="memberLoginRequestVO" class="login-form">
 
 			<input type="hidden" class="next-url" name="nextUrl" />
@@ -73,7 +72,7 @@
 				</div>
 			</div>
 		</form:form>
-		<jsp:include page="/WEB-INF/views/common/component/learnualfooter.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
 	</div>
 </body>
 </html>
