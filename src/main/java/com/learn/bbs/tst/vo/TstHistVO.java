@@ -10,6 +10,7 @@ public class TstHistVO {
 	private String tstHstrExamDt;
 	private String tstHstrDt;
 	private String tstHstrStat;
+	private String tstRspnsPth;
 
 	public String getTstHstrId() {
 		return tstHstrId;
@@ -73,6 +74,14 @@ public class TstHistVO {
 
 	public void setTstHstrStat(String tstHstrStat) {
 		this.tstHstrStat = tstHstrStat;
+	}
+
+	public String getTstRspnsPth() {
+		return tstRspnsPth;
+	}
+
+	public void setTstRspnsPth(String tstRspnsPth) {
+		this.tstRspnsPth = tstRspnsPth;
 	}
 
 }

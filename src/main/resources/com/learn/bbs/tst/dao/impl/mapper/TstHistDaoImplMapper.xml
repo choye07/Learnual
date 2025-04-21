@@ -4,217 +4,71 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.tst.dao.impl.TstHistDaoImpl">
     
-    <resultMap type="com.learn.bbs.tst.vo.TstVO" 
-    		   id="TstVOMap" 
-    		   autoMapping="true">
-    	<id column="TST_ID" property="tstId" />
-    	<association property="crsInf"
-    				 javaType="com.learn.bbs.crs.crsinf.vo.CrsInfVO"
-    				 autoMapping="true">
-			<id column="CRS_INF_ID" property="crsInfId" />
-    	</association>
-    	<association property="instr"
-    				 javaType="com.learn.bbs.pltad.instr.vo.InstrVO"
-    				 autoMapping="true">
-			<id column="INSTR_ID" property="instrId" />
-    	</association>
-    	<association property="sbj"
-    				 javaType="com.learn.bbs.crs.sbj.vo.SbjVO"
-    				 autoMapping="true">
-			<id column="SBJ_ID" property="sbjId" />
-    	</association>
-    	<association property="arct"
-    				 javaType="com.learn.bbs.pltad.artc.vo.ArtcVO"
-    				 autoMapping="true">
-			<id column="ARTC_ID" property="artcId" />
-    	</association>
-    	
-    </resultMap>
-    
-    <select id="selectAllTest" 
-    		parameterType="com.learn.bbs.tst.vo.SearchTstRequestVO"
-    		resultMap="TstVOMap">
-    	<include refid="Common.pagenator_header" />
-    	SELECT T.TST_ID
-			 , T.TST_TTL
-			 , T.TST_CTT
-			 , T.TST_EXAM_DT
-			 , T.TST_RGST_DT
-			 , T.TST_UPDT_DT
-			 , T.TST_DEL_DT
-			 , T.TST_DEL_YN
-			 , T.TST_RSPNS_PTH
-			 , T.TST_EDT_PTH
-			 , T.TST_STAT
-			 , T.USR_ID
-			 , T.CRS_INF_ID
-			 , T.ARTC_ID
-			 , A.ARTC_NM
-			 , T.SBJ_ID
-			 , S.SBJ_NM
-			 , T.TST_STR_DT
-			 , CI.CRS_INF_NM
-			 , I.INSTR_NM
-			 , I.INSTR_ID
-		  FROM CRS_SBJ CS /*강의과정*/
-		 INNER JOIN TST T /*시험*/
-		    ON CS.CRS_INF_ID = T.CRS_INF_ID
-		   AND CS.SBJ_ID = T.SBJ_ID
-		 INNER JOIN ARTC A /*게시판*/
-		    ON A.ARTC_ID = T.ARTC_ID
-		 INNER JOIN SBJ S /*과목*/
-		    ON S.SBJ_ID = T.SBJ_ID
-		 INNER JOIN CRS_INF CI /*강좌*/
-		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
-		 INNER JOIN INSTR I /*강사*/
-		    ON CI.INSTR_ID = I.INSTR_ID
-		 WHERE T.TST_DEL_YN = 'N'
-		 ORDER BY T.TST_ID DESC
-		<include refid="Common.pagenator_footer" />
-    </select>
-	
-	<select id="selectAllTestCount" 
-			parameterType="com.learn.bbs.tst.vo.SearchTstRequestVO"
-			resultType="_int">
-		SELECT COUNT(T.TST_ID)
-		  FROM CRS_SBJ CS /*강의과정*/
-		 INNER JOIN TST T /*시험*/
-		    ON CS.CRS_INF_ID = T.CRS_INF_ID
-		   AND CS.SBJ_ID = T.SBJ_ID
-		 INNER JOIN ARTC A /*게시판*/
-		    ON A.ARTC_ID = T.ARTC_ID
-		 INNER JOIN SBJ S
-		    ON S.SBJ_ID = T.SBJ_ID
-		 INNER JOIN CRS_INF CI /*강좌*/
-		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
-		 INNER JOIN INSTR I /*강사*/
-		    ON CI.INSTR_ID = I.INSTR_ID
-		 WHERE T.TST_DEL_YN = 'N'
+	<select id="selectTstHistList"
+			parameterType="string"
+			resultType="com.learn.bbs.tst.vo.TstHistVO">
+		SELECT TH.TST_HSTR_ID
+			 , TO_CHAR(TH.TST_HSTR_DT, 'YYYY-MM-DD HH24:MI:SS') AS TST_HSTR_DT
+			 , TO_CHAR(TH.TST_RSPNS_PTH, 'YYYY-MM-DD HH24:MI:SS') AS TST_RSPNS_PTH
+			 , U.USR_NM
+			 , U.USR_ML
+		  FROM TST_HSTR TH /*시험이력*/
+		  LEFT OUTER JOIN TST T /*시험*/
+		    ON T.TST_ID = TH.TST_ID
+		  LEFT OUTER JOIN CRS_PRATT CP /*수강이력*/
+		    ON T.CRS_INF_ID = CP.CRS_INF_ID
+		   AND T.SBJ_ID = CP.SBJ_ID
+		   AND TH.USR_ID = CP.USR_ID
+		  LEFT OUTER JOIN USR U /*회원*/
+		    ON CP.USR_ID = U.USR_ID
+		 WHERE TH.TST_ID = #{_parameter}
 	</select>
 	
-	<select id="selectOneTest" 
-    		parameterType="com.learn.bbs.tst.vo.TstCommonVO"
-    		resultMap="TstVOMap">
-    	SELECT T.TST_ID
-			 , T.TST_TTL
-			 , T.TST_CTT
-			 , T.TST_EXAM_DT
-			 , T.TST_RGST_DT
-			 , T.TST_UPDT_DT
-			 , T.TST_DEL_DT
-			 , T.TST_DEL_YN
-			 , T.TST_RSPNS_PTH
-			 , T.TST_EDT_PTH
-			 , T.TST_STAT
-			 , T.USR_ID
-			 , T.CRS_INF_ID
-			 , T.ARTC_ID
-			 , A.ARTC_NM
-			 , T.SBJ_ID
-			 , S.SBJ_NM
-			 , T.TST_STR_DT
-			 , CI.CRS_INF_NM
-			 , I.INSTR_NM
-			 , I.INSTR_ID
-		  FROM CRS_SBJ CS /*강의과정*/
-		 INNER JOIN TST T /*시험*/
-		    ON CS.CRS_INF_ID = T.CRS_INF_ID
-		   AND CS.SBJ_ID = T.SBJ_ID
-		 INNER JOIN ARTC A /*게시판*/
-		    ON A.ARTC_ID = T.ARTC_ID
-		 INNER JOIN SBJ S
-		    ON S.SBJ_ID = T.SBJ_ID
-		 INNER JOIN CRS_INF CI /*강좌*/
-		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
-		 INNER JOIN INSTR I /*강사*/
-		    ON CI.INSTR_ID = I.INSTR_ID
-		 WHERE T.TST_ID = #{tstId}
-		   AND T.USR_ID = #{usrId}
-		   AND T.CRS_INF_ID = #{crsInfId}
-		   AND T.ARTC_ID = #{artcId}
-		   AND T.SBJ_ID = #{sbjId}
-    </select>
+	<select id="selectTstHist"
+			parameterType="string"
+			resultType="com.learn.bbs.tst.vo.TstHistVO">
+		SELECT TH.TST_HSTR_ID
+			 , TO_CHAR(TH.TST_HSTR_DT, 'YYYY-MM-DD HH24:MI:SS') AS TST_HSTR_DT
+			 , TO_CHAR(TH.TST_RSPNS_PTH, 'YYYY-MM-DD HH24:MI:SS') AS TST_RSPNS_PTH
+			 , U.USR_NM
+			 , U.USR_ML
+		  FROM TST_HSTR TH /*시험이력*/
+		  LEFT OUTER JOIN TST T /*시험*/
+		    ON T.TST_ID = TH.TST_ID
+		  LEFT OUTER JOIN CRS_PRATT CP /*수강이력*/
+		    ON T.CRS_INF_ID = CP.CRS_INF_ID
+		   AND T.SBJ_ID = CP.SBJ_ID
+		   AND TH.USR_ID = CP.USR_ID
+		  LEFT OUTER JOIN USR U /*회원*/
+		    ON CP.USR_ID = U.USR_ID
+		 WHERE TH.TST_HSTR_ID = #{_parameter}
+	</select>
 	
-	<insert id="insertNewTest" 
-			parameterType="com.learn.bbs.tst.vo.CreateTstRequestVO">
-		<selectKey order="BEFORE" keyProperty="tstId">
-			SELECT 'TST-' || TO_CHAR(SYSDATE,'YYYYMMDD') || '-' || LPAD(SEQ_TST_PK.NEXTVAL, 6, '0')
+	<insert id="insertNewTstHist"
+			parameterType="com.learn.bbs.tst.vo.CreateTstHstrRequestVO">
+		<selectKey keyProperty="tstHstrId" order="BEFORE">
+			SELECT 'TST-HSTR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_TST_HSTR_PK.NEXTVAL, 6, '0')
 			  FROM DUAL
 		</selectKey>
-		INSERT INTO TST
-		 (TST_ID
-		, TST_TTL
-		, TST_CTT
-		, TST_EXAM_DT
-		, TST_RGST_DT
-		, TST_UPDT_DT
-		, TST_DEL_DT
-		, TST_DEL_YN
-		, TST_RSPNS_PTH
-		, TST_EDT_PTH
-		, TST_STAT
+		INSERT INTO TST_HSTR
+		 (TST_HSTR_ID
+		, TST_ID
+		, TST_HSTR_DT
 		, USR_ID
-		, CRS_INF_ID
-		, ARTC_ID
-		, SBJ_ID
-		, TST_STR_DT)
+		, TST_RSPNS_PTH)
 		VALUES
-		 (#{tstId}
-		, #{tstTtl}
-		, #{tstCtt}
-		, TO_DATE(#{tstExamDt}, 'YYYY-MM-DD')
-		, SYSDATE /*TST_RGST_DT*/
-		, NULL
-		, NULL
-		, 'N''
-		, #{tstRspnsPth}
-		, #{tstEdtPth}
-		, NULL /*TST_STAT*/
+		 (#{tstHstrId}
+		, #{tstId}
+		, SYSDATE
 		, #{usrId}
-		, #{crsInfId}
-		, #{artcId}
-		, #{sbjId}
-		, SYSDATE /*TST_STR_DT*/)
+		, NULL)
 	</insert>
 	
-	<update id="updateOneTest" 
-			parameterType="com.learn.bbs.tst.vo.UpdateTstRequestVO">
-		UPDATE TST
-		   SET TST_UPDT_DT = SYSDATE
-		     <if test='tstStat != null and tstStat != ""'>
-		     , TST_STAT = #{tstStat}
-		     </if>
-		     <if test='tstRspnsPth != null and tstRspnsPth != ""'>
-		     , TST_RSPNS_PTH = #{tstRspnsPth}
-		     </if>
-		     <if test='tstEdtPth != null and tstEdtPth != ""'>
-		     , TST_EDT_PTH = #{tstEdtPth}
-		     </if>
-		     <if test='tstExamDt != null and tstExamDt != ""'>
-		     , TST_EXAM_DT = #{tstExamDt}
-		     </if>
-		     <if test='tstCtt != null and tstCtt != ""'>
-		     , TST_CTT = #{tstCtt}
-		     </if>
-		     <if test='tstTtl != null and tstTtl != ""'>
-		     , TST_TTL = #{tstTtl}
-		     </if>
-		 WHERE TST_ID = #{tstId}
-		   AND USR_ID = #{usrId}
-		   AND CRS_INF_ID = #{crsInfId}
-		   AND ARTC_ID = #{artcId}
-		   AND SBJ_ID = #{sbjId}
+	<update id="updateTstRspnsHist"
+			parameterType="string">
+		UPDATE TST_HSTR
+		   SET TST_RSPNS_PTH = SYSDATE
+		 WHERE TST_HSTR_ID = #{_parameter}
 	</update>
-	
-    <update id="deleteOneTest" 
-    		parameterType="com.learn.bbs.tst.vo.DeleteTstRequestVO">
-    	UPDATE TST
-		   SET TST_DEL_DT = SYSDATE
-		     , TST_DEL_YN = 'Y'
-		 WHERE TST_ID = #{tstId}
-		   AND USR_ID = #{usrId}
-		   AND CRS_INF_ID = #{crsInfId}
-		   AND ARTC_ID = #{artcId}
-		   AND SBJ_ID = #{sbjId}
-    </update>
+    
 </mapper>
