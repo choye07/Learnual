@@ -4,4 +4,217 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.tst.dao.impl.TstDaoImpl">
     
+    <resultMap type="com.learn.bbs.tst.vo.TstVO" 
+    		   id="TstVOMap" 
+    		   autoMapping="true">
+    	<id column="TST_ID" property="tstId" />
+    	<association property="crsInf"
+    				 javaType="com.learn.bbs.crs.crsinf.vo.CrsInfVO"
+    				 autoMapping="true">
+			<id column="CRS_INF_ID" property="crsInfId" />
+    	</association>
+    	<association property="instr"
+    				 javaType="com.learn.bbs.pltad.instr.vo.InstrVO"
+    				 autoMapping="true">
+			<id column="INSTR_ID" property="instrId" />
+    	</association>
+    	<association property="sbj"
+    				 javaType="com.learn.bbs.crs.sbj.vo.SbjVO"
+    				 autoMapping="true">
+			<id column="SBJ_ID" property="sbjId" />
+    	</association>
+    	<association property="arct"
+    				 javaType="com.learn.bbs.pltad.artc.vo.ArtcVO"
+    				 autoMapping="true">
+			<id column="ARTC_ID" property="artcId" />
+    	</association>
+    	
+    </resultMap>
+    
+    <select id="selectAllTest" 
+    		parameterType="com.learn.bbs.tst.vo.SearchTstRequestVO"
+    		resultMap="TstVOMap">
+    	<include refid="Common.pagenator_header" />
+    	SELECT T.TST_ID
+			 , T.TST_TTL
+			 , T.TST_CTT
+			 , T.TST_EXAM_DT
+			 , T.TST_RGST_DT
+			 , T.TST_UPDT_DT
+			 , T.TST_DEL_DT
+			 , T.TST_DEL_YN
+			 , T.TST_RSPNS_PTH
+			 , T.TST_EDT_PTH
+			 , T.TST_STAT
+			 , T.USR_ID
+			 , T.CRS_INF_ID
+			 , T.ARTC_ID
+			 , A.ARTC_NM
+			 , T.SBJ_ID
+			 , S.SBJ_NM
+			 , T.TST_STR_DT
+			 , CI.CRS_INF_NM
+			 , I.INSTR_NM
+			 , I.INSTR_ID
+		  FROM CRS_SBJ CS /*강의과정*/
+		 INNER JOIN TST T /*시험*/
+		    ON CS.CRS_INF_ID = T.CRS_INF_ID
+		   AND CS.SBJ_ID = T.SBJ_ID
+		 INNER JOIN ARTC A /*게시판*/
+		    ON A.ARTC_ID = T.ARTC_ID
+		 INNER JOIN SBJ S /*과목*/
+		    ON S.SBJ_ID = T.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN INSTR I /*강사*/
+		    ON CI.INSTR_ID = I.INSTR_ID
+		 WHERE T.TST_DEL_YN = 'N'
+		 ORDER BY T.TST_ID DESC
+		<include refid="Common.pagenator_footer" />
+    </select>
+	
+	<select id="selectAllTestCount" 
+			parameterType="com.learn.bbs.tst.vo.SearchTstRequestVO"
+			resultType="_int">
+		SELECT COUNT(T.TST_ID)
+		  FROM CRS_SBJ CS /*강의과정*/
+		 INNER JOIN TST T /*시험*/
+		    ON CS.CRS_INF_ID = T.CRS_INF_ID
+		   AND CS.SBJ_ID = T.SBJ_ID
+		 INNER JOIN ARTC A /*게시판*/
+		    ON A.ARTC_ID = T.ARTC_ID
+		 INNER JOIN SBJ S
+		    ON S.SBJ_ID = T.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN INSTR I /*강사*/
+		    ON CI.INSTR_ID = I.INSTR_ID
+		 WHERE T.TST_DEL_YN = 'N'
+	</select>
+	
+	<select id="selectOneTest" 
+    		parameterType="com.learn.bbs.tst.vo.TstCommonVO"
+    		resultMap="TstVOMap">
+    	SELECT T.TST_ID
+			 , T.TST_TTL
+			 , T.TST_CTT
+			 , T.TST_EXAM_DT
+			 , T.TST_RGST_DT
+			 , T.TST_UPDT_DT
+			 , T.TST_DEL_DT
+			 , T.TST_DEL_YN
+			 , T.TST_RSPNS_PTH
+			 , T.TST_EDT_PTH
+			 , T.TST_STAT
+			 , T.USR_ID
+			 , T.CRS_INF_ID
+			 , T.ARTC_ID
+			 , A.ARTC_NM
+			 , T.SBJ_ID
+			 , S.SBJ_NM
+			 , T.TST_STR_DT
+			 , CI.CRS_INF_NM
+			 , I.INSTR_NM
+			 , I.INSTR_ID
+		  FROM CRS_SBJ CS /*강의과정*/
+		 INNER JOIN TST T /*시험*/
+		    ON CS.CRS_INF_ID = T.CRS_INF_ID
+		   AND CS.SBJ_ID = T.SBJ_ID
+		 INNER JOIN ARTC A /*게시판*/
+		    ON A.ARTC_ID = T.ARTC_ID
+		 INNER JOIN SBJ S
+		    ON S.SBJ_ID = T.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN INSTR I /*강사*/
+		    ON CI.INSTR_ID = I.INSTR_ID
+		 WHERE T.TST_ID = #{tstId}
+		   AND T.USR_ID = #{usrId}
+		   AND T.CRS_INF_ID = #{crsInfId}
+		   AND T.ARTC_ID = #{artcId}
+		   AND T.SBJ_ID = #{sbjId}
+    </select>
+	
+	<insert id="insertNewTest" 
+			parameterType="com.learn.bbs.tst.vo.CreateTstRequestVO">
+		<selectKey order="BEFORE" keyProperty="tstId">
+			SELECT 'TST-' || TO_CHAR(SYSDATE,'YYYYMMDD') || '-' || LPAD(SEQ_TST_PK.NEXTVAL, 6, '0')
+			  FROM DUAL
+		</selectKey>
+		INSERT INTO TST
+		 (TST_ID
+		, TST_TTL
+		, TST_CTT
+		, TST_EXAM_DT
+		, TST_RGST_DT
+		, TST_UPDT_DT
+		, TST_DEL_DT
+		, TST_DEL_YN
+		, TST_RSPNS_PTH
+		, TST_EDT_PTH
+		, TST_STAT
+		, USR_ID
+		, CRS_INF_ID
+		, ARTC_ID
+		, SBJ_ID
+		, TST_STR_DT)
+		VALUES
+		 (#{tstId}
+		, #{tstTtl}
+		, #{tstCtt}
+		, TO_DATE(#{tstExamDt}, 'YYYY-MM-DD')
+		, SYSDATE /*TST_RGST_DT*/
+		, NULL
+		, NULL
+		, 'N''
+		, #{tstRspnsPth}
+		, #{tstEdtPth}
+		, NULL /*TST_STAT*/
+		, #{usrId}
+		, #{crsInfId}
+		, #{artcId}
+		, #{sbjId}
+		, SYSDATE /*TST_STR_DT*/)
+	</insert>
+	
+	<update id="updateOneTest" 
+			parameterType="com.learn.bbs.tst.vo.UpdateTstRequestVO">
+		UPDATE TST
+		   SET TST_UPDT_DT = SYSDATE
+		     <if test='tstStat != null and tstStat != ""'>
+		     , TST_STAT = #{tstStat}
+		     </if>
+		     <if test='tstRspnsPth != null and tstRspnsPth != ""'>
+		     , TST_RSPNS_PTH = #{tstRspnsPth}
+		     </if>
+		     <if test='tstEdtPth != null and tstEdtPth != ""'>
+		     , TST_EDT_PTH = #{tstEdtPth}
+		     </if>
+		     <if test='tstExamDt != null and tstExamDt != ""'>
+		     , TST_EXAM_DT = #{tstExamDt}
+		     </if>
+		     <if test='tstCtt != null and tstCtt != ""'>
+		     , TST_CTT = #{tstCtt}
+		     </if>
+		     <if test='tstTtl != null and tstTtl != ""'>
+		     , TST_TTL = #{tstTtl}
+		     </if>
+		 WHERE TST_ID = #{tstId}
+		   AND USR_ID = #{usrId}
+		   AND CRS_INF_ID = #{crsInfId}
+		   AND ARTC_ID = #{artcId}
+		   AND SBJ_ID = #{sbjId}
+	</update>
+	
+    <update id="deleteOneTest" 
+    		parameterType="com.learn.bbs.tst.vo.DeleteTstRequestVO">
+    	UPDATE TST
+		   SET TST_DEL_DT = SYSDATE
+		     , TST_DEL_YN = 'Y'
+		 WHERE TST_ID = #{tstId}
+		   AND USR_ID = #{usrId}
+		   AND CRS_INF_ID = #{crsInfId}
+		   AND ARTC_ID = #{artcId}
+		   AND SBJ_ID = #{sbjId}
+    </update>
 </mapper>
