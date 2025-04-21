@@ -694,6 +694,178 @@ label {
 
 /* 게시판 custom css end */
 /* ================================== */
+
+/* 관리 보드 공통 css */
+/* .manage-board */
+.manage-board {
+  .manage-board-wrapper {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.625rem;
+    /* box-shadow: 0 0 10px #0000001a; */
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .manage-board-header {
+      border-bottom: 3px solid var(--manager-color);
+      padding-bottom: 1rem;
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .board-toolbox {
+      display: flex;
+      justify-content: space-between;
+
+      > div {
+        display: flex;
+        gap: 1rem;
+        a {
+          padding: 0.625rem 1.5rem;
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .manage-board-body {
+      .list-top {
+        display: grid;
+        grid-template-columns: 2fr 2fr 1fr 3fr;
+        text-align: center;
+
+        > div {
+          padding: 0.625rem;
+          background-color: #eee;
+        }
+      }
+      .list-wrapper {
+        li {
+          border: 1px solid #fff;
+          a {
+            padding: 0;
+            gap: 0;
+            text-align: center;
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 3fr;
+
+            > div {
+              border: 1px solid #eee;
+              padding: 0.625rem;
+            }
+          }
+        }
+      }
+      .pagination {
+        margin: 1.25rem auto;
+        display: flex;
+        justify-content: center;
+
+        > li {
+          display: flex;
+          a {
+            padding: 0.3rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 관리보드 custom css */
+/* 0418소희 파트 start */
+/* 나의 정보 관리 공통 css */
+.manage-board.myinfo {
+  .manage-board-header {
+    border-color: var(--student-color);
+
+    h1 {
+      font-size: 1.6rem;
+    }
+  }
+
+  .regist-usr-form {
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 100%;
+
+    > div {
+      border-top: 1px solid #ccc;
+      padding: 0.625rem 0;
+      display: flex;
+
+      .email-input-area {
+        width: 100%;
+        display: flex;
+        gap: 2rem;
+
+        .btn-email-check {
+          width: 10rem;
+          font-size: 0.9rem;
+          background: var(--student-color);
+
+          &:hover {
+            background: var(--student-medium-color);
+          }
+        }
+      }
+
+      label {
+        display: flex;
+        align-self: center;
+        text-indent: 0.625rem;
+        font-weight: 700;
+        width: 10rem;
+        color: #111;
+      }
+
+      input {
+        width: 100%;
+        border: 0;
+        pointer-events: none;
+        background-color: #fff;
+      }
+    }
+
+    /* 회원가입 버튼 영역 */
+    .btn-area {
+      justify-content: center;
+      padding-top: 2rem;
+
+      > button {
+        padding: 0.625rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        background: var(--student-color);
+
+        &:hover {
+          background: var(--student-medium-color);
+        }
+      }
+    }
+  }
+}
+
+/* 나의 정보 수정 css */
+.manage-board.myinfo.edit {
+  input {
+    &#usrNm,
+    &#usrPw,
+    &#confirmUsrPw,
+    &#usrAdrs,
+    &#usrPn {
+      border: 1px solid #ccc;
+      pointer-events: all;
+    }
+  }
+}
+/* 0418소희 파트 end */
+
+/* ==================================== */
+
 /* 강좌 생성 form css */
 .course-create {
   width: 50%;
@@ -1366,6 +1538,16 @@ label {
   height: 12.5rem;
   font-size: 0;
 }
+
+/* 학원 홈페이지 visual custom css */
+.visual.insttn {
+  background: none;
+  display: flex;
+  overflow: hidden;
+  img {
+    width: 50%;
+  }
+}
 /* ==================================== */
 /* 학원페이지 내 관리자 전용 버튼 박스 */
 /* *추후 수정 필요 */
@@ -1414,13 +1596,427 @@ label {
     a {
       display: block;
       padding: 0.625rem;
-      /* 2025-04-20 강준식 btn 배경색 추가 */
-      background-color: var(--manager-color);
       color: #fff;
     }
   }
 }
 /* ==================================== */
+/* 메인 header 공통 css */
+.header {
+  border-bottom: 1px solid #ccc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0px 2px 5px #5553;
+
+  .header-wrapper {
+    width: 80%;
+    min-width: 75rem;
+    margin: 0 auto;
+    display: flex;
+    min-height: 5rem;
+    justify-content: space-between;
+    /* border: 1px solid green; */
+
+    .header-logo {
+      width: 5rem;
+      font-size: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: url("/asset/logo/learnual-logo.svg") no-repeat
+          center/contain;
+      }
+    }
+
+    .header-right {
+      /* border: 1px solid blue; */
+      width: 60%;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.625rem;
+      font-size: 1.15rem;
+
+      .header-right-nav {
+        /* border: 1px solid purple; */
+        display: flex;
+
+        li > a {
+          height: 100%;
+          padding: 0.625rem 1.25rem;
+          font-weight: 500;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: 0.2s all;
+        }
+      }
+    }
+  }
+}
+
+/* insttn header custom css */
+.header.insttn {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  /* background: url("/asset/isttn/insttn_back01.jpg") no-repeat center/cover; */
+  z-index: 1000;
+  box-shadow: 0px 2px 5px #5553;
+
+  .header-top {
+    /* border-bottom: 3px solid #e50114; */
+
+    .header-top-wrapper {
+      /* border: 1px solid red; */
+      width: 88%;
+      min-width: 75rem;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      min-height: 4rem;
+
+      .header-left {
+        display: flex;
+        gap: 1.25rem;
+
+        .btn-menu {
+          width: 3rem;
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            font-size: 0;
+
+            background: url("/asset/icon/setting.svg") no-repeat center/contain;
+
+            &:hover {
+              background: url("/asset/icon/setting_hover.svg") no-repeat
+                center/contain;
+            }
+          }
+        }
+
+        .insttn-area {
+          flex-grow: 1;
+          display: flex;
+          .insttn-logo {
+            width: 10rem;
+            a {
+              display: block;
+              width: 100%;
+              height: 100%;
+              background: url("/asset/isttn/logo.jpg") no-repeat center/contain;
+              font-size: 0;
+            }
+          }
+        }
+      }
+
+      .header-right {
+        display: flex;
+        gap: 1.25rem;
+
+        .insttn-menu {
+          display: flex;
+          align-items: center;
+
+          li {
+            a {
+              display: block;
+              padding: 1rem 2rem;
+              font-size: 1.2rem;
+              font-weight: 600;
+            }
+          }
+        }
+
+        .btn-notification {
+          width: 2.5rem;
+          min-height: 3rem;
+          transform: translateX(5px);
+          position: relative;
+
+          > a {
+            display: block;
+            height: 100%;
+            font-size: 0;
+            background: url("/asset/icon/notification.svg") no-repeat
+              center/contain;
+            transition: 0.2s all;
+
+            &:hover {
+              background: url("/asset/icon/notification_hover_student.svg")
+                no-repeat center/contain;
+            }
+          }
+
+          .badge {
+            width: 0.85rem;
+            min-height: 0.85rem;
+            border-radius: 50%;
+            /* background-color: var(--manager-color); */
+            background-color: #e50114;
+            position: absolute;
+            top: 0.5rem;
+            right: 0;
+          }
+        }
+      }
+
+      .notification-box {
+        display: none;
+        min-width: 15rem;
+        position: absolute;
+        top: 100%;
+        right: 0;
+
+        &.on {
+          display: block;
+        }
+
+        .notification-deco {
+          min-height: 1.5rem;
+          display: flex;
+          justify-content: flex-end;
+
+          .tri {
+            background-color: #fffce4;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            margin-right: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+
+        .notification-content {
+          background-color: #fffce4;
+          box-shadow: 0px 2px 5px #3333;
+
+          li {
+            border-bottom: 1px solid #ccc;
+            a {
+              display: block;
+              height: 100%;
+              padding: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .header-bottom {
+    .header-bottom-wrapper {
+      width: 88%;
+      min-width: 75rem;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      min-height: 3rem;
+      gap: 1.25rem;
+    }
+  }
+}
+
+/* course header custom css */
+.header.course {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  /* background: url("/asset/isttn/insttn_back01.jpg") no-repeat center/cover; */
+  z-index: 1000;
+  box-shadow: 0px 2px 5px #5553;
+
+  .header-top {
+    /* border-bottom: 3px solid #e50114; */
+
+    .header-top-wrapper {
+      /* border: 1px solid red; */
+      width: 88%;
+      min-width: 75rem;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      min-height: 4rem;
+
+      .header-left {
+        display: flex;
+        gap: 1.25rem;
+
+        .btn-menu {
+          width: 3rem;
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            font-size: 0;
+
+            background: url("/asset/icon/setting.svg") no-repeat center/contain;
+
+            &:hover {
+              background: url("/asset/icon/setting_hover.svg") no-repeat
+                center/contain;
+            }
+          }
+        }
+
+        .course-area {
+          flex-grow: 1;
+          display: flex;
+          .insttn-logo {
+            width: 10rem;
+            a {
+              display: block;
+              width: 100%;
+              height: 100%;
+              background: url("/asset/isttn/logo.jpg") no-repeat center/contain;
+              font-size: 0;
+            }
+          }
+        }
+      }
+
+      .header-right {
+        display: flex;
+        gap: 1.25rem;
+
+        .course-menu {
+          display: flex;
+          align-items: center;
+
+          li {
+            a {
+              display: flex;
+              align-items: center;
+              gap: 0.625rem;
+              padding: 1rem 2rem;
+              font-size: 1.2rem;
+              font-weight: 600;
+
+              .dashboard-icon {
+                width: 2rem;
+                height: 2rem;
+                background: url("/asset/icon/dashboard.svg") no-repeat
+                  center/contain;
+                font-size: 0;
+                transition: 0.2s all;
+              }
+
+              &:hover {
+                .dashboard-icon {
+                  width: 2rem;
+                  height: 2rem;
+                  background: url("/asset/icon/dashboard_hover.svg") no-repeat
+                    center/contain;
+                  font-size: 0;
+                }
+              }
+            }
+          }
+        }
+
+        .btn-notification {
+          width: 2.5rem;
+          min-height: 3rem;
+          transform: translateX(5px);
+          position: relative;
+
+          > a {
+            display: block;
+            height: 100%;
+            font-size: 0;
+            background: url("/asset/icon/notification.svg") no-repeat
+              center/contain;
+            transition: 0.2s all;
+
+            &:hover {
+              background: url("/asset/icon/notification_hover_student.svg")
+                no-repeat center/contain;
+            }
+          }
+
+          .badge {
+            width: 0.85rem;
+            min-height: 0.85rem;
+            border-radius: 50%;
+            /* background-color: var(--manager-color); */
+            background-color: #e50114;
+            position: absolute;
+            top: 0.5rem;
+            right: 0;
+          }
+        }
+      }
+
+      .notification-box {
+        display: none;
+        min-width: 15rem;
+        position: absolute;
+        top: 100%;
+        right: 0;
+
+        &.on {
+          display: block;
+        }
+
+        .notification-deco {
+          min-height: 1.5rem;
+          display: flex;
+          justify-content: flex-end;
+
+          .tri {
+            background-color: #fffce4;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            margin-right: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+
+        .notification-content {
+          background-color: #fffce4;
+          box-shadow: 0px 2px 5px #3333;
+
+          li {
+            border-bottom: 1px solid #ccc;
+            a {
+              display: block;
+              height: 100%;
+              padding: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .header-bottom {
+    .header-bottom-wrapper {
+      width: 88%;
+      min-width: 75rem;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      min-height: 3rem;
+      gap: 1.25rem;
+    }
+  }
+}
+
 /* footer 공통 css */
 .footer {
   padding: 2.5rem 0;
@@ -1438,6 +2034,7 @@ label {
     }
   }
 }
+
 /* ==================================== */
 /* 페이지 wrapper 공통 css */
 /* wrapper 내부의 공통 css 다수 존재 */
@@ -1446,66 +2043,6 @@ label {
   min-width: 75rem;
   margin: 0 auto;
   margin-top: 5rem;
-
-  .header {
-    border-bottom: 1px solid #ccc;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    box-shadow: 0px 2px 5px #5553;
-
-    .header-wrapper {
-      width: 80%;
-      min-width: 75rem;
-      margin: 0 auto;
-      display: flex;
-      min-height: 5rem;
-      justify-content: space-between;
-      /* border: 1px solid green; */
-
-      .header-logo {
-        width: 5rem;
-        font-size: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        a {
-          display: block;
-          width: 100%;
-          height: 100%;
-          background: url("/asset/logo/learnual-logo.svg") no-repeat
-            center/contain;
-        }
-      }
-
-      .header-right {
-        /* border: 1px solid blue; */
-        width: 60%;
-        display: flex;
-        justify-content: flex-end;
-        gap: 0.625rem;
-        font-size: 1.15rem;
-
-        .header-right-nav {
-          /* border: 1px solid purple; */
-          display: flex;
-
-          li > a {
-            height: 100%;
-            padding: 0.625rem 1.25rem;
-            font-weight: 500;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: 0.2s all;
-          }
-        }
-      }
-    }
-  }
 
   /* ==================================== */
   /* 슈퍼관리자 main */
@@ -1600,178 +2137,6 @@ label {
       }
     }
   }
-  /* ==================================== */
-  /* 관리 보드 공통 css */
-  /* .manage-board */
-  .manage-board {
-    min-height: 50rem;
-    padding: 8rem 0;
-
-    .manage-board-wrapper {
-      padding: 2rem;
-      border-radius: 0.625rem;
-      box-shadow: 0 0 10px #0000001a;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-
-      .manage-board-header {
-        border-bottom: 3px solid var(--manager-color);
-        padding-bottom: 1rem;
-
-        h1 {
-          font-size: 2rem;
-        }
-      }
-
-      .board-toolbox {
-        display: flex;
-        justify-content: space-between;
-
-        > div {
-          display: flex;
-          gap: 1rem;
-          a {
-            padding: 0.625rem 1.5rem;
-            font-size: 1.3rem;
-          }
-        }
-      }
-
-      .manage-board-body {
-        .list-top {
-          display: grid;
-          grid-template-columns: 2fr 2fr 1fr 3fr;
-          text-align: center;
-
-          > div {
-            padding: 0.625rem;
-            background-color: #eee;
-          }
-        }
-        .list-wrapper {
-          li {
-            border: 1px solid #fff;
-            a {
-              padding: 0;
-              gap: 0;
-              text-align: center;
-              display: grid;
-              grid-template-columns: 2fr 2fr 1fr 3fr;
-
-              > div {
-                border: 1px solid #eee;
-                padding: 0.625rem;
-              }
-            }
-          }
-        }
-        .pagination {
-          margin: 1.25rem auto;
-          display: flex;
-          justify-content: center;
-
-          > li {
-            display: flex;
-            a {
-              padding: 0.3rem;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  /* 관리보드 custom css */
-  /* 0418소희 파트 start */
-  /* 나의 정보 관리 공통 css */
-  .manage-board.myinfo {
-    .manage-board-header {
-      border-color: var(--student-color);
-
-      h1 {
-        font-size: 1.6rem;
-      }
-    }
-
-    .regist-usr-form {
-      flex-direction: column;
-      gap: 2.5rem;
-      width: 100%;
-
-      > div {
-        border-top: 1px solid #ccc;
-        padding: 0.625rem 0;
-        display: flex;
-
-        .email-input-area {
-          width: 100%;
-          display: flex;
-          gap: 2rem;
-
-          .btn-email-check {
-            width: 10rem;
-            font-size: 0.9rem;
-            background: var(--student-color);
-
-            &:hover {
-              background: var(--student-medium-color);
-            }
-          }
-        }
-
-        label {
-          display: flex;
-          align-self: center;
-          text-indent: 0.625rem;
-          font-weight: 700;
-          width: 10rem;
-          color: #111;
-        }
-
-        input {
-          width: 100%;
-          border: 0;
-          pointer-events: none;
-          background-color: #fff;
-        }
-      }
-
-      /* 회원가입 버튼 영역 */
-      .btn-area {
-        justify-content: center;
-        padding-top: 2rem;
-
-        > button {
-          padding: 0.625rem 2rem;
-          font-size: 1.1rem;
-          font-weight: 700;
-          background: var(--student-color);
-
-          &:hover {
-            background: var(--student-medium-color);
-          }
-        }
-      }
-    }
-  }
-
-  /* 나의 정보 수정 css */
-  .manage-board.myinfo.edit {
-    input {
-      &#usrNm,
-      &#usrPw,
-      &#confirmUsrPw,
-      &#usrAdrs,
-      &#usrPn {
-        border: 1px solid #ccc;
-        pointer-events: all;
-      }
-    }
-  }
-  /* 0418소희 파트 end */
-
-  /* ==================================== */
   /* 러뉴얼 홈 main */
   /* home.html */
   .home-main {
@@ -2246,152 +2611,8 @@ label {
     }
   }
 
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    z-index: 1000;
-    box-shadow: 0px 2px 5px #5553;
-
-    .header-top {
-      border-bottom: 3px solid var(--student-color);
-
-      .header-top-wrapper {
-        /* border: 1px solid red; */
-        width: 88%;
-        min-width: 75rem;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        min-height: 3rem;
-        position: relative;
-
-        .btn-menu {
-          /* border: 1px solid red; */
-          width: 2.5rem;
-          min-height: 3rem;
-          transform: translateX(-5px);
-
-          a {
-            display: block;
-            height: 100%;
-            font-size: 0;
-            background: url("/asset/icon/menu.svg") no-repeat center/contain;
-            transition: 0.2s all;
-
-            &:hover {
-              background: url("/asset/icon/menu_hover_student.svg") no-repeat
-                center/contain;
-            }
-          }
-        }
-
-        .logo {
-          width: 10rem;
-          display: flex;
-          justify-content: center;
-
-          a {
-            display: block;
-            width: 80%;
-            height: 100%;
-            background: url("/asset/logo/learnual-logo-text.svg") no-repeat
-              center/contain;
-            font-size: 0;
-            opacity: 0.3;
-          }
-        }
-
-        .btn-notification {
-          width: 2.5rem;
-          min-height: 3rem;
-          transform: translateX(5px);
-          position: relative;
-
-          > a {
-            display: block;
-            height: 100%;
-            font-size: 0;
-            background: url("/asset/icon/notification.svg") no-repeat
-              center/contain;
-            transition: 0.2s all;
-
-            &:hover {
-              background: url("/asset/icon/notification_hover_student.svg")
-                no-repeat center/contain;
-            }
-          }
-
-          .badge {
-            width: 0.85rem;
-            min-height: 0.85rem;
-            border-radius: 50%;
-            background-color: var(--student-color);
-            position: absolute;
-            top: 0.25rem;
-            right: 0;
-          }
-        }
-
-        .notification-box {
-          display: none;
-          min-width: 15rem;
-          position: absolute;
-          top: 100%;
-          right: 0;
-
-          &.on {
-            display: block;
-          }
-
-          .notification-deco {
-            min-height: 1.5rem;
-            display: flex;
-            justify-content: flex-end;
-
-            .tri {
-              background-color: #fffce4;
-              clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-              margin-right: 0.5rem;
-              width: 1.5rem;
-              height: 1.5rem;
-            }
-          }
-
-          .notification-content {
-            background-color: #fffce4;
-            box-shadow: 0px 2px 5px #3333;
-
-            li {
-              border-bottom: 1px solid #ccc;
-              a {
-                display: block;
-                height: 100%;
-                padding: 1rem;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .header-bottom {
-      .header-bottom-wrapper {
-        width: 88%;
-        min-width: 75rem;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        min-height: 3rem;
-        gap: 1.25rem;
-      }
-    }
-  }
-
   .dashboard-main {
-    min-height: calc(100vh - 6rem);
+    min-height: calc(100vh - 6rem); /* 수정 필요 */
     margin-top: 6rem;
     padding: 2.5rem 0;
     background-color: #eaf5ff;
@@ -2417,6 +2638,7 @@ label {
         gap: 1.25rem;
       }
 
+      /* 대시보드 메인 css start */
       > .dashboard-col1,
       .dashboard-col2,
       .dashboard-col3 {
@@ -2439,9 +2661,50 @@ label {
         width: 24%;
         gap: 1.25rem;
       }
+      /* 대시보드 메인 css end */
+
+      /* v.0.1 */
+      /* 대시보드 sidebar menu-click했을 때 UI
+         css start */
+      .menu-contents-container {
+        width: 100%;
+
+        /* ui-menu loop */
+        .menu-tab {
+          display: flex;
+
+          li {
+            border-top-left-radius: 0.625rem;
+            border-top-right-radius: 0.625rem;
+            box-shadow: 3px 0px 3px #3333;
+
+            a {
+              display: block;
+              padding: 1rem 2rem;
+            }
+
+            &.on {
+              background-color: #fff;
+            }
+          }
+        }
+
+        .contents-wrapper {
+          .menu-content {
+            background-color: #fff;
+            min-height: 20vh;
+            box-shadow: 3px 3px 3px #3333;
+            border-radius: 0 0.625rem 0.625rem 0.625rem;
+          }
+        }
+      }
+      /* 대시보드 sidebar menu-click UI css end */
     }
   }
 }
+/* 대시보드 공통 css end */
+/* ==================================== */
+/* 대시보드 custom css start */
 
 /* 학습관리자 대시보드 */
 .dashboard.tutor {
@@ -2509,53 +2772,14 @@ label {
   }
 }
 
-/* 플랫폼관리자 대시보드(학원 페이지) */
+/* 학원 메인 페이지 (기존 dashboard형식이어서 유지) */
 .dashboard.insttn {
-  .header {
-    .header-top {
-      border-bottom: 3px solid var(--manager-color);
-
-      .header-top-wrapper {
-        min-height: 4rem;
-
-        .btn-menu {
-          a {
-            background: url("/asset/icon/setting.svg") no-repeat center/contain;
-
-            &:hover {
-              background: url("/asset/icon/setting_hover.svg") no-repeat
-                center/contain;
-            }
-          }
-        }
-
-        /* 학원 메인 header height조정으로 인한 수정 */
-        .btn-notification {
-          .badge {
-            top: 0.65rem;
-          }
-        }
-
-        .insttn-area {
-          display: flex;
-          gap: 1.25rem;
-          align-items: center;
-        }
-
-        .btn-notification {
-          .badge {
-            background-color: var(--manager-color);
-          }
-        }
-      }
-    }
-  }
-
   /* .dashboard.insttn 내부 dashboard-main */
   .dashboard-main.insttn {
     padding-top: 0;
     margin-top: 4rem;
-    background-color: #ebf0f5;
+    background-color: #fff;
+    background: url("/asset/isttn/insttn_back01.jpg") no-repeat center/cover;
 
     /* 학원 메인 페이지 */
     .main-wrapper {
@@ -2565,24 +2789,29 @@ label {
       .widget-wrapper {
         margin-top: 1.25rem;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
 
-        .dashboard-col1 {
-          width: 50%;
-
-          .widget-article {
-            height: 100%;
-          }
-        }
-
-        .dashboard-col2 {
-          width: 50%;
+        > .dashboard-row1,
+        .dashboard-row2 {
           display: flex;
-          flex-direction: column;
-          gap: 1.25rem;
+          gap: 2rem;
 
           .widget-article {
-            height: auto;
+            width: 100%;
+            box-shadow: none;
+
+            > div:first-child {
+              border-bottom: 3px solid #e50114;
+            }
+
+            /* 임시 css 지정 */
+            &.insttn-course {
+              background-color: #eee;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-style: italic;
+            }
           }
         }
       }
@@ -2591,7 +2820,6 @@ label {
     /* 학원 -> 강좌 관리 페이지 main-wrapper */
     /* 관리자 전용 */
     /* 2025-04-18 강준식 수정 */
-    /* 2025-04-20 강준식 수정 */
     /* ------------------------------------------- */
     .main-wrapper.course-manage {
       padding-top: 2.5rem;
@@ -2604,19 +2832,16 @@ label {
         flex-direction: row;
         gap: 1.25rem;
         height: 100%;
-        a{
-            padding: 0;
-        }
-        
+
         .article-content {
-            li {
-                padding: 1rem;
-                h3 {
-                font-size: 1.0rem;
-                }
+          li {
+            padding: 1rem;
+            h3 {
+              font-size: 1rem;
             }
+          }
         }
-    /* ------------------------------------------- */
+        /* ------------------------------------------- */
         > div:nth-child(1) {
           width: 60%;
         }
@@ -2635,9 +2860,8 @@ label {
         }
       }
     }
-    /* 학원 -> 강좌 페이지 main-wrapper */
+    /* 학원 -> 강 페이지 main-wrapper */
     /* 2025-04-19 강준식 수정 */
-    /* 2025-04-20 강준식 수정 */
     /* ------------------------------------------- */
     .main-wrapper.course-main {
       flex-direction: column;
@@ -2649,103 +2873,51 @@ label {
         flex-direction: row;
         gap: 1.25rem;
         height: 100%;
-        
+
         .article-content {
-            li {
-                padding: 1rem;
-                h3 {
-                font-size: 1.0rem;
-                }
+          li {
+            padding: 1rem;
+            min-width: 40rem; /* 이거 맞나 */
+            h3 {
+              font-size: 1rem;
             }
+          }
         }
+        /*
+        > div:nth-child(1) {
+          width: 60%;
+        }
+
+        > div:nth-child(2) {
+          width: 40%;
+        }
+        */
+
+        /*
+        .article-direct {
+          gap: 0;
+          border-radius: 0;
+          overflow: visible;
+          a {
+            padding: 0.625rem;
+          }
+        }
+        */
       }
     }
     /* ------------------------------------------- */
 
     /* 학원 -> 강좌 신청 페이지 main-wrapper */
     /* 사용자 전용 */
-    /* 2025-04-19 강준식 수정 */
-    /* ------------------------------------------- */
     .main-wrapper.course-regist {
       padding-top: 2.5rem;
       min-height: calc(100vh - 20rem);
 
       .course-wrapper {
         height: 100%;
-        a {
-            padding: 0;
-        }
-        
-        .article-content {
-            li {
-                padding: 1rem;
-                h3 {
-                font-size: 1.0rem;
-                }
-            }
-        }
       }
-    }
-    /* ------------------------------------------- */
-
-    /* 학원 -> 강좌 상세 페이지 main-wrapper */
-   /* 2025-04-19 강준식 수정 */
-    /* 2025-04-20 강준식 수정 */
-    /* ------------------------------------------- */
-    .main-wrapper.course-detail {
-      padding: 1.5rem 0;
-      gap: 0;
-    
-      h1 {
-        margin: 2rem 0;
-      }
-
-      h2 {
-        margin: 2rem 0;
-      }
-
-      .course-info {
-        display: grid;
-        grid-template-columns: 10rem 1fr 10rem 1fr;
-        gap: 0rem;
-
-        > div {
-          border: 1px solid #ccc;
-          background-color: #fff;
-          padding: 1rem;
-
-          &.course-name {
-            grid-column: 2 / -1;
-          }
-
-          &:nth-child(2n - 1) {
-            background-color: #eee;
-            font-weight: 700;
-            text-align: center;
-          }
-        }
-      }
-      
-      .button-wrapper {
-          display: flex;
-          justify-content: center;
-          gap: 1.5rem;
-          
-          a {
-            display: block;
-            padding: 0.625rem;
-            background-color: var(--manager-color);
-            color: #fff;
-            
-            &:hover {
-                background-color: #2f6ac0;
-            }
-          }
-      }
-/* ------------------------------------------- */
     }
   }
-
   /* .dashboard.insttn 내부 widget-article */
   .widget-article {
     height: 100%;
@@ -2789,3 +2961,132 @@ label {
     }
   }
 }
+
+/* 강좌 메인 페이지 */
+/* 학원 메인 페이지에서 이동되는 개별 강좌 홈페이지 */
+.dashboard.course {
+  .dashboard-main.course {
+    background-color: #fff;
+
+    /* 학원 -> 강좌 상세 페이지 main-wrapper */
+    .main-wrapper.course-detail {
+      padding: 4rem 0;
+      gap: 0;
+      display: flex;
+      flex-direction: column;
+
+      h1 {
+        margin: 2rem 0;
+      }
+
+      h2 {
+        margin: 2rem 0;
+      }
+
+      .course-info {
+        display: grid;
+        grid-template-columns: 10rem 1fr 10rem 1fr;
+        gap: 0rem;
+
+        > div {
+          border: 1px solid #ccc;
+          background-color: #fff;
+          padding: 1rem;
+
+          &.course-name {
+            grid-column: 2 / -1;
+          }
+
+          &:nth-child(2n - 1) {
+            background-color: #eee;
+            font-weight: 700;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 학생 대시보드에서 mypage로 진입했을 때의 view css  */
+.dashboard-main.mypage-view.student {
+  .main-wrapper {
+    display: flex;
+    gap: 0;
+    background-color: #fff;
+
+    .mypage-sidebar {
+      width: 15rem;
+      background-color: #fff;
+      border-right: 1px solid #eee;
+
+      .mypage-myinfo {
+        border-bottom: 1px solid #eee;
+        padding: 2rem;
+        min-height: 15rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.625rem;
+
+        .mypage-profile-img {
+          background-color: #efefef;
+          border-radius: 50%;
+          width: 8rem;
+          height: 8rem;
+          font-size: 0;
+
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: url("/asset/icon/person.svg") no-repeat center/contain;
+          }
+        }
+      }
+
+      .mypage-sidebar-menu {
+        /* border: 1px solid red; */
+        padding: 1rem 0;
+
+        li {
+          a {
+            display: block;
+            padding: 1rem;
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+
+    .mypage-contents {
+      flex-grow: 1;
+      padding: 2rem;
+
+      .mypage-item-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: minmax(10rem, auto) minmax(10rem, auto);
+        gap: 1.25rem;
+
+        .myinfo {
+          grid-column: 1 / -1;
+          .manage-board-wrapper {
+            gap: 0;
+            .manage-board-header {
+              border: none;
+              margin-bottom: 0;
+              h1 {
+                font-size: 1.3rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 대시보드 custom css end */
+/* ==================================== */
