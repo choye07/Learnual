@@ -2906,7 +2906,8 @@ label {
       }
     }
     /* ------------------------------------------- */
-
+    /* 0421 휘원 삭제 후 다시 추가 */
+	/* dashboard.course로 이동했다가 다시 여기서도 사용해야함 */
     /* 학원 -> 강좌 신청 페이지 main-wrapper */
     /* 사용자 전용 */
     .main-wrapper.course-regist {
@@ -2918,6 +2919,47 @@ label {
       }
     }
   }
+  
+  /* ------------------------------------ */
+  /* 학원 -> 강좌 상세 페이지 main-wrapper */
+    .main-wrapper.course-detail {
+      padding: 4rem 0;
+      gap: 0;
+      display: flex;
+      flex-direction: column;
+
+      h1 {
+        margin: 2rem 0;
+      }
+
+      h2 {
+        margin: 2rem 0;
+      }
+
+      .course-info {
+        display: grid;
+        grid-template-columns: 10rem 1fr 10rem 1fr;
+        gap: 0rem;
+
+        > div {
+          border: 1px solid #ccc;
+          background-color: #fff;
+          padding: 1rem;
+
+          &.course-name {
+            grid-column: 2 / -1;
+          }
+
+          &:nth-child(2n - 1) {
+            background-color: #eee;
+            font-weight: 700;
+            text-align: center;
+          }
+        }
+      }
+    }
+  
+  /* ------------------------------------ */
   /* .dashboard.insttn 내부 widget-article */
   .widget-article {
     height: 100%;
