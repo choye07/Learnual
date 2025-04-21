@@ -562,6 +562,12 @@ label {
 
 /* 메인 공지사항 custom css */
 .board.learnual-notice {
+	.board-toolbox {
+		a {
+			background-color: var(--manager-color);
+		}
+	}
+	
   .board-body {
     .board-list-wrapper {
       .empty-notice-list {
@@ -1584,7 +1590,7 @@ label {
   }
 }
 /* ==================================== */
-/* 게시판 내 버튼 박스 */
+/* board-toolbox 공통 css (게시판 내 버튼 박스) */
 .board-toolbox {
   display: flex;
   gap: 0.625rem;
@@ -1829,22 +1835,12 @@ label {
   }
 }
 
-/* course header custom css */
-.header.course {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #fff;
-  /* background: url("/asset/isttn/insttn_back01.jpg") no-repeat center/cover; */
-  z-index: 1000;
-  box-shadow: 0px 2px 5px #5553;
-
+/* 대시보드 header 공통 css (학생) */
+.header.dashboard {
   .header-top {
-    /* border-bottom: 3px solid #e50114; */
+    border-bottom: 3px solid var(--student-color);
 
     .header-top-wrapper {
-      /* border: 1px solid red; */
       width: 88%;
       min-width: 75rem;
       margin: 0 auto;
@@ -1865,16 +1861,16 @@ label {
             height: 100%;
             font-size: 0;
 
-            background: url("/asset/icon/setting.svg") no-repeat center/contain;
+            background: url("/asset/icon/menu.svg") no-repeat center/contain;
 
             &:hover {
-              background: url("/asset/icon/setting_hover.svg") no-repeat
+              background: url("/asset/icon/menu_hover_student.svg") no-repeat
                 center/contain;
             }
           }
         }
 
-        .course-area {
+        .insttn-area {
           flex-grow: 1;
           display: flex;
           .insttn-logo {
@@ -1894,38 +1890,16 @@ label {
         display: flex;
         gap: 1.25rem;
 
-        .course-menu {
+        .btn-direct {
           display: flex;
-          align-items: center;
-
-          li {
-            a {
-              display: flex;
-              align-items: center;
-              gap: 0.625rem;
-              padding: 1rem 2rem;
-              font-size: 1.2rem;
-              font-weight: 600;
-
-              .dashboard-icon {
-                width: 2rem;
-                height: 2rem;
-                background: url("/asset/icon/dashboard.svg") no-repeat
-                  center/contain;
-                font-size: 0;
-                transition: 0.2s all;
-              }
-
-              &:hover {
-                .dashboard-icon {
-                  width: 2rem;
-                  height: 2rem;
-                  background: url("/asset/icon/dashboard_hover.svg") no-repeat
-                    center/contain;
-                  font-size: 0;
-                }
-              }
-            }
+          a {
+            height: 100%;
+            padding: 0.625rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 500;
           }
         }
 
@@ -1953,8 +1927,7 @@ label {
             width: 0.85rem;
             min-height: 0.85rem;
             border-radius: 50%;
-            /* background-color: var(--manager-color); */
-            background-color: #e50114;
+            background-color: var(--student-color);
             position: absolute;
             top: 0.5rem;
             right: 0;
@@ -2013,6 +1986,34 @@ label {
       align-items: center;
       min-height: 3rem;
       gap: 1.25rem;
+    }
+  }
+}
+
+/* 강사 대시보드 header custom css */
+.header.dashboard.tutor {
+  .header-top {
+    border-bottom: 3px solid var(--tutor-color);
+
+    .header-top-wrapper {
+      .header-left {
+        .btn-menu {
+          a {
+            &:hover {
+              background: url("/asset/icon/menu_hover_tutor.svg") no-repeat
+                center/contain;
+            }
+          }
+        }
+      }
+
+      .header-right {
+        .btn-notification {
+          .badge {
+            background-color: var(--tutor-color);
+          }
+        }
+      }
     }
   }
 }
@@ -2907,7 +2908,7 @@ label {
     }
     /* ------------------------------------------- */
     /* 0421 휘원 삭제 후 다시 추가 */
-	/* dashboard.course로 이동했다가 다시 여기서도 사용해야함 */
+    /* dashboard.course로 이동했다가 다시 여기서도 사용해야함 */
     /* 학원 -> 강좌 신청 페이지 main-wrapper */
     /* 사용자 전용 */
     .main-wrapper.course-regist {
@@ -2919,46 +2920,46 @@ label {
       }
     }
   }
-  
+
   /* ------------------------------------ */
   /* 학원 -> 강좌 상세 페이지 main-wrapper */
-    .main-wrapper.course-detail {
-      padding: 4rem 0;
-      gap: 0;
-      display: flex;
-      flex-direction: column;
+  .main-wrapper.course-detail {
+    padding: 4rem 0;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
 
-      h1 {
-        margin: 2rem 0;
-      }
+    h1 {
+      margin: 2rem 0;
+    }
 
-      h2 {
-        margin: 2rem 0;
-      }
+    h2 {
+      margin: 2rem 0;
+    }
 
-      .course-info {
-        display: grid;
-        grid-template-columns: 10rem 1fr 10rem 1fr;
-        gap: 0rem;
+    .course-info {
+      display: grid;
+      grid-template-columns: 10rem 1fr 10rem 1fr;
+      gap: 0rem;
 
-        > div {
-          border: 1px solid #ccc;
-          background-color: #fff;
-          padding: 1rem;
+      > div {
+        border: 1px solid #ccc;
+        background-color: #fff;
+        padding: 1rem;
 
-          &.course-name {
-            grid-column: 2 / -1;
-          }
+        &.course-name {
+          grid-column: 2 / -1;
+        }
 
-          &:nth-child(2n - 1) {
-            background-color: #eee;
-            font-weight: 700;
-            text-align: center;
-          }
+        &:nth-child(2n - 1) {
+          background-color: #eee;
+          font-weight: 700;
+          text-align: center;
         }
       }
     }
-  
+  }
+
   /* ------------------------------------ */
   /* .dashboard.insttn 내부 widget-article */
   .widget-article {
