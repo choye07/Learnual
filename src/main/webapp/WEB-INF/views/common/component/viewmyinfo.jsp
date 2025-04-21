@@ -15,6 +15,7 @@
 
   <body>
     <div class="wrapper">
+    
       <div class="myinfo manage-board">
         <div class="manage-board-wrapper">
           <div class="manage-board-header">
@@ -119,6 +120,7 @@
           </div>
         </div>
       </div>
+      
     </div>
   </body>
 </html>
