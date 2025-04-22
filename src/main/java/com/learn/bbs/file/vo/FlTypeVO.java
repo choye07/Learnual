@@ -8,11 +8,11 @@ package com.learn.bbs.file.vo;
 public class FlTypeVO {
 
     /**
-     * @ColumnName FL_TYPE_ID
+     * @ColumnName FL_TYPE_NM
      * @ColumnType VARCHAR2(5)
      * @ColumnComment 파일 확장자명(기존 확장자)
      */
-    private String flTypeId;
+    private String flTypeNm;
 
     /**
      * @ColumnName FL_MDFY_TYPE
@@ -28,15 +28,17 @@ public class FlTypeVO {
      */
     private String flMdfyTypeYn;
 
-    public String getFlTypeId() {
-        return this.flTypeId;
-    }
+   
     
-    public void setFlTypeId(String flTypeId) {
-        this.flTypeId = flTypeId;
-    }
-    
-    public String getFlMdfyType() {
+    public String getFlTypeNm() {
+		return flTypeNm;
+	}
+
+	public void setFlTypeNm(String flTypeNm) {
+		this.flTypeNm = flTypeNm;
+	}
+
+	public String getFlMdfyType() {
         return this.flMdfyType;
     }
     
@@ -54,6 +56,6 @@ public class FlTypeVO {
     
     @Override
     public String toString() {
-        return "FlTypeVO(flTypeId: " + flTypeId + ", flMdfyType: " + flMdfyType + ", flMdfyTypeYn: " + flMdfyTypeYn + ", )";
+        return "FlTypeVO(flTypeNm: " + flTypeNm + ", flMdfyType: " + flMdfyType + ", flMdfyTypeYn: " + flMdfyTypeYn + ", )";
     }
 }

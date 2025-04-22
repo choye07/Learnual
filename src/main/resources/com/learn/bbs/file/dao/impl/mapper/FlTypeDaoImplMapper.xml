@@ -3,5 +3,34 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.file.dao.impl.FlTypeDaoImpl">
-    
+
+	<select id="selectFlMdfyTypes" parameterType="string"
+		resultType="com.learn.bbs.file.vo.FlTypeVO">
+		SELECT FL_TYPE_NM
+		, FL_MDFY_TYPE
+		FROM FL_TYPE
+		WHERE FL_TYPE_NM
+		= #{flTypeNm}
+		AND FL_MDFY_TYPE_YN = 'Y'
+	</select>
+
+	<insert id="insertFlMdfyTypes"
+		parameterType="com.learn.bbs.file.vo.FlTypeVO">
+		INSERT INTO FL_TYPE
+		(FL_TYPE_NM
+		, FL_MDFY_TYPE
+		,
+		FL_MDFY_TYPE_YN)
+		VALUES
+		( #{flTypeNm}
+		, #{flMdfyType}
+		, #{flMdfyTypeYn})
+	</insert>
+
+	<delete id="deleteFlMdfyTypes"
+		parameterType="com.learn.bbs.file.vo.FlTypeVO">
+		DELETE FROM FL_TYPE
+		WHERE FL_TYPE_NM = #{flTypeNm}
+		AND FL_MDFY_TYPE = #{flMdfyType}
+	</delete>
 </mapper>
