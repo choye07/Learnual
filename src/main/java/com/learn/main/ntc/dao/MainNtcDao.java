@@ -2,6 +2,7 @@ package com.learn.main.ntc.dao;
 
 import java.util.List;
 
+import com.learn.main.ntc.vo.NtcUpdateRequestVO;
 import com.learn.main.ntc.vo.NtcVO;
 import com.learn.main.ntc.vo.NtcWriteRequestVO;
 
@@ -10,7 +11,7 @@ import com.learn.main.ntc.vo.NtcWriteRequestVO;
  */
 public interface MainNtcDao {
 
-	// 1. 메인 러뉴얼 공지사항 작성
+	// 1. 메인 러뉴얼 공지사항 작성 (post vo)
 	public int insertNewMainNotice(NtcWriteRequestVO ntcWriteRequestVO);
 
 	// 2. 메인 러뉴얼 공지사항 리스트 불러오기
@@ -25,6 +26,6 @@ public interface MainNtcDao {
 	// 4. 메인 러뉴얼 공지사항 하나 삭제하기
 	public int deleteOneMainNotice(String id);
 
-	// 5. 메인 러뉴얼 공지사항 하나 수정하기
-	public int updateOneMainNoticeBy(String id);
+	// 5. 메인 러뉴얼 공지사항 하나 수정하기 (post, vo)
+	public int updateOneMainNoticeBy(NtcUpdateRequestVO ntcUpdateRequestVO);
 }

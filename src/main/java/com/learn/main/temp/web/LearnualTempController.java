@@ -8,37 +8,37 @@ public class LearnualTempController {
 	
 	@GetMapping("/test1")
 	public String viewTest1() {
-		return "/common/component/editmyinfo";
+		return "/bbs/crs/maincourse";
 	}
 	
 	@GetMapping("/test2")
 	public String viewTest2() {
-		return "/common/component/viewmyinfo";
+		return "/bbs/crs/coursecreate";
 	}
 	
 	@GetMapping("/test3")
 	public String viewTest3() {
-		return "/bbs/eduad/manageeduad";
+		return "/bbs/crs/coursedetail";
 	}
 	
 	@GetMapping("/test4")
 	public String viewTest4() {
-		return "/bbs/tst/tstboardlisteduad";
+		return "/bbs/crs/courseconfirm";
 	}
 	
 	@GetMapping("/test5")
 	public String viewTest5() {
-		return "/bbs/tst/tstboardlistusr";
+		return "/bbs/crs/courseregist";
 	}
 	
 	@GetMapping("/test6")
 	public String viewTest6() {
-		return "/bbs/tst/tstboardvieweduad";
+		return "/bbs/crs/coursemanage";
 	}
 	
 	@GetMapping("/test7")
 	public String viewTest7() {
-		return "/bbs/tst/tstboardviewusr";
+		return "/bbs/crs/coursemodify";
 	}
 	
 	@GetMapping("/test8")

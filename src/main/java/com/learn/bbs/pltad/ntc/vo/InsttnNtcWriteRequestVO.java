@@ -1,27 +1,27 @@
-package com.learn.main.ntc.vo;
+package com.learn.bbs.pltad.ntc.vo;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public class NtcUpdateRequestVO {
-	private String ntcId; // NTC_ID
-
-	@NotEmpty(message = "수정할 제목은 필수 입력값입니다.")
+public class InsttnNtcWriteRequestVO {
+	private String ntcId; //NTC_ID
+	
+	@NotEmpty(message = "제목은 필수 입력값입니다.")
 	private String ntcTtl; // NTC_TTL
-
-	@NotEmpty(message = "수정할 내용은 필수 입력값입니다.")
+	
+	@NotEmpty(message = "내용은 필수 입력값입니다.")
 	private String ntcCtt; // NTC_CTT
-
+	
 	private String ntcWrtrId; // NTC_WRTR_ID
-
+	
 	private String ntcPinnedYn; // NTC_PINNED_YN
-
+	
 //	private String ntcRgstDt; //NTC_RGST_DT
 //	private String ntcUpdtDt; //NTC_UPDT_DT
 //	private String ntcDelDt; //NTC_DEL_DT
 //	private String ntcDelYn; //NTC_DEL_YN
-
+	
 	private String artcId; // ARTC_ID
-
+	
 	public String getNtcId() {
 		return ntcId;
 	}
@@ -69,4 +69,5 @@ public class NtcUpdateRequestVO {
 	public void setArtcId(String artcId) {
 		this.artcId = artcId;
 	}
+
 }

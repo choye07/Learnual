@@ -1,6 +1,7 @@
 package com.learn.main.ntc.service;
 
 import com.learn.main.ntc.vo.NtcListVO;
+import com.learn.main.ntc.vo.NtcUpdateRequestVO;
 import com.learn.main.ntc.vo.NtcVO;
 import com.learn.main.ntc.vo.NtcWriteRequestVO;
 
@@ -23,5 +24,5 @@ public interface MainNtcService {
 	public boolean deleteOneMainNoticeBy(String id);
 
 	// 5. 메인 공지사항 하나 수정하기
-	public int updateOneMainNoticeBy(String id);
+	public boolean updateOneMainNoticeBy(NtcUpdateRequestVO ntcUpdateRequestVO);
 }

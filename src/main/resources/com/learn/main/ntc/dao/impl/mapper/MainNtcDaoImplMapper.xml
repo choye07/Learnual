@@ -28,7 +28,7 @@
 		 , (SELECT USR_ID
 		      FROM USR
 		     WHERE USR_NM = 'test')
-		 , 'N'<!-- 상단고정체크 시 Y변경 -->
+		 , #{ntcPinnedYn}
 		 , SYSDATE
 		 , (SELECT ARTC_ID 
 		 	  FROM ARTC 
@@ -87,8 +87,12 @@
 	</update>
 	
 	<update id="updateOneMainNoticeBy"
-			parameterType="String">
-		
+			parameterType="com.learn.main.ntc.vo.NtcUpdateRequestVO">
+		UPDATE NTC
+		SET NTC_TTL=#{ntcTtl}
+		  , NTC_CTT=#{ntcCtt}
+		  , NTC_UPDT_DT=SYSDATE
+		WHERE NTC_ID=#{ntcId}
 	</update>
 
 </mapper>

@@ -1,8 +1,8 @@
-package com.learn.main.ntc.vo;
+package com.learn.bbs.pltad.ntc.vo;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public class NtcUpdateRequestVO {
+public class InsttnNtcUpdateRequestVO {
 	private String ntcId; // NTC_ID
 
 	@NotEmpty(message = "수정할 제목은 필수 입력값입니다.")
