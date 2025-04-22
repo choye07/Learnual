@@ -110,55 +110,49 @@ public class PltadmVO {
      * @ColumnComment 관리자의 비밀번호 암호화를 위한 문자열
      */
     private String platadmLgnSlt;
-
+    
     /**
-     * @ColumnName PLTADM_LGN_IP
      * @ColumnType VARCHAR2(39)
      * @ColumnComment 관리자의 최근 접속 IP
      */
-    private String pltadmLgnIp;
+    private String platadmLgnIp;
 
     /**
-     * @ColumnName PLTADM_LST_PW_MDFY_DT
      * @ColumnType DATE
      * @ColumnComment 관리자의 최근 비밀번호 변경 날짜
      */
-    private String pltadmLstPwMdfyDt;
+    private String platadmLstPwMdfyDt;
 
     /**
-     * @ColumnName PLTADM_LST_LGN_DT
      * @ColumnType DATE
      * @ColumnComment 관리자의 최근 로그인 날짜
      */
-    private String pltadmLstLgnDt;
+    private String platadmLstLgnDt;
 
     /**
-     * @ColumnName PLTADM_LST_LGN_FAIL_DT
      * @ColumnType DATE
      * @ColumnComment 관리자의 최근 로그인 실패 날짜
      */
-    private String pltadmLstLgnFailDt;
+    private String platadmLgnFailDt;
 
     /**
-     * @ColumnName PLTADM_LGN_FAIL_CNT
      * @ColumnType NUMBER(1, 0)
-     * @ColumnComment 관리자가 로그인에 실패한 횟수
+     * @ColumnComment 관리자의 로그인에 실패한 횟수
      */
-    private int pltadmLgnFailCnt;
+    private int platadmFailCnt;
 
     /**
-     * @ColumnName PLTADM_LGN_YN
      * @ColumnType CHAR(1)
-     * @ColumnComment 관리자 로그인 여부
+     * @ColumnComment 관리자의 로그인 여부
      */
-    private String pltadmLgnYn;
+    private String platadmLgnYn;
 
     /**
-     * @ColumnName PLTADM_BLK_YN
      * @ColumnType CHAR(1)
-     * @ColumnComment 관리자 계정 잠금 여부
+     * @ColumnComment 관리자의 계정 잠금 여부
      */
-    private String pltadmBlkYn;
+    private String platadmBlkYn;
+    
 
     public String getPltadmId() {
         return this.pltadmId;
@@ -279,65 +273,73 @@ public class PltadmVO {
     public void setPlatadmLgnSlt(String platadmLgnSlt) {
         this.platadmLgnSlt = platadmLgnSlt;
     }
+
+	public String getPlatadmLgnIp() {
+		return platadmLgnIp;
+	}
+
+	public void setPlatadmLgnIp(String platadmLgnIp) {
+		this.platadmLgnIp = platadmLgnIp;
+	}
+
+	public String getPlatadmLstPwMdfyDt() {
+		return platadmLstPwMdfyDt;
+	}
+
+	public void setPlatadmLstPwMdfyDt(String platadmLstPwMdfyDt) {
+		this.platadmLstPwMdfyDt = platadmLstPwMdfyDt;
+	}
+
+	public String getPlatadmLstLgnDt() {
+		return platadmLstLgnDt;
+	}
+
+	public void setPlatadmLstLgnDt(String platadmLstLgnDt) {
+		this.platadmLstLgnDt = platadmLstLgnDt;
+	}
+
+	public String getPlatadmLgnFailDt() {
+		return platadmLgnFailDt;
+	}
+
+	public void setPlatadmLgnFailDt(String platadmLgnFailDt) {
+		this.platadmLgnFailDt = platadmLgnFailDt;
+	}
+
+	public int getPlatadmFailCnt() {
+		return platadmFailCnt;
+	}
+
+	public void setPlatadmFailCnt(int platadmFailCnt) {
+		this.platadmFailCnt = platadmFailCnt;
+	}
+
+	public String getPlatadmLgnYn() {
+		return platadmLgnYn;
+	}
+
+	public void setPlatadmLgnYn(String platadmLgnYn) {
+		this.platadmLgnYn = platadmLgnYn;
+	}
+
+	public String getPlatadmBlkYn() {
+		return platadmBlkYn;
+	}
+
+	public void setPlatadmBlkYn(String platadmBlkYn) {
+		this.platadmBlkYn = platadmBlkYn;
+	}
+
+	@Override
+	public String toString() {
+		return "PltadmVO [pltadmId=" + pltadmId + ", pltadmLgnId=" + pltadmLgnId + ", pltadmLgnPw=" + pltadmLgnPw
+				+ ", pltadmNm=" + pltadmNm + ", pltadmPn=" + pltadmPn + ", pltadmEmail=" + pltadmEmail
+				+ ", pltadmBrtDt=" + pltadmBrtDt + ", pltadmAdrs=" + pltadmAdrs + ", pltadmRgstDt=" + pltadmRgstDt
+				+ ", pltadmUpdtDt=" + pltadmUpdtDt + ", pltadmDelDt=" + pltadmDelDt + ", pltadmDelYn=" + pltadmDelYn
+				+ ", insttnId=" + insttnId + ", cmcdId=" + cmcdId + ", platadmLgnSlt=" + platadmLgnSlt
+				+ ", platadmLgnIp=" + platadmLgnIp + ", platadmLstPwMdfyDt=" + platadmLstPwMdfyDt + ", platadmLstLgnDt="
+				+ platadmLstLgnDt + ", platadmLgnFailDt=" + platadmLgnFailDt + ", platadmFailCnt=" + platadmFailCnt
+				+ ", platadmLgnYn=" + platadmLgnYn + ", platadmBlkYn=" + platadmBlkYn + "]";
+	}
     
-    public String getPltadmLgnIp() {
-        return this.pltadmLgnIp;
-    }
-    
-    public void setPltadmLgnIp(String pltadmLgnIp) {
-        this.pltadmLgnIp = pltadmLgnIp;
-    }
-    
-    public String getPltadmLstPwMdfyDt() {
-        return this.pltadmLstPwMdfyDt;
-    }
-    
-    public void setPltadmLstPwMdfyDt(String pltadmLstPwMdfyDt) {
-        this.pltadmLstPwMdfyDt = pltadmLstPwMdfyDt;
-    }
-    
-    public String getPltadmLstLgnDt() {
-        return this.pltadmLstLgnDt;
-    }
-    
-    public void setPltadmLstLgnDt(String pltadmLstLgnDt) {
-        this.pltadmLstLgnDt = pltadmLstLgnDt;
-    }
-    
-    public String getPltadmLstLgnFailDt() {
-        return this.pltadmLstLgnFailDt;
-    }
-    
-    public void setPltadmLstLgnFailDt(String pltadmLstLgnFailDt) {
-        this.pltadmLstLgnFailDt = pltadmLstLgnFailDt;
-    }
-    
-    public int getPltadmLgnFailCnt() {
-        return this.pltadmLgnFailCnt;
-    }
-    
-    public void setPltadmLgnFailCnt(int pltadmLgnFailCnt) {
-        this.pltadmLgnFailCnt = pltadmLgnFailCnt;
-    }
-    
-    public String getPltadmLgnYn() {
-        return this.pltadmLgnYn;
-    }
-    
-    public void setPltadmLgnYn(String pltadmLgnYn) {
-        this.pltadmLgnYn = pltadmLgnYn;
-    }
-    
-    public String getPltadmBlkYn() {
-        return this.pltadmBlkYn;
-    }
-    
-    public void setPltadmBlkYn(String pltadmBlkYn) {
-        this.pltadmBlkYn = pltadmBlkYn;
-    }
-    
-    @Override
-    public String toString() {
-        return "PltadmVO(pltadmId: " + pltadmId + ", pltadmLgnId: " + pltadmLgnId + ", pltadmLgnPw: " + pltadmLgnPw + ", pltadmNm: " + pltadmNm + ", pltadmPn: " + pltadmPn + ", pltadmEmail: " + pltadmEmail + ", pltadmBrtDt: " + pltadmBrtDt + ", pltadmAdrs: " + pltadmAdrs + ", pltadmRgstDt: " + pltadmRgstDt + ", pltadmUpdtDt: " + pltadmUpdtDt + ", pltadmDelDt: " + pltadmDelDt + ", pltadmDelYn: " + pltadmDelYn + ", insttnId: " + insttnId + ", cmcdId: " + cmcdId + ", platadmLgnSlt: " + platadmLgnSlt + ", pltadmLgnIp: " + pltadmLgnIp + ", pltadmLstPwMdfyDt: " + pltadmLstPwMdfyDt + ", pltadmLstLgnDt: " + pltadmLstLgnDt + ", pltadmLstLgnFailDt: " + pltadmLstLgnFailDt + ", pltadmLgnFailCnt: " + pltadmLgnFailCnt + ", pltadmLgnYn: " + pltadmLgnYn + ", pltadmBlkYn: " + pltadmBlkYn + ", )";
-    }
 }

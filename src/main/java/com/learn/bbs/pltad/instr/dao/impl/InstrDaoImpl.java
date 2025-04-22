@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.pltad.instr.dao.InstrDao;
 import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
+import com.learn.bbs.pltad.instr.vo.InstrVO;
 
 
 /**
@@ -29,7 +30,34 @@ public class InstrDaoImpl extends SqlSessionDaoSupport implements InstrDao {
 	public int insertNewInstr(InstrRegistRequestVO instrRegistRequestVO) {
 		return this.getSqlSession().insert(NAME_SPACE+"insertNewInstr",instrRegistRequestVO);
 	}
-
-
+	
+	@Override
+	public int selectUsrCountBy(String instrLgnId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectUsrCountBy", instrLgnId);
+	}
+	@Override
+	public InstrVO selectOneUsrBy(String instrLgnId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectOneUsrBy", instrLgnId);
+	}
+	@Override
+	public int updateLoginFailCount(String instrLgnId) {
+		return this.getSqlSession().update(NAME_SPACE + "updateLoginFailCount",instrLgnId);
+	}
+	@Override
+	public int updateBlock(String instrLgnId) {
+		return this.getSqlSession().update(NAME_SPACE + "updateBlock",instrLgnId);
+	}
+	@Override
+	public int updateLoginSuccess(String instrLgnId) {
+		return this.getSqlSession().update(NAME_SPACE + "updateLoginSuccess",instrLgnId);
+	}
+	@Override
+	public int updateLogoutStatus(String instrLgnId) {
+		return this.getSqlSession().update(NAME_SPACE + "updateLogoutStatus",instrLgnId);
+	}
+	@Override
+	public int deleteOneUsrBy(String instrLgnId) {
+		return this.getSqlSession().update(NAME_SPACE + "deleteOneUsrBy",instrLgnId);
+	}
 
 }

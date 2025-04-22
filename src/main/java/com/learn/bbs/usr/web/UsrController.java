@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -22,6 +23,7 @@ import com.learn.bbs.usr.vo.UsrLoginRequestVO;
 import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
+import com.learn.common.vo.LoginRequestVO;
 import com.learn.exceptions.UsrRegistException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -82,18 +84,18 @@ public class UsrController {
     	return new AjaxResponse(resultMap);
     }
     
-    // TODO 로그인 페이지 만들기.
-    @GetMapping("/usr/login")
-    public String viewLoginPage() {
-    	return "/main/mainlogin";
-    }
+//    // TODO 로그인 페이지 만들기.
+//    @GetMapping("/usr/login")
+//    public String viewLoginPage() {
+//    	return "/main/mainlogin";
+//    }
     
     // 사용자가 로그인 정보 입력 후 성공할 경우 / 화면으로 간다. 
-    @PostMapping("/login")
+    @PostMapping("/usr/login")
     public String doLogin(
-    		@Valid @ModelAttribute UsrLoginRequestVO usrLoginRequestVO,
+    		@Valid @ModelAttribute LoginRequestVO loginRequestVO,
 			BindingResult bindingResult,
-			@RequestParam String nextUrl, // -> 어떻게 쓰일지 미정이라 주석 처리함.
+			@RequestParam( required = false, defaultValue = "/") String nextUrl,
 			Model model,
 			HttpSession session,
 			HttpServletRequest request) {
@@ -102,11 +104,14 @@ public class UsrController {
 		String userIp = request.getRemoteAddr();
 		LOGGER.debug(userIp);
     	if(bindingResult.hasErrors()) {
-    		model.addAttribute("userInput", usrLoginRequestVO);
+    		model.addAttribute("userInput", loginRequestVO);
     		return "/main/mainlogin";
     	}
     	
     	//try {
+    	UsrLoginRequestVO usrLoginRequestVO = new UsrLoginRequestVO();
+    	usrLoginRequestVO.setUsrMl(loginRequestVO.getLgnId());
+    	usrLoginRequestVO.setUsrPw(loginRequestVO.getLgnPw());
     		UsrVO usrVO=  this.usrService.doLogin(usrLoginRequestVO);
     		// 사이트에 접속했을 때 발급 받은 세션은 폐기(로그아웃)시킨다.
     		session.invalidate();
@@ -116,7 +121,7 @@ public class UsrController {
     		// 해당 사용자의 고유한 세션의 아이디를 브라우저에게 "Cookie" 로 보내준다.
     		session.setAttribute("__LOGIN_USER__", usrVO);
 
-    	return "redirect:/";
+    	return "redirect:"+ nextUrl;
     }
     
     
