@@ -21,7 +21,7 @@
 
 			<div class="contents">
 
-				<div class="learnual-notice board">
+				<div class="notice learnual-notice board">
 					<div class="board-header">
 						<h1>러뉴얼 공지사항</h1>
 						<div class="board-toolbox">
@@ -44,20 +44,34 @@
 							<c:choose>
 								<c:when test="${not empty mainNtcList.ntcList}">
 									<c:set var="hasVisibleNotice" value="false" />
+
+									<!-- 상단 고정 체크된 게시글 -->
 									<c:forEach items="${mainNtcList.ntcList}" var="mainNtc">
-										<c:if test="${mainNtc.ntcDelYn != 'Y'}">
-											<!-- 삭제되지 않은 공지사항만 표시 -->
+										<c:if
+											test="${mainNtc.ntcDelYn != 'Y' && mainNtc.ntcPinnedYn == 'Y'}">
+											<li class="pinned-notice-list"><a href="/ntc/view/${mainNtc.ntcId}">
+													<div class="board-list-title">${mainNtc.ntcTtl}</div>
+													<div class="board-list-writer">작성자이름</div>
+													<div class="board-list-time">${mainNtc.ntcRgstDt}</div>
+											</a></li>
+											<c:set var="hasVisibleNotice" value="true" />
+										</c:if>
+									</c:forEach>
+
+									<!-- 상단 고정 체크되지 않은 게시글 -->
+									<c:forEach items="${mainNtcList.ntcList}" var="mainNtc">
+										<c:if
+											test="${mainNtc.ntcDelYn != 'Y' && mainNtc.ntcPinnedYn == 'N'}">
 											<li><a href="/ntc/view/${mainNtc.ntcId}">
 													<div class="board-list-title">${mainNtc.ntcTtl}</div>
 													<div class="board-list-writer">작성자이름</div>
 													<div class="board-list-time">${mainNtc.ntcRgstDt}</div>
 											</a></li>
 											<c:set var="hasVisibleNotice" value="true" />
-											<!-- 표시된 공지사항이 있음을 기록 -->
 										</c:if>
 									</c:forEach>
+
 									<c:if test="${not hasVisibleNotice}">
-										<!-- 표시된 공지사항이 없을 경우 -->
 										<li class="empty-notice-list">작성된 공지사항이 없습니다.</li>
 									</c:if>
 								</c:when>

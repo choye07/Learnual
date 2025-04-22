@@ -23,7 +23,7 @@
 
 			<div class="contents">
 
-				<div class="learnual-notice board edit">
+				<div class="notice learnual-notice board edit">
 					<div class="board-header">
 						<h1>러뉴얼 공지사항 수정</h1>
 					</div>

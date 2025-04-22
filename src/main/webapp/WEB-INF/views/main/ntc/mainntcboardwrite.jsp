@@ -16,28 +16,34 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
 
 		<div class="home-main">
 			<div class="visual">main visual</div>
 
 			<div class="contents">
 
-				<div class="learnual-notice board write">
+				<div class="notice learnual-notice board write">
 					<div class="board-header">
 						<h1>러뉴얼 공지사항 작성</h1>
 					</div>
 
 					<form:form modelAttribute="ntcWriteRequestVO"
 						id="learnual-notice-form">
+						<div class="ntcPinnedYn-area form-group">
+							<label for="ntcPinnedYn">상단 고정</label> <input type="checkbox"
+								id="ntcPinnedYn" name="ntcPinnedYn" />
+						</div>
 						<div class="writer-area form-group">
 							<label for="writer">작성자</label> <input type="text" id="writer"
 								name="writer" value="작성자" required />
 						</div>
 						<div class="ntcTtl-area form-group">
-							<label for="ntcTtl">제목</label> <input type="text" id="ntcTtl" value="${usrWriteNtc.ntcTtl}"
-								name="ntcTtl" required />
+							<label for="ntcTtl">제목</label> <input type="text" id="ntcTtl"
+								value="${usrWriteNtc.ntcTtl}" name="ntcTtl" required />
 						</div>
+
 						<form:errors path="ntcTtl" element="div" cssClass="error" />
 						<div class="ntcCtt-area form-group">
 							<label for="ntcCtt">내용</label>
@@ -56,7 +62,8 @@
 
 		</div>
 
-		<jsp:include page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
 	</div>
 
 </body>

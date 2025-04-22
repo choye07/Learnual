@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.bbs.pltad.ntc.dao.impl.InsttnNtcDaoImpl">
+
+	<insert id="insertNewInsttnNotice"
+			parameterType="com.learn.bbs.pltad.ntc.vo.InsttnNtcWriteRequestVO">
+
+		<selectKey order="BEFORE" resultType="string" keyProperty="ntcId">
+			<!-- ID값을 생성해주는 태그. -->
+			SELECT 'NTC-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_NTC_PK.NEXTVAL, 6, '0')
+  			  FROM DUAL
+		</selectKey>
+		
+		INSERT INTO NTC
+		  (NTC_ID
+		 , NTC_TTL
+		 , NTC_CTT
+		 , NTC_WRTR_ID
+		 , NTC_PINNED_YN
+		 , NTC_RGST_DT
+		 , ARTC_ID)
+		VALUES
+		  (#{ntcId}
+		 , #{ntcTtl}
+		 , #{ntcCtt}
+		 , (SELECT USR_ID
+		      FROM USR
+		     WHERE USR_NM = 'test')
+		 , #{ntcPinnedYn}
+		 , SYSDATE
+		 , (SELECT ARTC_ID 
+		 	  FROM ARTC 
+		 	 WHERE ARTC_NM = 'ntc')
+		 )
+	</insert>
+	
+	<select id="selectInsttnNoticeAllCount">
+		SELECT count(1)
+		  FROM NTC
+		 WHERE ARTC_ID = (SELECT ARTC_ID 
+		 	  				FROM ARTC 
+		 	 			   WHERE ARTC_NM = 'ntc')
+	</select>
+	
+	<select id="selectInsttnNoticeAll">
+		SELECT NTC_ID
+			 , NTC_TTL
+			 , NTC_CTT
+			 , NTC_WRTR_ID
+			 , NTC_PINNED_YN
+			 , NTC_RGST_DT
+			 , NTC_UPDT_DT
+			 , NTC_DEL_DT
+			 , NTC_DEL_YN
+			 , ARTC_ID
+		  FROM NTC
+		 WHERE ARTC_ID = (SELECT ARTC_ID 
+		 	  				FROM ARTC 
+		 	 			   WHERE ARTC_NM = 'ntc')
+		 ORDER BY NTC_ID DESC
+	</select>
+	
+	<select id="selectOneInsttnNoticeBy"
+			parameterType="String">
+		SELECT NTC_ID
+			 , NTC_TTL
+			 , NTC_CTT
+			 , NTC_WRTR_ID
+			 , NTC_PINNED_YN
+			 , NTC_RGST_DT
+			 , NTC_UPDT_DT
+			 , NTC_DEL_DT
+			 , NTC_DEL_YN
+			 , ARTC_ID
+		  FROM NTC
+		 WHERE NTC_ID = #{id}
+	</select>
+	
+	<update id="deleteOneInsttnNoticeBy"
+			parameterType="String">
+		UPDATE NTC
+		   SET NTC_DEL_DT=SYSDATE
+		     , NTC_DEL_YN='Y'
+		WHERE NTC_ID=#{id}
+	</update>
+	
+	<update id="updateOneInsttnNoticeBy"
+			parameterType="com.learn.bbs.pltad.ntc.vo.InsttnNtcUpdateRequestVO">
+		UPDATE NTC
+		SET NTC_TTL=#{ntcTtl}
+		  , NTC_CTT=#{ntcCtt}
+		  , NTC_UPDT_DT=SYSDATE
+		WHERE NTC_ID=#{ntcId}
+	</update>
+
+</mapper>
