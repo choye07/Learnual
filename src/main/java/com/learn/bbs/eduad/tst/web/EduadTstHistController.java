@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.bbs.tst.service.TstHistService;
 import com.learn.bbs.tst.vo.TstHistVO;
 import com.learn.bbs.usr.vo.UsrVO;
@@ -22,7 +23,8 @@ public class EduadTstHistController {
 	private TstHistService tstHistService;
 
 	@GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/list/{tstId}")
-	public AjaxResponse testList(@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+	public AjaxResponse testList(
+			@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,

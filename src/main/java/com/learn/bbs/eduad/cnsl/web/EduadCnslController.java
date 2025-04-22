@@ -16,7 +16,7 @@ import com.learn.bbs.cnsl.vo.CnslVO;
 import com.learn.bbs.cnsl.vo.CreateCnslRequestVO;
 import com.learn.bbs.cnsl.vo.SearchCnslRequestVO;
 import com.learn.bbs.cnsl.vo.UpdateCnslRequestVO;
-import com.learn.bbs.usr.vo.UsrVO;
+import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.common.vo.AjaxResponse;
 
 
@@ -34,12 +34,13 @@ public class EduadCnslController {
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/list")
     public AjaxResponse viewCnslList(
 			SearchCnslRequestVO searchCnslRequestVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+			@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
 			@PathVariable String artcId) {
-    	searchCnslRequestVO.setUsrId(usrVO.getUsrId());
+    	
+    	searchCnslRequestVO.setInstrId(instrVO.getInstrId());
     	searchCnslRequestVO.setArtcId(artcId);
     	searchCnslRequestVO.setCrsInfId(crsInfId);
     	searchCnslRequestVO.setSbjId(sbjId);
@@ -52,14 +53,14 @@ public class EduadCnslController {
     @GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/view/{cnslId}")
     public AjaxResponse viewOneCnsl(
 			CnslCommonVO cnslCommonVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+			@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String cnslId,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
 			@PathVariable String artcId) {
     	
-    	cnslCommonVO.setUsrId(usrVO.getUsrId());
+    	cnslCommonVO.setInstrId(instrVO.getInstrId());
     	cnslCommonVO.setArtcId(artcId);
     	cnslCommonVO.setCrsInfId(crsInfId);
     	cnslCommonVO.setSbjId(sbjId);
@@ -73,13 +74,13 @@ public class EduadCnslController {
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/create")
     public AjaxResponse createNewCnsl(
 			CreateCnslRequestVO createCnslRequestVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+			@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
 			@PathVariable String artcId) {
     	
-    	createCnslRequestVO.setUsrId(usrVO.getUsrId());
+    	createCnslRequestVO.setInstrId(instrVO.getInstrId());
     	createCnslRequestVO.setArtcId(artcId);
     	createCnslRequestVO.setCrsInfId(crsInfId);
     	createCnslRequestVO.setSbjId(sbjId);
@@ -92,14 +93,14 @@ public class EduadCnslController {
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/update/{cnslId}")
     public AjaxResponse updateOneCnsl(
 			UpdateCnslRequestVO updateCnslRequestVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+			@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String cnslId,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
 			@PathVariable String artcId) {
     	
-    	updateCnslRequestVO.setUsrId(usrVO.getUsrId());
+    	updateCnslRequestVO.setInstrId(instrVO.getInstrId());
     	updateCnslRequestVO.setArtcId(artcId);
     	updateCnslRequestVO.setCrsInfId(crsInfId);
     	updateCnslRequestVO.setSbjId(sbjId);

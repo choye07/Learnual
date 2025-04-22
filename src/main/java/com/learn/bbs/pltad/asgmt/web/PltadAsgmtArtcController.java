@@ -16,6 +16,7 @@ import com.learn.bbs.asgmt.vo.CreateAsgmtArtcRequestVO;
 import com.learn.bbs.asgmt.vo.DeleteAsgmtArtcRequestVO;
 import com.learn.bbs.asgmt.vo.SearchAsgmtArtcRequestVO;
 import com.learn.bbs.asgmt.vo.UpdateAsgmtArtcRequestVO;
+import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
 
@@ -29,13 +30,13 @@ public class PltadAsgmtArtcController {
     @GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/list")
     public AjaxResponse viewAsgmtArtcList(
     		SearchAsgmtArtcRequestVO searchAsgmtArtcRequestVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
 			@PathVariable String artcId)  {
     	
-    	searchAsgmtArtcRequestVO.setUsrId(usrVO.getUsrId());
+    	searchAsgmtArtcRequestVO.setUsrId(pltadmVO.getPltadmId());
     	searchAsgmtArtcRequestVO.setArtcId(artcId);
     	searchAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	searchAsgmtArtcRequestVO.setSbjId(sbjId);
@@ -48,14 +49,14 @@ public class PltadAsgmtArtcController {
     @GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/view/{asgmtArtcId}")
     public AjaxResponse viewAsgmtArtc(
     		SearchAsgmtArtcRequestVO searchAsgmtArtcRequestVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
 			@PathVariable String artcId,
 			@PathVariable String asgmtArtcId) {
     	
-    	searchAsgmtArtcRequestVO.setUsrId(usrVO.getUsrId());
+    	searchAsgmtArtcRequestVO.setUsrId(pltadmVO.getPltadmId());
     	searchAsgmtArtcRequestVO.setArtcId(artcId);
     	searchAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	searchAsgmtArtcRequestVO.setSbjId(sbjId);
@@ -68,13 +69,13 @@ public class PltadAsgmtArtcController {
     
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/create")
     public AjaxResponse createNewAsgmtArtc(CreateAsgmtArtcRequestVO createAsgmtArtcRequestVO,
-    		@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
 			@PathVariable String artcId) {
     	
-    	createAsgmtArtcRequestVO.setUsrId(usrVO.getUsrId());
+    	createAsgmtArtcRequestVO.setUsrId(pltadmVO.getPltadmId());
     	createAsgmtArtcRequestVO.setArtcId(artcId);
     	createAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	createAsgmtArtcRequestVO.setSbjId(sbjId);
@@ -86,7 +87,7 @@ public class PltadAsgmtArtcController {
     
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/update/{asgmtArtcId}")
     public AjaxResponse updateOneTest(UpdateAsgmtArtcRequestVO updateAsgmtArtcRequestVO,
-    		@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -94,7 +95,7 @@ public class PltadAsgmtArtcController {
 			@PathVariable String asgmtArtcId) {
     	
     	updateAsgmtArtcRequestVO.setAsgmtArtcId(asgmtArtcId);
-    	updateAsgmtArtcRequestVO.setUsrId(usrVO.getUsrId());
+    	updateAsgmtArtcRequestVO.setUsrId(pltadmVO.getPltadmId());
     	updateAsgmtArtcRequestVO.setArtcId(artcId);
     	updateAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	updateAsgmtArtcRequestVO.setSbjId(sbjId);
@@ -106,7 +107,7 @@ public class PltadAsgmtArtcController {
     
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/update/{asgmtArtcId}")
     public AjaxResponse updateTestStat(UpdateAsgmtArtcRequestVO updateAsgmtArtcRequestVO,
-    		@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -114,7 +115,7 @@ public class PltadAsgmtArtcController {
 			@PathVariable String asgmtArtcId) {
     	
     	updateAsgmtArtcRequestVO.setAsgmtArtcId(asgmtArtcId);
-    	updateAsgmtArtcRequestVO.setUsrId(usrVO.getUsrId());
+    	updateAsgmtArtcRequestVO.setUsrId(pltadmVO.getPltadmId());
     	updateAsgmtArtcRequestVO.setArtcId(artcId);
     	updateAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	updateAsgmtArtcRequestVO.setSbjId(sbjId);
@@ -126,7 +127,7 @@ public class PltadAsgmtArtcController {
     
     @GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/delete/{tstId}")
     public AjaxResponse updateTestStat(DeleteAsgmtArtcRequestVO deleteAsgmtArtcRequestVO,
-    		@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -134,7 +135,7 @@ public class PltadAsgmtArtcController {
 			@PathVariable String asgmtArtcId) {
     	
     	deleteAsgmtArtcRequestVO.setAsgmtArtcId(asgmtArtcId);
-    	deleteAsgmtArtcRequestVO.setUsrId(usrVO.getUsrId());
+    	deleteAsgmtArtcRequestVO.setUsrId(pltadmVO.getPltadmId());
     	deleteAsgmtArtcRequestVO.setArtcId(artcId);
     	deleteAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	deleteAsgmtArtcRequestVO.setSbjId(sbjId);

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.bbs.tst.service.TstService;
 import com.learn.bbs.tst.vo.CreateTstRequestVO;
 import com.learn.bbs.tst.vo.DeleteTstRequestVO;
@@ -30,13 +31,13 @@ public class EduadTstController {
     @GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/list")
     public AjaxResponse viewTestList(
     			SearchTstRequestVO searchTstRequestVO,
-    			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    			@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
     			@PathVariable String insttnId,
     			@PathVariable String crsInfId,
     			@PathVariable String sbjId,
     			@PathVariable String artcId) {
     	
-    	searchTstRequestVO.setUsrId(usrVO.getUsrId());
+    	searchTstRequestVO.setUsrId(instrVO.getInstrId());
     	searchTstRequestVO.setArtcId(artcId);
     	searchTstRequestVO.setCrsInfId(crsInfId);
     	searchTstRequestVO.setSbjId(sbjId);
@@ -50,7 +51,7 @@ public class EduadTstController {
     @GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/view/{tstId}")
     public AjaxResponse viewTest(
     		TstCommonVO tstCommonVO,
-    			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
     			@PathVariable String insttnId,
     			@PathVariable String crsInfId,
     			@PathVariable String sbjId,
@@ -58,7 +59,7 @@ public class EduadTstController {
     			@PathVariable String tstId) {
     	
     	tstCommonVO.setTstId(tstId);
-    	tstCommonVO.setUsrId(usrVO.getUsrId());
+    	tstCommonVO.setUsrId(instrVO.getInstrId());
     	tstCommonVO.setArtcId(artcId);
     	tstCommonVO.setCrsInfId(crsInfId);
     	tstCommonVO.setSbjId(sbjId);
@@ -70,13 +71,13 @@ public class EduadTstController {
     
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/create")
     public AjaxResponse createNewTest(CreateTstRequestVO createTstRequestVO,
-    		@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
 			@PathVariable String artcId) {
     	
-    	createTstRequestVO.setUsrId(usrVO.getUsrId());
+    	createTstRequestVO.setUsrId(instrVO.getInstrId());
     	createTstRequestVO.setArtcId(artcId);
     	createTstRequestVO.setCrsInfId(crsInfId);
     	createTstRequestVO.setSbjId(sbjId);
@@ -88,7 +89,7 @@ public class EduadTstController {
     
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/update/{tstId}")
     public AjaxResponse updateOneTest(UpdateTstRequestVO updateTstRequestVO,
-    		@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -96,7 +97,7 @@ public class EduadTstController {
 			@PathVariable String tstId) {
     	
     	updateTstRequestVO.setTstId(tstId);
-    	updateTstRequestVO.setUsrId(usrVO.getUsrId());
+    	updateTstRequestVO.setUsrId(instrVO.getInstrId());
     	updateTstRequestVO.setArtcId(artcId);
     	updateTstRequestVO.setCrsInfId(crsInfId);
     	updateTstRequestVO.setSbjId(sbjId);
@@ -108,7 +109,7 @@ public class EduadTstController {
     
     @PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/update/{tstId}/stat")
     public AjaxResponse updateTestStat(UpdateTstRequestVO updateTstRequestVO,
-    		@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -116,7 +117,7 @@ public class EduadTstController {
 			@PathVariable String tstId) {
     	
     	updateTstRequestVO.setTstId(tstId);
-    	updateTstRequestVO.setUsrId(usrVO.getUsrId());
+    	updateTstRequestVO.setUsrId(instrVO.getInstrId());
     	updateTstRequestVO.setArtcId(artcId);
     	updateTstRequestVO.setCrsInfId(crsInfId);
     	updateTstRequestVO.setSbjId(sbjId);
@@ -128,7 +129,7 @@ public class EduadTstController {
     
     @GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/delete/{tstId}")
     public AjaxResponse updateTestStat(DeleteTstRequestVO deleteTstRequestVO,
-    		@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -136,7 +137,7 @@ public class EduadTstController {
 			@PathVariable String tstId) {
     	
     	deleteTstRequestVO.setTstId(tstId);
-    	deleteTstRequestVO.setUsrId(usrVO.getUsrId());
+    	deleteTstRequestVO.setUsrId(instrVO.getInstrId());
     	deleteTstRequestVO.setArtcId(artcId);
     	deleteTstRequestVO.setCrsInfId(crsInfId);
     	deleteTstRequestVO.setSbjId(sbjId);

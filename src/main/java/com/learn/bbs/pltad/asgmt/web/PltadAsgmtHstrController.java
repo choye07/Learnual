@@ -16,6 +16,7 @@ import com.learn.bbs.asgmt.vo.AsgmtHstrVO;
 import com.learn.bbs.asgmt.vo.CreateAsgmtHstrRequestVO;
 import com.learn.bbs.asgmt.vo.DeleteAsgmtHstrRequestVO;
 import com.learn.bbs.asgmt.vo.SearchAsgmtHstrRequestVO;
+import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
 
@@ -29,7 +30,7 @@ public class PltadAsgmtHstrController {
 	@GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/{asgmtArtcId}/list")
     public AjaxResponse viewAsgmtHstrList(
     		SearchAsgmtHstrRequestVO searchAsgmtHstrRequestVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -37,7 +38,7 @@ public class PltadAsgmtHstrController {
 			@PathVariable String asgmtArtcId)  {
     	
 		searchAsgmtHstrRequestVO.setAsgmtArtcId(asgmtArtcId);
-		searchAsgmtHstrRequestVO.setUsrId(usrVO.getUsrId());
+		searchAsgmtHstrRequestVO.setUsrId(pltadmVO.getPltadmId());
 		searchAsgmtHstrRequestVO.setArtcId(artcId);
 		searchAsgmtHstrRequestVO.setCrsInfId(crsInfId);
 		searchAsgmtHstrRequestVO.setSbjId(sbjId);
@@ -50,7 +51,7 @@ public class PltadAsgmtHstrController {
 	@GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/{asgmtArtcId}/{asgmtHstrId}/view")
     public AjaxResponse viewAsgmtHstr(
     		AsgmtHstrCommonVO asgmtHstrCommonVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -59,7 +60,7 @@ public class PltadAsgmtHstrController {
 			@PathVariable String asgmtHstrId)  {
     	
 		asgmtHstrCommonVO.setAsgmtArtcId(asgmtArtcId);
-		asgmtHstrCommonVO.setUsrId(usrVO.getUsrId());
+		asgmtHstrCommonVO.setUsrId(pltadmVO.getPltadmId());
 		asgmtHstrCommonVO.setArtcId(artcId);
 		asgmtHstrCommonVO.setCrsInfId(crsInfId);
 		asgmtHstrCommonVO.setSbjId(sbjId);
@@ -73,7 +74,7 @@ public class PltadAsgmtHstrController {
 	@PostMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/{asgmtArtcId}/create")
     public AjaxResponse createAsgmtHstr(
     		CreateAsgmtHstrRequestVO createAsgmtHstrRequestVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -81,7 +82,7 @@ public class PltadAsgmtHstrController {
 			@PathVariable String asgmtArtcId)  {
     	
 		createAsgmtHstrRequestVO.setAsgmtArtcId(asgmtArtcId);
-		createAsgmtHstrRequestVO.setUsrId(usrVO.getUsrId());
+		createAsgmtHstrRequestVO.setUsrId(pltadmVO.getPltadmId());
 		createAsgmtHstrRequestVO.setArtcId(artcId);
 		createAsgmtHstrRequestVO.setCrsInfId(crsInfId);
 		createAsgmtHstrRequestVO.setSbjId(sbjId);
@@ -94,7 +95,7 @@ public class PltadAsgmtHstrController {
 	@GetMapping("/{insttnId}/{crsInfId}/{sbjId}/{artcId}/{asgmtArtcId}/{asgmtHstrId}/delete")
     public AjaxResponse deleteAsgmtHstr(
     		DeleteAsgmtHstrRequestVO deleteAsgmtHstrRequestVO,
-			@SessionAttribute("__LOGIN_USER__") UsrVO usrVO,
+    		@SessionAttribute("__LOGIN_PLTADM__") PltadmVO pltadmVO,
 			@PathVariable String insttnId,
 			@PathVariable String crsInfId,
 			@PathVariable String sbjId,
@@ -103,7 +104,7 @@ public class PltadAsgmtHstrController {
 			@PathVariable String asgmtHstrId)  {
     	
 		deleteAsgmtHstrRequestVO.setAsgmtArtcId(asgmtArtcId);
-		deleteAsgmtHstrRequestVO.setUsrId(usrVO.getUsrId());
+		deleteAsgmtHstrRequestVO.setUsrId(pltadmVO.getPltadmId());
 		deleteAsgmtHstrRequestVO.setArtcId(artcId);
 		deleteAsgmtHstrRequestVO.setCrsInfId(crsInfId);
 		deleteAsgmtHstrRequestVO.setSbjId(sbjId);
