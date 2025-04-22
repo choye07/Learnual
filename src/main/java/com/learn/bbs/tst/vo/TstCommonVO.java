@@ -11,6 +11,11 @@ public class TstCommonVO {
 	private String artcId;
 	private String sbjId;
 
+	/**
+	 * usr, eduad, pltad, super
+	 */
+	private String requesterType;
+
 	public String getTstId() {
 		return tstId;
 	}
@@ -49,6 +54,14 @@ public class TstCommonVO {
 
 	public void setSbjId(String sbjId) {
 		this.sbjId = sbjId;
+	}
+
+	public String getRequesterType() {
+		return requesterType;
+	}
+
+	public void setRequesterType(String requesterType) {
+		this.requesterType = requesterType;
 	}
 
 }

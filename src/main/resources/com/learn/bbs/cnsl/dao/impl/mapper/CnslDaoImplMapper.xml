@@ -4,4 +4,212 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.cnsl.dao.impl.CnslDaoImpl">
     
+    <resultMap type="com.learn.bbs.cnsl.vo.CnslVO" 
+    		   id="CnslVOMap"
+    		   autoMapping="true">
+    	<id column="CNSL_ID" property="cnslId" />
+    	<association property="crsInf"
+    				 javaType="com.learn.bbs.crs.crsinf.vo.CrsInfVO"
+    				 autoMapping="true">
+			<id column="CRS_INF_ID" property="crsInfId" />
+    	</association>
+    	<association property="instr"
+    				 javaType="com.learn.bbs.pltad.instr.vo.InstrVO"
+    				 autoMapping="true">
+			<id column="INSTR_ID" property="instrId" />
+    	</association>
+    	<association property="sbj"
+    				 javaType="com.learn.bbs.crs.sbj.vo.SbjVO"
+    				 autoMapping="true">
+			<id column="SBJ_ID" property="sbjId" />
+    	</association>
+    	<association property="arct"
+    				 javaType="com.learn.bbs.pltad.artc.vo.ArtcVO"
+    				 autoMapping="true">
+			<id column="ARTC_ID" property="artcId" />
+    	</association>
+    	<association property="usr"
+    				 javaType="com.learn.bbs.usr.vo.UsrVO"
+    				 autoMapping="true">
+			<id column="USR_ID" property="usrId" />
+    	</association>
+    </resultMap>
+    
+	<select id="selectAllCnslList"
+			parameterType="com.learn.bbs.cnsl.vo.SearchCnslRequestVO"
+			resultMap="CnslVOMap">
+		SELECT C.CNSL_ID
+		     , C.CNSL_TTL
+		     , C.CNSL_CTT
+		     , TO_CHAR(C.CNSL_APPLY_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_APPLY_DT
+		     , TO_CHAR(C.CNSL_FINISH_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_FINISH_DT
+		     , TO_CHAR(C.CNSL_RGST_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_RGST_DT
+		     , TO_CHAR(C.CNSL_UPDT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_UPDT_DT
+		     , TO_CHAR(C.CNSL_CNCL_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_CNCL_DT
+		     , C.CNSL_CNCL_YN
+		     , C.CNSL_INSTR_CNCL_CTT
+		     , C.CNSL_USR_CNCL_CTT
+		     , C.CNSL_COM_YN
+		     , C.ARTC_ID
+		     , C.INSTR_ID
+		     , I.INSTR_NM
+		     , C.USR_ID
+		     , U.USR_NM
+		     , C.CRS_INF_ID
+		     , CI.CRS_INF_NM
+		     , C.SBJ_ID
+		     , S.SBJ_NM
+		     , C.CNSL_ANSWER
+		  FROM CNSL C
+		 INNER JOIN CRS_SBJ CS
+		    ON CS.CRS_INF_ID = C.CRS_INF_ID
+		   AND CS.SBJ_ID = C.SBJ_ID
+		 INNER JOIN SBJ S
+		    ON S.SBJ_ID = C.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN USR U
+		    ON C.USR_ID = U.USR_ID
+		 INNER JOIN INSTR I
+		    ON C.INSTR_ID = I.INSTR_ID
+		 WHERE C.CRS_INF_ID = #{crsInfId}
+		 <if test='instrId != null and instrId != null'>
+   	       AND C.INSTR_ID = #{instrId}
+   	     </if>
+   	     <if test='usrId != null and usrId != null'>
+   	       AND C.USR_ID = #{usrId}
+   	     </if>
+   	       AND C.ARTC_ID = #{artcId}
+		 ORDER BY CI.CRS_INF_NM ASC
+		     , S.SBJ_NM ASC
+		     , C.CNSL_ID DESC
+	</select>
+	
+	<select id="selectOneCnsl"
+			parameterType="com.learn.bbs.cnsl.vo.CnslCommonVO"
+			resultMap="CnslVOMap">
+		SELECT C.CNSL_ID
+		     , C.CNSL_TTL
+		     , C.CNSL_CTT
+		     , TO_CHAR(C.CNSL_APPLY_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_APPLY_DT
+		     , TO_CHAR(C.CNSL_FINISH_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_FINISH_DT
+		     , TO_CHAR(C.CNSL_RGST_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_RGST_DT
+		     , TO_CHAR(C.CNSL_UPDT_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_UPDT_DT
+		     , TO_CHAR(C.CNSL_CNCL_DT, 'YYYY-MM-DD HH24:MI:SS') AS CNSL_CNCL_DT
+		     , C.CNSL_CNCL_YN
+		     , C.CNSL_INSTR_CNCL_CTT
+		     , C.CNSL_USR_CNCL_CTT
+		     , C.CNSL_COM_YN
+		     , C.ARTC_ID
+		     , C.INSTR_ID
+		     , I.INSTR_NM
+		     , C.USR_ID
+		     , U.USR_NM
+		     , C.CRS_INF_ID
+		     , CI.CRS_INF_NM
+		     , C.SBJ_ID
+		     , S.SBJ_NM
+		     , C.CNSL_ANSWER
+		  FROM CNSL C
+		 INNER JOIN CRS_SBJ CS
+		    ON CS.CRS_INF_ID = C.CRS_INF_ID
+		   AND CS.SBJ_ID = C.SBJ_ID
+		 INNER JOIN SBJ S
+		    ON S.SBJ_ID = C.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN USR U
+		    ON C.USR_ID = U.USR_ID
+		 INNER JOIN INSTR I
+		    ON C.INSTR_ID = I.INSTR_ID
+		 WHERE C.CRS_INF_ID = #{crsInfId}
+   	     <if test='instrId != null and instrId != null'>
+   	       AND C.INSTR_ID = #{instrId}
+   	     </if>
+   	     <if test='usrId != null and usrId != null'>
+   	       AND C.USR_ID = #{usrId}
+   	     </if>
+   	       AND C.ARTC_ID = #{artcId}
+	</select>
+	
+	<insert id="insertNewCnsl"
+			parameterType="com.learn.bbs.cnsl.vo.CreateCnslRequestVO">
+		<selectKey keyProperty="cnslId" order="BEFORE">
+			SELECT 'CNSL-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CNSL_PK.NEXTVAL, 6, '0')
+  			  FROM DUAL
+		</selectKey>
+		INSERT INTO CNSL
+		 (CNSL_ID
+		, CNSL_TTL
+		, CNSL_CTT
+		, CNSL_APPLY_DT
+		, CNSL_FINISH_DT
+		, CNSL_RGST_DT
+		, CNSL_UPDT_DT
+		, CNSL_CNCL_DT
+		, CNSL_CNCL_YN
+		, CNSL_INSTR_CNCL_CTT
+		, CNSL_USR_CNCL_CTT
+		, CNSL_COM_YN
+		, ARTC_ID
+		, INSTR_ID
+		, USR_ID
+		, CRS_INF_ID
+		, SBJ_ID
+		, CNSL_ANSWER)
+		VALUES
+		 (#{cnslId}  	/*CNSL_ID*/
+		, #{cnslTtl}  	/*CNSL_TTL*/
+		, #{cnslCtt}  	/*CNSL_CTT*/
+		, SYSDATE  		/*CNSL_APPLY_DT*/
+		, NULL  		/*CNSL_FINISH_DT*/
+		, SYSDATE  		/*CNSL_RGST_DT*/
+		, NULL  		/*CNSL_UPDT_DT*/
+		, NULL  		/*CNSL_CNCL_DT*/
+		, 'N' 			/*CNSL_CNCL_YN*/
+		, NULL  		/*CNSL_INSTR_CNCL_CTT*/
+		, NULL  		/*CNSL_USR_CNCL_CTT*/
+		, 'N' 			/*CNSL_COM_YN*/
+		, #{artcId}  	/*ARTC_ID*/
+		, #{instrId}  	/*INSTR_ID*/
+		, #{usrId}  	/*USR_ID*/
+		, #{crsInfId}  	/*CRS_INF_ID*/
+		, #{sbjId}      /*SBJ_ID*/
+		, NULL) 	    /*CNSL_ANSWER*/
+	</insert>
+			
+    <update id="updateOneCnsl"
+			parameterType="com.learn.bbs.cnsl.vo.UpdateCnslRequestVO">
+		UPDATE CNSL
+		   SET 
+		     <if test='(cnslTtl != null and cnslTtl != "") or (cnslCtt != null and cnslCtt != "")'>
+		       CNSL_UPDT_DT = SYSDATE
+		     , CNSL_TTL = #{cnslTtl}
+		     , CNSL_CTT = #{cnslCtt}
+		     </if>
+		     <if test='cnslInstrCnclCtt != null and cnslInstrCnclCtt != null'>
+		     CNSL_CNCL_DT = SYSDATE
+		     , CNSL_CNCL_YN = 'Y'
+		     , CNSL_INSTR_CNCL_CTT = #{cnslInstrCnclCtt}
+		     </if>
+		     <if test='cnslUsrCnclCtt != null and cnslUsrCnclCtt != null'>
+		     CNSL_CNCL_DT = SYSDATE
+		     , CNSL_CNCL_YN = 'Y'
+		     , CNSL_USR_CNCL_CTT = #{cnslUsrCnclCtt}
+		     </if>
+		     <if test='cnslAnswer != null and cnslAnswer != null'>
+		     CNSL_FINISH_DT = SYSDATE
+		     , CNSL_ANSWER = #{cnslAnswer}
+		     </if>
+		 WHERE CNSL_ID = #{cnslId}
+		 <if test='instrId != null and instrId != null'>
+	   	   AND C.INSTR_ID = #{instrId}
+	   	 </if>
+	   	 <if test='usrId != null and usrId != null'>
+	   	   AND C.USR_ID = #{usrId}
+	   	 </if>
+		   AND CRS_INF_ID = #{crsInfId}
+		   AND ARTC_ID = #{artcId}
+		   AND SBJ_ID = #{sbjId}
+	</update>
 </mapper>

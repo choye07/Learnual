@@ -40,6 +40,7 @@ public class AsgmtArtcController {
     	searchAsgmtArtcRequestVO.setArtcId(artcId);
     	searchAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	searchAsgmtArtcRequestVO.setSbjId(sbjId);
+    	searchAsgmtArtcRequestVO.setRequesterType("usr");
     	
     	List<AsgmtArtcVO> asgmtArtcList = this.asgmtArtcService.readAllAsgmtArtc(searchAsgmtArtcRequestVO);
     	return new AjaxResponse(asgmtArtcList);
@@ -60,6 +61,7 @@ public class AsgmtArtcController {
     	searchAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	searchAsgmtArtcRequestVO.setSbjId(sbjId);
     	searchAsgmtArtcRequestVO.setAsgmtArtcId(asgmtArtcId);
+    	searchAsgmtArtcRequestVO.setRequesterType("usr");
     	
     	AsgmtArtcVO asgmtArtcVO = this.asgmtArtcService.readOneAsgmtArtc(searchAsgmtArtcRequestVO);
     	return new AjaxResponse(asgmtArtcVO);

@@ -39,6 +39,7 @@ public class PltadAsgmtArtcController {
     	searchAsgmtArtcRequestVO.setArtcId(artcId);
     	searchAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	searchAsgmtArtcRequestVO.setSbjId(sbjId);
+    	searchAsgmtArtcRequestVO.setRequesterType("pltad");
     	
     	List<AsgmtArtcVO> asgmtArtcList = this.asgmtArtcService.readAllAsgmtArtc(searchAsgmtArtcRequestVO);
     	return new AjaxResponse(asgmtArtcList);
@@ -59,6 +60,7 @@ public class PltadAsgmtArtcController {
     	searchAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	searchAsgmtArtcRequestVO.setSbjId(sbjId);
     	searchAsgmtArtcRequestVO.setAsgmtArtcId(asgmtArtcId);
+    	searchAsgmtArtcRequestVO.setRequesterType("pltad");
     	
     	AsgmtArtcVO asgmtArtcVO = this.asgmtArtcService.readOneAsgmtArtc(searchAsgmtArtcRequestVO);
     	return new AjaxResponse(asgmtArtcVO);
@@ -76,6 +78,7 @@ public class PltadAsgmtArtcController {
     	createAsgmtArtcRequestVO.setArtcId(artcId);
     	createAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	createAsgmtArtcRequestVO.setSbjId(sbjId);
+    	createAsgmtArtcRequestVO.setRequesterType("pltad");
     	
     	boolean createResult = this.asgmtArtcService.createNewAsgmtArtc(createAsgmtArtcRequestVO);
     	return new AjaxResponse(createResult);
@@ -95,6 +98,7 @@ public class PltadAsgmtArtcController {
     	updateAsgmtArtcRequestVO.setArtcId(artcId);
     	updateAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	updateAsgmtArtcRequestVO.setSbjId(sbjId);
+    	updateAsgmtArtcRequestVO.setRequesterType("pltad");
     	
     	boolean updateResult = this.asgmtArtcService.updateOneAsmgtArtc(updateAsgmtArtcRequestVO);
     	return new AjaxResponse(updateResult);
@@ -114,6 +118,7 @@ public class PltadAsgmtArtcController {
     	updateAsgmtArtcRequestVO.setArtcId(artcId);
     	updateAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	updateAsgmtArtcRequestVO.setSbjId(sbjId);
+    	updateAsgmtArtcRequestVO.setRequesterType("pltad");
     	
     	boolean updateResult = this.asgmtArtcService.updateOneAsmgtArtc(updateAsgmtArtcRequestVO);
     	return new AjaxResponse(updateResult);
@@ -133,6 +138,7 @@ public class PltadAsgmtArtcController {
     	deleteAsgmtArtcRequestVO.setArtcId(artcId);
     	deleteAsgmtArtcRequestVO.setCrsInfId(crsInfId);
     	deleteAsgmtArtcRequestVO.setSbjId(sbjId);
+    	deleteAsgmtArtcRequestVO.setRequesterType("pltad");
     	
     	boolean deleteResult = this.asgmtArtcService.deleteOneAsgmtArtc(deleteAsgmtArtcRequestVO);
     	return new AjaxResponse(deleteResult);

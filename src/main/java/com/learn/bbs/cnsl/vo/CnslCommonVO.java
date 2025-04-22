@@ -1,25 +1,45 @@
-package com.learn.bbs.tst.vo;
+package com.learn.bbs.cnsl.vo;
 
-import com.learn.common.vo.Search;
+public class CnslCommonVO {
 
-/**
- * 
- */
-public class SearchTstRequestVO extends Search {
+	/**
+	 * @ColumnName CNSL_ID
+	 * @ColumnType VARCHAR2(50)
+	 * @ColumnComment 상담 게시글의 고유한 아이디(CNSL-YYYYMMDD-NNNNNN)
+	 */
+	private String cnslId;
 
-	private String tstId;
+	/**
+	 * @ColumnName INSTR_ID
+	 * @ColumnType VARCHAR2(50)
+	 * @ColumnComment 강좌 정보를 구분할 고유한 문자열(CRS_INF-YYYYMMDD-NNNNNN)
+	 */
+	private String instrId;
+
 	private String usrId;
 	private String crsInfId;
 	private String artcId;
 	private String sbjId;
+
+	/**
+	 * usr, eduad, pltad, super
+	 */
 	private String requesterType;
 
-	public String getTstId() {
-		return tstId;
+	public String getCnslId() {
+		return cnslId;
 	}
 
-	public void setTstId(String tstId) {
-		this.tstId = tstId;
+	public void setCnslId(String cnslId) {
+		this.cnslId = cnslId;
+	}
+
+	public String getInstrId() {
+		return instrId;
+	}
+
+	public void setInstrId(String instrId) {
+		this.instrId = instrId;
 	}
 
 	public String getUsrId() {

@@ -40,6 +40,7 @@ public class EduadTstController {
     	searchTstRequestVO.setArtcId(artcId);
     	searchTstRequestVO.setCrsInfId(crsInfId);
     	searchTstRequestVO.setSbjId(sbjId);
+    	searchTstRequestVO.setRequesterType("eduad");
     	
     	TstListVO tstListVO = this.tstService.readAllTest(searchTstRequestVO);
     	return new AjaxResponse(tstListVO);
@@ -61,6 +62,7 @@ public class EduadTstController {
     	tstCommonVO.setArtcId(artcId);
     	tstCommonVO.setCrsInfId(crsInfId);
     	tstCommonVO.setSbjId(sbjId);
+    	tstCommonVO.setRequesterType("eduad");
     	
     	TstVO tstVO = this.tstService.readOneTest(tstCommonVO);
     	return new AjaxResponse(tstVO);
@@ -78,6 +80,7 @@ public class EduadTstController {
     	createTstRequestVO.setArtcId(artcId);
     	createTstRequestVO.setCrsInfId(crsInfId);
     	createTstRequestVO.setSbjId(sbjId);
+    	createTstRequestVO.setRequesterType("eduad");
     	
     	boolean createResult = this.tstService.createNewTest(createTstRequestVO);
     	return new AjaxResponse(createResult);
@@ -97,6 +100,7 @@ public class EduadTstController {
     	updateTstRequestVO.setArtcId(artcId);
     	updateTstRequestVO.setCrsInfId(crsInfId);
     	updateTstRequestVO.setSbjId(sbjId);
+    	updateTstRequestVO.setRequesterType("eduad");
     	
     	boolean updateResult = this.tstService.updateOneTest(updateTstRequestVO);
     	return new AjaxResponse(updateResult);
@@ -116,6 +120,7 @@ public class EduadTstController {
     	updateTstRequestVO.setArtcId(artcId);
     	updateTstRequestVO.setCrsInfId(crsInfId);
     	updateTstRequestVO.setSbjId(sbjId);
+    	updateTstRequestVO.setRequesterType("eduad");
     	
     	boolean updateResult = this.tstService.changeTestStat(updateTstRequestVO);
     	return new AjaxResponse(updateResult);
@@ -135,6 +140,7 @@ public class EduadTstController {
     	deleteTstRequestVO.setArtcId(artcId);
     	deleteTstRequestVO.setCrsInfId(crsInfId);
     	deleteTstRequestVO.setSbjId(sbjId);
+    	deleteTstRequestVO.setRequesterType("eduad");
     	
     	boolean deleteResult = this.tstService.deleteOneTest(deleteTstRequestVO);
     	return new AjaxResponse(deleteResult);

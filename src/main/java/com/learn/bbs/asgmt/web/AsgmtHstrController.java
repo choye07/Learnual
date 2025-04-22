@@ -41,6 +41,7 @@ public class AsgmtHstrController {
 		searchAsgmtHstrRequestVO.setArtcId(artcId);
 		searchAsgmtHstrRequestVO.setCrsInfId(crsInfId);
 		searchAsgmtHstrRequestVO.setSbjId(sbjId);
+		searchAsgmtHstrRequestVO.setRequesterType("usr");
     	
     	List<AsgmtHstrVO> asgmtHistList = this.asgmtHstrService.readAsgmtHstrList(searchAsgmtHstrRequestVO);
     	return new AjaxResponse(asgmtHistList);
@@ -63,6 +64,7 @@ public class AsgmtHstrController {
 		asgmtHstrCommonVO.setCrsInfId(crsInfId);
 		asgmtHstrCommonVO.setSbjId(sbjId);
 		asgmtHstrCommonVO.setAsgmtHstrId(asgmtHstrId);
+		asgmtHstrCommonVO.setRequesterType("usr");
     	
     	AsgmtHstrVO asgmtHistList = this.asgmtHstrService.readOneAsgmtHstr(asgmtHstrCommonVO);
     	return new AjaxResponse(asgmtHistList);
@@ -83,6 +85,7 @@ public class AsgmtHstrController {
 		createAsgmtHstrRequestVO.setArtcId(artcId);
 		createAsgmtHstrRequestVO.setCrsInfId(crsInfId);
 		createAsgmtHstrRequestVO.setSbjId(sbjId);
+		createAsgmtHstrRequestVO.setRequesterType("usr");
     	
     	boolean createResult = this.asgmtHstrService.createNewAsgmtHstr(createAsgmtHstrRequestVO);
     	return new AjaxResponse(createResult);
@@ -105,6 +108,7 @@ public class AsgmtHstrController {
 		deleteAsgmtHstrRequestVO.setCrsInfId(crsInfId);
 		deleteAsgmtHstrRequestVO.setSbjId(sbjId);
 		deleteAsgmtHstrRequestVO.setAsgmtHstrId(asgmtHstrId);
+		deleteAsgmtHstrRequestVO.setRequesterType("usr");
     	
     	boolean deleteResult = this.asgmtHstrService.deleteOneAsgmtHstr(deleteAsgmtHstrRequestVO);
     	return new AjaxResponse(deleteResult);

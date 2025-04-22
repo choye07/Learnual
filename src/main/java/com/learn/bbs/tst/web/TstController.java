@@ -40,6 +40,7 @@ public class TstController {
     	searchTstRequestVO.setArtcId(artcId);
     	searchTstRequestVO.setCrsInfId(crsInfId);
     	searchTstRequestVO.setSbjId(sbjId);
+    	searchTstRequestVO.setRequesterType("usr");
     	
     	TstListVO tstListVO = this.tstService.readAllTest(searchTstRequestVO);
     	return new AjaxResponse(tstListVO);
@@ -61,6 +62,7 @@ public class TstController {
     	tstCommonVO.setArtcId(artcId);
     	tstCommonVO.setCrsInfId(crsInfId);
     	tstCommonVO.setSbjId(sbjId);
+    	tstCommonVO.setRequesterType("usr");
     	
     	TstVO tstVO = this.tstService.readOneTest(tstCommonVO);
     	return new AjaxResponse(tstVO);

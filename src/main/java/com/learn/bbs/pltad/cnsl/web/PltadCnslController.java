@@ -1,4 +1,4 @@
-package com.learn.bbs.cnsl.web;
+package com.learn.bbs.pltad.cnsl.web;
 
 import java.util.List;
 
@@ -25,8 +25,8 @@ import com.learn.common.vo.AjaxResponse;
  * 상담
  */
 @RestController
-@RequestMapping("/usr/cnsl")
-public class CnslController {
+@RequestMapping("/pltad/cnsl")
+public class PltadCnslController {
 
     @Autowired
     private CnslService cnslService;
@@ -43,7 +43,7 @@ public class CnslController {
     	searchCnslRequestVO.setArtcId(artcId);
     	searchCnslRequestVO.setCrsInfId(crsInfId);
     	searchCnslRequestVO.setSbjId(sbjId);
-    	searchCnslRequestVO.setRequesterType("usr");
+    	searchCnslRequestVO.setRequesterType("pltad");
     	
     	List<CnslVO> cnslList = this.cnslService.readAllCnslList(searchCnslRequestVO);
     	return new AjaxResponse(cnslList);
@@ -64,7 +64,7 @@ public class CnslController {
     	cnslCommonVO.setCrsInfId(crsInfId);
     	cnslCommonVO.setSbjId(sbjId);
     	cnslCommonVO.setCnslId(cnslId);
-    	cnslCommonVO.setRequesterType("usr");
+    	cnslCommonVO.setRequesterType("pltad");
     	
     	CnslVO cnsl = this.cnslService.readOneCnsl(cnslCommonVO);
     	return new AjaxResponse(cnsl);
@@ -83,7 +83,7 @@ public class CnslController {
     	createCnslRequestVO.setArtcId(artcId);
     	createCnslRequestVO.setCrsInfId(crsInfId);
     	createCnslRequestVO.setSbjId(sbjId);
-    	createCnslRequestVO.setRequesterType("usr");
+    	createCnslRequestVO.setRequesterType("pltad");
     	
     	boolean createResult = this.cnslService.createNewCnsl(createCnslRequestVO);
     	return new AjaxResponse(createResult);
@@ -104,7 +104,7 @@ public class CnslController {
     	updateCnslRequestVO.setCrsInfId(crsInfId);
     	updateCnslRequestVO.setSbjId(sbjId);
     	updateCnslRequestVO.setCnslId(cnslId);
-    	updateCnslRequestVO.setRequesterType("usr");
+    	updateCnslRequestVO.setRequesterType("pltad");
     	
     	boolean updateResult = this.cnslService.updateOneCnsl(updateCnslRequestVO);
     	return new AjaxResponse(updateResult);

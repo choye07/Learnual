@@ -50,6 +50,7 @@ public class TstHistController {
 		createTstHstrRequestVO.setArtcId(artcId);
 		createTstHstrRequestVO.setCrsInfId(crsInfId);
 		createTstHstrRequestVO.setSbjId(sbjId);
+		createTstHstrRequestVO.setRequesterType("usr");
 		
 		boolean createResult = this.tstHistService.createNewTstHist(createTstHstrRequestVO);
 		
@@ -71,6 +72,7 @@ public class TstHistController {
 		updateTstHstrRequestVO.setArtcId(artcId);
 		updateTstHstrRequestVO.setCrsInfId(crsInfId);
 		updateTstHstrRequestVO.setSbjId(sbjId);
+		updateTstHstrRequestVO.setRequesterType("usr");
 		
 		boolean updateResult = this.tstHistService.updateTstRspnsHist(updateTstHstrRequestVO);
 		
