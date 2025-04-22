@@ -24,7 +24,7 @@
 			<div class="visual">main visual</div>
 
 			<div class="contents">
-				<div class="notice article">
+				<div class="learnual-notice article">
 					<div>
 						<h2>러뉴얼 공지사항</h2>
 						<a href="/ntc/list">더보기</a>

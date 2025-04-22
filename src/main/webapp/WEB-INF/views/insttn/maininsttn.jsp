@@ -11,15 +11,18 @@
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
 <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script src="/js/common.js" type="text/javascript"></script>
+
 </head>
 
 <body>
 	<div class="dashboard insttn">
 		<!-- 관리자 권한이 있는 유저만 활성화 가능 -->
 
-		<jsp:include page="/WEB-INF/views/common/component/sidebar/insttnsidebar.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/sidebar/insttnsidebar.jsp" />
 
-		<jsp:include page="/WEB-INF/views/common/component/header/insttnheader.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/header/insttnheader.jsp" />
 
 		<div class="dashboard-main insttn">
 			<div class="main-wrapper">
@@ -32,28 +35,12 @@
 						<div class="insttn-notice widget-article">
 							<div>
 								<h2>학원 공지사항</h2>
-								<a href="#">더보기</a>
+								<a href="/insttnntc/list">더보기</a>
 							</div>
 
 							<div>
 								<ul class="article-content">
-									<li><a href="#">
-											<h3>공지사항 item1</h3> <span>2025.04.13 홍길동</span>
-									</a></li>
-
-									<li><a href="#">
-											<h3>공지사항 item2</h3> <span>2025.04.13 홍길동</span>
-									</a></li>
-								</ul>
-
-								<ul class="pagination">
-									<li><a href="#">이전</a></li>
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#">다음</a></li>
+									<li class="empty-notice-list">작성한 공지사항이 없습니다.</li>
 								</ul>
 							</div>
 						</div>
@@ -72,16 +59,6 @@
 									<li><a href="#">
 											<h3>QnA item2</h3> <span>2025.04.13 홍길동</span>
 									</a></li>
-								</ul>
-
-								<ul class="pagination">
-									<li><a href="#">이전</a></li>
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#">다음</a></li>
 								</ul>
 							</div>
 						</div>
@@ -117,16 +94,6 @@
 											</li>
 										</c:forEach>
 									</ul>
-
-									<ul class="pagination">
-										<li><a href="#">이전</a></li>
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li><a href="#">다음</a></li>
-									</ul>
 								</div>
 							</div>
 						</div>
@@ -149,16 +116,6 @@
 												등록</span>
 									</a></li>
 								</ul>
-
-								<ul class="pagination">
-									<li><a href="#">이전</a></li>
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#">다음</a></li>
-								</ul>
 							</div>
 						</div>
 					</div>
@@ -167,7 +124,8 @@
 			</div>
 		</div>
 
-		<jsp:include page="/WEB-INF/views/common/component/footer/insttnfooter.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/footer/insttnfooter.jsp" />
 	</div>
 </body>
 

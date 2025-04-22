@@ -16,7 +16,7 @@
 <body>
 	<div class="wrapper">
 		<jsp:include page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
-		<form:form modelAttribute="memberLoginRequestVO" class="login-form">
+		<form:form modelAttribute="loginRequestVO" class="login-form">
 
 			<input type="hidden" class="next-url" name="nextUrl" />
 			<!-- 화면에 데이터를 숨겨서 보냄  -->
@@ -46,13 +46,13 @@
 							<div class="login-input">
 								<div class="login-email-area">
 									<label for="login-email">이메일(아이디)</label> <input
-										id="login-email" type="text" name="usrMl"
-										value="${userInput.usrMl}" />
+										id="login-email" type="text" name="lgnId"
+										value="${loginInput.lgnId}" />
 								</div>
 								<div class="login-password-area">
 									<label for="">비밀번호</label> <input id="login-password"
-										type="password" type="password" name="usrPw" />
-									<form:errors path="usrPw" element="div" cssClass="error" />
+										type="password" type="password" name="lgnPw" />
+									<form:errors path="lgnPw" element="div" cssClass="error" />
 								</div>
 
 								<c:if test="${not empty errorMessage}">
@@ -62,8 +62,10 @@
 						</form>
 
 						<div class="btn-area">
-							<button type="submit" class="btn-login" type="button">Login</button>
-							<div class="btn-regist-area">
+							    <button type="button" class="btn-login" id="usr-login" data-action="/usr/login">사용자 Login</button>
+							    <button type="button" class="btn-login" id="pltadm-login" data-action="/plta/login">관리자 Login</button>
+							    <button type="button" class="btn-login" id="instr-login" data-action="/instr/login">강사 Login</button>
+								<div class="btn-regist-area">
 								<button class="btn-regist1" type="button">고객으로 가입하기</button>
 								<button class="btn-regist2" type="button">담당자로 가입하기</button>
 							</div>

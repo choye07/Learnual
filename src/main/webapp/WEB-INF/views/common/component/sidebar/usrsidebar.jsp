@@ -26,7 +26,7 @@
 				<li><a href="#">마이페이지</a></li>
 				<li><a href="#">출결현황</a></li>
 				<li><a href="#">내가 쓴 글</a></li>
-				<li><a href="/editmyinformation">나의 정보 수정</a></li>
+				<li><a href=/viewmyinfo>나의 정보 수정</a></li>
 			</ul>
 		</ul>
 		<!-- sidebar menu2 -->

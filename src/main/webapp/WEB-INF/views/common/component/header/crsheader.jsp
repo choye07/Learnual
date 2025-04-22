@@ -21,6 +21,20 @@
 							<div class="dashboard-icon">icon</div>대시보드 이동
 					</a></li>
 				</ul>
+				<div class="btn-notification">
+					<a href="#">notification</a>
+					<div class="badge"></div>
+				</div>
+			</div>
+			<div class="notification-box">
+				<div class="notification-deco">
+					<div class="tri"></div>
+				</div>
+				<ul class="notification-content">
+					<li><a href="#"> 과제게시판 알림이 도착했습니다. </a></li>
+					<li><a href="#"> 과제게시판 알림이 도착했습니다. </a></li>
+					<li><a href="#"> 과제게시판 알림이 도착했습니다. </a></li>
+				</ul>
 			</div>
 		</div>
 	</div>

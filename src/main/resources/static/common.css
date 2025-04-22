@@ -13,6 +13,10 @@
   --manager-color: #0747a6;
   --manager-light-color: #e8f0f8;
   --manager-medium-color: #689dea;
+  --insttn-color: #e50114;
+  --course-color: #db5555;
+  --course-light-color: #f58383;
+
   --full-gradient-background: linear-gradient(
     90deg,
     #3399ff 0%,
@@ -181,7 +185,7 @@ label {
 }
 
 /* ================================== */
-/* 게시판 공통 css */
+/* 게시판 board 공통 css */
 .board {
   width: 100%;
   margin: 0 auto;
@@ -560,16 +564,48 @@ label {
 
 /* 0417 성연 파트 end */
 
-/* 메인 공지사항 custom css */
-.board.learnual-notice {
-	.board-toolbox {
-		a {
-			background-color: var(--manager-color);
-		}
-	}
-	
+/* ======================================== */
+/* 공지사항 게시판 공통 css */
+.board.notice {
+  width: 100%;
+  #learnual-notice-form {
+    .ntcPinnedYn-area {
+      justify-content: flex-end;
+    }
+  }
+
+  .board-toolbox {
+    a {
+      background-color: var(--manager-color);
+    }
+  }
+
   .board-body {
     .board-list-wrapper {
+      li {
+        a {
+          > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.board-list-title {
+              justify-content: flex-start;
+            }
+          }
+        }
+      }
+
+      /* 상단 고정된 게시글 css */
+      .pinned-notice-list {
+        background-color: #f9f9f9;
+
+        .board-list-title {
+          font-weight: 600;
+        }
+      }
+
+      /* 비어 있는 게시글 css */
       .empty-notice-list {
         padding: 3rem 0;
         text-align: center;
@@ -577,12 +613,89 @@ label {
     }
   }
 }
+/* ======================================== */
+/* 공지사항 게시판 custom css */
+.board.notice.insttn-notice {
+  .board-header {
+    border-bottom: 3px solid #e50114;
+  }
+  .board-toolbox {
+    a {
+      background-color: #e50114;
+    }
+  }
+
+  #insttn-notice-form {
+    button {
+      background-color: #e50114;
+    }
+  }
+
+  .board-body {
+    label {
+      color: #b41e1e;
+    }
+  }
+
+  .btn-search {
+    background-color: #e50114;
+  }
+}
 
 /* ---------------------------------- */
 /* 0419 유진 파트 */
 /* 자료실 게시판 custom css */
+/* 자료실 게시글 목록 board */
+.board.flarch-board {
+   .board-header {
+      margin-bottom: 0;
+    .btn-add-notice {
+      background-color: var(--manager-color);
+    }
+   }
+   .board-body {   
+   .board-list-top {
+      border-bottom: 1px solid #ccc;
+      display: grid;
+      grid-template-columns: 10rem 1fr 10rem 10rem;
+
+      > div {
+        padding: 1.25rem 0.625rem;
+        text-align: center;
+      }
+   }
+  }
+   
+   .board-list-wrapper {
+      > li {
+        background-color: #fff;
+        position: relative;
+        border-bottom: 1px solid #ccc;
+
+        &.fix {
+          background-color: #f8f8f8;
+        }
+
+        a {
+          display: grid;
+          grid-template-columns: 10rem 1fr 10rem 10rem;
+          text-align: center;
+
+          > div {
+            padding: 1.25rem 0.625rem;
+
+            &.board-list-title {
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+}
+
+/* 자료실 게시글 작성 board */
 .board.flarch-write-board {
-  /* 자료실 게시판 form */
+  /* 자료실 게시글 작성 form */
   .flarch-write-form {
     .form-group {
       &.file-area {
@@ -603,15 +716,102 @@ label {
 
               &:hover {
                 background-color: #ccc;
-              }
-            }
-          }
+              } 
+            } 
+          } 
         }
       }
     }
   }
+  .btn-area {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.625rem;
+
+      > button, a > button {
+        background-color: var(--manager-color);
+      }
+    }
 }
 
+/* 자료실 게시글 조회 board */
+.board.flarch-one-board {
+   .board-header {
+    .board-user-toolbox {
+     div {
+        background-color: var(--manager-color);
+     }
+    }
+   }
+   .board-body {
+      > .board-wrapper {
+          .board-file-info {
+             display: grid;
+             grid-template-columns: 8rem 1fr;
+             gap: 0.125rem;
+             
+             .file-container {
+              display: flex;
+                align-items: center;
+                gap: 0.125rem;
+                
+                > div {
+                    padding: 0.625rem;
+                   }
+            }
+         }
+      }
+   }
+ }
+ 
+ /* 자료실 게시글 수정 board */
+.board.flarch-modify-board {
+  /* 자료실 게시글 수정 form */
+  .flarch-modify-form {
+    .form-group {
+      &.file-area {
+        .file-container {
+          border: 1px solid #ccc;
+          width: 100%;
+        margin: 0 auto;
+        padding: 0.625rem;
+        background-color: field;
+        border-radius: 0.625rem;
+        box-shadow: 0 0 10px #0000001a;
+
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+          .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            /* border: 1px solid green; */
+            > .btn-file-remove {
+              background-color: #aaa;
+              padding: 0.5rem 0.8rem;
+
+              &:hover {
+                background-color: #ccc;
+              } 
+            } 
+          } 
+        }
+      }
+    }
+  }
+  .btn-area {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.625rem;
+
+      > button, a > button {
+        background-color: var(--manager-color);
+      }
+    }
+}
+/* 자료실 게시판 목록보기 css end */
+/* ---------------------------------- */
 /* 이력서 게시판 custom css */
 .board.rsm-board {
   .board-body {
@@ -870,78 +1070,6 @@ label {
 }
 /* 0418소희 파트 end */
 
-/* ==================================== */
-
-/* 강좌 생성 form css */
-.course-create {
-  width: 50%;
-  margin: 0 auto;
-  margin-top: 3.25rem;
-  background: white;
-  padding: 2rem;
-  border-radius: 0.625rem;
-  box-shadow: 0 0 10px #0000001a;
-
-  h1 {
-    margin-bottom: 2rem;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-
-    .form-group {
-      /* border: 1px solid red; */
-      display: flex;
-      gap: 0.625rem;
-      flex-direction: column;
-
-      > label {
-        width: 5rem;
-        color: #555;
-        display: flex;
-        align-items: center;
-      }
-
-      &.category-area {
-        label {
-          color: #555;
-        }
-      }
-
-      select {
-        border: 1px solid #ccc;
-        width: 100%;
-      }
-
-      input[type="text"],
-      input[type="datetime-local"] {
-        width: 100%;
-      }
-    }
-
-    .btn-area {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.625rem;
-
-      > button {
-        background-color: var(--manager-color);
-      }
-    }
-  }
-}
-
-.course-create .each-checkbox {
-  margin: 0 2rem 2rem 0;
-}
-
-.course-create .error {
-  font-size: 0.785rem;
-  color: red;
-}
-
 /* ================================== */
 /* 메인에서 출력하는 게시판 공통 css start */
 .article {
@@ -949,6 +1077,7 @@ label {
   border-radius: 0.625rem;
   box-shadow: 0px 2px 5px #3333;
   position: relative;
+  z-index: 0;
   padding-bottom: 3.5rem;
 
   > div:first-child {
@@ -1032,6 +1161,7 @@ label {
     }
 
     > a {
+      padding: 0.325rem;
       font-size: 0.8rem;
       color: #aaa;
     }
@@ -1610,6 +1740,7 @@ label {
 /* 메인 header 공통 css */
 .header {
   border-bottom: 1px solid #ccc;
+  z-index: 1000;
   position: fixed;
   top: 0;
   left: 0;
@@ -1667,7 +1798,7 @@ label {
     }
   }
 }
-
+/* ==================================== */
 /* insttn header custom css */
 .header.insttn {
   position: fixed;
@@ -1743,6 +1874,193 @@ label {
               padding: 1rem 2rem;
               font-size: 1.2rem;
               font-weight: 600;
+            }
+          }
+        }
+
+        .btn-notification {
+          width: 2.5rem;
+          min-height: 3rem;
+          transform: translateX(5px);
+          position: relative;
+
+          > a {
+            display: block;
+            height: 100%;
+            font-size: 0;
+            background: url("/asset/icon/notification.svg") no-repeat
+              center/contain;
+            transition: 0.2s all;
+
+            &:hover {
+              background: url("/asset/icon/notification_hover_student.svg")
+                no-repeat center/contain;
+            }
+          }
+
+          .badge {
+            width: 0.85rem;
+            min-height: 0.85rem;
+            border-radius: 50%;
+            /* background-color: var(--manager-color); */
+            background-color: #e50114;
+            position: absolute;
+            top: 0.5rem;
+            right: 0;
+          }
+        }
+      }
+
+      .notification-box {
+        display: none;
+        min-width: 15rem;
+        position: absolute;
+        top: 100%;
+        right: 0;
+
+        &.on {
+          display: block;
+        }
+
+        .notification-deco {
+          min-height: 1.5rem;
+          display: flex;
+          justify-content: flex-end;
+
+          .tri {
+            background-color: #fffce4;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            margin-right: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+
+        .notification-content {
+          background-color: #fffce4;
+          box-shadow: 0px 2px 5px #3333;
+
+          li {
+            border-bottom: 1px solid #ccc;
+            a {
+              display: block;
+              height: 100%;
+              padding: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .header-bottom {
+    .header-bottom-wrapper {
+      width: 88%;
+      min-width: 75rem;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      min-height: 3rem;
+      gap: 1.25rem;
+    }
+  }
+}
+/* ==================================== */
+/* course header custom css */
+.header.course {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  /* background: url("/asset/isttn/insttn_back01.jpg") no-repeat center/cover; */
+  z-index: 1000;
+  box-shadow: 0px 2px 5px #5553;
+
+  .header-top {
+    /* border-bottom: 3px solid #e50114; */
+
+    .header-top-wrapper {
+      /* border: 1px solid red; */
+      width: 88%;
+      min-width: 75rem;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      min-height: 4rem;
+
+      .header-left {
+        display: flex;
+        gap: 1.25rem;
+
+        .btn-menu {
+          width: 3rem;
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            font-size: 0;
+
+            background: url("/asset/icon/setting.svg") no-repeat center/contain;
+
+            &:hover {
+              background: url("/asset/icon/setting_hover.svg") no-repeat
+                center/contain;
+            }
+          }
+        }
+
+        .course-area {
+          flex-grow: 1;
+          display: flex;
+          .insttn-logo {
+            width: 10rem;
+            a {
+              display: block;
+              width: 100%;
+              height: 100%;
+              background: url("/asset/isttn/logo.jpg") no-repeat center/contain;
+              font-size: 0;
+            }
+          }
+        }
+      }
+
+      .header-right {
+        display: flex;
+        gap: 1.25rem;
+
+        .course-menu {
+          display: flex;
+          align-items: center;
+
+          li {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            a {
+              display: flex;
+              align-items: center;
+              font-size: 1.2rem;
+              font-weight: 600;
+              gap: 0.625rem;
+
+              .dashboard-icon {
+                background: url("/asset/icon/dashboard.svg") no-repeat
+                  center/contain;
+                width: 2.5rem;
+                height: 2.5rem;
+                font-size: 0;
+                transition: 0.2s all;
+              }
+
+              &:hover {
+                .dashboard-icon {
+                  background: url("/asset/icon/dashboard_hover.svg") no-repeat
+                    center/contain;
+                }
+              }
             }
           }
         }
@@ -2149,7 +2467,7 @@ label {
       padding: 1.25rem;
       gap: 1.25rem;
 
-      .notice {
+      .article.learnual-notice {
         width: 52%;
       }
 
@@ -2779,7 +3097,6 @@ label {
   .dashboard-main.insttn {
     padding-top: 0;
     margin-top: 4rem;
-    background-color: #fff;
     background: url("/asset/isttn/insttn_back01.jpg") no-repeat center/cover;
 
     /* 학원 메인 페이지 */
@@ -2804,157 +3121,7 @@ label {
             > div:first-child {
               border-bottom: 3px solid #e50114;
             }
-
-            /* 임시 css 지정 */
-            &.insttn-course {
-              background-color: #eee;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              font-style: italic;
-            }
           }
-        }
-      }
-    }
-
-    /* 학원 -> 강좌 관리 페이지 main-wrapper */
-    /* 관리자 전용 */
-    /* 2025-04-18 강준식 수정 */
-    /* ------------------------------------------- */
-    .main-wrapper.course-manage {
-      padding-top: 2.5rem;
-      flex-direction: column;
-      gap: 0;
-      min-height: calc(100vh - 20rem);
-
-      .course-wrapper {
-        display: flex;
-        flex-direction: row;
-        gap: 1.25rem;
-        height: 100%;
-
-        .article-content {
-          li {
-            padding: 1rem;
-            h3 {
-              font-size: 1rem;
-            }
-          }
-        }
-        /* ------------------------------------------- */
-        > div:nth-child(1) {
-          width: 60%;
-        }
-
-        > div:nth-child(2) {
-          width: 40%;
-        }
-
-        .article-direct {
-          gap: 0;
-          border-radius: 0;
-          overflow: visible;
-          a {
-            padding: 0.625rem;
-          }
-        }
-      }
-    }
-    /* 학원 -> 강 페이지 main-wrapper */
-    /* 2025-04-19 강준식 수정 */
-    /* ------------------------------------------- */
-    .main-wrapper.course-main {
-      flex-direction: column;
-      gap: 0;
-      min-height: calc(100vh - 20rem);
-
-      .course-wrapper {
-        display: flex;
-        flex-direction: row;
-        gap: 1.25rem;
-        height: 100%;
-
-        .article-content {
-          li {
-            padding: 1rem;
-            min-width: 40rem; /* 이거 맞나 */
-            h3 {
-              font-size: 1rem;
-            }
-          }
-        }
-        /*
-        > div:nth-child(1) {
-          width: 60%;
-        }
-
-        > div:nth-child(2) {
-          width: 40%;
-        }
-        */
-
-        /*
-        .article-direct {
-          gap: 0;
-          border-radius: 0;
-          overflow: visible;
-          a {
-            padding: 0.625rem;
-          }
-        }
-        */
-      }
-    }
-    /* ------------------------------------------- */
-    /* 0421 휘원 삭제 후 다시 추가 */
-    /* dashboard.course로 이동했다가 다시 여기서도 사용해야함 */
-    /* 학원 -> 강좌 신청 페이지 main-wrapper */
-    /* 사용자 전용 */
-    .main-wrapper.course-regist {
-      padding-top: 2.5rem;
-      min-height: calc(100vh - 20rem);
-
-      .course-wrapper {
-        height: 100%;
-      }
-    }
-  }
-
-  /* ------------------------------------ */
-  /* 학원 -> 강좌 상세 페이지 main-wrapper */
-  .main-wrapper.course-detail {
-    padding: 4rem 0;
-    gap: 0;
-    display: flex;
-    flex-direction: column;
-
-    h1 {
-      margin: 2rem 0;
-    }
-
-    h2 {
-      margin: 2rem 0;
-    }
-
-    .course-info {
-      display: grid;
-      grid-template-columns: 10rem 1fr 10rem 1fr;
-      gap: 0rem;
-
-      > div {
-        border: 1px solid #ccc;
-        background-color: #fff;
-        padding: 1rem;
-
-        &.course-name {
-          grid-column: 2 / -1;
-        }
-
-        &:nth-child(2n - 1) {
-          background-color: #eee;
-          font-weight: 700;
-          text-align: center;
         }
       }
     }
@@ -3005,52 +3172,474 @@ label {
   }
 }
 
-/* 강좌 메인 페이지 */
+/* ==================================== */
+
+/* 강좌 메인 페이지 공통 css */
 /* 학원 메인 페이지에서 이동되는 개별 강좌 홈페이지 */
 .dashboard.course {
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #111;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--course-color);
+  }
+
+  h2.section-title {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    color: #111;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--course-color);
+  }
+
   .dashboard-main.course {
+    display: block;
+    margin-top: 4rem;
     background-color: #fff;
+    background: url("/asset/background/background_01.jpg") no-repeat
+      center/cover;
+    min-height: auto;
+
+    .main-wrapper {
+      padding-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+
+      .widget-wrapper {
+        .dashboard-row1 {
+          display: flex;
+          gap: 1.25rem;
+
+          > div {
+            width: 50%;
+            min-height: 18rem;
+
+            /* 강의정보 div */
+            &.course-info {
+              border-radius: 0.625rem;
+              background: url("/asset/course/board.jpg") no-repeat bottom/cover;
+              padding: 0.5rem 1rem 1.5rem 1rem;
+
+              .course-info-wrapper {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                /* 강의명 */
+                .course-info-title {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 0.625rem;
+                  justify-content: center;
+                  text-align: center;
+                  p {
+                    color: #eee;
+                    font-size: 1.2rem;
+                  }
+                  > h2 {
+                    color: #fff;
+                    font-weight: 600;
+                    font-size: 1.7rem;
+                    text-align: center;
+                  }
+                }
+
+                .course-info-period {
+                  margin-top: 1.5rem;
+                  color: #eee;
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  grid-template-rows: 1fr 1fr;
+                  gap: 0.625rem;
+
+                  > p {
+                    width: 10rem;
+                    font-size: 0.9rem;
+                  }
+                }
+              }
+            }
+
+            /* 강의목표 div (유진파트) */
+            &.course-goal {
+              border: 1px solid red;
+            }
+          }
+        }
+
+        .dashboard-row2 {
+          display: flex;
+          gap: 1.25rem;
+
+          > .widget-article {
+            width: 50%;
+            box-shadow: 0;
+
+            > div:first-child {
+              border-bottom: 3px solid #e50114;
+            }
+          }
+        }
+      }
+    }
+
+    /* 학원 -> 강좌 관리 페이지 main-wrapper */
+    /* 관리자 전용 */
+    /* 2025-04-18 강준식 수정 */
+    /* ------------------------------------------- */
+    .main-wrapper.course-manage {
+      .main-wrapper-top {
+        align-items: flex-end;
+        h1 {
+          margin-bottom: 0;
+          flex-grow: 1;
+        }
+
+        .board-toolbox {
+          a {
+            background-color: var(--course-color);
+          }
+        }
+      }
+
+      .course-wrapper {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr;
+        grid-template-rows: minmax(20rem, auto) minmax(20rem, auto);
+        gap: 1.25rem;
+
+        .course-article {
+          .article-content {
+            li {
+              display: flex;
+              flex-direction: column;
+              padding: 1rem;
+
+              a {
+                padding: 0;
+                margin-bottom: 0.625rem;
+
+                h3 {
+                  font-size: 1.1rem;
+                }
+              }
+
+              p {
+                font-size: 0.9rem;
+              }
+            }
+
+            .article-direct {
+              margin-top: 1rem;
+              display: flex;
+              justify-content: flex-end;
+              gap: 0.625rem;
+              border-radius: 0;
+              a {
+                padding: 0.625rem 1rem;
+                display: inline-block;
+                background-color: var(--course-color);
+                color: #fff;
+
+                &:hover {
+                  background-color: var(--course-light-color) !important;
+                }
+              }
+            }
+          }
+        }
+
+        .active-courses {
+          grid-row: 1 / -1;
+          .article-title {
+            background-color: var(--course-color);
+            color: #fff;
+
+            a {
+              color: #eee;
+              &:hover {
+                background-color: #fff5 !important;
+              }
+            }
+          }
+        }
+
+        .inactive-courses {
+          .article-title {
+            background-color: #ddd;
+            color: #fff;
+
+            a {
+              color: #888;
+              &:hover {
+                color: #333;
+                background-color: #fff5 !important;
+              }
+            }
+          }
+        }
+      }
+    }
 
     /* 학원 -> 강좌 상세 페이지 main-wrapper */
     .main-wrapper.course-detail {
-      padding: 4rem 0;
-      gap: 0;
+      background: #fffe;
+      padding: 2rem;
+      border-radius: 0.625rem;
+      box-shadow: 0 0 10px #0000001a;
       display: flex;
       flex-direction: column;
-
-      h1 {
-        margin: 2rem 0;
-      }
-
-      h2 {
-        margin: 2rem 0;
-      }
+      gap: 3rem;
 
       .course-info {
         display: grid;
-        grid-template-columns: 10rem 1fr 10rem 1fr;
+        grid-template-columns: 8rem 1fr 8rem 1fr;
         gap: 0rem;
+        background-color: #fff;
+        box-shadow: 0px 0px 5px #3333;
 
         > div {
-          border: 1px solid #ccc;
-          background-color: #fff;
-          padding: 1rem;
+          border: 1px solid #eee5;
+          padding: 0.625rem;
 
           &.course-name {
             grid-column: 2 / -1;
           }
 
           &:nth-child(2n - 1) {
-            background-color: #eee;
+            background-color: var(--course-color);
+            color: #fff;
             font-weight: 700;
             text-align: center;
+          }
+        }
+      }
+
+      .button-wrapper {
+        a {
+          display: inline-block;
+          color: #fff;
+          padding: 0.625rem;
+          background-color: var(--course-color);
+          min-width: 5rem;
+          text-align: center;
+          transition: 0.2s all;
+
+          &:hover {
+            background-color: var(--course-light-color);
+          }
+        }
+      }
+    }
+
+    /* ------------------------------------------- */
+    /* 0421 휘원 삭제 후 다시 추가 */
+    /* dashboard.course로 이동했다가 다시 여기서도 사용해야함 */
+    /* 학원 -> 강좌 신청 페이지 main-wrapper */
+    /* 사용자 전용 */
+    .main-wrapper.course-regist {
+      h1 {
+        width: 100%;
+      }
+      .course-article {
+        .article-title {
+          background-color: var(--course-color);
+          color: #fff;
+
+          a {
+            color: #eee;
+            &:hover {
+              background-color: #fff5 !important;
+            }
+          }
+        }
+        .article-content {
+          li {
+            display: flex;
+
+            > a {
+              flex-grow: 1;
+              padding: 1rem;
+
+              h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.625rem;
+              }
+            }
+
+            .article-direct {
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              gap: 0.625rem;
+              padding: 1rem;
+
+              > a {
+                display: block;
+                padding: 0.625rem;
+                height: 2.5rem;
+                background-color: var(--course-color);
+                color: #fff;
+                font-size: 1.1rem;
+
+                &:hover {
+                  background-color: var(--course-light-color) !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /* ------------------------------------------- */
+    /* 강좌 생성 form css */
+    /* 2025-04-22 강휘원 추가 */
+    .main-wrapper.course-create,
+    .main-wrapper.course-modify {
+      .main-wrapper-top {
+        h1 {
+          width: 100%;
+          margin-bottom: 0;
+        }
+      }
+      .main-wrapper-body {
+        background: #fffe;
+        padding: 2rem;
+        border-radius: 0.625rem;
+        box-shadow: 0px 0px 5px #3333;
+
+        form#course-create-form {
+          display: flex;
+          flex-direction: column;
+          gap: 0.625rem;
+
+          label {
+            color: var(--course-color);
+          }
+
+          .form-group {
+            /* border: 1px solid red; */
+            display: flex;
+            gap: 0.625rem;
+            flex-direction: column;
+
+            > label {
+              width: 5rem;
+              color: #555;
+              display: flex;
+              align-items: center;
+            }
+
+            &.category-area {
+              label {
+                color: #555;
+              }
+            }
+
+            select {
+              border: 1px solid #ccc;
+              width: 100%;
+            }
+
+            input[type="text"],
+            input[type="datetime-local"] {
+              width: 100%;
+            }
+          }
+
+          .btn-area {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: flex-start;
+            gap: 0.625rem;
+
+            > button {
+              color: #fff;
+              padding: 0.625rem;
+              font-size: 1.2rem;
+              background-color: var(--course-color);
+              min-width: 5rem;
+            }
+          }
+        }
+      }
+
+      .each-checkbox {
+        margin: 0 2rem 2rem 0;
+      }
+
+      .error {
+        font-size: 0.785rem;
+        color: red;
+      }
+    }
+
+    /* ------------------------------------------- */
+    /* 강좌 확정 form css */
+    /* 2025-04-22 강휘원 추가 */
+    .main-wrapper.course-confirm {
+      .main-wrapper-top {
+        flex-direction: column;
+        align-items: flex-start;
+
+        h1 {
+          width: 100%;
+        }
+      }
+
+      .main-wrapper-body {
+        padding: 2rem;
+        border-radius: 0.625rem;
+        box-shadow: 0px 0px 5px #3333;
+        background-color: #fffe;
+
+        h3 {
+          margin-bottom: 1.5rem;
+        }
+
+        .applied-user-list-area {
+          .empty-user-list {
+            font-style: italic;
+          }
+
+          #confirm-applied-user-form {
+            .table-header,
+            .table-item {
+              display: grid;
+              grid-template-columns: 5rem 1fr 1fr 1fr 1fr 1fr;
+              text-align: center;
+
+              > div {
+                border: 1px solid #ddd;
+                padding: 0.625rem;
+              }
+            }
+
+            .table-header {
+              > div {
+                background-color: var(--course-color);
+                color: #fff;
+              }
+            }
+
+            .btn-area {
+              margin-top: 2em;
+              button {
+                background-color: var(--course-color);
+              }
+            }
           }
         }
       }
     }
   }
 }
-
+/* ==================================== */
 /* 학생 대시보드에서 mypage로 진입했을 때의 view css  */
 .dashboard-main.mypage-view.student {
   .main-wrapper {

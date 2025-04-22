@@ -20,7 +20,7 @@
 
 			<div class="contents">
 
-				<div class="learnual-notice board">
+				<div class="notice learnual-notice board">
 					<div class="board-header">
 						<h1>러뉴얼 공지사항</h1>
 						<div class="board-toolbox">
