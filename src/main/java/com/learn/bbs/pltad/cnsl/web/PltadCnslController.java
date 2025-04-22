@@ -17,7 +17,6 @@ import com.learn.bbs.cnsl.vo.CreateCnslRequestVO;
 import com.learn.bbs.cnsl.vo.SearchCnslRequestVO;
 import com.learn.bbs.cnsl.vo.UpdateCnslRequestVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
-import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
 
 

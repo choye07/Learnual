@@ -17,7 +17,6 @@ import com.learn.bbs.tst.vo.TstCommonVO;
 import com.learn.bbs.tst.vo.TstListVO;
 import com.learn.bbs.tst.vo.TstVO;
 import com.learn.bbs.tst.vo.UpdateTstRequestVO;
-import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
 
 @RestController

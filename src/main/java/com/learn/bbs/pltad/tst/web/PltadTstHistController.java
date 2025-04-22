@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.tst.service.TstHistService;
 import com.learn.bbs.tst.vo.TstHistVO;
-import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
 
 @RestController

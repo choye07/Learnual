@@ -17,7 +17,6 @@ import com.learn.bbs.asgmt.vo.DeleteAsgmtArtcRequestVO;
 import com.learn.bbs.asgmt.vo.SearchAsgmtArtcRequestVO;
 import com.learn.bbs.asgmt.vo.UpdateAsgmtArtcRequestVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
-import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
 
 @RestController

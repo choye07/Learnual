@@ -17,7 +17,6 @@ import com.learn.bbs.asgmt.vo.CreateAsgmtHstrRequestVO;
 import com.learn.bbs.asgmt.vo.DeleteAsgmtHstrRequestVO;
 import com.learn.bbs.asgmt.vo.SearchAsgmtHstrRequestVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
-import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
 
 @RestController
