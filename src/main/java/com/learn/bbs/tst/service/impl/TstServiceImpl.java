@@ -31,7 +31,7 @@ public class TstServiceImpl implements TstService {
 
 		TstListVO tstListVO = new TstListVO();
 		tstListVO.setTstListCount(count);
-
+		searchTstRequestVO.setPageCount(count);
 		if (count > 0) {
 			tstListVO.setTstList(this.tstDao.selectAllTest(searchTstRequestVO));
 		}
