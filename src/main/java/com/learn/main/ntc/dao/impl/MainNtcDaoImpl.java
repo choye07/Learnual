@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.main.ntc.dao.MainNtcDao;
-import com.learn.main.ntc.vo.NtcListVO;
+import com.learn.main.ntc.vo.NtcUpdateRequestVO;
 import com.learn.main.ntc.vo.NtcVO;
 import com.learn.main.ntc.vo.NtcWriteRequestVO;
 
@@ -60,8 +60,8 @@ public class MainNtcDaoImpl extends SqlSessionDaoSupport implements MainNtcDao {
 
 	// 5. 메인 러뉴얼 공지사항 하나 수정하기
 	@Override
-	public int updateOneMainNoticeBy(String id) {
-		return this.getSqlSession().update(NAME_SPACE + "updateOneMainNoticeBy", id);
+	public int updateOneMainNoticeBy(NtcUpdateRequestVO ntcUpdateRequestVO) {
+		return this.getSqlSession().update(NAME_SPACE + "updateOneMainNoticeBy", ntcUpdateRequestVO);
 	}
 	
 }

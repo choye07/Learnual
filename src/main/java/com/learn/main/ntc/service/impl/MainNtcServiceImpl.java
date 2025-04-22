@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.learn.main.ntc.dao.MainNtcDao;
 import com.learn.main.ntc.service.MainNtcService;
 import com.learn.main.ntc.vo.NtcListVO;
+import com.learn.main.ntc.vo.NtcUpdateRequestVO;
 import com.learn.main.ntc.vo.NtcVO;
 import com.learn.main.ntc.vo.NtcWriteRequestVO;
 
@@ -49,13 +50,14 @@ public class MainNtcServiceImpl implements MainNtcService {
 
 	@Override
 	public boolean deleteOneMainNoticeBy(String id) {
-		int updateCount = this.mainNtcDao.deleteOneMainNotice(id);
-		return updateCount > 0;
+		int deleteCount = this.mainNtcDao.deleteOneMainNotice(id);
+		return deleteCount > 0;
 	}
 
 	@Override
-	public int updateOneMainNoticeBy(String id) {
-		return 0;
+	public boolean updateOneMainNoticeBy(NtcUpdateRequestVO ntcUpdateRequestVO) {
+		int updateCount = this.mainNtcDao.updateOneMainNoticeBy(ntcUpdateRequestVO);
+		return updateCount > 0;
 	}
 	
 
