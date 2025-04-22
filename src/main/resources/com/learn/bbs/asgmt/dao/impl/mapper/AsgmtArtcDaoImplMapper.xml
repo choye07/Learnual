@@ -4,4 +4,182 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.asgmt.dao.impl.AsgmtArtcDaoImpl">
     
+    <resultMap type="com.learn.bbs.asgmt.vo.AsgmtArtcVO" 
+    		   id="AsgmtArtcVOMap"
+    		   autoMapping="true">
+    	<id column="ASGMT_ARTC_ID" property="asgmtArtcId"/>
+    	<association property="sbj"
+    				 javaType="com.learn.bbs.crs.sbj.vo.SbjVO"
+    				 autoMapping="true">
+    		<id column="SBJ_ID" property="sbjId"/>
+    	</association>
+    	<association property="artc"
+    				 javaType="com.learn.bbs.pltad.artc.vo.ArtcVO"
+    				 autoMapping="true">
+    		<id column="ARTC_ID" property="artcId"/>
+    	</association>
+    	<association property="crsInf"
+    				 javaType="com.learn.bbs.crs.crsinf.vo.CrsInfVO"
+    				 autoMapping="true">
+    		<id column="CRS_INF_ID" property="crsInfId"/>
+    	</association>
+    	<association property="instr"
+    				 javaType="com.learn.bbs.pltad.instr.vo.InstrVO"
+    				 autoMapping="true">
+    		<id column="INSTR_ID" property="instrId"/>
+    	</association>
+    </resultMap>
+    
+	<select id="selectAllAsgmtArtc"
+			parameterType="com.learn.bbs.asgmt.vo.SearchAsgmtArtcRequestVO"
+			resultMap="AsgmtArtcVOMap">
+		SELECT AA.ASGMT_ARTC_ID
+		     , AA.ASGMT_ARTC_TTL
+		     , AA.ASGMT_ARTC_CTT
+		     , TO_CHAR(AA.ASGMT_ARTC_SRT_DT, 'YYYY-MM-DD') AS ASGMT_ARTC_SRT_DT
+		     , TO_CHAR(AA.ASGMT_ARTC_DDLN_DT, 'YYYY-MM-DD') AS ASGMT_ARTC_DDLN_DT
+		     , TO_CHAR(AA.ASGMT_ARTC_SBM_TM, 'YYYY-MM-DD') AS ASGMT_ARTC_SBM_TM
+		     , AA.ASGMT_ARTC_STAT
+		     , TO_CHAR(AA.ASGMT_ARTC_RGST_TM, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_ARTC_RGST_TM
+		     , TO_CHAR(AA.ASGMT_ARTC_UPDT_TM, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_ARTC_UPDT_TM
+		     , TO_CHAR(AA.ASGMT_ARTC_DEL_DT, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_ARTC_DEL_DT
+		     , AA.ASGMT_ARTC_DEL_YN
+		     , AA.CRS_INF_ID
+		     , CI.CRS_INF_NM
+		     , AA.ARTC_ID
+		     , A.ARTC_NM
+		     , AA.SBJ_ID
+		     , S.SBJ_NM
+		     , I.INSTR_NM
+			 , I.INSTR_ID
+		  FROM ASGMT_ARTC AA
+		 INNER JOIN CRS_SBJ CS
+		    ON CS.CRS_INF_ID = AA.CRS_INF_ID
+		   AND CS.SBJ_ID = AA.SBJ_ID
+		 INNER JOIN ARTC A
+		    ON A.ARTC_ID = AA.ARTC_ID
+		 INNER JOIN SBJ S
+		    ON S.SBJ_ID = AA.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN INSTR I /*강사*/
+		    ON CI.INSTR_ID = I.INSTR_ID
+		 WHERE AA.CRS_INF_ID = #{crsInfId}
+		   AND AA.ASGMT_ARTC_DEL_YN = 'N'
+		 ORDER BY AA.ASGMT_ARTC_ID DESC
+	</select>
+	
+	<select id="selectOneAsgmtArtc"
+			parameterType="com.learn.bbs.asgmt.vo.AsgmtArtcCommonVO"
+			resultMap="AsgmtArtcVOMap">
+		SELECT AA.ASGMT_ARTC_ID
+		     , AA.ASGMT_ARTC_TTL
+		     , AA.ASGMT_ARTC_CTT
+		     , TO_CHAR(AA.ASGMT_ARTC_SRT_DT, 'YYYY-MM-DD') AS ASGMT_ARTC_SRT_DT
+		     , TO_CHAR(AA.ASGMT_ARTC_DDLN_DT, 'YYYY-MM-DD') AS ASGMT_ARTC_DDLN_DT
+		     , TO_CHAR(AA.ASGMT_ARTC_SBM_TM, 'YYYY-MM-DD') AS ASGMT_ARTC_SBM_TM
+		     , AA.ASGMT_ARTC_STAT
+		     , TO_CHAR(AA.ASGMT_ARTC_RGST_TM, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_ARTC_RGST_TM
+		     , TO_CHAR(AA.ASGMT_ARTC_UPDT_TM, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_ARTC_UPDT_TM
+		     , TO_CHAR(AA.ASGMT_ARTC_DEL_DT, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_ARTC_DEL_DT
+		     , AA.ASGMT_ARTC_DEL_YN
+		     , AA.CRS_INF_ID
+		     , CI.CRS_INF_NM
+		     , AA.ARTC_ID
+		     , A.ARTC_NM
+		     , AA.SBJ_ID
+		     , S.SBJ_NM
+		     , I.INSTR_NM
+			 , I.INSTR_ID
+		  FROM ASGMT_ARTC AA
+		 INNER JOIN CRS_SBJ CS
+		    ON CS.CRS_INF_ID = AA.CRS_INF_ID
+		   AND CS.SBJ_ID = AA.SBJ_ID
+		 INNER JOIN ARTC A
+		    ON A.ARTC_ID = AA.ARTC_ID
+		 INNER JOIN SBJ S
+		    ON S.SBJ_ID = AA.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN INSTR I /*강사*/
+		    ON CI.INSTR_ID = I.INSTR_ID
+		 WHERE AA.ASGMT_ARTC_ID = #{asgmtArtcId}
+		   AND AA.CRS_INF_ID = #{crsInfId}
+		   AND AA.ARTC_ID = #{artcId}
+		   AND AA.SBJ_ID = #{sbjId}
+		   AND AA.ASGMT_ARTC_DEL_YN = 'N'
+	</select>
+	
+	<insert id="insertNewAsgmtArtc"
+			parameterType="com.learn.bbs.asgmt.vo.CreateAsgmtArtcRequestVO">
+		<selectKey order="BEFORE" keyProperty="asgmtArtcId">
+			SELECT 'ASGMT_ARTC-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_ASGMT_ARTC_PK.NEXTVAL, 6, '0')
+  			  FROM DUAL
+		</selectKey>
+		INSERT INTO ASGMT_ARTC
+		 (ASGMT_ARTC_ID
+		, ASGMT_ARTC_TTL
+		, ASGMT_ARTC_CTT
+		, ASGMT_ARTC_SRT_DT
+		, ASGMT_ARTC_DDLN_DT
+		, ASGMT_ARTC_STAT
+		, ASGMT_ARTC_RGST_TM
+		, ASGMT_ARTC_UPDT_TM
+		, ASGMT_ARTC_DEL_DT
+		, ASGMT_ARTC_DEL_YN
+		, CRS_INF_ID
+		, ARTC_ID
+		, SBJ_ID)
+		 VALUES
+		 (#{asgmtArtcId} /*ASGMT_ARTC_ID*/
+		, #{asgmtArtcTtl} /*, ASGMT_ARTC_TTL*/
+		, #{asgmtArtcCtt} /*, ASGMT_ARTC_CTT*/
+		, TO_DATE(#{asgmtArtcSrtDt}, 'YYYY-MM-DD') /*, ASGMT_ARTC_SRT_DT*/
+		, TO_DATE(#{asgmtArtcDdlnDt}, 'YYYY-MM-DD') /*, ASGMT_ARTC_DDLN_DT*/
+		, NULL /*, ASGMT_ARTC_STAT*/
+		, SYSDATE /*, ASGMT_ARTC_RGST_TM*/
+		, NULL /*, ASGMT_ARTC_UPDT_TM*/
+		, NULL /*, ASGMT_ARTC_DEL_DT*/
+		, 'N'/*, ASGMT_ARTC_DEL_YN*/
+		, #{crsInfId} /*, CRS_INF_ID*/
+		, #{artcId} /*, ARTC_ID*/
+		, #{sbjId})/*, SBJ_ID*/
+	</insert>
+	
+	<update id="updateOneAsmgtArtc"
+			parameterType="com.learn.bbs.asgmt.vo.UpdateAsgmtArtcRequestVO">
+		UPDATE ASGMT_ARTC
+		   SET ASGMT_ARTC_UPDT_TM = SYSDATE
+		     <if test='asgmtArtcTtl != null and asgmtArtcTtl != ""'>
+		     , ASGMT_ARTC_TTL = #{asgmtArtcTtl}
+		     </if>
+		     <if test='asgmtArtcCtt != null and asgmtArtcCtt != ""'>
+		     , ASGMT_ARTC_CTT = #{asgmtArtcCtt}
+		     </if>
+		     <if test='asgmtArtcStat != null and asgmtArtcStat != ""'>
+		     , ASGMT_ARTC_STAT = #{asgmtArtcStat}
+		     </if>
+		     <if test='asgmtArtcSrtDt != null and asgmtArtcSrtDt != ""'>
+		     , ASGMT_ARTC_SRT_DT = TO_DATE(#{asgmtArtcSrtDt}, 'YYYY-MM-DD')
+		     </if>
+		     <if test='asgmtArtcDdlnDt != null and asgmtArtcDdlnDt != ""'>
+		     , ASGMT_ARTC_DDLN_DT = TO_DATE(#{asgmtArtcDdlnDt}, 'YYYY-MM-DD')
+		     </if>
+		 WHERE ASGMT_ARTC_ID = #{asgmtArtcId}
+		   AND CRS_INF_ID = #{crsInfId}
+		   AND ARTC_ID = #{artcId}
+		   AND SBJ_ID = #{sbjId}
+	</update>
+	
+	<update id="deleteOneAsgmtArtc"
+			parameterType="com.learn.bbs.asgmt.vo.DeleteAsgmtArtcRequestVO">
+		UPDATE ASGMT_ARTC
+		   SET ASGMT_ARTC_DEL_DT = SYSDATE
+		     , ASGMT_ARTC_DEL_YN = 'Y'
+		 WHERE ASGMT_ARTC_ID = #{asgmtArtcId}
+		   AND CRS_INF_ID = #{crsInfId}
+		   AND ARTC_ID = #{artcId}
+		   AND SBJ_ID = #{sbjId}
+	</update>
+    
 </mapper>

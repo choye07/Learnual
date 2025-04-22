@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.bbs.asgmt.dao.impl.AsgmtHstrDaoImpl">
+    
+    <resultMap type="com.learn.bbs.asgmt.vo.AsgmtHstrVO" 
+    		   id="AsgmtHstrVOMap"
+    		   autoMapping="true">
+    	<id column="ASGMT_HSTR_ID" property="asgmtHstrId" />
+    	<association property="sbj"
+    				 javaType="com.learn.bbs.crs.sbj.vo.SbjVO"
+    				 autoMapping="true">
+    		<id column="SBJ_ID" property="sbjId"/>
+    	</association>
+    	<association property="crsInf"
+    				 javaType="com.learn.bbs.crs.crsinf.vo.CrsInfVO"
+    				 autoMapping="true">
+    		<id column="CRS_INF_ID" property="crsInfId"/>
+    	</association>
+    	<association property="usr"
+    				 javaType="com.learn.bbs.usr.vo.UsrVO"
+    				 autoMapping="true">
+    		<id column="USR_ID" property="usrId"/>
+    	</association>
+    	<association property="attachedFile"
+    				 javaType="com.learn.bbs.file.vo.FlVO"
+    				 autoMapping="true">
+    		<id column="FL_ID" property="flId" />
+    		<result column="FL_ARTC_ID" property="artcId" />
+    		<result column="FL_REF_ID" property="id" />
+    	</association>
+    </resultMap>
+    
+	<select id="selectAsgmtHstrList"
+			parameterType="com.learn.bbs.asgmt.vo.SearchAsgmtHstrRequestVO"
+			resultMap="AsgmtHstrVOMap">
+		SELECT AH.ASGMT_HSTR_ID
+			 , AH.ASGMT_ARTC_ID
+			 , AH.ASGMT_HSTR_TTL
+			 , AH.ASGMT_HSTR_CTT
+			 , TO_CHAR(AH.ASGMT_ARTC_SRT_DT, 'YYYY-MM-DD') AS ASGMT_ARTC_SRT_DT
+			 , TO_CHAR(AH.ASGMT_HSTR_SBM_TM, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_HSTR_SBM_TM
+			 , TO_CHAR(AH.ASGMT_HSTR_RGST_TM, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_HSTR_RGST_TM
+			 , TO_CHAR(AH.ASGMT_HSTR_DDLN_DT, 'YYYY-MM-DD') AS ASGMT_HSTR_DDLN_DT
+			 , AH.ASGMT_HSTR_STAT
+			 , AH.CRS_INF_ID
+			 , CI.CRS_INF_NM
+			 , AH.SBJ_ID
+			 , S.SBJ_NM
+			 , AH.USR_ID
+			 , U.USR_NM
+			 , AH.ASGMT_HSTR_DEL_YN
+			 , TO_CHAR(AH.ASGMT_HSTR_DEL_DT, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_HSTR_DEL_DT
+			 , F.FL_ID
+			 , F.FL_NM
+			 , F.FL_OBFS_NM
+			 , F.FL_OBFS_PTH
+			 , F.FL_SZ
+			 , TO_CHAR(F.FL_RGST_DT, 'YYYY-MM-DD HH24:MI:SS') AS FL_RGST_DT
+			 , TO_CHAR(F.FL_UPDT_DT, 'YYYY-MM-DD HH24:MI:SS') AS FL_UPDT_DT
+			 , TO_CHAR(F.FL_DEL_DT, 'YYYY-MM-DD HH24:MI:SS') AS FL_DEL_DT
+			 , F.FL_DEL_YN
+			 , F.FL_TYPE_NM
+			 , F.ARTC_ID AS FL_ARTC_ID
+			 , F.ID AS FL_REF_ID
+		  FROM ASGMT_HSTR AH
+		  LEFT OUTER JOIN FL F
+		    ON F.ID = AH.ASGMT_HSTR_ID
+		 INNER JOIN ASGMT_ARTC AA
+			ON AH.ASGMT_ARTC_ID = AA.ASGMT_ARTC_ID
+		 INNER JOIN CRS_SBJ CS
+		    ON CS.CRS_INF_ID = AH.CRS_INF_ID
+		   AND CS.SBJ_ID = AH.SBJ_ID
+		 INNER JOIN SBJ S
+		    ON S.SBJ_ID = AH.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN USR U
+		    ON AH.USR_ID = U.USR_ID
+		 WHERE AH.ASGMT_HSTR_DEL_YN = 'N'
+		   AND AH.ASGMT_ARTC_ID = #{asgmtArtcId}
+		   AND AH.CRS_INF_ID = #{crsInfId}
+		   AND AH.SBJ_ID = #{sbjId}
+		 ORDER BY AH.ASGMT_ARTC_ID DESC
+		     , AH.ASGMT_HSTR_ID DESC
+	</select>
+	
+	<select id="selectOneAsgmtHstr"
+			parameterType="com.learn.bbs.asgmt.vo.AsgmtHstrCommonVO"
+			resultMap="AsgmtHstrVOMap">
+		SELECT AH.ASGMT_HSTR_ID
+			 , AH.ASGMT_ARTC_ID
+			 , AH.ASGMT_HSTR_TTL
+			 , AH.ASGMT_HSTR_CTT
+			 , TO_CHAR(AH.ASGMT_ARTC_SRT_DT, 'YYYY-MM-DD') AS ASGMT_ARTC_SRT_DT
+			 , TO_CHAR(AH.ASGMT_HSTR_SBM_TM, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_HSTR_SBM_TM
+			 , TO_CHAR(AH.ASGMT_HSTR_RGST_TM, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_HSTR_RGST_TM
+			 , TO_CHAR(AH.ASGMT_HSTR_DDLN_DT, 'YYYY-MM-DD') AS ASGMT_HSTR_DDLN_DT
+			 , AH.ASGMT_HSTR_STAT
+			 , AH.CRS_INF_ID
+			 , CI.CRS_INF_NM
+			 , AH.SBJ_ID
+			 , S.SBJ_NM
+			 , AH.USR_ID
+			 , U.USR_NM
+			 , AH.ASGMT_HSTR_DEL_YN
+			 , TO_CHAR(AH.ASGMT_HSTR_DEL_DT, 'YYYY-MM-DD HH24:MI:SS') AS ASGMT_HSTR_DEL_DT
+			 , F.FL_ID
+			 , F.FL_NM
+			 , F.FL_OBFS_NM
+			 , F.FL_OBFS_PTH
+			 , F.FL_SZ
+			 , TO_CHAR(F.FL_RGST_DT, 'YYYY-MM-DD HH24:MI:SS') AS FL_RGST_DT
+			 , TO_CHAR(F.FL_UPDT_DT, 'YYYY-MM-DD HH24:MI:SS') AS FL_UPDT_DT
+			 , TO_CHAR(F.FL_DEL_DT, 'YYYY-MM-DD HH24:MI:SS') AS FL_DEL_DT
+			 , F.FL_DEL_YN
+			 , F.FL_TYPE_NM
+			 , F.ARTC_ID AS FL_ARTC_ID
+			 , F.ID AS FL_REF_ID
+		  FROM ASGMT_HSTR AH
+		  LEFT OUTER JOIN FL F
+		    ON F.ID = AH.ASGMT_HSTR_ID
+		 INNER JOIN ASGMT_ARTC AA
+			ON AH.ASGMT_ARTC_ID = AA.ASGMT_ARTC_ID
+		 INNER JOIN CRS_SBJ CS
+		    ON CS.CRS_INF_ID = AH.CRS_INF_ID
+		   AND CS.SBJ_ID = AH.SBJ_ID
+		 INNER JOIN SBJ S
+		    ON S.SBJ_ID = AH.SBJ_ID
+		 INNER JOIN CRS_INF CI /*강좌*/
+		    ON CS.CRS_INF_ID = CI.CRS_INF_ID
+		 INNER JOIN USR U
+		    ON AH.USR_ID = U.USR_ID
+		 WHERE AH.ASGMT_HSTR_DEL_YN = 'N'
+		   AND AH.ASGMT_ARTC_ID = #{asgmtArtcId}
+		   AND AH.ASGMT_HSTR_ID = #{asgmtHstrId}
+		   AND AH.CRS_INF_ID = #{crsInfId}
+		   AND AH.SBJ_ID = #{sbjId}
+	</select>
+	
+	<insert id="insertNewAsgmtHstr"
+			parameterType="com.learn.bbs.asgmt.vo.CreateAsgmtHstrRequestVO">
+		<selectKey order="BEFORE" keyProperty="asgmtHstrId">
+			SELECT 'ASGMT_ARTC_HSTR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_ASGMT_HSTR_PK.NEXTVAL, 6, '0')
+  			  FROM DUAL
+		</selectKey>
+		INSERT INTO ASGMT_HSTR
+		 (ASGMT_HSTR_ID
+		, ASGMT_ARTC_ID
+		, ASGMT_HSTR_SBM_TM
+		, CRS_INF_ID
+		, SBJ_ID
+		, USR_ID
+		, ASGMT_HSTR_DEL_YN
+		, ASGMT_HSTR_DEL_DT)
+		VALUES
+		 (#{asgmtHstrId} /*ASGMT_HSTR_ID*/
+		, #{asgmtArtcId} /*ASGMT_ARTC_ID*/
+		, SYSDATE /*ASGMT_HSTR_SBM_TM*/
+		, #{crsInfId} /*CRS_INF_ID*/
+		, #{sbjId} /*SBJ_ID*/
+		, #{usrId} /*USR_ID*/
+		, 'N'    /*ASGMT_HSTR_DEL_YN*/
+		, NULL)  /*ASGMT_HSTR_DEL_DT*/
+	</insert>
+	
+    <update id="deleteOneAsgmtHstr"
+			parameterType="com.learn.bbs.asgmt.vo.DeleteAsgmtHstrRequestVO">
+		UPDATE ASGMT_HSTR
+		   SET ASGMT_HSTR_DEL_YN = 'Y'
+		     , ASGMT_HSTR_DEL_DT = SYSDATE
+		 WHERE ASGMT_ARTC_ID = #{asgmtArtcId}
+		   AND ASGMT_HSTR_ID = #{asgmtHstrId}
+		   AND CRS_INF_ID = #{crsInfId}
+		   AND SBJ_ID = #{sbjId}
+	</update>
+	
+</mapper>

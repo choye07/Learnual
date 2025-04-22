@@ -47,7 +47,7 @@ public class FlVO {
      * @ColumnType NUMBER(, )
      * @ColumnComment 파일 크기
      */
-    private int flSz;
+    private long flSz;
 
     /**
      * @ColumnName FL_RGST_DT
@@ -138,11 +138,11 @@ public class FlVO {
         this.flObfsPth = flObfsPth;
     }
     
-    public int getFlSz() {
+    public long getFlSz() {
         return this.flSz;
     }
     
-    public void setFlSz(int flSz) {
+    public void setFlSz(long flSz) {
         this.flSz = flSz;
     }
     

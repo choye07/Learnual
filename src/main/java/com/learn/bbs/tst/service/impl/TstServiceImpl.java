@@ -2,6 +2,7 @@ package com.learn.bbs.tst.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.learn.bbs.tst.dao.TstDao;
 import com.learn.bbs.tst.service.TstService;
@@ -23,6 +24,7 @@ public class TstServiceImpl implements TstService {
 	@Autowired
 	private TstDao tstDao;
 
+	@Transactional(readOnly = true)
 	@Override
 	public TstListVO readAllTest(SearchTstRequestVO searchTstRequestVO) {
 		int count = this.tstDao.selectAllTestCount(searchTstRequestVO);
@@ -37,6 +39,7 @@ public class TstServiceImpl implements TstService {
 		return tstListVO;
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public TstVO readOneTest(TstCommonVO tstCommonVO) {
 		TstVO tst = this.tstDao.selectOneTest(tstCommonVO);
@@ -46,11 +49,13 @@ public class TstServiceImpl implements TstService {
 		return tst;
 	}
 
+	@Transactional
 	@Override
 	public boolean createNewTest(CreateTstRequestVO createTstRequestVO) {
 		return this.tstDao.insertNewTest(createTstRequestVO) > 0;
 	}
 
+	@Transactional
 	@Override
 	public boolean updateOneTest(UpdateTstRequestVO updateTstRequestVO) {
 		this.readOneTest(updateTstRequestVO);
@@ -58,12 +63,14 @@ public class TstServiceImpl implements TstService {
 		return this.tstDao.updateOneTest(updateTstRequestVO) > 0;
 	}
 
+	@Transactional
 	@Override
 	public boolean changeTestStat(UpdateTstRequestVO updateTstRequestVO) {
 		this.readOneTest(updateTstRequestVO);
 		return this.tstDao.updateOneTest(updateTstRequestVO) > 0;
 	}
 
+	@Transactional
 	@Override
 	public boolean deleteOneTest(DeleteTstRequestVO deleteTstRequestVO) {
 		this.readOneTest(deleteTstRequestVO);

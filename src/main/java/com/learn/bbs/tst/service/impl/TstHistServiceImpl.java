@@ -1,10 +1,10 @@
 package com.learn.bbs.tst.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.learn.bbs.tst.dao.TstDao;
 import com.learn.bbs.tst.dao.TstHistDao;
@@ -24,16 +24,19 @@ public class TstHistServiceImpl implements TstHistService {
 	@Autowired
 	private TstHistDao tstHistDao;
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<TstHistVO> readTstHistList(String tstId) {
 		return this.tstHistDao.selectTstHistList(tstId);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public TstHistVO readTstHist(String tstHstrId) {
 		return this.tstHistDao.selectTstHist(tstHstrId);
 	}
 
+	@Transactional
 	@Override
 	public boolean createNewTstHist(CreateTstHstrRequestVO createTstHstrRequestVO) {
 		TstVO tstVO = this.tstDao.selectOneTest(createTstHstrRequestVO);
@@ -52,6 +55,7 @@ public class TstHistServiceImpl implements TstHistService {
 		}
 	}
 
+	@Transactional
 	@Override
 	public boolean updateTstRspnsHist(UpdateTstHstrRequestVO updateTstHstrRequestVO) {
 		TstVO tstVO = this.tstDao.selectOneTest(updateTstHstrRequestVO);
