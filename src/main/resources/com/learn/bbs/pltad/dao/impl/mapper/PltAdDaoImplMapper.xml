@@ -65,4 +65,118 @@
 		  FROM PLTADM
 		 WHERE PLTADM_LGN_ID = #{_parameter}
 	</select>
+	
+	<!-- login 기능 mapper start sh  -->
+
+<!-- 플랫폼 관리자 계정이 있는지 확인하기 위한 쿼리 -->
+<select id="selectUsrCountBy"
+        parameterType="string"
+        resultType="_int">
+    SELECT COUNT(PLTADM_LGN_ID)
+      FROM PLTADM
+     WHERE PLTADM_LGN_ID = #{_parameter}
+    </select>
+    
+<!-- 플랫폼 관리자 해당 계정의 정보를 가져오 위한 쿼리  -->
+<select id="selectOneUsrBy"
+       parameterType="string"
+       resultType="com.learn.bbs.pltad.vo.PltadmVO">
+
+ SELECT PLTADM_ID, 
+		PLTADM_LGN_ID, 
+		PLTADM_LGN_PW, 
+		PLTADM_NM, 
+		PLTADM_PN, 
+		PLTADM_EMAIL, 
+		PLTADM_BRT_DT, 
+		PLTADM_ADRS, 
+		PLTADM_RGST_DT, 
+		PLTADM_UPDT_DT, 
+		PLTADM_DEL_DT, 
+		PLTADM_DEL_YN, 
+		INSTTN_ID, 
+		CMCD_ID, 
+		PLATADM_LGN_SLT,
+		PLTADM_LGN_IP,
+		PLTADM_LST_PW_MDFY_DT,
+		PLTADM_LST_LGN_DT,
+		PLTADM_LST_LGN_FAIL_DT,
+		PLTADM_LGN_FAIL_CNT,
+		PLTADM_LGN_YN,
+		PLTADM_BLK_YN
+   FROM PLTADM WHERE PLTADM_LGN_ID = #{_parameter}
+ </select>
+    
+    <!-- 플랫폼 관리자 로그인 실패 횟수를 세는 쿼리 -->
+    <update id="updateLoginFailCount"
+        parameterType="string">
+	 
+	  UPDATE PLTADM
+	  SET  PLTADM_LST_LGN_FAIL_DT= SYSDATE
+	  , PLTADM_LGN_FAIL_CNT= PLTADM_LGN_FAIL_CNT + 1 
+	WHERE PLTADM_LGN_ID= #{_parameter}
+    </update>
+    
+    <!-- 플랫폼 관리자 로그인 실패 5회 이상일시 블락 쿼리 -->
+    <update id="updateBlock"
+        parameterType="string">
+	   	UPDATE PLTADM
+		   SET PLTADM_BLK_YN = 'Y'
+		 WHERE PLTADM_LGN_ID =  #{_parameter}
+		   AND PLTADM_LGN_FAIL_CNT >= 5
+    </update>
+    
+        <!-- 플랫폼 관리자 로그인 성공시 데이터 리셋 쿼리  -->
+    <update id="updateLoginSuccess"
+         parameterType="string">   
+	UPDATE PLTADM	
+	   SET PLTADM_LGN_FAIL_CNT = 0
+	     , PLTADM_LST_LGN_DT = SYSDATE
+	     , PLTADM_LGN_IP = NULL
+	     , PLTADM_LGN_YN = 'Y'
+	 WHERE PLTADM_LGN_ID = #{_parameter}
+    </update>
+    <!-- 플랫폼 관리자 로그아웃   -->
+   <update id="updateLogoutStatus"
+       parameterType="string">
+	 UPDATE PLTADM
+	   SET PLTADM_LGN_YN = 'N'
+	 WHERE PLTADM_LGN_ID = #{_parameter}
+    </update>
+    
+    <!-- 플랫폼 관리자 계정삭제  -->
+    <update id="deleteOneUsrBy"
+            parameterType="string">
+	  UPDATE PLTADM
+	   SET PLTADM_DEL_YN = 'Y',
+	   PLTADM_DEL_DT = SYSDATE
+	 WHERE PLTADM_LGN_ID = #{_parameter}
+    </update>
+
+    <!-- 플랫폼 관리자 개인정보 수정 미 정  -->
+<!-- 	<update id="updateOneUsrEditMyinformation"
+		parameterType="com.learn.bbs.usr.vo.UsrEditMyinformationVO">
+		UPDATE PLTADM
+		SET
+		<if test="usrPw != null and usrPw != ''">
+			USR_PW = #{usrPw},
+		</if>
+		<if test="usrSlt != null and usrSlt != ''">
+			USR_SLT = #{usrSlt},
+		</if>
+		<if test="usrNm != null and usrNm != ''">
+		USR_NM = #{usrNm},
+		</if>
+		<if test="usrPn != null and usrPn != ''">
+		USR_PN = #{usrPn},
+		</if>
+		<if test="usrAdrs != null and usrAdrs != ''">
+		USR_ADRS = #{usrAdrs},
+		</if>
+		USR_UPDT_DT = SYSDATE,
+		USR_LST_PW_MDFY_DT = SYSDATE
+		WHERE USR_ML = #{usrMl}
+	</update> -->
+
+<!-- login 기능 mapper end sh  -->
 </mapper>

@@ -14,6 +14,15 @@ import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 public class GlobalExceptionHandler {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+	
+	// 로그인 예외 처리 공통  -> 추후 수정 예
+//	@ExceptionHandler(BaseLoginException.class)
+//	public String handleLoginException(BaseLoginException ble, Model model) {
+//	    LOGGER.debug(ble.getMessage());
+//	    model.addAttribute("loginInput", ble.getLoginRequestVO());
+//	    model.addAttribute("errorMessage", ble.getMessage());
+//	    return "main/mainlogin";
+//	}
 
 	@ExceptionHandler(UsrLoginException.class)
 	public String viewMemberLogingExceptionPage(UsrLoginException ule, Model model) {
@@ -23,6 +32,25 @@ public class GlobalExceptionHandler {
 		model.addAttribute("errorMessage", ule.getMessage());
 		return "main/mainlogin";
 	}
+
+	@ExceptionHandler(InstrLoginException.class)
+	public String viewInstrrLogingExceptionPage(InstrLoginException Ile, Model model) {
+
+		LOGGER.debug(Ile.getMessage());
+		model.addAttribute("instrInput", Ile.getInstrLoginRequestVO());
+		model.addAttribute("errorMessage", Ile.getMessage());
+		return "main/mainlogin";
+	}
+	
+	@ExceptionHandler(PltadmLoginException.class)
+	public String viewPltadmrLogingExceptionPage(PltadmLoginException ple, Model model) {
+
+		LOGGER.debug(ple.getMessage());
+		model.addAttribute("pltadmInput", ple.getPltadmLoginRequestVO());
+		model.addAttribute("errorMessage", ple.getMessage());
+		return "main/mainlogin";
+	}
+	
 
 	@ExceptionHandler(UsrRegistException.class)
 	public String viewMemberRegistExceptionPage(UsrRegistRequestVO usrRegistRequestVO, UsrRegistException ure,

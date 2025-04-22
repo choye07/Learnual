@@ -127,7 +127,7 @@ $(document).ready(function() {
     // -----------------------------------------
     /* 강좌 생성 이벤트 end */
 
-
+	// 소희 Part start ----------------------------------
 	/* 사용자 회원 가입시 동의 여부 이벤트 start*/
 	// 개인정보 수집 및 이용 동의 라디오 버튼 확인
 	$("input[name='private-agreement']").on("change", function() {
@@ -147,6 +147,21 @@ $(document).ready(function() {
 	});
 	/* 사용자 회원 가입시 동의 여부 이벤트 end*/
 
+	/* 로그인 시 사용자, 관리자, 강사  누구로 로그인을 할건지에 대한 이벤트 start */
+	// 버튼 클릭에 따라 사용자, 관리자, 강사로 구별되어 로그인 된다. 
+	$(".btn-login").on("click", function() {
+		const form = $(".login-form");
+		const actionUrl = $(this).data("action");
+		form.attr("action", actionUrl);
+		form.submit();
+	});
+
+	/* 로그인 시 강사, 회원, 관리자 누구로 로그인을 할건지에 대한 이벤트 end */
+
+	/* 로그인 시 강사, 회원, 관리자 누구로 로그인을 할건지에 대한 이벤트 start */
+
+	// 소희 Part end ----------------------------------
+	
     // 강준식 2025-04-20 수정
     // -----------------------------------------
 
