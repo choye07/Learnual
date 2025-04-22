@@ -102,6 +102,7 @@ public class FlArchVO {
      * 파일을 여러개 업로드 할 수 있도록 리스트로 받아온다.
      */
     private List<FlVO> flList;
+    
 
     //TODO 멤버(회원) 추가하기
     
@@ -109,14 +110,14 @@ public class FlArchVO {
     
     
     public List<FlVO> getFlList() {
-      return flList;
-   }
+		return flList;
+	}
 
-   public void setFlList(List<FlVO> flList) {
-      this.flList = flList;
-   }
+	public void setFlList(List<FlVO> flList) {
+		this.flList = flList;
+	}
 
-   public String getFlArchId() {
+	public String getFlArchId() {
         return this.flArchId;
     }
     

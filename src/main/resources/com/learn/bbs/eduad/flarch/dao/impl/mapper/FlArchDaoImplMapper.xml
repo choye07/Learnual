@@ -2,6 +2,136 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.learn.bbs.eduad.flarch.dao.impl.FlArchDaoImpl">
-    
+<mapper
+	namespace="com.learn.bbs.eduad.flarch.dao.impl.FlArchDaoImpl">
+
+	<resultMap type="com.learn.bbs.eduad.flarch.vo.FlArchVO"
+		id="FlArchVOMap" autoMapping="true">
+		<id column="FL_ARCH_ID" property="flArchId" />
+
+		<collection property="flList"
+			ofType="com.learn.bbs.file.vo.FlVO" autoMapping="true">
+			<id column="FL_ID" property="flId" />
+		</collection>
+	</resultMap>
+
+
+	<select id="selectAllFlArchBoardCount" resultType="_int">
+
+		SELECT
+		COUNT(FL_ARCH_ID)
+		FROM FL_ARCH
+		WHERE FL_ARCH_DEL_YN = 'N'
+	</select>
+
+	<select id="selectAllFlArchBoard"
+		resultType="com.learn.bbs.eduad.flarch.vo.FlArchVO">
+
+		SELECT FL_ARCH_ID
+		, FL_ARCH_TTL
+		, FL_ARCH_CTT
+		, INSTR_ID
+		,
+		TO_CHAR(FL_ARCH_RGST_DT, 'YYYY-MM-DD') AS FL_ARCH_RGST_DT
+		FROM FL_ARCH
+		WHERE FL_ARCH_DEL_YN = 'N'
+		ORDER BY FL_ARCH_ID DESC
+	</select>
+
+
+	<insert id="insertNewFlArchBoard"
+		parameterType="com.learn.bbs.eduad.flarch.vo.FlArchWriteRequestVO">
+
+		<!-- id값을 생성해주는 태그, 미리 생성하기 때문에 order="BEFORE" -->
+		<selectKey order="BEFORE" resultType="string"
+			keyProperty="flArchId">
+			SELECT 'FL_ARCH-' ||
+			TO_CHAR(SYSDATE, 'YYYYMMDD') || '-'
+			|| LPAD(SEQ_FL_ARCH_PK.NEXTVAL, 6, '0')
+			FROM DUAL
+		</selectKey>
+
+		INSERT INTO FL_ARCH
+		( FL_ARCH_ID
+		, FL_ARCH_TTL
+		, FL_ARCH_CTT
+		,
+		FL_ARCH_VIEW_CNT
+		, FL_ARCH_ORG_TYPE
+		, FL_ARCH_MDFY_TYPE
+		, FL_ARCH_RGST_DT
+		, FL_ARCH_UPDT_DT
+		, FL_ARCH_DEL_DT
+		, FL_ARCH_DEL_YN
+		, INSTR_ID
+		, ARTC_ID)
+		VALUES
+		( #{flArchId}
+		, #{flArchTtl}
+		, #{flArchCtt}
+		, 0
+		, NULL
+		, NULL
+		,
+		SYSDATE
+		, NULL
+		, NULL
+		, 'N'
+		, #{instrId}
+		, #{artcId})
+	</insert>
+
+	<select id="selectOneFlArchBoard" parameterType="string"
+		resultMap="FlArchVOMap">
+		SELECT FA.FL_ARCH_ID
+		, FA.FL_ARCH_TTL
+		, FA.FL_ARCH_CTT
+		,
+		FA.FL_ARCH_VIEW_CNT
+		, TO_CHAR(FA.FL_ARCH_RGST_DT, 'YYYY-MM-DD') AS
+		FL_ARCH_RGST_DT
+		, TO_CHAR(FA.FL_ARCH_UPDT_DT, 'YYYY-MM-DD') AS
+		FL_ARCH_UPDT_DT
+		, FL.FL_ID
+		, FL.FL_NM
+		, FL.FL_OBFS_NM
+		, FL.FL_OBFS_PTH
+		,
+		FL.FL_SZ
+		, FL.ID
+		FROM FL_ARCH FA
+		LEFT OUTER JOIN FL
+		ON FA.FL_ARCH_ID =
+		FL.ID
+		WHERE FA.FL_ARCH_ID = #{flArchId}
+		AND FL_ARCH_DEL_YN = 'N'
+	</select>
+
+	<update id="updateViewCountBy"
+		parameterType="com.learn.bbs.eduad.flarch.vo.FlArchVO">
+		UPDATE FL_ARCH
+		SET FL_ARCH_VIEW_CNT = FL_ARCH_VIEW_CNT + 1
+		WHERE FL_ARCH_ID = #{flArchId}
+	</update>
+
+	<delete id="deleteOneFlArchBoard"
+		parameterType="com.learn.bbs.eduad.flarch.vo.FlArchDeleteRequestVO">
+		UPDATE FL_ARCH
+		SET FL_ARCH_DEL_DT = SYSDATE
+		,
+		FL_ARCH_DEL_YN = 'Y'
+		WHERE FL_ARCH_ID = #{flArchId}
+	</delete>
+
+	<update id="updateOneFlArchBoard"
+		parameterType="com.learn.bbs.eduad.flarch.vo.FlArchUpdateRequestVO">
+		UPDATE FL_ARCH
+		SET FL_ARCH_TTL = #{flArchTtl}
+		,
+		FL_ARCH_CTT = #{flArchCtt}
+		, FL_ARCH_UPDT_DT = SYSDATE
+		WHERE FL_ARCH_ID
+		= #{flArchId}
+	</update>
+
 </mapper>
