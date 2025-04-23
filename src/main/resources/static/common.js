@@ -3,34 +3,43 @@ $(document).ready(function() {
 	/* 휘원 0418 추가한 부분 start */
 	/* 메인 이벤트 start */
 	// 메인 화면이 로드될 때 러뉴얼 공지사항 API 호출
+
 	$.get("/api/ntc/list", function(ajaxResponse) {
-		// console.log(ajaxResponse)
-		var mainNoticeList = ajaxResponse.ntcList; // 받아온 NtcListVO의 List
-		var ntcCount = ajaxResponse.ntcCnt; // NtcListVO의 공지사항 개수
+	    var mainNoticeList = ajaxResponse.ntcList; // 받아온 NtcListVO의 List
+	    var ntcCount = ajaxResponse.ntcCnt; // NtcListVO의 공지사항 개수
 
-		var articleContent = $(".home-main").find(".article-content");
+	    var articleContent = $(".home-main").find(".article-content");
 
-		// 받아온 NtcListVO.ntcCnt가 0이거나,
-		// mainNoticeList의 item들이 전부 ntcDelYn가 Y라면
-		// 보여줄 공지사항이 존재하지 않음을 의미
-		if (!ntcCount === 0 || !mainNoticeList.every(mainNotice => mainNotice.ntcDelYn === 'Y')) {
-			articleContent.empty(); // 기존 내용을 비움
-			mainNoticeList.forEach(function(mainNotice) {
-				// 받아온 mainNoticeList의 item인
-				// mainNotice의 삭제여부가 Y가 아니라면 출력
-				if (mainNotice.ntcDelYn != 'Y') {
-					var listItem =
-						`<li>
-							<a href="/ntc/view/${mainNotice.ntcId}">
-								<h3>${mainNotice.ntcTtl}</h3>
-								<span>${mainNotice.ntcRgstDt}</span>
-							</a>
-						</li>`;
-					articleContent.append(listItem); // 새로운 항목 추가
-				}
-			});
-		}
+	    // 받아온 NtcListVO.ntcCnt가 0이거나,
+	    // mainNoticeList의 item들이 전부 ntcDelYn가 Y라면
+	    // 보여줄 공지사항이 존재하지 않음을 의미
+	    if (ntcCount !== 0 && !mainNoticeList.every(mainNotice => mainNotice.ntcDelYn === 'Y')) {
+	        articleContent.empty(); // 기존 내용을 비움
+
+	        // ntcPinnedYn 값에 따라 정렬
+	        mainNoticeList.sort(function(a, b) {
+	            return (b.ntcPinnedYn === 'Y' ? 1 : 0) - (a.ntcPinnedYn === 'Y' ? 1 : 0);
+	        });
+
+			var count = 0; // li 출력 제한을 위한 count변수
+	        mainNoticeList.forEach(function(mainNotice) {
+	            // 받아온 mainNoticeList의 item인
+	            // mainNotice의 삭제여부가 Y가 아니라면 출력
+	            if (mainNotice.ntcDelYn != 'Y' && count < 4) {
+	                var listItem =
+	                    `<li>
+	                        <a href="/ntc/view/${mainNotice.ntcId}">
+	                            <h3>${mainNotice.ntcTtl}</h3>
+	                            <span>${mainNotice.ntcRgstDt}</span>
+	                        </a>
+	                    </li>`;
+	                articleContent.append(listItem); // 새로운 항목 추가
+					count++;
+	            }
+	        });
+	    }
 	});
+
 	/* 메인 공지사항 작성 폼 이벤트 */
 	$("#learnual-notice-form").find(".btn-submit").on("click", function() {
 		$(this).closest("#learnual-notice-form")
@@ -43,6 +52,63 @@ $(document).ready(function() {
 
 	/* 휘원 0418 추가한 부분 end */
 	/* ================================ */
+	/* 휘원 0421 추가한 부분 start */
+	$.get("/api/insttnntc/list", function(ajaxResponse) {
+	    var insttnNoticeList = ajaxResponse.ntcList; // 받아온 NtcListVO의 List
+	    var ntcCount = ajaxResponse.ntcCnt; // NtcListVO의 공지사항 개수
+
+	    var articleContent = $(".dashboard-main.insttn").find(".insttn-notice.widget-article").find(".article-content");
+
+	    // 받아온 NtcListVO.ntcCnt가 0이거나,
+	    // mainNoticeList의 item들이 전부 ntcDelYn가 Y라면
+	    // 보여줄 공지사항이 존재하지 않음을 의미
+	    if (ntcCount !== 0 && !insttnNoticeList.every(insttnNotice => insttnNotice.ntcDelYn === 'Y')) {
+	        articleContent.empty(); // 기존 내용을 비움
+
+	        // ntcPinnedYn 값에 따라 정렬
+	        insttnNoticeList.sort(function(a, b) {
+	            return (b.ntcPinnedYn === 'Y' ? 1 : 0) - (a.ntcPinnedYn === 'Y' ? 1 : 0);
+	        });
+
+	        insttnNoticeList.forEach(function(insttnNotice) {
+	            // 받아온 mainNoticeList의 item인
+	            // mainNotice의 삭제여부가 Y가 아니라면 출력
+	            if (insttnNotice.ntcDelYn != 'Y') {
+	                var listItem =
+	                    `<li>
+	                        <a href="/insttnntc/view/${insttnNotice.ntcId}">
+	                            <h3>${insttnNotice.ntcTtl}</h3>
+	                            <span>${insttnNotice.ntcRgstDt}</span>
+	                        </a>
+	                    </li>`;
+	                articleContent.append(listItem); // 새로운 항목 추가
+	            }
+	        });
+	    }
+	});
+
+	/* 학원 공지사항 작성 폼 이벤트 */
+	$("#insttn-notice-form").find(".btn-submit").on("click", function() {
+		$(this).closest("#insttn-notice-form")
+			.attr({
+				method: "POST",
+				action: "/insttnntc/write" // 경로 변경될 수 있음
+			})
+			.submit();
+	});
+	/* 휘원 0421 추가한 부분 end */
+	/* ================================ */
+	/* 휘원 0422 추가한 부분 start */
+	/* 강좌 공지사항 작성 폼 이벤트 */
+	$("#crntc-notice-form").find(".btn-submit").on("click", function() {
+			$(this).closest("#crntc-notice-form")
+				.attr({
+					method: "POST",
+					action: "/crntc/write" // 경로 변경될 수 있음
+				})
+				.submit();
+		});
+	/* 휘원 0422 추가한 부분 end */
 
 	/* ================================ */
 
