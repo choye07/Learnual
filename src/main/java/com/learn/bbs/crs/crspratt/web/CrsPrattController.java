@@ -1,7 +1,7 @@
 package com.learn.bbs.crs.crspratt.web;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.learn.bbs.crs.crspratt.service.CrsPrattService;
 
@@ -15,5 +15,4 @@ public class CrsPrattController {
 
     @Autowired
     private CrsPrattService crsPrattService;
-
 }

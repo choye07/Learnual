@@ -27,7 +27,7 @@
 			<div class="main-wrapper course-confirm">
 				<div class="main-wrapper-top">
 					<h1>강의 확정</h1>
-					<h2>강의명: ${confirmedUsers[0].crsInfNm}</h2>
+					<h2>강의명: ${courseName}</h2>
 				</div>
 				<div class="main-wrapper-body">
 					<h3>해당 강의를 신청한 회원 내역</h3>
@@ -36,6 +36,7 @@
 						<c:choose>
 							<c:when test="${empty confirmedUsers}">
 								<p class="empty-user-list">신청한 회원이 없습니다.</p>
+								<a class="btn-abandon" href="javascript:void(0);" data-id="${crsInfId}">폐강</a>
 							</c:when>
 							<c:otherwise>
 								<form id="confirm-applied-user-form"
@@ -51,8 +52,8 @@
 									<c:forEach var="user" items="${confirmedUsers}">
 										<div class="table-item">
 											<div>
-												<input type="checkbox" name="selectedUserIds"
-													value="${user.usrId}" />
+											     <input type="checkbox" name="selectedUserIds"
+												    value="${user.usrId}" />
 											</div>
 											<div>${user.usrNm}</div>
 											<div>${user.usrPn}</div>
@@ -62,7 +63,7 @@
 										</div>
 									</c:forEach>
 									<div class="btn-area">
-										<button type="submit">강의 확정하기</button>
+										<button type="button" id="btn-real-confirm" data-id="${crsInfId}">강의 확정하기</button>
 									</div>
 								</form>
 							</c:otherwise>

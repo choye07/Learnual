@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.crs.crspratt.dao.CrsPrattDao;
+import com.learn.bbs.crs.crspratt.vo.CrsPrattRegistRequestVO;
 
 
 /**
@@ -23,5 +24,13 @@ public class CrsPrattDaoImpl extends SqlSessionDaoSupport implements CrsPrattDao
         super.setSqlSessionTemplate(sqlSessionTemplate);
     }
 
+	@Override
+	public int checkUserHasCrsPratt(String usrId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "checkUserHasCrsPratt", usrId);
+	}
 
+	@Override
+	public int insertCrsPratt(CrsPrattRegistRequestVO crsPrattRegistRequestVO) {
+		return this.getSqlSession().insert(NAME_SPACE + "insertCrsPratt", crsPrattRegistRequestVO);
+	}
 }

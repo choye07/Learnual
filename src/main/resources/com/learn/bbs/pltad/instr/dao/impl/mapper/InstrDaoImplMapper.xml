@@ -174,5 +174,25 @@ FROM INSTR WHERE INSTR_LGN_ID = #{_parameter}
 		WHERE USR_ML = #{usrMl}
 	</update> -->
 
+    <select id="selectAllInstrs" resultType="com.learn.bbs.pltad.instr.vo.InstrVO">
+        SELECT INSTR_ID
+             , INSTR_LGN_ID
+             , INSTR_LGN_PW
+             , INSTR_LGN_SLT_PW
+             , INSTR_NM
+             , INSTR_PN
+             , INSTR_ML
+             , INSTR_BRT_DT
+             , INSTR_ADRS
+             , INSTR_RGST_DT
+             , INSTR_UPDT_DT
+             , INSTR_DEL_DT
+             , INSTR_DEL_YN
+             , CMCD_ID
+             , INSTTN_ID
+          FROM INSTR
+         WHERE INSTR_DEL_YN = 'N'
+    </select>
+
 <!-- login 기능 mapper end sh  -->
 </mapper>

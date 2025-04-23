@@ -4,7 +4,7 @@
 <div class="login-status-wrapper">
     <ul>
         <c:choose>
-             <c:when test="${empty sessionScope.__LOGIN_USER__ and empty sessionScope.__LOGIN_PLTADM__ and empty sessionScope.__LOGIN_INSTR__}">
+             <c:when test="${empty sessionScope.__LOGIN_USER__ and empty sessionScope.__LOGIN_PLTADM__ and empty sessionScope.__LOGIN_INSTR__ and empty sessionScope.__LOGIN_SPRAD__}">
                 로그인 해주세요.
             </c:when> 
             <c:otherwise>
@@ -20,7 +20,9 @@
                          <c:if test="${not empty sessionScope.__LOGIN_INSTR__.instrNm}">
                             ${sessionScope.__LOGIN_INSTR__.instrNm}
                         </c:if>
-
+                        <c:if test="${not empty sessionScope.__LOGIN_SPRAD__.spradmNm}">
+                            ${sessionScope.__LOGIN_SPRAD__.spradmNm}
+                        </c:if>
                     </a>
                       <c:if test="${not empty sessionScope.__LOGIN_USER__.usrMl}">
                         (${sessionScope.__LOGIN_USER__.usrMl})
@@ -30,12 +32,18 @@
                     </c:if>
                     <c:if test="${not empty sessionScope.__LOGIN_INSTR__.instrLgnId}">
                         (${sessionScope.__LOGIN_INSTR__.instrLgnId})
+                    </c:if>
+                    <c:if test="${not empty sessionScope.__LOGIN_SPRAD__.spradmLgnId}">
+                        (${sessionScope.__LOGIN_SPRAD__.spradmLgnId})
                     </c:if> 
                     <c:if test="${not empty sessionScope.__LOGIN_PLTADM__.cmcdId}">
                         (${sessionScope.__LOGIN_PLTADM__.cmcdId})
                     </c:if>
                     <c:if test="${not empty sessionScope.__LOGIN_INSTR__.cmcdId}">
                         (${sessionScope.__LOGIN_INSTR__.cmcdId})
+                    </c:if>
+                    <c:if test="${not empty sessionScope.__LOGIN_SPRAD__.cmcdId}">
+                        (${sessionScope.__LOGIN_SPRAD__.cmcdId})
                     </c:if>
                     <c:if test="${not empty sessionScope.__LOGIN_PLTADM__.insttnId}">
                         (${sessionScope.__LOGIN_PLTADM__.insttnId})
@@ -54,6 +62,9 @@
                         </c:when>
                         <c:when test="${not empty sessionScope.__LOGIN_INSTR__}">
                             <a href="/instr/logout">로그아웃</a>
+                        </c:when>
+                        <c:when test="${not empty sessionScope.__LOGIN_SPRAD__}">
+                            <a href="/sprad/logout">로그아웃</a>
                         </c:when>
                     </c:choose>
                 </li>

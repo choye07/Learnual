@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.instr.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -136,5 +138,10 @@ public class InstrServiceImpl implements InstrService {
 		return this.instrDao.deleteOneUsrBy(instrLgnId) > 0;
 	}
     
+	@Transactional(readOnly = true)
+	@Override
+	public List<InstrVO> selectAllInstrs() {
+		return this.instrDao.selectAllInstrs();
+	}
 
 }

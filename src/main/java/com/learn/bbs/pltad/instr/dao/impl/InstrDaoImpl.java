@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.instr.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,11 @@ public class InstrDaoImpl extends SqlSessionDaoSupport implements InstrDao {
 	@Override
 	public int deleteOneUsrBy(String instrLgnId) {
 		return this.getSqlSession().update(NAME_SPACE + "deleteOneUsrBy",instrLgnId);
+	}
+	
+	@Override
+	public List<InstrVO> selectAllInstrs() {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAllInstrs");
 	}
 
 }

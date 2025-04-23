@@ -4,10 +4,112 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.main.sprad.dao.impl.SpradDaoImpl">
 
-	<select id="selectSpradCount" parameterType="string"
+	<select id="selectUsrCountBy" parameterType="string"
 		resultType="_int">
 		SELECT COUNT(SPRADM_LGN_ID)
 		  FROM SPRADM
 		WHERE SPRADM_LGN_ID = #{_parameter}
 	</select>
+	
+	<!-- 슈퍼관리자  해당 계정의 정보를 가져오 위한 쿼리o-->
+<select id="selectOneUsrBy"
+       parameterType="string"
+       resultType="com.learn.main.sprad.vo.SpradmVO">
+   
+SELECT SPRADM_ID
+	 , SPRADM_LGN_ID
+	 , SPRADM_LGN_PW
+	 , SPRADM_LGN_SLT
+	 , SPRADM_NM
+	 , SPRADM_PN
+	 , SPRADM_EMAIL
+	 , SPRADM_BRT_DT
+	 , SPRADM_ADRS
+	 , SPRADM_RGST_DT
+	 , SPRADM_UPDT_DT
+	 , SPRADM_DEL_DT
+	 , SPRADM_DEL_YN
+	 , INSTTN_ID
+	 , CMCD_ID
+	 , SPRADM_LGN_IP
+	 , SPRADM_LST_PW_MDFY_DT
+	 , SPRADM_LST_LGN_DT
+	 , SPRADM_LST_LGN_FAIL_DT
+	 , SPRADM_LGN_FAIL_CNT
+	 , SPRADM_LGN_YN
+	 , SPRADM_BLK_YN
+FROM SPRADM WHERE SPRADM_LGN_ID = #{_parameter}
+
+ </select>
+ 
+    <!-- 슈퍼관리자  로그인 실패 횟수를 세는 쿼리 o -->    
+    <update id="updateLoginFailCount" 
+        parameterType="string">
+	  UPDATE SPRADM
+		SET  SPRADM_LST_LGN_FAIL_DT = SYSDATE
+		  , SPRADM_LGN_FAIL_CNT= SPRADM_LGN_FAIL_CNT + 1 
+		WHERE SPRADM_LGN_ID = #{_parameter}
+	 
+    </update>
+    
+   <!--슈퍼관리자  로그인 실패 5회 이상일시 블락 쿼리 o-->
+    <update id="updateBlock"
+        parameterType="string">
+	   	UPDATE SPRADM
+		   SET SPRADM_BLK_YN = 'Y'
+		 WHERE SPRADM_LGN_ID =  #{_parameter}
+		   AND SPRADM_LGN_FAIL_CNT >= 5
+    </update>
+    <!-- 슈퍼관리자 로그인 성공시 데이터 리셋 쿼리 o -->
+    <update id="updateLoginSuccess"
+         parameterType="string">   
+	UPDATE SPRADM 	
+	   SET SPRADM_LGN_FAIL_CNT = 0
+	     , SPRADM_LST_LGN_DT = SYSDATE
+	     , SPRADM_LGN_IP = NULL
+	     , SPRADM_LGN_YN = 'Y'
+	 WHERE SPRADM_LGN_ID = #{_parameter}
+    </update>
+    
+   <!-- 슈퍼관리자 로그아웃  o --> 
+   <update id="updateLogoutStatus"
+       parameterType="string">
+	 UPDATE SPRADM
+	   SET SPRADM_LGN_YN = 'N'
+	 WHERE SPRADM_LGN_ID = #{_parameter}
+    </update>
+    <!-- 슈퍼관리자 계정삭제 로그아웃 o --> 
+    <update id="deleteOneUsrBy"
+            parameterType="string">
+	  UPDATE SPRADM 
+	   SET INSTR_DEL_YN = 'Y',
+	   SPRADM_DEL_DT = SYSDATE
+	 WHERE SPRADM_LGN_ID = #{_parameter}
+    </update>  
+<!-- 강사 개인정보 수정 미 정  -->
+<!-- 	<update id="updateOneUsrEditMyinformation"
+		parameterType="com.learn.bbs.usr.vo.UsrEditMyinformationVO">
+		UPDATE USR
+		SET
+		<if test="usrPw != null and usrPw != ''">
+			USR_PW = #{usrPw},
+		</if>
+		<if test="usrSlt != null and usrSlt != ''">
+			USR_SLT = #{usrSlt},
+		</if>
+		<if test="usrNm != null and usrNm != ''">
+		USR_NM = #{usrNm},
+		</if>
+		<if test="usrPn != null and usrPn != ''">
+		USR_PN = #{usrPn},
+		</if>
+		<if test="usrAdrs != null and usrAdrs != ''">
+		USR_ADRS = #{usrAdrs},
+		</if>
+		USR_UPDT_DT = SYSDATE,
+		USR_LST_PW_MDFY_DT = SYSDATE
+		WHERE USR_ML = #{usrMl}
+	</update> -->
+
+<!-- login 기능 mapper end sh  -->
 </mapper>

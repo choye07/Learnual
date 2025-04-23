@@ -11,6 +11,8 @@
     <result property="crsInfEndDt" column="CRS_INF_END_DT"/>
     <result property="crsInfAppDt" column="CRS_INF_APP_DT"/>
     <result property="crsInfDdlnDt" column="CRS_INF_DDLN_DT"/>
+    <result property="crsInfDdlnYn" column="CRS_INF_DDLN_YN"/>
+    <result property="crsInfAbdnYn" column="CRS_INF_ABDN_YN"/>
     <result property="crsInfCrsRoomNm" column="CRS_INF_CRS_ROOM_NM"/>
     
     <collection property="curriculumList" ofType="com.learn.bbs.eduad.crclm.vo.CrclmSbjVO">
@@ -35,7 +37,9 @@
         CRS_INF_DEL_YN,
         CRS_INF_APP_DT,
         CRS_INF_DDLN_DT,
-        CRS_INF_DDLN_YN
+        CRS_INF_DDLN_YN,
+        CRS_INF_ABDN_YN,
+        INSTR_ID
     ) VALUES (
         #{crsInfId},
         TO_DATE(#{crsInfStDt}, 'YYYY-MM-DD HH24:MI:SS'),
@@ -47,12 +51,14 @@
         'N',
         TO_DATE(#{crsInfAppDt}, 'YYYY-MM-DD HH24:MI:SS'),
         TO_DATE(#{crsInfDdlnDt}, 'YYYY-MM-DD HH24:MI:SS'),
-        'N'
+        'N',
+        'N',
+        #{instrId}
     )
     </insert>
     
     <select id="countCourseName" resultType="int" parameterType="string">
-	    SELECT COUNT(*) 
+	    SELECT COUNT(CRS_INF_ID)
 	      FROM CRS_INF 
 	     WHERE CRS_INF_NM = #{crsInfNm} 
 	       AND CRS_INF_DEL_YN = 'N'
@@ -63,33 +69,128 @@
         SELECT CRS_INF_NM 
           FROM CRS_INF 
          WHERE CRS_INF_ID = #{crsInfId} 
-           AND CRS_INF_DEL_YN = 'N'
-           AND CRS_INF_DDLN_YN = 'N'
+<!--            AND CRS_INF_DEL_YN = 'N'
+           AND CRS_INF_DDLN_YN = 'N' -->
     </select>
     
     <select id="selectAllCourseForPltad" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO">
+    <![CDATA[
+SELECT CRS_INF_ID
+     , CRS_INF_NM
+     , CRS_INF_ST_DT
+     , CRS_INF_END_DT
+     , CRS_INF_APP_DT
+     , CRS_INF_DDLN_DT
+     , CRS_INF_DDLN_YN
+     , CRS_INF_PRS_CNT
+     , CRS_CUR_APP_CNT
+     , CRS_INF_ABDN_YN
+     , CRS_CUR_CNCL_CNT
+     , CRS_CUR_APP_CNT - CRS_CUR_CNCL_CNT AS CRS_CUR_PRS_CNT
+     , CASE 
+        WHEN CRS_INF_ABDN_YN = 'Y' THEN 'isAbandon'
+        WHEN STATUS = 'canAbandon' AND (CRS_CUR_APP_CNT - CRS_CUR_CNCL_CNT) > 0 THEN 'canEnd'
+        WHEN STATUS = 'canAbandon' AND (CRS_CUR_APP_CNT - CRS_CUR_CNCL_CNT) = 0 THEN 'canAbandon'
+        ELSE STATUS
+      END STATUS
+  FROM (SELECT C.CRS_INF_ID
+             , C.CRS_INF_NM
+             , C.CRS_INF_ST_DT
+             , C.CRS_INF_END_DT
+             , C.CRS_INF_APP_DT
+             , C.CRS_INF_DDLN_DT
+             , C.CRS_INF_DDLN_YN
+             , C.CRS_INF_ABDN_YN
+             , C.CRS_INF_PRS_CNT
+             , (SELECT COUNT(AH.APP_HSTR_ID)
+                  FROM APP_HSTR AH
+                 WHERE AH.CRS_INF_ID = C.CRS_INF_ID) AS CRS_CUR_APP_CNT
+             , (SELECT COUNT(CH.CNCL_HSTR_ID)
+                  FROM CNCL_HSTR CH
+                 INNER JOIN APP_HSTR AH
+                    ON AH.APP_HSTR_ID = CH.APP_HSTR_ID
+                 WHERE AH.CRS_INF_ID = C.CRS_INF_ID) AS CRS_CUR_CNCL_CNT
+             , 'beforeApp' AS STATUS
+          FROM CRS_INF C
+         WHERE C.CRS_INF_DEL_YN = 'N'
+           AND C.CRS_INF_DDLN_YN = 'N'
+           AND C.CRS_INF_APP_DT > SYSDATE
+         UNION
+         SELECT C.CRS_INF_ID
+             , C.CRS_INF_NM
+             , C.CRS_INF_ST_DT
+             , C.CRS_INF_END_DT
+             , C.CRS_INF_APP_DT
+             , C.CRS_INF_DDLN_DT
+             , C.CRS_INF_DDLN_YN
+             , C.CRS_INF_ABDN_YN
+             , C.CRS_INF_PRS_CNT
+             , (SELECT COUNT(AH.APP_HSTR_ID)
+                  FROM APP_HSTR AH
+                 WHERE AH.CRS_INF_ID = C.CRS_INF_ID) AS CRS_CUR_PRS_CNT
+             , (SELECT COUNT(CH.CNCL_HSTR_ID)
+                  FROM CNCL_HSTR CH
+                 INNER JOIN APP_HSTR AH
+                    ON AH.APP_HSTR_ID = CH.APP_HSTR_ID
+                 WHERE AH.CRS_INF_ID = C.CRS_INF_ID) AS CRS_CUR_CNCL_CNT
+             , 'inApply' AS STATUS
+          FROM CRS_INF C
+         WHERE C.CRS_INF_DEL_YN = 'N'
+           AND C.CRS_INF_DDLN_YN = 'N'
+           AND C.CRS_INF_APP_DT <= SYSDATE
+           AND C.CRS_INF_DDLN_DT >= SYSDATE
+           UNION
+         SELECT C.CRS_INF_ID
+             , C.CRS_INF_NM
+             , C.CRS_INF_ST_DT
+             , C.CRS_INF_END_DT
+             , C.CRS_INF_APP_DT
+             , C.CRS_INF_DDLN_DT
+             , C.CRS_INF_DDLN_YN
+             , C.CRS_INF_ABDN_YN
+             , C.CRS_INF_PRS_CNT
+             , (SELECT COUNT(AH.APP_HSTR_ID)
+                  FROM APP_HSTR AH
+                 WHERE AH.CRS_INF_ID = C.CRS_INF_ID) AS CRS_CUR_PRS_CNT
+             , (SELECT COUNT(CH.CNCL_HSTR_ID)
+                  FROM CNCL_HSTR CH
+                 INNER JOIN APP_HSTR AH
+                    ON AH.APP_HSTR_ID = CH.APP_HSTR_ID
+                 WHERE AH.CRS_INF_ID = C.CRS_INF_ID) AS CRS_CUR_CNCL_CNT
+             , 'canAbandon'
+        FROM CRS_INF C
+        WHERE C.CRS_INF_DEL_YN = 'N'
+          AND C.CRS_INF_DDLN_YN = 'N'
+          AND C.CRS_INF_DDLN_DT <= SYSDATE
+         UNION
         SELECT C.CRS_INF_ID
-			 , C.CRS_INF_NM
-			 , C.CRS_INF_ST_DT
-			 , C.CRS_INF_END_DT
-			 , C.CRS_INF_DDLN_DT
-			 , C.CRS_INF_PRS_CNT
-			 , COUNT(A.APP_HSTR_ID) AS CRS_CUR_PRS_CNT
-		  FROM CRS_INF C
-		  LEFT JOIN APP_HSTR A 
-		    ON C.CRS_INF_ID = A.CRS_INF_ID
-		  LEFT JOIN CNCL_HSTR CN 
-		    ON A.APP_HSTR_ID = CN.APP_HSTR_ID
-		 WHERE C.CRS_INF_DEL_YN = 'N'
-		   AND C.CRS_INF_DDLN_YN = 'N'
-		   AND CN.CNCL_HSTR_ID IS NULL
-		 GROUP BY C.CRS_INF_ID
-		     , C.CRS_INF_NM
-		     , C.CRS_INF_ST_DT
-		     , C.CRS_INF_END_DT
-		     , C.CRS_INF_DDLN_DT
-		     , C.CRS_INF_PRS_CNT
-		 ORDER BY C.CRS_INF_ST_DT DESC
+             , C.CRS_INF_NM
+             , C.CRS_INF_ST_DT
+             , C.CRS_INF_END_DT
+             , C.CRS_INF_APP_DT
+             , C.CRS_INF_DDLN_DT
+             , C.CRS_INF_DDLN_YN
+             , C.CRS_INF_ABDN_YN
+             , C.CRS_INF_PRS_CNT
+             , (SELECT COUNT(AH.APP_HSTR_ID)
+                  FROM APP_HSTR AH
+                 WHERE AH.CRS_INF_ID = C.CRS_INF_ID) AS CRS_CUR_PRS_CNT
+             , (SELECT COUNT(CH.CNCL_HSTR_ID)
+                  FROM CNCL_HSTR CH
+                 INNER JOIN APP_HSTR AH
+                    ON AH.APP_HSTR_ID = CH.APP_HSTR_ID
+                 WHERE AH.CRS_INF_ID = C.CRS_INF_ID) AS CRS_CUR_CNCL_CNT
+             , CASE 
+                 WHEN EXISTS (
+                     SELECT 1
+                     FROM CRS_PRATT CP
+                     WHERE CP.CRS_INF_ID = C.CRS_INF_ID
+                 ) THEN 'endApply'
+                 ELSE 'doingApply'
+               END AS STATUS
+        FROM CRS_INF C
+        WHERE C.CRS_INF_DEL_YN = 'N'
+          AND C.CRS_INF_DDLN_YN = 'Y')]]>
     </select>
     
     <select id="selectAllFinishedCourseForPltad" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO">
@@ -100,6 +201,7 @@
 		  FROM CRS_INF C
 		 WHERE C.CRS_INF_DEL_YN = 'N'
 		   AND C.CRS_INF_DDLN_YN = 'Y'
+		   AND C.CRS_INF_ABDN_YN = 'N'
 		 GROUP BY C.CRS_INF_ID
 		     , C.CRS_INF_NM
 		     , C.CRS_INF_ST_DT
@@ -121,11 +223,20 @@
 		     , CRS_INF_APP_DT = TO_DATE(#{crsInfAppDt}, 'YYYY-MM-DD HH24:MI:SS')
 		     , CRS_INF_DDLN_DT = TO_DATE(#{crsInfDdlnDt}, 'YYYY-MM-DD HH24:MI:SS')
 		     , CRS_INF_DDLN_YN = 'N'
+		     , CRS_INF_ABDN_YN = 'N'
+		     , INSTR_ID = #{instrId}
 		WHERE CRS_INF_ID = #{crsInfId}
     </update>
     
     <select id="selectAllInfoFromOneCourse" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO" parameterType="string">
-        SELECT *
+        SELECT CRS_INF_ID
+             , CRS_INF_CRS_ROOM_NM
+             , CRS_INF_PRS_CNT
+             , CRS_INF_ST_DT
+             , CRS_INF_END_DT
+             , CRS_INF_APP_DT
+             , CRS_INF_DDLN_DT
+             , INSTR_ID
 		  FROM CRS_INF
 		 WHERE CRS_INF_ID = #{crsInfId}
     </select>
@@ -137,30 +248,89 @@
 		 WHERE CRS_INF_ID = #{crsInfId}
     </update>
     
-    <select id="selectAvailableCourses" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO">
-        SELECT *
+    <select id="selectAvailableCoursesForUser" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO">
+    <![CDATA[
+        SELECT CRS_INF_ID
+             , CRS_INF_NM
+             , CRS_INF_CRS_ROOM_NM
+             , CRS_INF_PRS_CNT
+             , CRS_INF_ST_DT
+             , CRS_INF_END_DT
+             , CRS_INF_APP_DT
+             , CRS_INF_DDLN_DT
+             , INSTR_ID
 		  FROM CRS_INF
-		 WHERE SYSDATE BETWEEN CRS_INF_ST_DT AND CRS_INF_END_DT
-		   AND CRS_INF_DEL_YN = 'N'
-		   AND CRS_INF_DDLN_YN = 'N'
+		 WHERE CRS_INF_APP_DT < SYSDATE 
+		   AND CRS_INF_DEL_YN = 'N']]>
     </select>
     
     <select id="selectCourseDetail" resultMap="courseDetailMap">
-    SELECT ci.CRS_INF_ID
-         , ci.CRS_INF_NM
-         , ci.CRS_INF_ST_DT
-         , ci.CRS_INF_END_DT
-         , ci.CRS_INF_APP_DT
-         , ci.CRS_INF_DDLN_DT
-         , ci.CRS_INF_CRS_ROOM_NM
-         , sbj.SBJ_NM
-         , crclm.CRCLM_ID
-         , crclm.CRCLM_DESC
-    FROM CRS_INF ci
-    LEFT OUTER JOIN CRCLM crclm
-      ON ci.CRS_INF_ID = crclm.CRS_INF_ID
-    LEFT JOIN SBJ sbj 
-      ON sbj.SBJ_ID = crclm.SBJ_ID
-   WHERE ci.CRS_INF_ID = #{crsInfId}
+	    SELECT ci.CRS_INF_ID
+	         , ci.CRS_INF_NM
+	         , ci.CRS_INF_ST_DT
+	         , ci.CRS_INF_END_DT
+	         , ci.CRS_INF_APP_DT
+	         , ci.CRS_INF_DDLN_DT
+	         , ci.CRS_INF_DDLN_YN
+	         , ci.CRS_INF_ABDN_YN
+	         , ci.CRS_INF_CRS_ROOM_NM
+	         , sbj.SBJ_NM
+	         , crclm.CRCLM_ID
+	         , crclm.CRCLM_DESC
+	      FROM CRS_INF ci
+	      LEFT OUTER JOIN CRCLM crclm
+	        ON ci.CRS_INF_ID = crclm.CRS_INF_ID
+	      LEFT JOIN SBJ sbj 
+	        ON sbj.SBJ_ID = crclm.SBJ_ID
+	     WHERE ci.CRS_INF_ID = #{crsInfId}
     </select>
+    
+    <update id="endOneCourse" parameterType="string">
+        UPDATE CRS_INF
+           SET CRS_INF_DDLN_YN = 'Y'
+         WHERE CRS_INF_ID = #{crsInfId}
+    </update>
+    
+    <select id="selectMyCourseForUser" parameterType="com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO">
+        SELECT CI.CRS_INF_ID
+		     , CI.CRS_INF_NM
+		     , CI.CRS_INF_ST_DT
+		     , CI.CRS_INF_END_DT
+		     , CI.CRS_INF_CRS_ROOM_NM
+		     , CI.CRS_INF_PRS_CNT
+		     , CI.INSTR_ID
+		  FROM CRS_PRATT CP
+		 INNER JOIN CRS_INF CI 
+		    ON CP.CRS_INF_ID = CI.CRS_INF_ID
+		 WHERE CP.USR_ID = #{usrId}
+		   AND CI.CRS_INF_DEL_YN = 'N'
+		   AND CP.CRS_PRATT_DEL_YN = 'N'
+    </select>
+    
+    <update id="abandonOneCourse">
+        UPDATE CRS_INF
+           SET CRS_INF_ABDN_YN = 'Y'
+         WHERE CRS_INF_ID = #{crsInfId}
+    </update>
+    
+    <select id="selectAbandonCourse" parameterType="com.learn.bbs.crs.crsinf.vo.CrsInfAbandonReadResponseVO">
+        SELECT CRS_INF_ID
+             , CRS_INF_NM
+             , CRS_INF_ST_DT
+             , CRS_INF_END_DT
+             , CRS_INF_CRS_ROOM_NM
+             , CRS_INF_PRS_CNT
+             , INSTR_ID
+          FROM CRS_INF
+         WHERE CRS_INF_ABDN_YN = 'Y'
+    </select>
+    
+    <update id="updateNotAttendCourse" parameterType="map">
+        UPDATE CNFR_HSTR_YN
+        SET CNFR_HSTR_YN = 'N'
+        WHERE USR_ID IN
+        <foreach item="usrId" collection="usrIds" open="(" separator="," close=")">
+            #{usrId}
+        </foreach>
+    </update>
 </mapper>

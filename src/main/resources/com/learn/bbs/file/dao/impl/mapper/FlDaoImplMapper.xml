@@ -3,5 +3,102 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.file.dao.impl.FlDaoImpl">
-    
+
+	<insert id="insertNewFile"
+		parameterType="com.learn.bbs.file.vo.FlVO">
+		INSERT INTO FL
+		( FL_ID
+		, FL_NM
+		, FL_OBFS_NM
+		, FL_OBFS_PTH
+		,
+		FL_SZ
+		, FL_RGST_DT
+		, FL_UPDT_DT
+		, FL_DEL_DT
+		, FL_DEL_YN
+		, FL_TYPE_NM
+		,
+		ARTC_ID
+		, ID)
+		VALUES('FL-' ||
+		TO_CHAR(SYSDATE, 'YYYYMMDD') || '-'
+		||
+		LPAD(SEQ_FL_PK.NEXTVAL, 6, '0')
+		, #{flNm}
+		, #{flObfsNm}
+		, #{flObfsPth}
+		, #{flSz}
+		, SYSDATE
+		, ''
+		, ''
+		, 'N'
+		, #{flTypeNm}
+		, '게시판아이디'
+		, #{id})
+	</insert>
+
+	<select id="selectOneFile"
+		parameterType="com.learn.bbs.file.vo.FlDownloadRequestVO"
+		resultType="com.learn.bbs.file.vo.FlVO">
+		SELECT FL_ID
+		, FL_NM
+		, FL_OBFS_NM
+		, FL_OBFS_PTH
+		, FL_SZ
+		FROM FL
+		WHERE FL_ID = #{flId}
+		AND ID = #{id}
+		AND FL_DEL_YN = 'N'
+	</select>
+
+	<select id="selectFilesById" parameterType="String"
+		resultType="com.learn.bbs.file.vo.FlVO">
+		SELECT FL_ID
+		, FL_NM
+		, FL_OBFS_NM
+		, FL_OBFS_PTH
+		, FL_SZ
+		FROM FL
+		WHERE ID = #{id}
+		  AND FL_DEL_YN = 'N'
+	</select>
+
+	<delete id="deleteOneFile"
+		parameterType="com.learn.bbs.file.vo.FlDeleteRequestVO">
+		DELETE
+		FROM FL
+		WHERE ID = #{id}
+		AND FL_ID = #{flId}
+	</delete>
+
+	<delete id="deleteAllFiles"
+		parameterType="com.learn.bbs.file.vo.FlDeleteRequestVO">
+		DELETE
+		FROM FL
+		WHERE ID = #{id}
+	</delete>
+
+	<update id="deleteFileData"
+		parameterType="com.learn.bbs.file.vo.FlDeleteRequestVO">
+		UPDATE FL
+		SET FL_DEL_DT = SYSDATE
+		, FL_DEL_YN = 'Y'
+		WHERE FL_ID = #{flId}
+		AND ID = #{id}
+	</update>
+
+	<update id="updateOneFile"
+		parameterType="com.learn.bbs.file.vo.FlUpdateRequestVO">
+		UPDATE FL
+		SET FL_NM = #{flNm}
+		, FL_OBFS_NM = #{flObfsNm}
+		,
+		FL_OBFS_PTH = #{flObfsPth}
+		, FL_SZ = #{flSz}
+		, FL_UPDT_DT = SYSDATE
+		WHERE FL_ID = #{flId}
+		AND ID
+		= #{id}
+	</update>
 </mapper>

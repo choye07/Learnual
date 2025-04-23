@@ -41,7 +41,20 @@ public class CrsInfRegistRequestVO {
     @NotEmpty(message = "과목은 최소 1개이상 선택해야 합니다.") 
     private List<String> subjects;
     
-    public String getCrsInfId() {
+    @NotEmpty(message = "강사는 1명 선택해야 합니다.") 
+    private String instrId;
+    
+    private String loginId;
+    
+    public String getLoginId() {
+		return loginId;
+	}
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+
+	public String getCrsInfId() {
 		return crsInfId;
 	}
 
@@ -115,5 +128,13 @@ public class CrsInfRegistRequestVO {
 
 	public void setSubjects(List<String> subjects) {
 		this.subjects = subjects;
+	}
+
+	public String getInstrId() {
+		return instrId;
+	}
+
+	public void setInstrId(String instrId) {
+		this.instrId = instrId;
 	}
 }

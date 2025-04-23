@@ -29,13 +29,6 @@ public class FlVO {
     private String flObfsNm;
 
     /**
-     * @ColumnName FL_PTH
-     * @ColumnType VARCHAR2(2083)
-     * @ColumnComment 파일 경로
-     */
-    private String flPth;
-
-    /**
      * @ColumnName FL_OBFS_PTH
      * @ColumnType VARCHAR2(2083)
      * @ColumnComment 난독화된 파일 경로
@@ -47,7 +40,7 @@ public class FlVO {
      * @ColumnType NUMBER(, )
      * @ColumnComment 파일 크기
      */
-    private int flSz;
+    private long flSz;
 
     /**
      * @ColumnName FL_RGST_DT
@@ -78,11 +71,11 @@ public class FlVO {
     private String flDelYn;
 
     /**
-     * @ColumnName FL_TYPE_ID
+     * @ColumnName FL_TYPE_NM
      * @ColumnType VARCHAR2(5)
      * @ColumnComment 파일 확장자명(기존 확장자)
      */
-    private String flTypeId;
+    private String flTypeNm;
 
     /**
      * @ColumnName ARTC_ID
@@ -94,7 +87,7 @@ public class FlVO {
     /**
      * @ColumnName ID
      * @ColumnType VARCHAR2(50)
-     * @ColumnComment insert 과정 간소화 때문에 미리 발급해야한다.
+     * @ColumnComment 게시글 id, insert 과정 간소화 때문에 미리 발급해야한다.
      */
     private String id;
 
@@ -122,14 +115,6 @@ public class FlVO {
         this.flObfsNm = flObfsNm;
     }
     
-    public String getFlPth() {
-        return this.flPth;
-    }
-    
-    public void setFlPth(String flPth) {
-        this.flPth = flPth;
-    }
-    
     public String getFlObfsPth() {
         return this.flObfsPth;
     }
@@ -138,15 +123,15 @@ public class FlVO {
         this.flObfsPth = flObfsPth;
     }
     
-    public int getFlSz() {
-        return this.flSz;
-    }
-    
-    public void setFlSz(int flSz) {
-        this.flSz = flSz;
-    }
-    
-    public String getFlRgstDt() {
+    public long getFlSz() {
+		return flSz;
+	}
+
+	public void setFlSz(long flSz) {
+		this.flSz = flSz;
+	}
+
+	public String getFlRgstDt() {
         return this.flRgstDt;
     }
     
@@ -178,15 +163,15 @@ public class FlVO {
         this.flDelYn = flDelYn;
     }
     
-    public String getFlTypeId() {
-        return this.flTypeId;
-    }
-    
-    public void setFlTypeId(String flTypeId) {
-        this.flTypeId = flTypeId;
-    }
-    
-    public String getArtcId() {
+    public String getFlTypeNm() {
+		return flTypeNm;
+	}
+
+	public void setFlTypeNm(String flTypeNm) {
+		this.flTypeNm = flTypeNm;
+	}
+
+	public String getArtcId() {
         return this.artcId;
     }
     
@@ -204,6 +189,6 @@ public class FlVO {
     
     @Override
     public String toString() {
-        return "FlVO(flId: " + flId + ", flNm: " + flNm + ", flObfsNm: " + flObfsNm + ", flPth: " + flPth + ", flObfsPth: " + flObfsPth + ", flSz: " + flSz + ", flRgstDt: " + flRgstDt + ", flUpdtDt: " + flUpdtDt + ", flDelDt: " + flDelDt + ", flDelYn: " + flDelYn + ", flTypeId: " + flTypeId + ", artcId: " + artcId + ", id: " + id + ", )";
+        return "FlVO(flId: " + flId + ", flNm: " + flNm + ", flObfsNm: " + flObfsNm + ", flObfsPth: " + flObfsPth + ", flSz: " + flSz + ", flRgstDt: " + flRgstDt + ", flUpdtDt: " + flUpdtDt + ", flDelDt: " + flDelDt + ", flDelYn: " + flDelYn + ", flTypeNm: " + flTypeNm + ", artcId: " + artcId + ", id: " + id + ", )";
     }
 }

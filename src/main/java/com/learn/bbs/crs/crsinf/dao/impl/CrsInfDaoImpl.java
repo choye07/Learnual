@@ -1,5 +1,6 @@
 package com.learn.bbs.crs.crsinf.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,9 +9,9 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.learn.bbs.crs.apphstr.vo.AppHstrVO;
-import com.learn.bbs.crs.cncl.vo.CnclCancellationRequestVO;
 import com.learn.bbs.crs.crsinf.dao.CrsInfDao;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
@@ -76,12 +77,41 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	}
 
 	@Override
-	public List<CrsInfAvailableReadResponseVO> selectAvailableCourses() {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableCourses");
+	public List<CrsInfAvailableReadResponseVO> selectAvailableCoursesForUser() {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableCoursesForUser");
 	}
 
 	@Override
 	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId) {
 		return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseDetail", crsInfId);
+	}
+
+	@Override
+	public int endOneCourse(String crsInfId) {
+		return this.getSqlSession().update(NAME_SPACE + "endOneCourse", crsInfId);
+	}
+
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrId) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectMyCourseForUser", usrId);
+	}
+
+	@Override
+	public int abandonOneCourse(CrsInfAbandonUpdateRequestVO crsInfAbandonUpdateRequestVO) {
+		return this.getSqlSession().update(NAME_SPACE + "abandonOneCourse", crsInfAbandonUpdateRequestVO.getCrsInfId());
+	}
+
+	@Override
+	public List<CrsInfAbandonReadResponseVO> selectAbandonCourse() {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAbandonCourse");
+	}
+
+	@Override
+	public int updateNotAttendCourse(List<String> usrIds, String loginId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("usrIds", usrIds);
+        params.put("loginId", loginId);
+
+        return this.getSqlSession().update(NAME_SPACE + "updateNotAttendCourse", params);
 	}
 }

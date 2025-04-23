@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.instr.dao;
 
+import java.util.List;
+
 import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
 
@@ -44,5 +46,8 @@ public interface InstrDao {
     /**
      * 강사 로직을 위한 dao end
      */
+    
+    // 모든 강사를 불러옴; 강좌 개설 & 수정 필요
+    public List<InstrVO> selectAllInstrs();
 
 }
