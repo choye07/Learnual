@@ -28,8 +28,7 @@
 		, #{flNm}
 		, #{flObfsNm}
 		, #{flObfsPth}
-		,
-		#{flSz}
+		, #{flSz}
 		, SYSDATE
 		, ''
 		, ''
@@ -50,6 +49,7 @@
 		FROM FL
 		WHERE FL_ID = #{flId}
 		AND ID = #{id}
+		AND FL_DEL_YN = 'N'
 	</select>
 
 	<select id="selectFilesById" parameterType="String"
@@ -61,6 +61,7 @@
 		, FL_SZ
 		FROM FL
 		WHERE ID = #{id}
+		  AND FL_DEL_YN = 'N'
 	</select>
 
 	<delete id="deleteOneFile"
@@ -78,6 +79,15 @@
 		WHERE ID = #{id}
 	</delete>
 
+	<update id="deleteFileData"
+		parameterType="com.learn.bbs.file.vo.FlDeleteRequestVO">
+		UPDATE FL
+		SET FL_DEL_DT = SYSDATE
+		, FL_DEL_YN = 'Y'
+		WHERE FL_ID = #{flId}
+		AND ID = #{id}
+	</update>
+
 	<update id="updateOneFile"
 		parameterType="com.learn.bbs.file.vo.FlUpdateRequestVO">
 		UPDATE FL
@@ -86,6 +96,7 @@
 		,
 		FL_OBFS_PTH = #{flObfsPth}
 		, FL_SZ = #{flSz}
+		, FL_UPDT_DT = SYSDATE
 		WHERE FL_ID = #{flId}
 		AND ID
 		= #{id}

@@ -18,11 +18,14 @@ public interface FlDao {
 	// 파일 조회 - 게시글 아이디로
 	public List<FlVO> selectFilesById(String id);
 	
-	// 삭제 - 파일 하나만 삭제
+	// 삭제 - 파일 하나만 삭제(데이터 삭제O)
 	public int deleteOneFile(FlDeleteRequestVO flDeleteRequestVO);
 	
-	// 파일 모두 삭제
+	// 파일 모두 삭제(데이터 삭제O)
 	public int deleteAllFiles(FlDeleteRequestVO flDeleteRequestVO);
+	
+	// 파일 삭제 데이터로 변경(DELETE -> UPDATE)
+	public int deleteFileData(FlDeleteRequestVO flDeleteRequestVO);
 	
 	// 수정
 	public int updateOneFile(FlUpdateRequestVO flUpdateRequestVO);

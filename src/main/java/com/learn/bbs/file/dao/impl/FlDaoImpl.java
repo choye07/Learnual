@@ -53,4 +53,9 @@ public class FlDaoImpl extends SqlSessionDaoSupport implements FlDao {
 		return this.getSqlSession().update(NAME_SPACE + "updateOneFile", flUpdateRequestVO);
 	}
 
+	@Override
+	public int deleteFileData(FlDeleteRequestVO flDeleteRequestVO) {
+		return this.getSqlSession().update(NAME_SPACE + "deleteFileData", flDeleteRequestVO);
+	}
+
 }

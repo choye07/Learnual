@@ -54,6 +54,19 @@ public class FlServiceImpl implements FlService {
 	public boolean updateFile(FlUpdateRequestVO flUpdateRequestVO) {
 		int updateCount = this.flDao.updateOneFile(flUpdateRequestVO);
 		// 업데이트의 수가 0보다 크면 게시글이 수정 성공
+		if(updateCount == 0) {
+			throw new PageNotFoundException(flUpdateRequestVO.getFlId());
+		}
+		return updateCount > 0;
+	}
+
+	@Override
+	public boolean deleteFileRow(FlDeleteRequestVO flDeleteRequestVO) {
+		int updateCount = this.flDao.deleteFileData(flDeleteRequestVO);
+		
+		if(updateCount == 0) {
+			throw new PageNotFoundException(flDeleteRequestVO.getFlId());
+		}
 		return updateCount > 0;
 	}
 
