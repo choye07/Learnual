@@ -95,37 +95,5 @@ public class FlController {
     						 .contentType(MediaType.APPLICATION_OCTET_STREAM)
     						 .body(resource);
     }
-    
-	/*
-	 * @GetMapping("/eduad/file/{id}/delete/{flId}") public boolean
-	 * doDeleteOneFile(@PathVariable String id, @PathVariable String flId) {
-	 * 
-	 * FlDeleteRequestVO flDeleteRequestVO = new FlDeleteRequestVO();
-	 * flDeleteRequestVO.setFlId(flId); // 파일 아이디 flDeleteRequestVO.setId(id); //
-	 * 게시글 아이디
-	 * 
-	 * boolean isSuccess = this.flService.deleteFile(flDeleteRequestVO);
-	 * 
-	 * // 유효성 검사 if(flDeleteRequestVO.getFlId() == null) { throw new
-	 * NotExistsException(); }
-	 * 
-	 * return isSuccess; }
-	 */
-    
-	/*
-	 * @PostMapping("/eduad/flarch/modify/{flArchId}") public String
-	 * doUpdateOneFile(@PathVariable String id, @PathVariable String flId) {
-	 * 
-	 * 
-	 * FlUpdateRequestVO flUpdateRequestVO = new FlUpdateRequestVO();
-	 * flUpdateRequestVO.setFlId(flId); flUpdateRequestVO.setFlNm(flNm);
-	 * 
-	 * 
-	 * boolean isSuccess = this.flService.updateFile(flArchUpdateRequestVO);
-	 * 
-	 * if(isSuccess) { return "redirect:/eduad/flarch/view/" + flArchId; }
-	 * 
-	 * return "redirect:/eduad/flarch/list"; }
-	 */
 
 }

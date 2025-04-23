@@ -21,6 +21,8 @@ public interface FlService {
 	// 모두 삭제
 	public boolean deleteAllFiles(FlDeleteRequestVO flDeleteRequestVO);
 	
+	// 파일 삭제 x - 파일 데이터 삭제여부 바꿈
+	public boolean deleteFileRow(FlDeleteRequestVO flDeleteRequestVO);
 	// 수정
 	public boolean updateFile(FlUpdateRequestVO flUpdateRequestVO);
 }
