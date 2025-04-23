@@ -16,4 +16,5 @@ public class CnfrHstrController {
     @Autowired
     private CnfrHstrService cnfrHstrService;
 
+    
 }

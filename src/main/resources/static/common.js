@@ -73,60 +73,6 @@ $(document).ready(function() {
 
     /* 대시보드 이벤트 end */
 
-    /* 강좌 생성 이벤트 start */
-
-    // 선택된 과목 ID 저장용 Set
-    const selectedSubjects = new Set();
-
-    // 과목 체크박스 선택 시 Set에 추가/제거
-    $('input[name="subjects"]').change(function() {
-        const subjectId = $(this).val();
-
-        if ($(this).is(':checked')) {
-            selectedSubjects.add(subjectId);
-        } else {
-            selectedSubjects.delete(subjectId);
-        }
-
-        updateHiddenInput();
-    });
-
-    // 숨겨진 input에 선택된 과목들 저장
-    function updateHiddenInput() {
-        $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
-    }
-
-    // 제출 버튼 클릭 시 폼 전송
-
-    // 강준식 2025-04-20 수정
-    // -----------------------------------------
-    $('course-create').find('.btn-submit').on('click', function(e) {
-        e.preventDefault();
-
-        $('#crsInfPrsCnt-error').text('');
-
-        // 수강 인원 체크; 0이나 빈 값일시
-        const prsCnt = parseInt($('#course-capacity').val());
-        if (isNaN(prsCnt) || prsCnt < 1) {
-            $('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
-            $('#course-capacity').focus();
-            return;
-        }
-
-        // 선택된 과목들 hidden input에 반영
-        $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
-
-        // 폼 전송
-        $('#course-create-form')
-            .attr({
-                method: 'POST',
-                action: '/insttn/pltad/create'
-            })
-            .submit();
-    });
-    // -----------------------------------------
-    /* 강좌 생성 이벤트 end */
-
     // 소희 Part start ----------------------------------
     /* 사용자 회원 가입시 동의 여부 이벤트 start*/
     // 개인정보 수집 및 이용 동의 라디오 버튼 확인
@@ -159,70 +105,6 @@ $(document).ready(function() {
     /* 로그인 시 강사, 회원, 관리자 누구로 로그인을 할건지에 대한 이벤트 end */
 
     // 소희 Part end ----------------------------------
-
-    // 강준식 2025-04-20 수정
-    // -----------------------------------------
-
-    /* 강좌 신청 페이지에서 뒤로 가기 */
-    $(".course-create").find(".btn-cancel").on("click", function() {
-        window.location.href = "/insttn/pltad";
-    });
-
-    /* 강좌 수정 이벤트 start */
-
-    // 수정 로직
-    $(".course-manage").find('.btn-update').on('click', function(e) {
-        e.preventDefault();
-
-        $('#crsInfPrsCnt-error').text('');
-
-        // 수강 인원 체크; 0이나 빈 값일시
-        const prsCnt = parseInt($('#course-capacity').val());
-        if (isNaN(prsCnt) || prsCnt < 1) {
-            $('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
-            $('#course-capacity').focus();
-            return;
-        }
-
-        const courseId = $('#crsInfId').val();
-
-        // 선택된 과목들 hidden input에 반영
-        $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
-
-        // 폼 전송
-        $('#course-create-form')
-            .attr({
-                method: 'POST',
-                action: '/insttn/pltad/modify/' + courseId
-            })
-            .submit();
-    });
-
-    /* 강좌 수정 이벤트 end */
-
-    /* 강좌 삭제 이벤트 start */
-
-    // 삭제 로직
-    $(".course-manage").find(".btn-delete").on("click", function() {
-        var crsInfId = $(this).data("id");
-
-        // 삭제 확인
-        if (confirm("정말 해당 강좌를 삭제하시겠습니까?")) {
-            $.ajax({
-                url: "/insttn/pltad/delete/" + crsInfId,
-                type: "POST",
-                success: function(response) {
-                    alert("삭제가 완료되었습니다.");
-                    window.location.href = "/insttn/pltad";
-                },
-                error: function(xhr, status, error) {
-                    alert("삭제에 실패했습니다.");
-                }
-            });
-        }
-    });
-    // -----------------------------------------
-    /* 강좌 삭제 이벤트 end */
 
     /* ================================= */
     /* 0419 유진 파트 start */
@@ -424,6 +306,127 @@ $(document).ready(function() {
     /* 0419 유진 파트 end */
     /* ================================= */
 
+    /* 강준식 기능들 */
+    /* ------------강준식----------------- */
+
+    // 강준식 2025-04-20 수정
+        // -----------------------------------------
+        
+        /* 강좌 생성 이벤트 start */
+
+            // 선택된 과목 ID 저장용 Set
+            const selectedSubjects = new Set();
+
+            // 과목 체크박스 선택 시 Set에 추가/제거
+            $('input[name="subjects"]').change(function() {
+                const subjectId = $(this).val();
+
+                if ($(this).is(':checked')) {
+                    selectedSubjects.add(subjectId);
+                } else {
+                    selectedSubjects.delete(subjectId);
+                }
+
+                updateHiddenInput();
+            });
+
+            // 숨겨진 input에 선택된 과목들 저장
+            function updateHiddenInput() {
+                $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+            }
+
+            // 제출 버튼 클릭 시 폼 전송
+
+            // 강준식 2025-04-20 수정
+            // -----------------------------------------
+            $('course-create').find('.btn-submit').on('click', function(e) {
+                e.preventDefault();
+
+                $('#crsInfPrsCnt-error').text('');
+
+                // 수강 인원 체크; 0이나 빈 값일시
+                const prsCnt = parseInt($('#course-capacity').val());
+                if (isNaN(prsCnt) || prsCnt < 1) {
+                    $('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
+                    $('#course-capacity').focus();
+                    return;
+                }
+
+                // 선택된 과목들 hidden input에 반영
+                $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+
+                // 폼 전송
+                $('#course-create-form')
+                    .attr({
+                        method: 'POST',
+                        action: '/insttn/pltad/create'
+                    })
+                    .submit();
+            });
+            // -----------------------------------------
+            /* 강좌 생성 이벤트 end */
+
+        /* 강좌 신청 페이지에서 뒤로 가기 */
+        $(".course-create").find(".btn-cancel").on("click", function() {
+            window.location.href = "/insttn/pltad";
+        });
+
+        /* 강좌 수정 이벤트 start */
+
+        // 수정 로직
+        $(".course-manage").find('.btn-update').on('click', function(e) {
+            e.preventDefault();
+
+            $('#crsInfPrsCnt-error').text('');
+
+            // 수강 인원 체크; 0이나 빈 값일시
+            const prsCnt = parseInt($('#course-capacity').val());
+            if (isNaN(prsCnt) || prsCnt < 1) {
+                $('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
+                $('#course-capacity').focus();
+                return;
+            }
+
+            const courseId = $('#crsInfId').val();
+
+            // 선택된 과목들 hidden input에 반영
+            $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+
+            // 폼 전송
+            $('#course-create-form')
+                .attr({
+                    method: 'POST',
+                    action: '/insttn/pltad/modify/' + courseId
+                })
+                .submit();
+        });
+
+        /* 강좌 수정 이벤트 end */
+
+        /* 강좌 삭제 이벤트 start */
+
+        // 삭제 로직
+        $(".course-manage").find(".btn-delete").on("click", function() {
+            var crsInfId = $(this).data("id");
+
+            // 삭제 확인
+            if (confirm("정말 해당 강좌를 삭제하시겠습니까?")) {
+                $.ajax({
+                    url: "/insttn/pltad/delete/" + crsInfId,
+                    type: "POST",
+                    success: function(response) {
+                        alert("삭제가 완료되었습니다.");
+                        window.location.href = "/insttn/pltad";
+                    },
+                    error: function(xhr, status, error) {
+                        alert("삭제에 실패했습니다.");
+                    }
+                });
+            }
+        });
+        // -----------------------------------------
+        /* 강좌 삭제 이벤트 end */
+
     /* 강좌 신청 이벤트 start */
     // 강준식 2025-04-20 수정
     // -----------------------------------------
@@ -469,6 +472,121 @@ $(document).ready(function() {
             });
         }
     });
+
     // -----------------------------------------
     /* 강좌 신청 취소 이벤트 end */
+
+    /* 2025-04-22 강준식 추가 */
+    /* 강좌 마감 이벤트 start */
+
+    $(".course-manage").find(".btn-shutdown").on("click", function() {
+        const crsInfId = $(this).data("id");
+        
+        if (confirm("정말 해당 강의를 마감하시겠습니까?")) {
+            $.ajax({
+                url: "/insttn/pltad/end/" + crsInfId,
+                type: "POST",
+                success: function() {
+                    alert("강의가 마감되었습니다.");
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                    alert("강의 마감에 실패했습니다.");
+                }
+            });
+        }
+    });
+
+    /* 강좌 마감 이벤트 end */
+
+    /* 강좌 폐강 이벤트 start */
+        
+        /* coursemanage에서의 폐강 */
+        $(".course-manage").find(".btn-abandon").on("click", function() {
+            const crsInfId = $(this).data("id");
+            
+            if (confirm("정말 해당 강의를 폐강하시겠습니까?")) {
+                $.ajax({
+                    url: "/insttn/pltad/abandon/" + crsInfId,
+                    type: "POST",
+                    success: function() {
+                        alert("강의가 폐강되었습니다.");
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                        alert("강의 폐강에 실패했습니다.");
+                    }
+                });
+            }
+        });
+        
+        /* courseconfirm에서의 폐강 */
+        $(".course-confirm").find(".btn-abandon").on("click", function() {
+            const crsInfId = $(this).data("id");
+            
+            if (confirm("정말 해당 강의를 폐강하시겠습니까?")) {
+                $.ajax({
+                    url: "/insttn/pltad/abandon/" + crsInfId,
+                    type: "POST",
+                    success: function() {
+                        alert("강의가 폐강되었습니다.");
+                        window.location.href = "/insttn/pltad";
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                        alert("강의 폐강에 실패했습니다.");
+                    }
+                });
+            }
+        });
+        
+        /* 강좌 폐강 이벤트 end */
+        
+        /* 2025-04-23 강준식 추가 */
+        /* 강좌 확정 이벤트 start */
+        
+        $(".course-confirm").find('#btn-real-confirm').click(function () {
+            const crsInfId = $(this).data('id');
+                const form = $('#confirm-applied-user-form');
+
+                // form action 동적으로 설정
+                form.attr('action', '/insttn/pltad/confirm/' + crsInfId);
+
+                const selectedUsers = $('input[name="selectedUserIds"]:checked');
+                const allUsers = $('input[name="selectedUserIds"]');
+
+                if (selectedUsers.length === 0) {
+                    alert("확정할 회원을 선택하세요.");
+                    return;
+                }
+
+                // 기존 hidden 제거
+                $('input[name="notConfirmedUsrIds"]').remove();
+
+                // 확정되지 않은 사용자 ID 추출
+                allUsers.each(function () {
+                    const usrId = $(this).val();
+                    if (!$(this).is(':checked')) {
+                        const hiddenInput = $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', 'notConfirmedUsrIds')
+                            .val(usrId);
+                        form.append(hiddenInput);
+                    }
+                });
+
+                alert("강의가 확정되었습니다.");
+                form.submit();
+        });
+        
+        /* 강좌 확정 이벤트 end */
+        /* ------------강준식----------------- */
 });

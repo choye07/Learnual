@@ -1,16 +1,16 @@
 package com.learn.bbs.crs.crsinf.dao;
 
 import java.util.List;
-import java.util.Map;
 
-import com.learn.bbs.crs.apphstr.vo.AppHstrVO;
-import com.learn.bbs.crs.cncl.vo.CnclCancellationRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfVO;
 
 /**
  * @TableName CRS_INF
@@ -43,8 +43,23 @@ public interface CrsInfDao {
 	public int deleteOneCourse(String crsInfNm);
 	
 	// 현재 수강신청 가능한 강좌들만 불러옴
-	public List<CrsInfAvailableReadResponseVO> selectAvailableCourses();
+	public List<CrsInfAvailableReadResponseVO> selectAvailableCoursesForUser();
 	
 	// 강좌의 정보를 출력하기 위해 필요함; 커리큘럼도!
 	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId);
+	
+	// 강좌 마감
+	public int endOneCourse(String crsInfId);
+	
+	// 현재 자신이 수강중인 강좌 보여주기 
+	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrId);
+	
+	// 강좌 폐강 
+	public int abandonOneCourse(CrsInfAbandonUpdateRequestVO crsInfAbandonUpdateRequestVO);
+	
+	// 폐강된 강좌 목록 가져오기
+	public List<CrsInfAbandonReadResponseVO> selectAbandonCourse();
+	
+	// 강좌 확정 페이지에서 체크하지 않은 학생들(강좌 신청은 했으나 최종적으로 강좌를 듣지 않기로 결정한 학생들)	
+	public int updateNotAttendCourse(List<String> usrIds, String loginId);
 }

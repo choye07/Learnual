@@ -12,6 +12,8 @@ public class CrsInfDetailReadResponseVO {
     private String crsInfEndDt;
     private String crsInfAppDt;
     private String crsInfDdlnDt;
+    private String crsInfDdlnYn;
+    private String crsInfAbdnYn;
     private String crsInfCrsRoomNm;
 
     // 커리큘럼 리스트 -> 한 강좌에 여러 커리큘럼이 있을 수도 있기에 List로 받아와야함
@@ -79,5 +81,21 @@ public class CrsInfDetailReadResponseVO {
 
 	public void setCurriculumList(List<CrclmSbjVO> curriculumList) {
 		this.curriculumList = curriculumList;
+	}
+
+	public String getCrsInfAbdnYn() {
+		return crsInfAbdnYn;
+	}
+
+	public void setCrsInfAbdnYn(String crsInfAbdnYn) {
+		this.crsInfAbdnYn = crsInfAbdnYn;
+	}
+
+	public String getCrsInfDdlnYn() {
+		return crsInfDdlnYn;
+	}
+
+	public void setCrsInfDdlnYn(String crsInfDdlnYn) {
+		this.crsInfDdlnYn = crsInfDdlnYn;
 	}
 }

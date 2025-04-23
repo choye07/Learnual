@@ -21,11 +21,4 @@ public class SbjController {
     @Autowired
     private SbjService sbjService;
 
-    @GetMapping("insttn/pltad/create")
-    public String showSubjectList(Model model) {
-    	List<SbjVO> subjectList = this.sbjService.selectAllSubjects();
-    	model.addAttribute("subjectList", subjectList);
-    	
-    	return "insttn/coursecreate";
-    }
 }
