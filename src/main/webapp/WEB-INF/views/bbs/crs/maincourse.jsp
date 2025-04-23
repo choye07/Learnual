@@ -55,18 +55,12 @@
 						<div class="course-notice widget-article">
 							<div>
 								<h2>강좌 공지사항</h2>
-								<a href="#">더보기</a>
+								<a href="/crntc/list">더보기</a>
 							</div>
 
 							<div>
 								<ul class="article-content">
-									<li><a href="#">
-											<h3>공지사항 item1</h3> <span>2025.04.13 홍길동</span>
-									</a></li>
-
-									<li><a href="#">
-											<h3>공지사항 item2</h3> <span>2025.04.13 홍길동</span>
-									</a></li>
+									<li class="empty-notice-list">작성한 공지사항이 없습니다.</li>
 								</ul>
 							</div>
 						</div>

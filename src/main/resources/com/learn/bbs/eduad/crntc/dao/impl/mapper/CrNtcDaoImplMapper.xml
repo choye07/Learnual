@@ -3,5 +3,104 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.eduad.crntc.dao.impl.CrNtcDaoImpl">
+    <insert id="insertNewCourseNotice"
+    		parameterType="com.learn.bbs.eduad.crntc.vo.CrntcWriteRequestVO">
+    	<selectKey order="BEFORE" resultType="string" keyProperty="crntcId">
+			<!-- ID값을 생성해주는 태그. -->
+			SELECT 'CRNTC-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CRNTC_PK.NEXTVAL, 6, '0')
+  			  FROM DUAL
+		</selectKey>
+    	
+    	INSERT INTO CRNTC
+			 (CRNTC_ID
+			, CRNTC_TTL
+			, CRNTC_CTT
+			, CRNTC_PINNED_YN
+			, CRNTC_RGST_DT
+			, ARTC_ID
+			, CRS_INF_ID
+			, SBJ_ID
+			, INSTR_ID)
+			VALUES
+			 (#{crntcId}
+			, #{crntcTtl}
+			, #{crntcCtt}
+			, #{crntcPinnedYn}
+			, SYSDATE
+			, (SELECT ARTC_ID
+			     FROM ARTC
+			    WHERE ARTC_NM = 'crntc')
+			, (SELECT CRS_INF_ID
+			     FROM CRS_INF
+			    WHERE CRS_INF_NM = '풀스택 25기 전문가 양성과정')
+			, (SELECT SBJ_ID
+			     FROM SBJ
+			    WHERE SBJ_NM = '자바')
+			, (SELECT INSTR_ID
+			     FROM INSTR
+			    WHERE INSTR_NM = '장민창'))
+    </insert>
     
+    <select id="selectCourseNoticeAllCount">
+		SELECT count(1)
+		  FROM CRNTC
+		 WHERE ARTC_ID = (SELECT ARTC_ID 
+		 	  				FROM ARTC 
+		 	 			   WHERE ARTC_NM = 'crntc')
+	</select>
+	
+	<select id="selectCourseNoticeAll">
+		SELECT CRNTC_ID
+			 , CRNTC_TTL
+			 , CRNTC_CTT
+			 , CRNTC_PINNED_YN
+			 , CRNTC_RGST_DT
+			 , CRNTC_UPDT_DT
+			 , CRNTC_DEL_DT
+			 , CRNTC_DEL_YN
+			 , ARTC_ID
+			 , CRS_INF_ID
+			 , SBJ_ID
+			 , INSTR_ID
+		 FROM CRNTC
+		WHERE ARTC_ID = (SELECT ARTC_ID 
+		 	  				FROM ARTC 
+		 	 			   WHERE ARTC_NM = 'crntc')
+		ORDER BY CRNTC_ID DESC
+	</select>
+	
+	<select id="selectOneCourseNoticeBy"
+			parameterType="String">
+		SELECT CRNTC_ID
+			 , CRNTC_TTL
+			 , CRNTC_CTT
+			 , CRNTC_PINNED_YN
+			 , CRNTC_RGST_DT
+			 , CRNTC_UPDT_DT
+			 , CRNTC_DEL_DT
+			 , CRNTC_DEL_YN
+			 , ARTC_ID
+			 , CRS_INF_ID
+			 , SBJ_ID
+			 , INSTR_ID
+		 FROM CRNTC
+		WHERE CRNTC_ID = #{id}
+	</select>
+	
+	<update id="deleteOneCourseNoticeBy"
+			parameterType="String">
+		UPDATE CRNTC
+		   SET CRNTC_DEL_DT=SYSDATE
+		   	 , CRNTC_DEL_YN='Y'
+		 WHERE CRNTC_ID=#{id}
+	</update>
+	
+	<update id="updateOneCourseNoticeBy"
+			parameterType="com.learn.bbs.eduad.crntc.vo.CrntcUpdateRequestVO">
+		UPDATE CRNTC
+		   SET CRNTC_TTL=#{crntcTtl}
+		   	 , CRNTC_CTT=#{crntcCtt}
+		   	 , CRNTC_UPDT_DT=SYSDATE
+		 WHERE CRNTC_ID=#{crntcId}
+	</update>
 </mapper>

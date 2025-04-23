@@ -103,7 +103,7 @@ public class InsttnNtcController {
 
 	// 메인 공지사항 하나 수정하기 (post -> do)
 	@PostMapping("/insttnntc/modify/{id}")
-	public String modifyOneMainNotice(
+	public String modifyOneInsttnNotice(
 			@Valid @ModelAttribute InsttnNtcUpdateRequestVO insttnNtcUpdateRequestVO,
 			@PathVariable String id, 
 			BindingResult bindingResult,
