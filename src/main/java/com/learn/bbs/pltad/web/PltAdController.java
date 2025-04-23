@@ -65,14 +65,14 @@ public class PltAdController {
 		pltadmLoginRequestVO.setPltadmLgnId(loginRequestVO.getLgnId());
 		pltadmLoginRequestVO.setPltadmLgnPw(loginRequestVO.getLgnPw());
 
-		PltadmVO PltadmVO = this.pltAdService.doLogin(pltadmLoginRequestVO);
+		PltadmVO pltadmVO = this.pltAdService.doLogin(pltadmLoginRequestVO);
 		// 사이트에 접속했을 때 발급 받은 세션은 폐기(로그아웃)시킨다.
 		session.invalidate();
 		// 새로운 세션을 발급받는다.
 		session = request.getSession(true);
 		// 서버가 Session 에 회원 정보를 기록(기억) 한다.
 		// 해당 사용자의 고유한 세션의 아이디를 브라우저에게 "Cookie" 로 보내준다.
-		session.setAttribute("__LOGIN_PLTADM__", PltadmVO);
+		session.setAttribute("__LOGIN_PLTADM__", pltadmVO);
 
 		return "redirect:" + nextUrl;
 	}
