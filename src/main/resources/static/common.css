@@ -642,6 +642,41 @@ label {
   }
 }
 
+/* 강좌 공지사항 게시판 custom css  */
+.board.notice.course-notice {
+  h1 {
+    border: 0;
+    margin-bottom: 0;
+    padding-bottom: 0.3rem;
+  }
+
+  .board-header {
+    border-bottom: 3px solid var(--course-color);
+  }
+  .board-toolbox {
+    a {
+      background-color: var(--course-color);
+    }
+  }
+
+  /* 수정 필요 */
+  #crntc-notice-form {
+    button {
+      background-color: var(--course-color);
+    }
+  }
+
+  .board-body {
+    label {
+      color: var(--course-color);
+    }
+  }
+
+  .btn-search {
+    background-color: var(--course-color);
+  }
+}
+
 /* ---------------------------------- */
 /* 0419 유진 파트 */
 /* 자료실 게시판 custom css */
@@ -2469,6 +2504,23 @@ label {
 
       .article.learnual-notice {
         width: 52%;
+        
+        .article-content{
+        	li.pinned-notice {
+        	background-color: #efefef55;
+        	position: relative;
+        		.pin {
+        			width: 1.5rem;
+        			height: 1.5rem;
+        			font-size: 0;
+        			position: absolute;
+        			top: 0;
+        			right: 0;
+        			background: url("/asset/icon/pin_manager.svg") no-repeat center/contain;
+        			transform: rotate(30deg);
+        		}
+        	}
+        }
       }
 
       .search {
@@ -3108,6 +3160,21 @@ label {
         margin-top: 1.25rem;
         display: flex;
         flex-direction: column;
+        
+        li.pinned-notice {
+        	background-color: #efefef55;
+        	position: relative;
+        		.pin {
+        			width: 1.5rem;
+        			height: 1.5rem;
+        			font-size: 0;
+        			position: absolute;
+        			top: 0;
+        			right: 0;
+        			background: url("/asset/icon/pin_insttn.svg") no-repeat center/contain;
+        			transform: rotate(30deg);
+        		}
+        	}
 
         > .dashboard-row1,
         .dashboard-row2 {
@@ -3121,6 +3188,22 @@ label {
             > div:first-child {
               border-bottom: 3px solid #e50114;
             }
+            
+/*             li.pinned-notice {
+        	background-color: #efefef55;
+        	position: relative;
+        		.pin {
+        			width: 1.5rem;
+        			height: 1.5rem;
+        			font-size: 0;
+        			position: absolute;
+        			top: 0;
+        			right: 0;
+        			background: url("/asset/icon/pin_insttn.svg") no-repeat center/contain;
+        			transform: rotate(30deg);
+        		}
+        	} */
+        }
           }
         }
       }
@@ -3170,7 +3253,7 @@ label {
       }
     }
   }
-}
+
 
 /* ==================================== */
 
@@ -3208,6 +3291,21 @@ label {
       gap: 1.3rem;
 
       .widget-wrapper {
+	      li.pinned-notice {
+	        	background-color: #efefef55;
+	        	position: relative;
+	        		.pin {
+	        			width: 1.5rem;
+	        			height: 1.5rem;
+	        			font-size: 0;
+	        			position: absolute;
+	        			top: 0;
+	        			right: 0;
+	        			background: url("/asset/icon/pin_course.svg") no-repeat center/contain;
+	        			transform: rotate(30deg);
+	        		}
+	        	}
+      
         .dashboard-row1 {
           display: flex;
           gap: 1.25rem;
