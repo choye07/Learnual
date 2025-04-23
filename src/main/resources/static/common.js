@@ -5,39 +5,55 @@ $(document).ready(function() {
 	// 메인 화면이 로드될 때 러뉴얼 공지사항 API 호출
 
 	$.get("/api/ntc/list", function(ajaxResponse) {
-	    var mainNoticeList = ajaxResponse.ntcList; // 받아온 NtcListVO의 List
-	    var ntcCount = ajaxResponse.ntcCnt; // NtcListVO의 공지사항 개수
+		var mainNoticeList = ajaxResponse.ntcList; // 받아온 NtcListVO의 List
+		var ntcCount = ajaxResponse.ntcCnt; // NtcListVO의 공지사항 개수
 
-	    var articleContent = $(".home-main").find(".article-content");
+		var articleContent = $(".home-main").find(".article-content");
 
-	    // 받아온 NtcListVO.ntcCnt가 0이거나,
-	    // mainNoticeList의 item들이 전부 ntcDelYn가 Y라면
-	    // 보여줄 공지사항이 존재하지 않음을 의미
-	    if (ntcCount !== 0 && !mainNoticeList.every(mainNotice => mainNotice.ntcDelYn === 'Y')) {
-	        articleContent.empty(); // 기존 내용을 비움
+		// 받아온 NtcListVO.ntcCnt가 0이거나,
+		// mainNoticeList의 item들이 전부 ntcDelYn가 Y라면
+		// 보여줄 공지사항이 존재하지 않음을 의미
+		if (ntcCount !== 0 && !mainNoticeList.every(mainNotice => mainNotice.ntcDelYn === 'Y')) {
+			articleContent.empty(); // 기존 내용을 비움
 
-	        // ntcPinnedYn 값에 따라 정렬
-	        mainNoticeList.sort(function(a, b) {
-	            return (b.ntcPinnedYn === 'Y' ? 1 : 0) - (a.ntcPinnedYn === 'Y' ? 1 : 0);
-	        });
+			// ntcPinnedYn 값에 따라 정렬
+			mainNoticeList.sort(function(a, b) {
+				return (b.ntcPinnedYn === 'Y' ? 1 : 0) - (a.ntcPinnedYn === 'Y' ? 1 : 0);
+			});
 
 			var count = 0; // li 출력 제한을 위한 count변수
-	        mainNoticeList.forEach(function(mainNotice) {
-	            // 받아온 mainNoticeList의 item인
-	            // mainNotice의 삭제여부가 Y가 아니라면 출력
-	            if (mainNotice.ntcDelYn != 'Y' && count < 4) {
-	                var listItem =
-	                    `<li>
-	                        <a href="/ntc/view/${mainNotice.ntcId}">
-	                            <h3>${mainNotice.ntcTtl}</h3>
-	                            <span>${mainNotice.ntcRgstDt}</span>
-	                        </a>
-	                    </li>`;
-	                articleContent.append(listItem); // 새로운 항목 추가
-					count++;
-	            }
-	        });
-	    }
+			mainNoticeList.forEach(function(mainNotice) {
+				// 받아온 mainNoticeList의 item인
+				// mainNotice의 삭제여부가 Y가 아니라면 출력
+				if (mainNotice.ntcDelYn != 'Y' && count < 4) {
+					// 상단고정여부가 Y면 pinned-list class 및 pin img추가
+					if (mainNotice.ntcPinnedYn === 'Y') {
+						var listItem =
+							`<li class="pinned-notice">
+						        <a href="/ntc/view/${mainNotice.ntcId}">
+						            <h3>${mainNotice.ntcTtl}</h3>
+						            <span>${mainNotice.ntcRgstDt}</span>
+						        </a>
+								<div class="pin">img</div>
+						    </li>`;
+						articleContent.append(listItem); // 새로운 항목 추가
+						count++;
+					}
+					// 상단고정여부가 N이면 pin img없음
+					else {
+						var listItem =
+							`<li>
+						        <a href="/ntc/view/${mainNotice.ntcId}">
+						            <h3>${mainNotice.ntcTtl}</h3>
+						            <span>${mainNotice.ntcRgstDt}</span>
+						        </a>
+						    </li>`;
+						articleContent.append(listItem); // 새로운 항목 추가
+						count++;
+					}
+				}
+			});
+		}
 	});
 
 	/* 메인 공지사항 작성 폼 이벤트 */
@@ -53,38 +69,58 @@ $(document).ready(function() {
 	/* 휘원 0418 추가한 부분 end */
 	/* ================================ */
 	/* 휘원 0421 추가한 부분 start */
+	// 학원 메인 페이지가 로드될 때 '학원 공지사항' API 호출
+
 	$.get("/api/insttnntc/list", function(ajaxResponse) {
-	    var insttnNoticeList = ajaxResponse.ntcList; // 받아온 NtcListVO의 List
-	    var ntcCount = ajaxResponse.ntcCnt; // NtcListVO의 공지사항 개수
+		var insttnNoticeList = ajaxResponse.ntcList; // 받아온 InsttnNtcListVO의 List
+		var ntcCount = ajaxResponse.ntcCnt; // InsttnNtcListVO의 공지사항 개수
 
-	    var articleContent = $(".dashboard-main.insttn").find(".insttn-notice.widget-article").find(".article-content");
+		var articleContent = $(".dashboard-main.insttn").find(".insttn-notice.widget-article").find(".article-content");
 
-	    // 받아온 NtcListVO.ntcCnt가 0이거나,
-	    // mainNoticeList의 item들이 전부 ntcDelYn가 Y라면
-	    // 보여줄 공지사항이 존재하지 않음을 의미
-	    if (ntcCount !== 0 && !insttnNoticeList.every(insttnNotice => insttnNotice.ntcDelYn === 'Y')) {
-	        articleContent.empty(); // 기존 내용을 비움
+		// 받아온 InsttnNtcListVO.ntcCnt가 0이거나,
+		// insttnNoticeList의 item들이 전부 ntcDelYn가 Y라면
+		// 보여줄 공지사항이 존재하지 않음을 의미
+		if (ntcCount !== 0 && !insttnNoticeList.every(insttnNotice => insttnNotice.ntcDelYn === 'Y')) {
+			articleContent.empty(); // 기존 내용을 비움
 
-	        // ntcPinnedYn 값에 따라 정렬
-	        insttnNoticeList.sort(function(a, b) {
-	            return (b.ntcPinnedYn === 'Y' ? 1 : 0) - (a.ntcPinnedYn === 'Y' ? 1 : 0);
-	        });
+			// ntcPinnedYn 값에 따라 정렬
+			insttnNoticeList.sort(function(a, b) {
+				return (b.ntcPinnedYn === 'Y' ? 1 : 0) - (a.ntcPinnedYn === 'Y' ? 1 : 0);
+			});
 
-	        insttnNoticeList.forEach(function(insttnNotice) {
-	            // 받아온 mainNoticeList의 item인
-	            // mainNotice의 삭제여부가 Y가 아니라면 출력
-	            if (insttnNotice.ntcDelYn != 'Y') {
-	                var listItem =
-	                    `<li>
-	                        <a href="/insttnntc/view/${insttnNotice.ntcId}">
-	                            <h3>${insttnNotice.ntcTtl}</h3>
-	                            <span>${insttnNotice.ntcRgstDt}</span>
-	                        </a>
-	                    </li>`;
-	                articleContent.append(listItem); // 새로운 항목 추가
-	            }
-	        });
-	    }
+			var count = 0; // li 출력 제한을 위한 count변수
+			insttnNoticeList.forEach(function(insttnNotice) {
+				// 받아온 insttnNoticeList의 item인
+				// insttnNotice의 삭제여부가 Y가 아니라면 출력
+				if (insttnNotice.ntcDelYn != 'Y' && count < 4) {
+					// 상단고정여부가 Y면 pinned-list class 및 pin img추가
+					if (insttnNotice.ntcPinnedYn === 'Y') {
+						var listItem =
+							`<li class="pinned-notice">
+						        <a href="/insttnntc/view/${insttnNotice.ntcId}">
+						            <h3>${insttnNotice.ntcTtl}</h3>
+						            <span>${insttnNotice.ntcRgstDt}</span>
+						        </a>
+								<div class="pin">img</div>
+						    </li>`;
+						articleContent.append(listItem); // 새로운 항목 추가
+						count++;
+					}
+					// 상단고정여부가 N이면 pin img없음
+					else {
+						var listItem =
+							`<li>
+						        <a href="/insttnntc/view/${insttnNotice.ntcId}">
+						            <h3>${insttnNotice.ntcTtl}</h3>
+						            <span>${insttnNotice.ntcRgstDt}</span>
+						        </a>
+						    </li>`;
+						articleContent.append(listItem); // 새로운 항목 추가
+						count++;
+					}
+				}
+			});
+		}
 	});
 
 	/* 학원 공지사항 작성 폼 이벤트 */
@@ -99,15 +135,69 @@ $(document).ready(function() {
 	/* 휘원 0421 추가한 부분 end */
 	/* ================================ */
 	/* 휘원 0422 추가한 부분 start */
+
+	$.get("/api/crntc/list", function(ajaxResponse) {
+		var crNoticeList = ajaxResponse.ntcList; // 받아온 crNtcListVO의 List
+		var crntcCount = ajaxResponse.ntcCnt; // crNtcListVO의 공지사항 개수
+		var articleContent = $(".dashboard-main.course").find(".course-notice.widget-article").find(".article-content");
+		console.log(crNoticeList);
+		console.log(crntcCount);
+		
+		// 받아온 crntcListVO.ntcCnt가 0이거나,
+		// crNoticeList의 item들이 전부 crntcDelYn가 Y라면
+		// 보여줄 강좌 공지사항이 존재하지 않음을 의미
+		if (crntcCount !== 0 && !crNoticeList.every(crNotice => crNotice.crntcDelYn === 'Y')) {
+			articleContent.empty(); // 기존 내용을 비움
+
+			// crntcPinnedYn 값에 따라 정렬
+			crNoticeList.sort(function(a, b) {
+				return (b.crntcPinnedYn === 'Y' ? 1 : 0) - (a.crntcPinnedYn === 'Y' ? 1 : 0);
+			});
+
+			var count = 0; // li 출력 제한을 위한 count변수
+			crNoticeList.forEach(function(crNotice) {
+				// 받아온 crNoticeList의 item인
+				// crNotice의 삭제여부가 Y가 아니라면 출력
+				if (crNotice.crntcDelYn != 'Y' && count < 4) {
+					// 상단고정여부가 Y면 pinned-list class 및 pin img추가
+					if (crNotice.crntcPinnedYn === 'Y') {
+						var listItem =
+							`<li class="pinned-notice">
+								<a href="/crntc/view/${crNotice.crntcId}">
+								<h3>${crNotice.crntcTtl}</h3>
+								<span>${crNotice.crntcRgstDt}</span>
+								</a>
+								<div class="pin">img</div>
+							</li>`;
+						articleContent.append(listItem); // 새로운 항목 추가
+						count++;
+					}
+					// 상단고정여부가 N이면 pin img없음
+					else {
+						var listItem =
+							`<li>
+								<a href="/crntc/view/${crNotice.crntcId}">
+								<h3>${crNotice.crntcTtl}</h3>
+								<span>${crNotice.crntcRgstDt}</span>
+								</a>
+							</li>`;
+						articleContent.append(listItem); // 새로운 항목 추가
+						count++;
+					}
+				}
+			});
+		}
+	});
+
 	/* 강좌 공지사항 작성 폼 이벤트 */
 	$("#crntc-notice-form").find(".btn-submit").on("click", function() {
-			$(this).closest("#crntc-notice-form")
-				.attr({
-					method: "POST",
-					action: "/crntc/write" // 경로 변경될 수 있음
-				})
-				.submit();
-		});
+		$(this).closest("#crntc-notice-form")
+			.attr({
+				method: "POST",
+				action: "/crntc/write" // 경로 변경될 수 있음
+			})
+			.submit();
+	});
 	/* 휘원 0422 추가한 부분 end */
 
 	/* ================================ */
@@ -139,59 +229,59 @@ $(document).ready(function() {
 
 	/* 대시보드 이벤트 end */
 
-    /* 강좌 생성 이벤트 start */
+	/* 강좌 생성 이벤트 start */
 
-    // 선택된 과목 ID 저장용 Set
-    const selectedSubjects = new Set();
+	// 선택된 과목 ID 저장용 Set
+	const selectedSubjects = new Set();
 
-    // 과목 체크박스 선택 시 Set에 추가/제거
-    $('input[name="subjects"]').change(function () {
-      const subjectId = $(this).val();
+	// 과목 체크박스 선택 시 Set에 추가/제거
+	$('input[name="subjects"]').change(function() {
+		const subjectId = $(this).val();
 
-      if ($(this).is(':checked')) {
-        selectedSubjects.add(subjectId);
-      } else {
-        selectedSubjects.delete(subjectId);
-      }
+		if ($(this).is(':checked')) {
+			selectedSubjects.add(subjectId);
+		} else {
+			selectedSubjects.delete(subjectId);
+		}
 
-      updateHiddenInput();
-    });
+		updateHiddenInput();
+	});
 
-    // 숨겨진 input에 선택된 과목들 저장
-    function updateHiddenInput() {
-      $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
-    }
+	// 숨겨진 input에 선택된 과목들 저장
+	function updateHiddenInput() {
+		$('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+	}
 
-    // 제출 버튼 클릭 시 폼 전송
+	// 제출 버튼 클릭 시 폼 전송
 
-    // 강준식 2025-04-20 수정
-    // -----------------------------------------
-    $('course-create').find('.btn-submit').on('click', function (e) {
-      e.preventDefault();
+	// 강준식 2025-04-20 수정
+	// -----------------------------------------
+	$('course-create').find('.btn-submit').on('click', function(e) {
+		e.preventDefault();
 
-      $('#crsInfPrsCnt-error').text('');
+		$('#crsInfPrsCnt-error').text('');
 
-      // 수강 인원 체크; 0이나 빈 값일시
-      const prsCnt = parseInt($('#course-capacity').val());
-      if (isNaN(prsCnt) || prsCnt < 1) {
-        $('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
-        $('#course-capacity').focus();
-        return;
-      }
-      
-      // 선택된 과목들 hidden input에 반영
-      $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+		// 수강 인원 체크; 0이나 빈 값일시
+		const prsCnt = parseInt($('#course-capacity').val());
+		if (isNaN(prsCnt) || prsCnt < 1) {
+			$('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
+			$('#course-capacity').focus();
+			return;
+		}
 
-      // 폼 전송
-      $('#course-create-form')
-        .attr({
-          method: 'POST',
-          action: '/insttn/pltad/create'
-        })
-        .submit();
-    });
-    // -----------------------------------------
-    /* 강좌 생성 이벤트 end */
+		// 선택된 과목들 hidden input에 반영
+		$('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+
+		// 폼 전송
+		$('#course-create-form')
+			.attr({
+				method: 'POST',
+				action: '/insttn/pltad/create'
+			})
+			.submit();
+	});
+	// -----------------------------------------
+	/* 강좌 생성 이벤트 end */
 
 	// 소희 Part start ----------------------------------
 	/* 사용자 회원 가입시 동의 여부 이벤트 start*/
@@ -227,70 +317,70 @@ $(document).ready(function() {
 	/* 로그인 시 강사, 회원, 관리자 누구로 로그인을 할건지에 대한 이벤트 start */
 
 	// 소희 Part end ----------------------------------
-	
-    // 강준식 2025-04-20 수정
-    // -----------------------------------------
 
-    /* 강좌 신청 페이지에서 뒤로 가기 */
-        $(".course-create").find(".btn-cancel").on("click", function () {
-          window.location.href = "/insttn/pltad";
-        });
+	// 강준식 2025-04-20 수정
+	// -----------------------------------------
 
-    /* 강좌 수정 이벤트 start */
-      
-      // 수정 로직
-      $(".course-manage").find('.btn-update').on('click', function (e) {
-        e.preventDefault();
+	/* 강좌 신청 페이지에서 뒤로 가기 */
+	$(".course-create").find(".btn-cancel").on("click", function() {
+		window.location.href = "/insttn/pltad";
+	});
 
-        $('#crsInfPrsCnt-error').text('');
+	/* 강좌 수정 이벤트 start */
 
-        // 수강 인원 체크; 0이나 빈 값일시
-        const prsCnt = parseInt($('#course-capacity').val());
-        if (isNaN(prsCnt) || prsCnt < 1) {
-          $('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
-          $('#course-capacity').focus();
-          return;
-        }
-        
-        const courseId = $('#crsInfId').val();
-        
-        // 선택된 과목들 hidden input에 반영
-        $('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+	// 수정 로직
+	$(".course-manage").find('.btn-update').on('click', function(e) {
+		e.preventDefault();
 
-        // 폼 전송
-        $('#course-create-form')
-          .attr({
-            method: 'POST',
-            action: '/insttn/pltad/modify/' + courseId
-          })
-          .submit();
-      });
-      
-      /* 강좌 수정 이벤트 end */
-      
-      /* 강좌 삭제 이벤트 start */
-      
-      // 삭제 로직
-      $(".course-manage").find(".btn-delete").on("click", function() {
-          var crsInfId = $(this).data("id");
+		$('#crsInfPrsCnt-error').text('');
 
-          // 삭제 확인
-          if (confirm("정말 해당 강좌를 삭제하시겠습니까?")) {
-              $.ajax({
-                  url: "/insttn/pltad/delete/" + crsInfId,
-                  type: "POST",
-                  success: function(response) {
-                      alert("삭제가 완료되었습니다.");
-                      window.location.href = "/insttn/pltad";
-                  },
-                  error: function(xhr, status, error) {
-                      alert("삭제에 실패했습니다.");
-                  }
-              });
-          }
-      });
-      // -----------------------------------------
-      /* 강좌 삭제 이벤트 end */
+		// 수강 인원 체크; 0이나 빈 값일시
+		const prsCnt = parseInt($('#course-capacity').val());
+		if (isNaN(prsCnt) || prsCnt < 1) {
+			$('#crsInfPrsCnt-zero-error').text('수강 인원은 1명 이상이어야 합니다.');
+			$('#course-capacity').focus();
+			return;
+		}
+
+		const courseId = $('#crsInfId').val();
+
+		// 선택된 과목들 hidden input에 반영
+		$('#selected-subjects-input').val(Array.from(selectedSubjects).join(","));
+
+		// 폼 전송
+		$('#course-create-form')
+			.attr({
+				method: 'POST',
+				action: '/insttn/pltad/modify/' + courseId
+			})
+			.submit();
+	});
+
+	/* 강좌 수정 이벤트 end */
+
+	/* 강좌 삭제 이벤트 start */
+
+	// 삭제 로직
+	$(".course-manage").find(".btn-delete").on("click", function() {
+		var crsInfId = $(this).data("id");
+
+		// 삭제 확인
+		if (confirm("정말 해당 강좌를 삭제하시겠습니까?")) {
+			$.ajax({
+				url: "/insttn/pltad/delete/" + crsInfId,
+				type: "POST",
+				success: function(response) {
+					alert("삭제가 완료되었습니다.");
+					window.location.href = "/insttn/pltad";
+				},
+				error: function(xhr, status, error) {
+					alert("삭제에 실패했습니다.");
+				}
+			});
+		}
+	});
+	// -----------------------------------------
+	/* 강좌 삭제 이벤트 end */
 
 	/* ================================= */
 	/* 0419 유진 파트 start */
@@ -387,55 +477,55 @@ $(document).ready(function() {
 	//   .on(".click", function () {
 	//     $(this).closest(".todo-item").remove();
 	//   });
-	
+
 	/* 0419 유진 파트 end */
 	/* ================================= */
-    
-      /* 강좌 신청 이벤트 start */
-      // 강준식 2025-04-20 수정
-      // -----------------------------------------
-      
-      $(".course-detail").find(".btn-regist").on("click", function() {
-          var crsInfId = $(this).data("id");
-          
-          // 신청 확인
-          if (confirm("정말 해당 강좌를 신청하시겠습니까?")) {
-              $.ajax({
-                  url: "/insttn/usr/detail/" + crsInfId + "/register",
-                  type: "POST",
-                  success: function(response) {
-                      alert("신청이 완료되었습니다.");
-                      location.reload();
-                  },
-                  error: function(xhr, status, error) {
-                      alert("신청 실패했습니다.");
-                  }
-              });
-          }
-      });
-      
-      /* 강좌 신청 이벤트 end */
 
-      /* 강좌 신청 취소 이벤트 start */
-      
-      $(".course-detail").find(".btn-cancel").on("click", function () {
-          const crsInfId = $(this).data("id");
+	/* 강좌 신청 이벤트 start */
+	// 강준식 2025-04-20 수정
+	// -----------------------------------------
 
-          if (confirm("정말 신청을 취소하시겠습니까?")) {
-              $.ajax({
-                  url: "/insttn/usr/detail/" + crsInfId + "/cancel",
-                  type: "POST",
-                  success: function () {
-                      alert("신청이 취소되었습니다.");
-                      // window.location.href = "/insttn/usr/detail/" + crsInfId;
-                      location.reload();
-                  },
-                  error: function (xhr, status, error) {
-                      alert("신청 취소 실패했습니다.");
-                  }
-              });
-          }
-      });
-      // -----------------------------------------
-      /* 강좌 신청 취소 이벤트 end */
+	$(".course-detail").find(".btn-regist").on("click", function() {
+		var crsInfId = $(this).data("id");
+
+		// 신청 확인
+		if (confirm("정말 해당 강좌를 신청하시겠습니까?")) {
+			$.ajax({
+				url: "/insttn/usr/detail/" + crsInfId + "/register",
+				type: "POST",
+				success: function(response) {
+					alert("신청이 완료되었습니다.");
+					location.reload();
+				},
+				error: function(xhr, status, error) {
+					alert("신청 실패했습니다.");
+				}
+			});
+		}
+	});
+
+	/* 강좌 신청 이벤트 end */
+
+	/* 강좌 신청 취소 이벤트 start */
+
+	$(".course-detail").find(".btn-cancel").on("click", function() {
+		const crsInfId = $(this).data("id");
+
+		if (confirm("정말 신청을 취소하시겠습니까?")) {
+			$.ajax({
+				url: "/insttn/usr/detail/" + crsInfId + "/cancel",
+				type: "POST",
+				success: function() {
+					alert("신청이 취소되었습니다.");
+					// window.location.href = "/insttn/usr/detail/" + crsInfId;
+					location.reload();
+				},
+				error: function(xhr, status, error) {
+					alert("신청 취소 실패했습니다.");
+				}
+			});
+		}
+	});
+	// -----------------------------------------
+	/* 강좌 신청 취소 이벤트 end */
 });
