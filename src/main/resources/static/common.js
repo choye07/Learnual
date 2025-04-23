@@ -752,4 +752,51 @@ $(document).ready(function () {
             console.log(error);
             alert("강의 폐강에 실패했습니다.");
           },
+        });
+      }
+    });
+
+  /* 강좌 폐강 이벤트 end */
+
+  /* 2025-04-23 강준식 추가 */
+  /* 강좌 확정 이벤트 start */
+
+  $(".course-confirm")
+    .find("#btn-real-confirm")
+    .click(function () {
+      const crsInfId = $(this).data("id");
+      const form = $("#confirm-applied-user-form");
+
+      // form action 동적으로 설정
+      form.attr("action", "/insttn/pltad/confirm/" + crsInfId);
+
+      const selectedUsers = $('input[name="selectedUserIds"]:checked');
+      const allUsers = $('input[name="selectedUserIds"]');
+
+      if (selectedUsers.length === 0) {
+        alert("확정할 회원을 선택하세요.");
+        return;
+      }
+
+      // 기존 hidden 제거
+      $('input[name="notConfirmedUsrIds"]').remove();
+
+      // 확정되지 않은 사용자 ID 추출
+      allUsers.each(function () {
+        const usrId = $(this).val();
+        if (!$(this).is(":checked")) {
+          const hiddenInput = $("<input>")
+            .attr("type", "hidden")
+            .attr("name", "notConfirmedUsrIds")
+            .val(usrId);
+          form.append(hiddenInput);
+        }
+      });
+
+      alert("강의가 확정되었습니다.");
+      form.submit();
+    });
+
+  /* 강좌 확정 이벤트 end */
+  /* ------------강준식----------------- */
 });
