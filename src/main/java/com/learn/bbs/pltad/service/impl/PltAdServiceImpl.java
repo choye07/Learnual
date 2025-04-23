@@ -39,7 +39,7 @@ public class PltAdServiceImpl implements PltAdService {
 
 		// 플랫폼 관리자 등록 전에 super관리자 인지 체크해야함.
 		String lgnId = pltadRegistRequestVO.getLgnId();
-		int selectCount =this.spradDao.selectSpradCount(lgnId);
+		int selectCount =this.spradDao.selectUsrCountBy(lgnId); // -> 로그인 공통화 처리를 위해 Dao name 변경 
 		
 		if(selectCount == 0) {
 			throw new PltadRegistException(pltadRegistRequestVO);
