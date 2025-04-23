@@ -6,5 +6,5 @@ package com.learn.bbs.pltad.cnfr.service;
  * 확정 내역
  */
 public interface CnfrHstrService {
-
+	
 }

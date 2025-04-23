@@ -1,6 +1,5 @@
 package com.learn.bbs.crs.crsinf.web;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -10,18 +9,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.learn.bbs.crs.apphstr.vo.AppHstrVO;
 import com.learn.bbs.crs.crsinf.service.CrsInfService;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
-import com.learn.bbs.crs.sbj.service.SbjService;
+import com.learn.bbs.crs.crspratt.vo.CrsPrattRegistRequestVO;
 import com.learn.bbs.crs.sbj.vo.SbjVO;
+import com.learn.bbs.pltad.cnfr.vo.CnfrHstrConfirmReadVO;
+import com.learn.bbs.pltad.instr.vo.InstrVO;
+import com.learn.exceptions.CnfrHstrInsertException;
 
 import jakarta.validation.Valid;
 
@@ -36,67 +40,45 @@ public class CrsInfController {
     
     @Autowired
     private CrsInfService crsInfService;
-    
-    @Autowired
-    private SbjService sbjService; 
 
     @GetMapping("/insttn/pltad")
     public String showAllCourses(Model model) {
         List<CrsInfPltadReadResponseVO> activeCourses = this.crsInfService.selectAllCourseForPltad();
         List<CrsInfPltadFinishedReadResponseVO> inactiveCourses = this.crsInfService.selectAllFinishedCourseForPltad();
-
-        LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        for (CrsInfPltadReadResponseVO course : activeCourses) {
-            LocalDate deadlineDate = LocalDate.parse(course.getCrsInfDdlnDt().substring(0, 10), formatter);
-            course.setDeadlineToday(deadlineDate.isEqual(today));
-        }
+        List<CrsInfAbandonReadResponseVO> abandonCourses = this.crsInfService.selectAbandonCourse();
 
         model.addAttribute("activeCourses", activeCourses);
         model.addAttribute("inactiveCourses", inactiveCourses);
+        model.addAttribute("abandonCourses", abandonCourses);
 
-        return "/insttn/coursemanage";
+        return "/bbs/crs/coursemanage";
     }
     
+
     @GetMapping("/insttn")
     public String showAvailableCourses(Model model) {
-        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfService.selectAvailableCourses();
-
-        LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        for (CrsInfAvailableReadResponseVO course : availableCourses) {
-            LocalDate availableDate = LocalDate.parse(course.getCrsInfDdlnDt().substring(0, 10), formatter);
-            course.setAvailableToday(availableDate.isEqual(today));
-        }
-
+    	
+        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfService.selectCoursesForUser("USR-20250419-000002"); // 여기서 session으로 user id 가져오면 될거같아요
+        
         model.addAttribute("availableCourses", availableCourses);
 
-        return "/insttn/maininsttn";
+        return "insttn/maininsttn";
     }
     
+    // 신청 가능한 강좌들을 보여준다
     @GetMapping("/insttn/usr")
     public String showAvailableCoursesForUser(Model model) {
-        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfService.selectAvailableCourses();
-
-        LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        for (CrsInfAvailableReadResponseVO course : availableCourses) {
-            LocalDate availableDate = LocalDate.parse(course.getCrsInfDdlnDt().substring(0, 10), formatter);
-            course.setAvailableToday(availableDate.isEqual(today));
-        }
+        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfService.selectRegisterableCourses();
 
         model.addAttribute("availableCourses", availableCourses);
 
-        return "/insttn/courseregist";
+        return "/bbs/crs/courseregist";
     }
     
     @GetMapping("/insttn/usr/detail/{crsInfId}")
     public String showAllAvailableForUser(@PathVariable String crsInfId,
     									  Model model) {
-    	String usrId = "USR_20250419_000002"; // 로그인된 유저의 ID <- 여기서 session 사용하시면 될듯!
+    	String usrId = "USR-20250419-000002"; // 로그인된 유저의 ID <- 여기서 session 사용하시면 될듯!
     	
         boolean showCancelButton = crsInfService.isAppliedOrCancelled(crsInfId, usrId);
         
@@ -104,7 +86,7 @@ public class CrsInfController {
         
     	model.addAttribute("courseDetail", this.crsInfService.selectCourseDetail(crsInfId));
     	
-    	return "/insttn/coursedetail";
+    	return "/bbs/crs/coursedetail";
     }
     
     @GetMapping("/insttn/pltad/detail/{crsInfId}")
@@ -112,30 +94,47 @@ public class CrsInfController {
     									   Model model) {
     	model.addAttribute("courseDetail", this.crsInfService.selectCourseDetail(crsInfId));
     	
-		return "/insttn/coursedetail";
+		return "/bbs/crs/coursedetail";
 }
+    @GetMapping("insttn/pltad/create")
+    public String showSubjectList(Model model) {
+        List<SbjVO> subjectList = crsInfService.getSubjectList();
+        List<InstrVO> instrList = crsInfService.getInstrList();
+        
+        model.addAttribute("subjectList", subjectList);
+        model.addAttribute("instrList", instrList);
+        
+        return "bbs/crs/coursecreate";
+    }
     
     @PostMapping("/insttn/pltad/create")
     public String registerCourse(@Valid CrsInfRegistRequestVO crsInfRegistRequestVO,
     							 BindingResult bindingResult,
     							 Model model) {
-        List<SbjVO> subjectList = sbjService.selectAllSubjects();
+    	crsInfRegistRequestVO.setLoginId("admin");
+
+    	List<SbjVO> subjectList = crsInfService.getSubjectList();
+        List<InstrVO> instrList = crsInfService.getInstrList();
         
     	if(bindingResult.hasErrors()) {
             model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+            model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
             model.addAttribute("subjectList", subjectList);
+            model.addAttribute("instrList", instrList);
     		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
     		
-    		return "/insttn/coursecreate";
+    		return "/bbs/crs/coursecreate";
     	}
     	
         if (this.crsInfService.countCourseName(crsInfRegistRequestVO.getCrsInfNm())) {
             model.addAttribute("duplicateTitleError", "이미 등록된 강좌 이름입니다. 다른 이름을 입력해주세요.");
             model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+            model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
             model.addAttribute("subjectList", subjectList);
+            model.addAttribute("instrList", instrList);
             model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
             
-            return "/insttn/coursecreate";
+            return "/bbs/crs/coursecreate";
         }
     	
     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -150,37 +149,45 @@ public class CrsInfController {
     	if(crsInfStDt.isBefore(today)) {
     		model.addAttribute("crsInfStDtThanToday", "강좌 시작일은 오늘 이후여야 합니다.");
             model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+            model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
             model.addAttribute("subjectList", subjectList);
+            model.addAttribute("instrList", instrList);
     		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
     		
-    		return "/insttn/coursecreate";
+    		return "/bbs/crs/coursecreate";
     	}
     	
     	if(crsInfEndDt.isBefore(today)) {
     		model.addAttribute("crsInfEndDtThanToday", "강좌 종료일은 오늘 이후여야 합니다.");
             model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+            model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
             model.addAttribute("subjectList", subjectList);
+            model.addAttribute("instrList", instrList);
     		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
     		
-    		return "/insttn/coursecreate";
+    		return "/bbs/crs/coursecreate";
     	}
     	
     	if(crsInfAppDt.isBefore(today)) {
     		model.addAttribute("crsInfAppDtThanToday", "강좌 신청일은 오늘 이후여야 합니다.");
             model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+            model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
             model.addAttribute("subjectList", subjectList);
+            model.addAttribute("instrList", instrList);
     		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
     		
-    		return "/insttn/coursecreate";
+    		return "/bbs/crs/coursecreate";
     	}
     	
     	if(crsInfDdlnDt.isBefore(today)) {
     		model.addAttribute("crsInfDdlnDtThanToday", "강좌 마감일은 오늘 이후여야 합니다.");
             model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+            model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
             model.addAttribute("subjectList", subjectList);
+            model.addAttribute("instrList", instrList);
     		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
     		
-    		return "/insttn/coursecreate";
+    		return "/bbs/crs/coursecreate";
     	}
     	
     	if(crsInfEndDt.isBefore(crsInfStDt)) {
@@ -188,36 +195,44 @@ public class CrsInfController {
         		model.addAttribute("crsLateErrorMessage", "강좌 종료일은 강좌 시작일 이후여야 합니다.");
         		model.addAttribute("appLateErrorMessage", "신청 마감일은 신청 시작일 이후여야 합니다.");
                 model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+                model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
                 model.addAttribute("subjectList", subjectList);
+                model.addAttribute("instrList", instrList);
         		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
         		
-        		return "/insttn/coursecreate";
+        		return "/bbs/crs/coursecreate";
         	}
         	// 강좌 시작일만 느림
         	model.addAttribute("crsLateErrorMessage", "강좌 종료일은 강좌 시작일 이후여야 합니다.");
             model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+            model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
             model.addAttribute("subjectList", subjectList);
+            model.addAttribute("instrList", instrList);
     		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
     		
-    		return "/insttn/coursecreate";
+    		return "/bbs/crs/coursecreate";
     	} else {
         	if(crsInfDdlnDt.isBefore(crsInfAppDt)) { // 강좌 신청일만 느림
         		model.addAttribute("appLateErrorMessage", "신청 마감일은 신청 시작일 이후여야 합니다.");
                 model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+                model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
                 model.addAttribute("subjectList", subjectList);
+                model.addAttribute("instrList", instrList);
         		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
         		
-        		return "/insttn/coursecreate";
+        		return "/bbs/crs/coursecreate";
         	}
     	}
     	
     	if(crsInfDdlnDt.isAfter(crsInfStDt)) {
     		model.addAttribute("appDtAfterThanStDt", "강좌 시작일은 신청 마감일 이후여야 합니다.");
             model.addAttribute("selectedSubjects", crsInfRegistRequestVO.getSubjects());
+            model.addAttribute("selectedInstr", crsInfRegistRequestVO.getInstrId());
             model.addAttribute("subjectList", subjectList);
+            model.addAttribute("instrList", instrList);
     		model.addAttribute("userRegistInfo", crsInfRegistRequestVO);
     		
-    		return "/insttn/coursecreate";
+    		return "/bbs/crs/coursecreate";
     	}
     	
     	DateTimeFormatter resetFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -235,27 +250,36 @@ public class CrsInfController {
     @GetMapping("/insttn/pltad/modify/{crsInfId}")
     public String goModifyCourse(@PathVariable String crsInfId, Model model) {
         CrsInfModifyRequestVO courseInfo = this.crsInfService.selectAllInfoFromOneCourse(crsInfId);
-        List<SbjVO> subjectList = sbjService.selectAllSubjects();
+        
+        List<SbjVO> subjectList = this.crsInfService.getSubjectList();
+        List<InstrVO> instrList = this.crsInfService.getInstrList();
 
         model.addAttribute("userRegistInfo", courseInfo);
         model.addAttribute("selectedSubjects", courseInfo.getSubjects());
+        model.addAttribute("selectedInstr", courseInfo.getInstrId());
         model.addAttribute("subjectList", subjectList);
+        model.addAttribute("instrList", instrList);
 
-        return "/insttn/coursemodify";
+        return "/bbs/crs/coursemodify";
     }
     
     @PostMapping("/insttn/pltad/modify/{crsInfId}")
     public String doModifyCourse(@Valid CrsInfModifyRequestVO crsInfModifyRequestVO,
 								 BindingResult bindingResult,
 								 Model model) {
-		List<SbjVO> subjectList = sbjService.selectAllSubjects();
+    	crsInfModifyRequestVO.setLoginId("admin");
+    	
+        List<SbjVO> subjectList = this.crsInfService.getSubjectList();
+        List<InstrVO> instrList = this.crsInfService.getInstrList();
 		
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+			model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 			model.addAttribute("subjectList", subjectList);
+			model.addAttribute("instrList", instrList);
 			model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 			
-			return "/insttn/coursemodify";
+			return "/bbs/crs/coursemodify";
 		}
 		
 		String newName = crsInfModifyRequestVO.getCrsInfNm();
@@ -265,10 +289,12 @@ public class CrsInfController {
 		if (crsInfService.countCourseName(newName) && !newName.equals(currentName)) {
 		    model.addAttribute("duplicateTitleError", "이미 등록된 강좌 이름입니다. 다른 이름을 입력해주세요.");
 		    model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		    model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		    model.addAttribute("subjectList", subjectList);
+		    model.addAttribute("instrList", instrList);
 		    model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 
-		    return "/insttn/coursemodify";
+		    return "/bbs/crs/coursemodify";
 		}
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -283,37 +309,45 @@ public class CrsInfController {
 		if(crsInfStDt.isBefore(today)) {
 		model.addAttribute("crsInfStDtThanToday", "강좌 시작일은 오늘 이후여야 합니다.");
 		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("instrList", instrList);
 		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 		
-		return "/insttn/coursemodify";
+		return "/bbs/crs/coursemodify";
 		}
 		
 		if(crsInfEndDt.isBefore(today)) {
 		model.addAttribute("crsInfEndDtThanToday", "강좌 종료일은 오늘 이후여야 합니다.");
 		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("instrList", instrList);
 		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 		
-		return "/insttn/coursemodify";
+		return "/bbs/crs/coursemodify";
 		}
 		
 		if(crsInfAppDt.isBefore(today)) {
 		model.addAttribute("crsInfAppDtThanToday", "강좌 신청일은 오늘 이후여야 합니다.");
 		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("instrList", instrList);
 		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 		
-		return "/insttn/coursemodify";
+		return "/bbs/crs/coursemodify";
 		}
 		
 		if(crsInfDdlnDt.isBefore(today)) {
 		model.addAttribute("crsInfDdlnDtThanToday", "강좌 마감일은 오늘 이후여야 합니다.");
 		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("instrList", instrList);
 		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 		
-		return "/insttn/coursemodify";
+		return "/bbs/crs/coursemodify";
 		}
 		
 		if(crsInfEndDt.isBefore(crsInfStDt)) {
@@ -321,36 +355,44 @@ public class CrsInfController {
 		model.addAttribute("crsLateErrorMessage", "강좌 종료일은 강좌 시작일 이후여야 합니다.");
 		model.addAttribute("appLateErrorMessage", "신청 마감일은 신청 시작일 이후여야 합니다.");
 		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("instrList", instrList);
 		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 		
-		return "/insttn/coursemodify";
+		return "/bbs/crs/coursemodify";
 		}
 		// 강좌 시작일만 느림
 		model.addAttribute("crsLateErrorMessage", "강좌 종료일은 강좌 시작일 이후여야 합니다.");
 		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("instrList", instrList);
 		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 		
-		return "/insttn/coursemodify";
+		return "/bbs/crs/coursemodify";
 		} else {
 		if(crsInfDdlnDt.isBefore(crsInfAppDt)) { // 강좌 신청일만 느림
 		model.addAttribute("appLateErrorMessage", "신청 마감일은 신청 시작일 이후여야 합니다.");
 		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("instrList", instrList);
 		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 		
-		return "/insttn/coursemodify";
+		return "/bbs/crs/coursemodify";
 		}
 		}
 		
 		if(crsInfDdlnDt.isAfter(crsInfStDt)) {
 		model.addAttribute("appDtAfterThanStDt", "강좌 시작일은 신청 마감일 이후여야 합니다.");
 		model.addAttribute("selectedSubjects", crsInfModifyRequestVO.getSubjects());
+		model.addAttribute("selectedInstr", crsInfModifyRequestVO.getInstrId());
 		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("instrList", instrList);
 		model.addAttribute("userRegistInfo", crsInfModifyRequestVO);
 		
-		return "/insttn/coursemodify";
+		return "/bbs/crs/coursemodify";
 		}
 		
 		DateTimeFormatter resetFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -365,9 +407,61 @@ public class CrsInfController {
 		return "redirect:/insttn/pltad";
 	}
     
+    // 삭제
     @PostMapping("/insttn/pltad/delete/{crsInfId}")
     public String doDeleteCourse(@PathVariable String crsInfId) {
     	this.crsInfService.deleteOneCourse(crsInfId);
+    	
+    	return "redirect:/insttn/pltad";
+    }
+    
+    // 마감
+    @PostMapping("/insttn/pltad/end/{crsInfId}")
+    public String doEndCourse(@PathVariable String crsInfId) {
+    	this.crsInfService.endOneCourse(crsInfId);
+    	
+    	try {
+            this.crsInfService.insertRegisteredUsers();
+        } catch (CnfrHstrInsertException e) {
+
+        }
+    	
+    	return "redirect:/insttn/pltad";
+    }
+    
+    @GetMapping("/insttn/pltad/confirm/{crsInfId}")
+    public String showConfirmedUsers(@PathVariable String crsInfId, Model model) {
+        List<CnfrHstrConfirmReadVO> users = this.crsInfService.getConfirmedUsers(crsInfId);
+        String crsInfNm = this.crsInfService.selectCourseName(crsInfId);
+        model.addAttribute("courseName", crsInfNm);
+        model.addAttribute("confirmedUsers", users);
+        model.addAttribute("CrsPrattRegistRequestVO", new CrsPrattRegistRequestVO());
+        
+        return "bbs/crs/courseconfirm";
+    }
+    
+    // 확정
+    @PostMapping("/insttn/pltad/confirm/{crsInfId}")
+    public String doSavingConfirmedUsersToPratt(@PathVariable String crsInfId,
+    											@ModelAttribute CrsPrattRegistRequestVO crsPrattRegistRequestVO) {
+    	crsPrattRegistRequestVO.setLogId("admin");
+    	
+        // 서비스에서 선택된 사용자만 처리하도록 호출
+        crsInfService.saveConfirmedUsersToPratt(crsPrattRegistRequestVO);
+        
+        return "redirect:/insttn/pltad";
+        
+    }
+    
+    // 폐강
+    @PostMapping("insttn/pltad/abandon/{crsInfId}")
+    public String doAbandonCourse(@PathVariable String crsInfId) {
+    	CrsInfAbandonUpdateRequestVO crsInfAbandonUpdateRequestVO = new CrsInfAbandonUpdateRequestVO();
+    	
+    	crsInfAbandonUpdateRequestVO.setLgnId("admin");
+    	crsInfAbandonUpdateRequestVO.setCrsInfId(crsInfId);
+    	
+    	this.crsInfService.abandonOneCourse(crsInfAbandonUpdateRequestVO);
     	
     	return "redirect:/insttn/pltad";
     }

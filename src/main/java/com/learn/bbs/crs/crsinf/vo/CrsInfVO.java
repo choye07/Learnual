@@ -92,6 +92,13 @@ public class CrsInfVO {
     private String crsInfDdlnYn;
 
     /**
+     * @ColumnName CRS_INF_ABDN_YN
+     * @ColumnType CHAR(1)
+     * @ColumnComment 강좌 폐강 여부
+     */
+    private String crsInfAbdnYn;
+    
+    /**
      * @ColumnName INSTR_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 강사의 고유한 아이디
@@ -221,4 +228,12 @@ public class CrsInfVO {
     public String toString() {
         return "CrsInfVO(crsInfId: " + crsInfId + ", crsInfStDt: " + crsInfStDt + ", crsInfEndDt: " + crsInfEndDt + ", crsInfNm: " + crsInfNm + ", crsInfCrsRoomNm: " + crsInfCrsRoomNm + ", crsInfUpdtDt: " + crsInfUpdtDt + ", crsInfRgstDt: " + crsInfRgstDt + ", crsInfDelDt: " + crsInfDelDt + ", crsInfDelYn: " + crsInfDelYn + ", crsInfAppDt: " + crsInfAppDt + ", crsInfDdlnDt: " + crsInfDdlnDt + ", crsInfDdlnYn: " + crsInfDdlnYn + ", instrId: " + instrId + ", crsInfPrsCnt: " + crsInfPrsCnt + ", crsInfStTm: " + ", )";
     }
+
+	public String getCrsInfAbdnYn() {
+		return crsInfAbdnYn;
+	}
+
+	public void setCrsInfAbdnYn(String crsInfAbdnYn) {
+		this.crsInfAbdnYn = crsInfAbdnYn;
+	}
 }

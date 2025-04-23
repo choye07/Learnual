@@ -26,7 +26,7 @@ public class AppHstrController {
 			  					   Model model) {
     	AppHstrVO appHstrVO = new AppHstrVO();
     	appHstrVO.setCrsInfId(crsInfId);
-    	appHstrVO.setUsrId("USR_20250419_000002"); // 로그인된 유저의 ID <- 여기서 session 사용하시면 될듯!
+    	appHstrVO.setUsrId("USR-20250419-000002"); // 로그인된 유저의 ID <- 여기서 session 사용하시면 될듯!
 
     	this.appHstrService.insertOneAppHstr(appHstrVO);
     	

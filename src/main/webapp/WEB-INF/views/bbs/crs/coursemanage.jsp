@@ -47,6 +47,8 @@
 						<div>
 							<ul class="article-content">
 								<c:forEach var="activeCourse" items="${activeCourses}">
+								    <c:if test="${activeCourse.status ne 'doingApply' and activeCourse.status ne 'isAbandon'}">
+
 									<li><a
 										href="/insttn/pltad/detail/${activeCourse.crsInfId}">
 											<h3>${activeCourse.crsInfNm}</h3>
@@ -61,15 +63,31 @@
 										</p>
 
 										<div class="article-direct">
-											<a class="btn-modify"
-												href="/insttn/pltad/modify/${activeCourse.crsInfId}">수정</a>
-											<a class="btn-delete" href="javascript:void(0);"
-												data-id="${activeCourse.crsInfId}">삭제</a>
-											<c:if test="${activeCourse.deadlineToday}">
-												<a class="btn-shutdown" href="javascript:void(0);"
-													data-id="${activeCourse.crsInfId}">마감</a>
-											</c:if>
-										</div></li>
+										    <c:choose>
+										        <c:when test="${activeCourse.status eq 'beforeApp'}">
+										            <a class="btn-modify" href="/insttn/pltad/modify/${activeCourse.crsInfId}">수정</a>
+										            <a class="btn-delete" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">삭제</a>
+										        </c:when>
+										
+										        <c:when test="${activeCourse.status eq 'inApply'}">
+										            <p class="course-status-msg">현재 신청을 받고 있는 강좌입니다</p>
+										        </c:when>
+										
+										        <c:when test="${activeCourse.status eq 'canEnd' or activeCourse.status eq 'canAbandon'}">
+												    <a class="btn-shutdown" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">마감</a>
+												    <c:if test="${activeCourse.status eq 'canAbandon'}">
+												        <a class="btn-abandon" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">폐강</a>
+												    </c:if>
+												</c:when>
+										
+										        <c:when test="${activeCourse.status eq 'endApply'}">
+										            <p class="course-status-msg">확정이 완료된 강좌입니다</p>
+										        </c:when>
+										    </c:choose>
+										</div>
+										</li>
+										 </c:if>
+										
 								</c:forEach>
 							</ul>
 
@@ -125,13 +143,13 @@
 
 						<div>
 							<ul class="article-content">
-								<c:forEach var="inactiveCourse" items="${inactiveCourses}">
+								<c:forEach var="abandonCourse" items="${abandonCourses}">
 									<li><a
-										href="/insttn/pltad/confirm/${inactiveCourse.crsInfId}">
-											<h3>${inactiveCourse.crsInfNm}</h3>
+										href="/insttn/pltad/detail/${abandonCourse.crsInfId}">
+											<h3>${abandonCourse.crsInfNm}</h3>
 									</a>
 										<p class="period">
-											<span>${inactiveCourse.crsInfStDt}</span> ~ <span>${inactiveCourse.crsInfEndDt}</span>
+											<span>${abandonCourse.crsInfStDt}</span> ~ <span>${abandonCourse.crsInfEndDt}</span>
 										</p></li>
 								</c:forEach>
 							</ul>

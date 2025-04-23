@@ -27,7 +27,7 @@
 				<div class="main-wrapper-top">
 					<h1 class="page-title">강좌 수정</h1>
 				</div>
-				<div class="main-wrapper-body">
+				<div class="main-wrapper-body course-create">
 					<form:form modelAttribute="crsInfModifyRequestVO"
 						id="course-create-form" class="modify-form">
 						<input type="hidden" id="crsInfId" name="crsInfId"
@@ -67,6 +67,23 @@
 
 						<input type="hidden" id="selected-subjects-input"
 							name="selectedSubjects" />
+
+                        <div class="teacher-area form-group">
+                          <label>강사</label>
+                          <div>
+                            <c:forEach var="instr" items="${instrList}">
+                              <label class="each-checkbox">
+                                <input type="radio" name="instrId" value="${instr.instrId}"
+                                  ${selectedInstr != null && selectedInstr == instr.instrId ? 'checked' : ''} />
+                                ${instr.instrNm}
+                              </label>
+                            </c:forEach>
+                          </div>
+                          <form:errors path="instrId" element="div" cssClass="error" />
+                        </div>
+                        
+                        <!-- 선택된 강사 ID hidden input (submit 시 값 전달용) -->
+                        <input type="hidden" id="selected-instr-input" name="selectedInstr" />
 
 						<div class="course-capacity-area form-group">
 							<label for="course-capacity">수강 인원</label> <input type="text"

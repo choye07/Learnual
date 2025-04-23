@@ -22,7 +22,7 @@ public class CnclHstrController {
 
     @PostMapping("/insttn/usr/detail/{crsInfId}/cancel")
     public String doCancelCourse(@PathVariable String crsInfId, Model model) {
-        String usrId = "USR_20250419_000002"; // 로그인된 유저의 ID <- session에서 가져오면 될거같아요
+        String usrId = "USR-20250419-000002"; // 로그인된 유저의 ID <- session에서 가져오면 될거같아요
         boolean isCancelled = this.cnclHstrService.insertCancelledAppHstr(crsInfId, usrId);
 
         return "redirect:/insttn/usr/detail/{crsInfId}";

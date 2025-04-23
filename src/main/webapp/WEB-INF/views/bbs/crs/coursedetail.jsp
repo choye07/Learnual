@@ -64,14 +64,26 @@
 				<!-- session 불러와서 만약 session이 플랫폼관리자라면 이 버튼들 아예 안보이게 하시면 됩니다; 여기부터-->
 				<div class="button-wrapper">
 					<c:choose>
-						<c:when test="${showCancelButton}">
-							<a href="javascript:void(0);" class="btn-cancel"
-								data-id="${courseDetail.crsInfId}"> 신청 취소 </a>
-						</c:when>
-						<c:otherwise>
-							<a href="javascript:void(0);" class="btn-regist"
-								data-id="${courseDetail.crsInfId}"> 강좌 신청 </a>
-						</c:otherwise>
+					    <c:when test="${courseDetail.crsInfAbdnYn == 'Y'}">
+                            <span class="status-text abandoned">폐강된 강좌입니다.</span>
+                        </c:when>
+                        
+					    <c:when test="${courseDetail.crsInfDdlnYn == 'Y'}">
+                            <span class="status-text closed">마감된 강좌입니다.</span>
+                        </c:when>
+                        
+					    <c:otherwise>
+					        <c:choose>
+					            <c:when test="${showCancelButton}">
+					                <a href="javascript:void(0);" class="btn-cancel"
+					                   data-id="${courseDetail.crsInfId}"> 신청 취소 </a>
+					            </c:when>
+					            <c:otherwise>
+					                <a href="javascript:void(0);" class="btn-regist"
+					                   data-id="${courseDetail.crsInfId}"> 강좌 신청 </a>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:otherwise>
 					</c:choose>
 					<!-- session 불러와서 만약 session이 플랫폼관리자라면 이 버튼들 아예 안보이게 하시면 됩니다; 여기까지-->
 
