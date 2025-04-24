@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.learn.bbs.pltad.dao.PltAdDao;
 import com.learn.bbs.pltad.vo.PltadRegistRequestVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
+import com.learn.common.vo.MyInformationRequestVO;
 
 @Repository
 public class PltAdDaoImpl extends SqlSessionDaoSupport implements PltAdDao {
@@ -59,5 +60,10 @@ public class PltAdDaoImpl extends SqlSessionDaoSupport implements PltAdDao {
 		return this.getSqlSession().update(NAME_SPACE + "deleteOneUsrBy",pltadmLgnId);
 	}
 
+	@Override
+	public int updateOneUsrEditMyinformation(MyInformationRequestVO myInfromationRequestVO) {
+		return this.getSqlSession().update(NAME_SPACE + "updateOneUsrEditMyinformation",myInfromationRequestVO);
+		
+	}
 
 }

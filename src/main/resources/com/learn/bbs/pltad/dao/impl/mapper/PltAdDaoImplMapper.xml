@@ -134,6 +134,7 @@
 	     , PLTADM_LST_LGN_DT = SYSDATE
 	     , PLTADM_LGN_IP = NULL
 	     , PLTADM_LGN_YN = 'Y'
+	     , PLTADM_BLK_YN = 'N'
 	 WHERE PLTADM_LGN_ID = #{_parameter}
     </update>
     <!-- 플랫폼 관리자 로그아웃   -->
@@ -149,34 +150,34 @@
             parameterType="string">
 	  UPDATE PLTADM
 	   SET PLTADM_DEL_YN = 'Y',
-	   PLTADM_DEL_DT = SYSDATE
+	   PLTADM_DEL_DT = SYSDATE														
 	 WHERE PLTADM_LGN_ID = #{_parameter}
     </update>
 
-    <!-- 플랫폼 관리자 개인정보 수정 미 정  -->
-<!-- 	<update id="updateOneUsrEditMyinformation"
-		parameterType="com.learn.bbs.usr.vo.UsrEditMyinformationVO">
+    <!-- 플랫폼 관리자 개인정보 수정o -->
+<update id="updateOneUsrEditMyinformation"
+		parameterType="com.learn.common.vo.MyInformationRequestVO">
 		UPDATE PLTADM
 		SET
-		<if test="usrPw != null and usrPw != ''">
-			USR_PW = #{usrPw},
+		<if test="myiLgnPw != null and myiLgnPw != ''">
+			PLTADM_LGN_PW = #{myiLgnPw},
 		</if>
-		<if test="usrSlt != null and usrSlt != ''">
-			USR_SLT = #{usrSlt},
+		<if test="myiLgnSlt != null and myiLgnSlt != ''">
+			PLATADM_LGN_SLT = #{myiLgnSlt},
 		</if>
-		<if test="usrNm != null and usrNm != ''">
-		USR_NM = #{usrNm},
+		<if test="myiNm != null and myiNm != ''">
+		PLTADM_NM = #{myiNm},
 		</if>
-		<if test="usrPn != null and usrPn != ''">
-		USR_PN = #{usrPn},
+		<if test="myiPn != null and myiPn != ''">
+		PLTADM_PN = #{myiPn},
 		</if>
-		<if test="usrAdrs != null and usrAdrs != ''">
-		USR_ADRS = #{usrAdrs},
+		<if test="myiAdrs != null and myiAdrs != ''">
+		PLTADM_ADRS = #{myiAdrs},
 		</if>
-		USR_UPDT_DT = SYSDATE,
-		USR_LST_PW_MDFY_DT = SYSDATE
-		WHERE USR_ML = #{usrMl}
-	</update> -->
+		PLTADM_UPDT_DT = SYSDATE,
+		PLTADM_LST_PW_MDFY_DT = SYSDATE
+		WHERE PLTADM_LGN_ID = #{myiLgnId}
+</update>
 
 <!-- login 기능 mapper end sh  -->
 </mapper>

@@ -11,6 +11,8 @@ import com.learn.bbs.pltad.vo.PltadmLoginRequestVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.beans.Sha;
 import com.learn.common.dao.SesCmcdDao;
+import com.learn.common.vo.MyInformationRequestVO;
+import com.learn.exceptions.MyInformationUpdateException;
 import com.learn.exceptions.PltadRegistException;
 import com.learn.exceptions.PltadmLoginException;
 import com.learn.main.sprad.dao.SpradDao;
@@ -130,5 +132,56 @@ public class PltAdServiceImpl implements PltAdService {
 	public boolean doDeleteUsr(String pltadmLgnId) {
 		return this.pltAdDao.deleteOneUsrBy(pltadmLgnId) > 0;
 	}
+
+	@Override
+	public boolean updateUsrEditMyinformation(MyInformationRequestVO myInfromationRequestVO) {
+		// 1. pltAd 테이블에 email 이 있는지 조회한다.
+		boolean emailCheck = this.checkDuplicateEmail(myInfromationRequestVO.getMyiLgnId());
+
+		if (!emailCheck) {
+			throw new MyInformationUpdateException("해당 이메일이 존재하지 않습니다.", myInfromationRequestVO);
+		}
+
+		// 2. 비밀번호 변경 데이터 처리
+		if (myInfromationRequestVO.getMyiLgnPw() != null && !myInfromationRequestVO.getMyiLgnPw().isEmpty()) {
+			// 2. 수정 정보에 비밀번호 변경 데이터가 있다면 암호화를 진행.
+			String salt = this.sha.generateSalt();
+
+			String password = myInfromationRequestVO.getMyiLgnPw();
+			password = this.sha.getEncrypt(password, salt);
+			myInfromationRequestVO.setMyiLgnPw(password);
+			myInfromationRequestVO.setMyiLgnSlt(salt);
+		} else {
+			// 만약 비밀번호가 없다면?
+			// 2-1. email 로 회원의 모든 정보를 조회한 후에 해당 계정의 비밀번호를 저장해준다.
+			PltadmVO pltadmVO = this.pltAdDao.selectOneUsrBy(myInfromationRequestVO.getMyiLgnId());
+
+			if (pltadmVO == null) {
+				throw new MyInformationUpdateException("회원 정보 조회 중 오류가 발생했습니다.", myInfromationRequestVO);
+			}
+
+			myInfromationRequestVO.setMyiLgnPw(pltadmVO.getPltadmLgnPw());
+			myInfromationRequestVO.setMyiLgnSlt(pltadmVO.getPlatadmLgnSlt());
+
+		}
+
+		// 3. 수정 정보 처리
+		if (myInfromationRequestVO.getMyiNm() == null || myInfromationRequestVO.getMyiNm().isEmpty()) {
+			throw new MyInformationUpdateException("이름이 유효하지 않습니다.", myInfromationRequestVO);
+		}
+
+		if (myInfromationRequestVO.getMyiPn() == null || myInfromationRequestVO.getMyiPn().isEmpty()) {
+			throw new MyInformationUpdateException("전화번호가 유효하지 않습니다.", myInfromationRequestVO);
+		}
+
+		if (myInfromationRequestVO.getMyiAdrs() == null || myInfromationRequestVO.getMyiAdrs().isEmpty()) {
+			throw new MyInformationUpdateException("주소가 유효하지 않습니다.", myInfromationRequestVO);
+		}
+
+		// 4. 업데이트 처리
+		return this.pltAdDao.updateOneUsrEditMyinformation(myInfromationRequestVO) > 0;
+	}
+	
+	
 
 }
