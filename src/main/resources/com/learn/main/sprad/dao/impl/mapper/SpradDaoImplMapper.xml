@@ -68,6 +68,7 @@ FROM SPRADM WHERE SPRADM_LGN_ID = #{_parameter}
 	     , SPRADM_LST_LGN_DT = SYSDATE
 	     , SPRADM_LGN_IP = NULL
 	     , SPRADM_LGN_YN = 'Y'
+	     , SPRADM_BLK_YN = 'N'
 	 WHERE SPRADM_LGN_ID = #{_parameter}
     </update>
     

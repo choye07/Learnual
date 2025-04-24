@@ -26,62 +26,55 @@
 
           <div class="regist-usr-form">
             <div class="email-area">
-                <label for="email">이메일</label>
+                <label for="email">계정</label>
                 <input
-                  id="usrMl"
-                  name="usrMl"
+                  id="myiLgnId"
+                  name="myiLgnId"
                   type="email"
-                  value="${userInputRegist.usrMl}"
+                  value="${inputEdit.myiLgnId}"
                 />
               </div>
 
               <div class="name-area">
                 <label for="name">이름</label>
                 <input
-                  id="usrNm"
-                  name="usrNm"
+                  id="myiNm"
+                  name="myiNm"
                   type="text"
-                  value="${userInputRegist.usrNm}"
+                  value="${inputEdit.myiNm}"
                   required
                 />
               </div>
 
               <div class="password-area">
-                <label for="password">비밀번호</label>
-                <input id="usrPw" name="usrPw" type="password" required />
+                <label for="password">비밀번호 수정</label>
+                <input id="myiLgnPw" name="myiLgnPw" type="password" required />
               </div>
-              <div class="confirm-password-area">
-                <label for="password">비밀번호 확인</label>
-                <input
-                  id="confirmUsrPw"
-                  name="confirmUsrPw"
-                  required="password"
-                />
-              </div>
+              
               <div class="address-area">
                 <label for="address">주소</label>
                 <input
-                  id="usrAdrs"
-                  name="usrAdrs"
+                  id="myiAdrs"
+                  name="myiAdrs"
                   type="text"
-                  value="${userInputRegist.usrAdrs}"
+                  value="${inputEdit.myiAdrs}"
                   required
                 />
               </div>
               <div class="phone-area">
                 <label for="phone">전화번호</label>
                 <input
-                  id="usrPn"
-                  name="usrPn"
+                  id="myiPn"
+                  name="myiPn"
                   type="text"
-                  value="${userInputRegist.usrPn}"
+                  value="${inputEdit.myiPn}"
                   required
                 />
               </div>
               
               <div class="btn-area">
               <form action="/editmyinformation" method="get">
-                <button class="btn2 btn-edit" type="submit">수정</button>
+                <button class="btn2 btn-edit" id="btn-edit" type="submit">수정</button>
                 </form>
               </div>
               </div>

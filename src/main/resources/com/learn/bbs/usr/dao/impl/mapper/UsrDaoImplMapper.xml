@@ -116,6 +116,7 @@
 	     , USR_LST_LGN_DT = SYSDATE
 	     , USR_LGN_IP = NULL
 	     , USR_LGN_YN = 'Y'
+	     , USR_BLK_YN = 'N'
 	 WHERE USR_ML = #{_parameter}
     </update>
     
