@@ -656,7 +656,7 @@ $(document).ready(function () {
   /* 강좌 삭제 이벤트 end */
 
   /* 강좌 신청 이벤트 start */
-  // 강준식 2025-04-20 수정
+  // 강준식 2025-04-25 수정
   // -----------------------------------------
 
   $(".course-detail")
@@ -664,21 +664,21 @@ $(document).ready(function () {
     .on("click", function () {
       var crsInfId = $(this).data("id");
 
-      // 신청 확인
       if (confirm("정말 해당 강좌를 신청하시겠습니까?")) {
         $.ajax({
           url: "/insttn/usr/detail/" + crsInfId + "/register",
           type: "POST",
           success: function (response) {
-            alert("신청이 완료되었습니다.");
-            location.reload();
+            if (response === "FULL") {
+              alert("정원이 초과되어 신청할 수 없습니다.");
+            } else if (response === "OK") {
+              alert("신청이 완료되었습니다.");
+              location.reload();
+            }
           },
-          error: function (xhr, status, error) {
-            console.log(xhr);
-            console.log(status);
-            console.log(error);
-            alert("신청 실패했습니다.");
-          },
+          error: function () {
+            alert("신청 처리 중 오류가 발생했습니다.");
+          }
         });
       }
     });
