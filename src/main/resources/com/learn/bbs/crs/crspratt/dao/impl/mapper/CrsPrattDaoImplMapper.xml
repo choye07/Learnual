@@ -4,30 +4,32 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.crs.crspratt.dao.impl.CrsPrattDaoImpl">
     <select id="checkUserHasCrsPratt" resultType="_int">
-        SELECT COUNT(CRS_PRATT_ID) 
-		  FROM CRS_PRATT 
-		 WHERE USR_ID = #{usrId}
-		   AND CRS_PRATT_DEL_YN = 'N'
-    </select>
+	    SELECT COUNT(cp.CRS_PRATT_ID)
+	      FROM CRS_PRATT cp
+	     INNER JOIN USR u
+	        ON cp.USR_ID = u.USR_ID
+	     WHERE u.USR_ML = #{usrMl}
+	       AND cp.CRS_PRATT_DEL_YN = 'N'
+	</select>
     
     <insert id="insertCrsPratt" parameterType="com.learn.bbs.crs.crspratt.vo.CrsPrattRegistRequestVO">
-		  INSERT INTO CRS_PRATT (
-		         CRS_PRATT_ID
-		       , CRS_INF_ID
-		       , SBJ_ID
-		       , USR_ID
-		       , INSTR_ID
-		       , CRS_PRATT_RGST_DT
-		       , CRS_PRATT_DEL_YN
-		       )
-		  VALUES (
-		         'CRS_PRATT-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CRS_PRATT_PK.NEXTVAL, 6, '0')
-		       , #{crsInfId}
-		       , (SELECT MIN(SBJ_ID) FROM CRS_SBJ WHERE CRS_INF_ID = #{crsInfId})
-		       , #{usrId}
-		       , (SELECT INSTR_ID FROM CRS_INF WHERE CRS_INF_ID = #{crsInfId})
-		       , SYSDATE
-		       , 'N'
-		       )
+	    INSERT INTO CRS_PRATT (
+	           CRS_PRATT_ID
+	         , CRS_INF_ID
+	         , SBJ_ID
+	         , USR_ID
+	         , INSTR_ID
+	         , CRS_PRATT_RGST_DT
+	         , CRS_PRATT_DEL_YN
+	         )
+	    VALUES (
+	           'CRS_PRATT-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CRS_PRATT_PK.NEXTVAL, 6, '0')
+	         , #{crsInfId}
+	         , (SELECT MIN(SBJ_ID) FROM CRS_SBJ WHERE CRS_INF_ID = #{crsInfId})
+	         , (SELECT USR_ID FROM USR WHERE USR_ML = #{usrMl})
+	         , (SELECT INSTR_ID FROM CRS_INF WHERE CRS_INF_ID = #{crsInfId})
+	         , SYSDATE
+	         , 'N'
+	         )
 	</insert>
 </mapper>

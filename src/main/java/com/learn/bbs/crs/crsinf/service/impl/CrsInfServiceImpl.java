@@ -16,6 +16,7 @@ import com.learn.bbs.crs.crsinf.service.CrsInfService;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfCourseListReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
@@ -68,14 +69,6 @@ public class CrsInfServiceImpl implements CrsInfService {
     @Transactional
     @Override
     public boolean insertOneCourse(CrsInfRegistRequestVO crsInfRegistRequestVO) {
-    	// 세션 값이 들어가야하는데 일단 세팅을 해놨습니다.
-    	String loginId = crsInfRegistRequestVO.getLoginId();
-    	int selectCount = this.pltAdDao.selectPltadCount(loginId);
-    	
-    	if(selectCount == 0) {
-    		throw new InstrRegistException(crsInfRegistRequestVO);
-    	}
-    	
         // 강좌 정보 삽입
         int isInsertedCourse = this.crsInfDao.insertOneCourse(crsInfRegistRequestVO);
         
@@ -126,15 +119,7 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional
 	@Override
-	public boolean updateOneCourse(CrsInfModifyRequestVO crsInfModifyRequestVO) {
-    	// 세션 값이 들어가야하는데 일단 세팅을 해놨습니다.
-    	String loginId = crsInfModifyRequestVO.getLoginId();
-    	int selectCount = this.pltAdDao.selectPltadCount(loginId);
-    	
-    	if(selectCount == 0) {
-    		throw new InstrRegistException(crsInfModifyRequestVO);
-    	}
-    	
+	public boolean updateOneCourse(CrsInfModifyRequestVO crsInfModifyRequestVO) {    	
     	this.crsSbjDao.deleteCourseSubject(crsInfModifyRequestVO.getCrsInfId());
     	
         int isUpdatedCourse = this.crsInfDao.updateOneCourse(crsInfModifyRequestVO);
@@ -191,20 +176,27 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional
 	@Override
-	public List<CrsInfAvailableReadResponseVO> selectCoursesForUser(String usrId) {
-    	// 수강 이력이 있는가?
-		int count = this.crsPrattDao.checkUserHasCrsPratt(usrId);
-		
-		if(count == 0) {
-			// 수강 이력 X; 수강 중인 강좌가 현재 없기 때문에 강좌 신청 가능 목록을 보여준다
-	        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfDao.selectAvailableCoursesForUser();
+	public List<CrsInfAvailableReadResponseVO> selectCoursesForUser(String usrMl) {
+        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfDao.selectAvailableCoursesForUser();
 
-			return availableCourses;
-		} else {
-			// 수강 이력 O; 현재 수강중인 강좌 목록을 보여준다
-			return this.crsInfDao.selectMyCourseForUser(usrId);
-		}
+		return availableCourses;
 	}
+    
+//    @Override
+//	public List<CrsInfAvailableReadResponseVO> selectAvailableFourCoursesForUser(String usrMl) {
+//    	// 수강 이력이 있는가?
+//		int count = this.crsPrattDao.checkUserHasCrsPratt(usrMl);
+//		
+//		if(count == 0) {
+//			// 수강 이력 X; 수강 중인 강좌가 현재 없기 때문에 강좌 신청 가능 목록을 보여준다
+//	        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfDao.selectAvailableFourCoursesForUser();
+//
+//			return availableCourses;
+//		} else {
+//			// 수강 이력 O; 현재 수강중인 강좌 목록을 보여준다
+//			return this.crsInfDao.selectMyCourseForUser(usrMl);
+//		}
+//	}
 
     @Transactional(readOnly = true)
 	@Override
@@ -213,9 +205,9 @@ public class CrsInfServiceImpl implements CrsInfService {
 	}
 
     @Transactional(readOnly = true)
-    public boolean isAppliedOrCancelled(String crsInfId, String usrId) {
+    public boolean isAppliedOrCancelled(String crsInfId, String usrMl) {
         // 신청 내역 ID 조회
-        String appHstrId = this.appHstrDao.findAppHstrId(crsInfId, usrId);
+        String appHstrId = this.appHstrDao.findAppHstrId(crsInfId, usrMl);
 
         if (appHstrId == null) {
             // 신청 안 했으면 -> 신청 버튼 보여줌
@@ -234,7 +226,7 @@ public class CrsInfServiceImpl implements CrsInfService {
 		
 		// DB 수정 실패
 		if(isUpdated == 0) {
-			// 나중에 추가
+			throw new CrsInfUpdateException(crsInfId);
 		}
 		
 		return isUpdated > 0;
@@ -258,13 +250,16 @@ public class CrsInfServiceImpl implements CrsInfService {
 		return isInserted;
 	}
 
+    @Transactional(readOnly = true)
 	@Override
 	public List<CnfrHstrConfirmReadVO> getConfirmedUsers(String crsInfId) {
 		return this.cnfrHstrDao.selectAllConfirmedUsers(crsInfId);
 	}
 
+    @Transactional
 	@Override
 	public boolean insertCrsPratt(CrsPrattRegistRequestVO crsPrattRegistRequestVO) {
+    	
         int isInserted = this.crsPrattDao.insertCrsPratt(crsPrattRegistRequestVO);
         
         if(isInserted == 0) {
@@ -274,62 +269,46 @@ public class CrsInfServiceImpl implements CrsInfService {
         return isInserted > 0;
 	}
 	
-	@Override
-	public void saveConfirmedUsersToPratt(CrsPrattRegistRequestVO crsPrattRegistRequestVO) {
-		String loginId = crsPrattRegistRequestVO.getLogId();
-        int selectCount = this.pltAdDao.selectPltadCount(loginId);
-        
-        if(selectCount == 0) {
-            throw new InstrRegistException(crsPrattRegistRequestVO);
+    @Transactional
+    @Override
+    public void saveConfirmedUsersToPratt(CrsPrattRegistRequestVO crsPrattRegistRequestVO) {
+        String crsInfId = crsPrattRegistRequestVO.getCrsInfId();
+        List<String> selectedEmails = crsPrattRegistRequestVO.getSelectedUserEmails();
+
+        List<CnfrHstrConfirmReadVO> confirmedUsers = this.getConfirmedUsers(crsInfId);
+
+        List<CnfrHstrConfirmReadVO> selectedUsers = new ArrayList<>();
+        for (CnfrHstrConfirmReadVO user : confirmedUsers) {
+            if (selectedEmails.contains(user.getUsrMl())) {
+                selectedUsers.add(user);
+            }
         }
-        
-	    String crsInfId = crsPrattRegistRequestVO.getCrsInfId();  // 강좌 ID
-	    List<String> selectedUserIds = crsPrattRegistRequestVO.getSelectedUserIds();  // 선택된 사용자 ID 리스트
 
-	    // 모든 사용자 목록을 가져오고, 정말 강좌를 들을 학생들만 담아야함
-	    List<CnfrHstrConfirmReadVO> confirmedUsers = getConfirmedUsers(crsInfId);
+        for (CnfrHstrConfirmReadVO user : selectedUsers) {
+            CrsPrattRegistRequestVO crsPrattRegistRequest = new CrsPrattRegistRequestVO();
+            crsPrattRegistRequest.setCrsInfId(crsInfId);
+            crsPrattRegistRequest.setUsrId(user.getUsrId());
+            crsPrattRegistRequest.setUsrMl(user.getUsrMl());
 
-	    List<CnfrHstrConfirmReadVO> selectedUsers = new ArrayList<>();
+            this.insertCrsPratt(crsPrattRegistRequest);
+        }
+    }
 
-	    // 선택된 사용자만 가져온다
-	    for (CnfrHstrConfirmReadVO user : confirmedUsers) {
-	        if (selectedUserIds.contains(user.getUsrId())) {
-	            selectedUsers.add(user);
-	        }
-	    }
-
-	    // 필터링된 사용자들만 처리
-	    for (CnfrHstrConfirmReadVO user : selectedUsers) {
-	        CrsPrattRegistRequestVO crsPrattRegistRequest = new CrsPrattRegistRequestVO();
-	        
-	        crsPrattRegistRequest.setCrsInfId(crsInfId);
-	        crsPrattRegistRequest.setUsrId(user.getUsrId());
-	        crsPrattRegistRequest.setLogId("admin");
-
-	        this.insertCrsPratt(crsPrattRegistRequest);
-	    }
-	}
-
+    @Transactional(readOnly = true)
     @Override
     public List<SbjVO> getSubjectList() {
         return sbjDao.selectAllSubjects();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<InstrVO> getInstrList() {
         return instrDao.selectAllInstrs();
     }
 
+    @Transactional
 	@Override
 	public boolean abandonOneCourse(CrsInfAbandonUpdateRequestVO crsInfAbandonUpdateRequestVO) {
-		String loginId = crsInfAbandonUpdateRequestVO.getLgnId();
-        int selectCount = this.pltAdDao.selectPltadCount(loginId);
-        
-        // 권한 없음
-        if(selectCount == 0) {
-            throw new InstrRegistException(crsInfAbandonUpdateRequestVO);
-        }
-        
 		int isUpdate = this.crsInfDao.abandonOneCourse(crsInfAbandonUpdateRequestVO);
 		
 		// DB 수정 실패
@@ -340,24 +319,35 @@ public class CrsInfServiceImpl implements CrsInfService {
 		return isUpdate > 0;
 	}
 
+    @Transactional(readOnly = true)
 	@Override
 	public List<CrsInfAbandonReadResponseVO> selectAbandonCourse() {
 		return this.crsInfDao.selectAbandonCourse();
 	}
 
+    @Transactional(readOnly = true)
 	@Override
-	public boolean updateNotAttendCourse(List<String> usrIds, String loginId) {
-		String curLoginId = loginId;
-		int selectCount = this.pltAdDao.selectPltadCount(curLoginId);
-		
-		 // 권한 없음
-        if(selectCount == 0) {
-            throw new InstrRegistException(loginId);
-        }
-		
-        // 마지막에 강좌를 참석하지 않겠다고 말한 사용자들의 확정 여부를 'N'으로 업데이트
-        int updateCount = this.crsInfDao.updateNotAttendCourse(usrIds, curLoginId);  // 실제 업데이트 호출
-        
-        return updateCount > 0;
+	public String selectOneInstrName(String crsInfId) {
+		return this.instrDao.selectOneInstrName(crsInfId);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public CrsInfCourseListReadResponseVO selectAvailableFourCoursesWithStatus(String usrMl) {
+	    int count = this.crsPrattDao.checkUserHasCrsPratt(usrMl);
+	    boolean isRegistered = count > 0;
+
+	    List<CrsInfAvailableReadResponseVO> courseList;
+	    if (isRegistered) {
+	        courseList = this.crsInfDao.selectMyCourseForUser(usrMl);
+	    } else {
+	        courseList = this.crsInfDao.selectAvailableFourCoursesForUser();
+	    }
+
+	    CrsInfCourseListReadResponseVO responseVO = new CrsInfCourseListReadResponseVO();
+	    responseVO.setCourseList(courseList);
+	    responseVO.setIsRegistered(isRegistered);
+
+	    return responseVO;
 	}
 }

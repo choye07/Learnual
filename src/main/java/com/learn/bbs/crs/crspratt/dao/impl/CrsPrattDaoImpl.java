@@ -25,8 +25,8 @@ public class CrsPrattDaoImpl extends SqlSessionDaoSupport implements CrsPrattDao
     }
 
 	@Override
-	public int checkUserHasCrsPratt(String usrId) {
-		return this.getSqlSession().selectOne(NAME_SPACE + "checkUserHasCrsPratt", usrId);
+	public int checkUserHasCrsPratt(String usrMl) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "checkUserHasCrsPratt", usrMl);
 	}
 
 	@Override

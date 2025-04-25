@@ -5,6 +5,7 @@ import java.util.List;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfCourseListReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
@@ -38,12 +39,13 @@ public interface CrsInfService {
 	
 	public List<CrsInfAvailableReadResponseVO> selectRegisterableCourses();
 	
-	public List<CrsInfAvailableReadResponseVO> selectCoursesForUser(String usrId);
+	public List<CrsInfAvailableReadResponseVO> selectCoursesForUser(String usrMl);
+	
+//	public List<CrsInfAvailableReadResponseVO> selectAvailableFourCoursesForUser(String usrMl);
 	
 	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId);
-	
-	// usrID 필요한데 일단 더미데이터로 박아놨어요 
-	public boolean isAppliedOrCancelled(String crsInfId, String usrId);
+
+	public boolean isAppliedOrCancelled(String crsInfId, String usrMl);
 	
 	public boolean endOneCourse(String crsInfId);
 	
@@ -63,5 +65,7 @@ public interface CrsInfService {
     
     public List<CrsInfAbandonReadResponseVO> selectAbandonCourse();
     
-    public boolean updateNotAttendCourse(List<String> usrIds, String loginId);
+    public String selectOneInstrName(String crsInfId);
+    
+    public CrsInfCourseListReadResponseVO selectAvailableFourCoursesWithStatus(String usrId);
 }

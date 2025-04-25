@@ -80,6 +80,17 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	public List<CrsInfAvailableReadResponseVO> selectAvailableCoursesForUser() {
 		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableCoursesForUser");
 	}
+	
+
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectAvailableFourCoursesForUser() {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableFourCoursesForUser");
+	}
+	
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrMl) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectMyCourseForUser", usrMl);
+	}
 
 	@Override
 	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId) {
@@ -89,11 +100,6 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	@Override
 	public int endOneCourse(String crsInfId) {
 		return this.getSqlSession().update(NAME_SPACE + "endOneCourse", crsInfId);
-	}
-
-	@Override
-	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrId) {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectMyCourseForUser", usrId);
 	}
 
 	@Override
@@ -107,11 +113,7 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	}
 
 	@Override
-	public int updateNotAttendCourse(List<String> usrIds, String loginId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("usrIds", usrIds);
-        params.put("loginId", loginId);
-
-        return this.getSqlSession().update(NAME_SPACE + "updateNotAttendCourse", params);
+	public int selectLimitedCount(String crsInfId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectLimitedCount", crsInfId);
 	}
 }

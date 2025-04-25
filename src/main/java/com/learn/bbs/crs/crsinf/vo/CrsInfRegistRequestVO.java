@@ -44,15 +44,15 @@ public class CrsInfRegistRequestVO {
     @NotEmpty(message = "강사는 1명 선택해야 합니다.") 
     private String instrId;
     
-    private String loginId;
-    
-    public String getLoginId() {
-		return loginId;
-	}
-
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
+//    private String loginId;
+//    
+//    public String getLoginId() {
+//		return loginId;
+//	}
+//
+//	public void setLoginId(String loginId) {
+//		this.loginId = loginId;
+//	}
 
 	public String getCrsInfId() {
 		return crsInfId;
