@@ -112,13 +112,16 @@
 						<div>
 							<ul class="article-content">
 								<c:forEach var="inactiveCourse" items="${inactiveCourses}">
-									<li><a
-										href="/insttn/pltad/confirm/${inactiveCourse.crsInfId}">
-											<h3>${inactiveCourse.crsInfNm}</h3>
-									</a>
-										<p class="period">
-											<span>${inactiveCourse.crsInfStDt}</span> ~ <span>${inactiveCourse.crsInfEndDt}</span>
-										</p></li>
+								    <c:if test="${inactiveCourse.status eq 'isEnd'}">
+								        <li>
+								            <a href="/insttn/pltad/confirm/${inactiveCourse.crsInfId}">
+								                <h3>${inactiveCourse.crsInfNm}</h3>
+								            </a>
+								            <p class="period">
+								                <span>${inactiveCourse.crsInfStDt}</span> ~ <span>${inactiveCourse.crsInfEndDt}</span>
+								            </p>
+								        </li>
+								    </c:if>
 								</c:forEach>
 							</ul>
 

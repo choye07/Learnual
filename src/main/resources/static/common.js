@@ -674,6 +674,9 @@ $(document).ready(function () {
             location.reload();
           },
           error: function (xhr, status, error) {
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
             alert("신청 실패했습니다.");
           },
         });
@@ -797,34 +800,32 @@ $(document).ready(function () {
       const crsInfId = $(this).data("id");
       const form = $("#confirm-applied-user-form");
 
-      // form action 동적으로 설정
-      form.attr("action", "/insttn/pltad/confirm/" + crsInfId);
-
-      const selectedUsers = $('input[name="selectedUserIds"]:checked');
-      const allUsers = $('input[name="selectedUserIds"]');
-
+      const selectedUsers = $('input[name="selectedUserEmails"]:checked');
+      
       if (selectedUsers.length === 0) {
         alert("확정할 회원을 선택하세요.");
         return;
       }
 
-      // 기존 hidden 제거
-      $('input[name="notConfirmedUsrIds"]').remove();
+      form.find('input[type="hidden"][name="selectedUserEmails"]').remove();
 
-      // 확정되지 않은 사용자 ID 추출
-      allUsers.each(function () {
-        const usrId = $(this).val();
-        if (!$(this).is(":checked")) {
-          const hiddenInput = $("<input>")
+      // 선택된 유저 이메일 hidden input으로 추가
+      selectedUsers.each(function () {
+        const email = $(this).val();
+        form.append(
+          $("<input>")
             .attr("type", "hidden")
-            .attr("name", "notConfirmedUsrIds")
-            .val(usrId);
-          form.append(hiddenInput);
-        }
+            .attr("name", "selectedUserEmails")
+            .val(email)
+        );
       });
 
       alert("강의가 확정되었습니다.");
-      form.submit();
+
+      form.attr({
+        method: "POST",
+        action: "/insttn/pltad/confirm/" + crsInfId,
+      }).submit();
     });
 
   /* 강좌 확정 이벤트 end */

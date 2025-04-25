@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.learn.bbs.crs.crsinf.service.CrsInfService;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfCourseListReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
@@ -25,8 +27,12 @@ import com.learn.bbs.crs.crspratt.vo.CrsPrattRegistRequestVO;
 import com.learn.bbs.crs.sbj.vo.SbjVO;
 import com.learn.bbs.pltad.cnfr.vo.CnfrHstrConfirmReadVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
+import com.learn.bbs.pltad.vo.PltadmVO;
+import com.learn.bbs.usr.vo.UsrVO;
+import com.learn.exceptions.AccessDeniedException;
 import com.learn.exceptions.CnfrHstrInsertException;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -42,7 +48,14 @@ public class CrsInfController {
     private CrsInfService crsInfService;
 
     @GetMapping("/insttn/pltad")
-    public String showAllCourses(Model model) {
+    public String showAllCourses(Model model, HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
+    	
         List<CrsInfPltadReadResponseVO> activeCourses = this.crsInfService.selectAllCourseForPltad();
         List<CrsInfPltadFinishedReadResponseVO> inactiveCourses = this.crsInfService.selectAllFinishedCourseForPltad();
         List<CrsInfAbandonReadResponseVO> abandonCourses = this.crsInfService.selectAbandonCourse();
@@ -56,11 +69,19 @@ public class CrsInfController {
     
 
     @GetMapping("/insttn")
-    public String showAvailableCourses(Model model) {
-    	
-        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfService.selectCoursesForUser("USR-20250419-000002"); // 여기서 session으로 user id 가져오면 될거같아요
-        
-        model.addAttribute("availableCourses", availableCourses);
+    public String showAvailableCourses(Model model, HttpSession session) {
+        UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+        PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+
+        CrsInfCourseListReadResponseVO result = crsInfService.selectAvailableFourCoursesWithStatus(
+            usrVO != null ? usrVO.getUsrMl() : null
+        );
+
+        model.addAttribute("availableCourses", result.getCourseList());
+        model.addAttribute("isRegistered", result.getIsRegistered());
+
+        model.addAttribute("isStudent", usrVO != null);
+        model.addAttribute("isAdmin", pltadmVO != null);
 
         return "insttn/maininsttn";
     }
@@ -77,27 +98,59 @@ public class CrsInfController {
     
     @GetMapping("/insttn/usr/detail/{crsInfId}")
     public String showAllAvailableForUser(@PathVariable String crsInfId,
-    									  Model model) {
-    	String usrId = "USR-20250419-000002"; // 로그인된 유저의 ID <- 여기서 session 사용하시면 될듯!
-    	
-        boolean showCancelButton = crsInfService.isAppliedOrCancelled(crsInfId, usrId);
+    									  Model model,
+    									  HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	UsrVO userVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
         
-        model.addAttribute("showCancelButton", showCancelButton);
-        
-    	model.addAttribute("courseDetail", this.crsInfService.selectCourseDetail(crsInfId));
-    	
-    	return "/bbs/crs/coursedetail";
+        if (pltadmVO != null) {
+            // 플랫폼 관리자일 경우; 신청 버튼 보여줄 필요 없다
+            model.addAttribute("isPltadm", true);
+        } else if (userVO != null) {
+            // 일반 사용자일 경우; 어떤 버튼을 보여줘야 하는가 알려줘야함
+            model.addAttribute("isPltadm", false);
+            model.addAttribute("isLoginUser", true);
+            String usrMl = userVO.getUsrMl();
+            
+            boolean showCancelButton = crsInfService.isAppliedOrCancelled(crsInfId, usrMl);
+            model.addAttribute("showCancelButton", showCancelButton);
+        } else {
+            // 로그인 안 된 경우
+            model.addAttribute("isPltadm", false);
+            model.addAttribute("isLoginUser", false);
+        }
+
+        model.addAttribute("courseDetail", crsInfService.selectCourseDetail(crsInfId));
+        model.addAttribute("instrName", crsInfService.selectOneInstrName(crsInfId));
+
+        return "/bbs/crs/coursedetail";
     }
     
     @GetMapping("/insttn/pltad/detail/{crsInfId}")
     public String showAllAvailableForPltAd(@PathVariable String crsInfId,
-    									   Model model) {
+    									   Model model,
+    									   HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
+    	
+        model.addAttribute("isPltadm", true);
     	model.addAttribute("courseDetail", this.crsInfService.selectCourseDetail(crsInfId));
+    	model.addAttribute("instrName", this.crsInfService.selectOneInstrName(crsInfId));
     	
 		return "/bbs/crs/coursedetail";
 }
     @GetMapping("insttn/pltad/create")
-    public String showSubjectList(Model model) {
+    public String showSubjectList(Model model, HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
+    	
         List<SbjVO> subjectList = crsInfService.getSubjectList();
         List<InstrVO> instrList = crsInfService.getInstrList();
         
@@ -110,8 +163,14 @@ public class CrsInfController {
     @PostMapping("/insttn/pltad/create")
     public String registerCourse(@Valid CrsInfRegistRequestVO crsInfRegistRequestVO,
     							 BindingResult bindingResult,
-    							 Model model) {
-    	crsInfRegistRequestVO.setLoginId("admin");
+    							 Model model,
+    							 HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
 
     	List<SbjVO> subjectList = crsInfService.getSubjectList();
         List<InstrVO> instrList = crsInfService.getInstrList();
@@ -248,7 +307,16 @@ public class CrsInfController {
     }
     
     @GetMapping("/insttn/pltad/modify/{crsInfId}")
-    public String goModifyCourse(@PathVariable String crsInfId, Model model) {
+    public String goModifyCourse(@PathVariable String crsInfId, 
+    							 Model model,
+    							 HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
+    	
         CrsInfModifyRequestVO courseInfo = this.crsInfService.selectAllInfoFromOneCourse(crsInfId);
         
         List<SbjVO> subjectList = this.crsInfService.getSubjectList();
@@ -266,8 +334,14 @@ public class CrsInfController {
     @PostMapping("/insttn/pltad/modify/{crsInfId}")
     public String doModifyCourse(@Valid CrsInfModifyRequestVO crsInfModifyRequestVO,
 								 BindingResult bindingResult,
-								 Model model) {
-    	crsInfModifyRequestVO.setLoginId("admin");
+								 Model model,
+								 HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
     	
         List<SbjVO> subjectList = this.crsInfService.getSubjectList();
         List<InstrVO> instrList = this.crsInfService.getInstrList();
@@ -409,7 +483,14 @@ public class CrsInfController {
     
     // 삭제
     @PostMapping("/insttn/pltad/delete/{crsInfId}")
-    public String doDeleteCourse(@PathVariable String crsInfId) {
+    public String doDeleteCourse(@PathVariable String crsInfId, HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
+    	
     	this.crsInfService.deleteOneCourse(crsInfId);
     	
     	return "redirect:/insttn/pltad";
@@ -417,7 +498,14 @@ public class CrsInfController {
     
     // 마감
     @PostMapping("/insttn/pltad/end/{crsInfId}")
-    public String doEndCourse(@PathVariable String crsInfId) {
+    public String doEndCourse(@PathVariable String crsInfId, HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
+    	
     	this.crsInfService.endOneCourse(crsInfId);
     	
     	try {
@@ -430,7 +518,16 @@ public class CrsInfController {
     }
     
     @GetMapping("/insttn/pltad/confirm/{crsInfId}")
-    public String showConfirmedUsers(@PathVariable String crsInfId, Model model) {
+    public String showConfirmedUsers(@PathVariable String crsInfId, 
+    								 Model model,
+    								 HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
+    	
         List<CnfrHstrConfirmReadVO> users = this.crsInfService.getConfirmedUsers(crsInfId);
         String crsInfNm = this.crsInfService.selectCourseName(crsInfId);
         model.addAttribute("courseName", crsInfNm);
@@ -443,19 +540,31 @@ public class CrsInfController {
     // 확정
     @PostMapping("/insttn/pltad/confirm/{crsInfId}")
     public String doSavingConfirmedUsersToPratt(@PathVariable String crsInfId,
-    											@ModelAttribute CrsPrattRegistRequestVO crsPrattRegistRequestVO) {
-    	crsPrattRegistRequestVO.setLogId("admin");
+    											@ModelAttribute CrsPrattRegistRequestVO crsPrattRegistRequestVO,
+    											HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
     	
         // 서비스에서 선택된 사용자만 처리하도록 호출
-        crsInfService.saveConfirmedUsersToPratt(crsPrattRegistRequestVO);
+        this.crsInfService.saveConfirmedUsersToPratt(crsPrattRegistRequestVO);
         
         return "redirect:/insttn/pltad";
-        
     }
     
     // 폐강
     @PostMapping("insttn/pltad/abandon/{crsInfId}")
-    public String doAbandonCourse(@PathVariable String crsInfId) {
+    public String doAbandonCourse(@PathVariable String crsInfId, HttpSession session) {
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	
+    	// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
+    	if(pltadmVO == null) {
+    		throw new AccessDeniedException();
+    	}
+    	
     	CrsInfAbandonUpdateRequestVO crsInfAbandonUpdateRequestVO = new CrsInfAbandonUpdateRequestVO();
     	
     	crsInfAbandonUpdateRequestVO.setLgnId("admin");

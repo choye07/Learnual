@@ -67,4 +67,9 @@ public class InstrDaoImpl extends SqlSessionDaoSupport implements InstrDao {
 		return this.getSqlSession().selectList(NAME_SPACE + "selectAllInstrs");
 	}
 
+	@Override
+	public String selectOneInstrName(String crsInfId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectOneInstrName", crsInfId);
+	}
+
 }

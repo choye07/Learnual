@@ -44,51 +44,58 @@
 							${courseDetail.crsInfCrsRoomNm}</div>
 						<div class="course-registEndDate-label">강사</div>
 						<div class="course-registEndDate">
-							<!-- 나중엔 진짜 데이터 강사에서 가져와서 넣어야함 -->
-							장민창
+							${instrName}
 						</div>
 					</div>
 				</div>
 
 				<div class="course-detail-content2">
 					<h2 class="section-title">상세정보</h2>
-					<!-- foreach 쓰기 -->
 					<c:forEach var="curriculum" items="${courseDetail.curriculumList}">
 						<div class="course-subjectName"
 							style="font-weight: 700; font-size: 24px;">${curriculum.sbjNm}</div>
-						<!-- 회의 후 css 변경 -->
 						<div class="course-subjectDesc">${curriculum.crclmDesc}</div>
 					</c:forEach>
 				</div>
 
-				<!-- session 불러와서 만약 session이 플랫폼관리자라면 이 버튼들 아예 안보이게 하시면 됩니다; 여기부터-->
 				<div class="button-wrapper">
-					<c:choose>
-					    <c:when test="${courseDetail.crsInfAbdnYn == 'Y'}">
-                            <span class="status-text abandoned">폐강된 강좌입니다.</span>
-                        </c:when>
-                        
-					    <c:when test="${courseDetail.crsInfDdlnYn == 'Y'}">
-                            <span class="status-text closed">마감된 강좌입니다.</span>
-                        </c:when>
-                        
-					    <c:otherwise>
-					        <c:choose>
-					            <c:when test="${showCancelButton}">
-					                <a href="javascript:void(0);" class="btn-cancel"
-					                   data-id="${courseDetail.crsInfId}"> 신청 취소 </a>
-					            </c:when>
-					            <c:otherwise>
-					                <a href="javascript:void(0);" class="btn-regist"
-					                   data-id="${courseDetail.crsInfId}"> 강좌 신청 </a>
-					            </c:otherwise>
-					        </c:choose>
-					    </c:otherwise>
-					</c:choose>
-					<!-- session 불러와서 만약 session이 플랫폼관리자라면 이 버튼들 아예 안보이게 하시면 됩니다; 여기까지-->
+				    <c:if test="${!isPltadm}">
+				        <c:choose>
+				            <c:when test="${!isLoginUser}">
+				                <span class="status-text login-required">로그인이 필요합니다.</span>
+				            </c:when>
+				            
+				            <c:when test="${courseDetail.crsInfAbdnYn == 'Y'}">
+				                <span class="status-text abandoned">폐강된 강좌입니다.</span>
+				            </c:when>
+				
+				            <c:when test="${courseDetail.crsInfDdlnYn == 'Y'}">
+				                <span class="status-text closed">마감된 강좌입니다.</span>
+				            </c:when>
+				
+				            <c:otherwise>
+				                <c:choose>
+				                    <c:when test="${showCancelButton}">
+				                        <a href="javascript:void(0);" class="btn-cancel"
+				                           data-id="${courseDetail.crsInfId}"> 신청 취소 </a>
+				                    </c:when>
+				                    <c:otherwise>
+				                        <a href="javascript:void(0);" class="btn-regist"
+				                           data-id="${courseDetail.crsInfId}"> 강좌 신청 </a>
+				                    </c:otherwise>
+				                </c:choose>
+				            </c:otherwise>
+				        </c:choose>
+				    </c:if>
 
-					<!-- session 불러와서 플랫폼관리자면 href="/insttn/pltad", 유저면 href="/insttn/usr"로 가게끔 하면 됩니다; 아마 나중에 endpoint 정리하면서 달라질거같네요 -->
-					<a class="btn-back" href="/insttn/usr" type="button">뒤로</a>
+				    <c:choose>
+				        <c:when test="${isPltadm}">
+				            <a class="btn-back" href="javascript:history.back();" type="button">뒤로</a>
+				        </c:when>
+				        <c:otherwise>
+				            <a class="btn-back" href="javascript:history.back();" type="button">뒤로</a>
+				        </c:otherwise>
+				    </c:choose>
 				</div>
 			</div>
 		</div>

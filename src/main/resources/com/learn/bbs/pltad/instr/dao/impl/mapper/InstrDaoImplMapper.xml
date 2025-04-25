@@ -194,6 +194,14 @@ FROM INSTR WHERE INSTR_LGN_ID = #{_parameter}
           FROM INSTR
          WHERE INSTR_DEL_YN = 'N'
     </select>
+    
+    <select id="selectOneInstrName" parameterType="string" resultType="string">
+        SELECT i.INSTR_NM
+          FROM INSTR i
+         INNER JOIN CRS_INF ci
+            ON ci.INSTR_ID = i.INSTR_ID
+         WHERE ci.CRS_INF_ID = #{crsInfId}
+    </select>
 
 <!-- login 기능 mapper end sh  -->
 </mapper>

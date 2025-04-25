@@ -145,7 +145,7 @@
 
 						<div class="btn-area">
 							<button class="btn-submit" type="submit">등록</button>
-							<button class="btn-cancel" type="button">취소</button>
+							<button class="btn-cancel" type="button" onclick="history.back();">취소</button>
 						</div>
 					</form:form>
 				</div>

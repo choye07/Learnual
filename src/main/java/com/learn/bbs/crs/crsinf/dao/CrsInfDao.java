@@ -42,8 +42,10 @@ public interface CrsInfDao {
 	// 강좌 삭제; soft delete
 	public int deleteOneCourse(String crsInfNm);
 	
-	// 현재 수강신청 가능한 강좌들만 불러옴
+	// 현재 개설된 강좌들만 불러옴; 유저들에게 보여준다 - 현재 개설 중인 강좌
 	public List<CrsInfAvailableReadResponseVO> selectAvailableCoursesForUser();
+	
+	public List<CrsInfAvailableReadResponseVO> selectAvailableFourCoursesForUser();
 	
 	// 강좌의 정보를 출력하기 위해 필요함; 커리큘럼도!
 	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId);
@@ -52,7 +54,7 @@ public interface CrsInfDao {
 	public int endOneCourse(String crsInfId);
 	
 	// 현재 자신이 수강중인 강좌 보여주기 
-	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrId);
+	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrMl);
 	
 	// 강좌 폐강 
 	public int abandonOneCourse(CrsInfAbandonUpdateRequestVO crsInfAbandonUpdateRequestVO);
@@ -60,6 +62,6 @@ public interface CrsInfDao {
 	// 폐강된 강좌 목록 가져오기
 	public List<CrsInfAbandonReadResponseVO> selectAbandonCourse();
 	
-	// 강좌 확정 페이지에서 체크하지 않은 학생들(강좌 신청은 했으나 최종적으로 강좌를 듣지 않기로 결정한 학생들)	
-	public int updateNotAttendCourse(List<String> usrIds, String loginId);
+	// 해당 강좌의 정원 불러오기
+	public int selectLimitedCount(String crsInfId);
 }

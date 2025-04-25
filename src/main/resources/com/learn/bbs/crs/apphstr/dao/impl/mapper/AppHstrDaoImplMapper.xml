@@ -7,33 +7,46 @@
         <selectKey keyProperty="appHstrId" resultType="string" order="BEFORE">
             SELECT 'APP_HSTR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_APP_HSTR_PK.NEXTVAL, 6, '0') FROM DUAL
         </selectKey>
-        INSERT INTO APP_HSTR (
-        APP_HSTR_ID,
-        APP_HSTR_RGST_DT,
-        CRS_INF_ID,
-        USR_ID
-    ) VALUES (
-        #{appHstrId},
-        SYSDATE,
-        #{crsInfId},
-        #{usrId}
-    )
+	        INSERT INTO APP_HSTR (
+		           APP_HSTR_ID
+		         , APP_HSTR_RGST_DT
+		         , CRS_INF_ID
+		         , USR_ID
+		    ) SELECT #{appHstrId}
+		           , SYSDATE
+		           , #{crsInfId}
+		           , u.USR_ID
+		    FROM USR u
+		    WHERE u.USR_ML = #{usrMl}
     </insert>
     
     <select id="existsAppHstr" resultType="boolean">
         SELECT CASE 
-             WHEN COUNT(*) > 0 THEN 1 
+             WHEN COUNT(ah.APP_HSTR_ID) > 0 THEN 1 
              ELSE 0 
            END AS result
-          FROM APP_HSTR
-         WHERE CRS_INF_ID = #{crsInfId}
-           AND USR_ID = #{usrId}
+	      FROM APP_HSTR ah
+	     INNER JOIN USR u 
+	        ON ah.USR_ID = u.USR_ID
+	     WHERE ah.CRS_INF_ID = #{crsInfId}
+	       AND u.USR_ML = #{usrMl}
     </select>
     
     <select id="findAppHstrId" resultType="string">
-        SELECT MAX(APP_HSTR_ID)
-          FROM APP_HSTR
-         WHERE CRS_INF_ID = #{crsInfId}
-           AND USR_ID = #{usrId}
+        SELECT MAX(ah.APP_HSTR_ID)
+	      FROM APP_HSTR ah
+	     INNER JOIN USR u 
+	        ON ah.USR_ID = u.USR_ID
+	     WHERE ah.CRS_INF_ID = #{crsInfId}
+	       AND u.USR_ML = #{usrMl}
+    </select>
+    
+    <select id="countCurrentUserInCourse" resultType="_int">
+        SELECT COUNT(AH.APP_HSTR_ID)
+		  FROM APP_HSTR AH
+		  LEFT OUTER JOIN CNCL_HSTR CH 
+		    ON AH.APP_HSTR_ID = CH.APP_HSTR_ID
+		 WHERE AH.CRS_INF_ID = #{crsInfId}
+		   AND CH.CNCL_HSTR_ID IS NULL
     </select>
 </mapper>

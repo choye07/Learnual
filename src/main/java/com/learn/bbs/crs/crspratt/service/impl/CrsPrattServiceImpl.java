@@ -24,14 +24,6 @@ public class CrsPrattServiceImpl implements CrsPrattService {
 
 	@Override
 	public boolean insertCrsPratt(CrsPrattRegistRequestVO crsPrattRegistRequestVO) {
-    	// 세션 값이 들어가야하는데 일단 세팅을 해놨습니다.
-    	String loginId = crsPrattRegistRequestVO.getLogId();
-    	int selectCount = this.pltAdDao.selectPltadCount(loginId);
-    	
-    	if(selectCount == 0) {
-    		throw new InstrRegistException(crsPrattRegistRequestVO);
-    	}
-    	
     	// 강좌 이력 삽입
     	int isInserted = this.crsPrattDao.insertCrsPratt(crsPrattRegistRequestVO);
     	

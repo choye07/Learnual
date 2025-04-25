@@ -49,5 +49,7 @@ public interface InstrDao {
     
     // 모든 강사를 불러옴; 강좌 개설 & 수정 필요
     public List<InstrVO> selectAllInstrs();
+    
+    public String selectOneInstrName(String crsInfId);
 
 }

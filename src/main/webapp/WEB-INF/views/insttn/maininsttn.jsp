@@ -67,34 +67,52 @@
 						<!-- 세션값에 따라 현재 개설강좌목록 or 나의 수강강좌목록이 출력됨 start -->
 						<div class="notice widget-article">
 							<div>
-								<h2>학원 강좌 목록</h2>
-								<!-- session에서 학생일 시 /insttn/usr - a 태그 이름은 신청하기, 아닐시 /insttn/pltad - a 태그 이름은 관리하기  -->
-								<a href="/insttn/pltad">관리하기</a> <a href="/insttn/usr">신청하기</a>
+								<h2>
+							        <c:choose>
+							            <c:when test="${isRegistered}">
+							                수강 중인 강좌 목록
+							            </c:when>
+							            <c:otherwise>
+							                학원 강좌 목록
+							            </c:otherwise>
+							        </c:choose>
+							    </h2>
+								<c:choose>
+							        <c:when test="${isAdmin}">
+							            <a href="/insttn/pltad">관리하기</a>
+							        </c:when>
+							        <c:when test="${isStudent}">
+							            <a href="/insttn/usr">신청하기</a>
+							        </c:when>
+							        <c:otherwise>
+							            <span>로그인이 필요합니다.</span>
+							        </c:otherwise>
+							    </c:choose>
 							</div>
 							<div class="course-wrapper">
-								<div class="course-article">
-									<ul class="article-content">
-										<c:forEach var="availableCourse" items="${availableCourses}">
-											<li>
-												<h3>${availableCourse.crsInfNm}</h3>
-												<p class="period">
-													<span>${availableCourse.crsInfStDt}</span> ~ <span>${availableCourse.crsInfEndDt}</span>
-												</p> <%-- <p class="available-capa">
-                              수강인원 :
-                              <span class="current-capa">${activeCourse.crsCurPrsCnt}</span> /
-                              <span class="max-capa">${activeCourse.crsInfPrsCnt}</span> 명
-                              </p> --%> <%-- <div class="article-direct">
-                                <a class="btn-modify" href="/insttn/pltad/modify/${activeCourse.crsInfId}">수정</a>
-                                <a class="btn-delete" href="javascript:void(0);"
-                                  data-id="${activeCourse.crsInfId}">삭제</a>
-                                <c:if test="${activeCourse.deadlineToday}">
-                                  <a class="btn-shutdown" href="#">마감</a>
-                                </c:if>
-                    </div> --%>
-											</li>
-										</c:forEach>
-									</ul>
-								</div>
+							    <div class="course-article">
+							        <ul class="article-content">
+							            <c:set var="linkBase" value="${isRegistered ? '/insttn/pltad/zz/' : '/insttn/usr/detail/'}" />
+							
+							            <c:choose>
+							                <c:when test="${not empty availableCourses}">
+							                    <c:forEach var="availableCourse" items="${availableCourses}">
+							                        <li>
+							                            <a href="${linkBase}${availableCourse.crsInfId}">
+							                                <h3>${availableCourse.crsInfNm}</h3>
+							                            </a>
+							                            <p class="period">
+							                                <span>${availableCourse.crsInfStDt}</span> ~ <span>${availableCourse.crsInfEndDt}</span>
+							                            </p>
+							                        </li>
+							                    </c:forEach>
+							                </c:when>
+							                <c:otherwise>
+							                    <li>현재 신청 가능한 강좌가 없습니다.</li>
+							                </c:otherwise>
+							            </c:choose>
+							        </ul>
+							    </div>
 							</div>
 						</div>
 						<!-- 세션값에 따라 현재 개설강좌목록 or 나의 수강강좌목록이 출력됨 end -->

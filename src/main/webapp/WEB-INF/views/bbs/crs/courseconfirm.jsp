@@ -39,8 +39,8 @@
 								<a class="btn-abandon" href="javascript:void(0);" data-id="${crsInfId}">폐강</a>
 							</c:when>
 							<c:otherwise>
-								<form id="confirm-applied-user-form"
-									action="/admin/confirmSelectedUsers" method="post">
+								<form id="confirm-applied-user-form" method="post">
+								    <input type="hidden" id="userEmails" name="userEmails" value="" />
 									<div class="table-header">
 										<div>선택</div>
 										<div>회원 이름</div>
@@ -52,8 +52,8 @@
 									<c:forEach var="user" items="${confirmedUsers}">
 										<div class="table-item">
 											<div>
-											     <input type="checkbox" name="selectedUserIds"
-												    value="${user.usrId}" />
+											     <input type="checkbox" name="selectedUserEmails"
+												    value="${user.usrMl}" />
 											</div>
 											<div>${user.usrNm}</div>
 											<div>${user.usrPn}</div>

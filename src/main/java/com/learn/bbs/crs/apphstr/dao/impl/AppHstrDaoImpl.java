@@ -1,5 +1,6 @@
 package com.learn.bbs.crs.apphstr.dao.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.crs.apphstr.dao.AppHstrDao;
-import com.learn.bbs.crs.apphstr.vo.AppHstrVO;
 
 /**
  * @author 최예진
@@ -25,24 +25,34 @@ public class AppHstrDaoImpl extends SqlSessionDaoSupport implements AppHstrDao {
         super.setSqlSessionTemplate(sqlSessionTemplate);
     }
 
-	@Override
-	public int insertOneAppHstr(AppHstrVO appHstr) {
-		return this.getSqlSession().insert(NAME_SPACE + "insertOneAppHstr", appHstr);
-	}
+    @Override
+    public int insertOneAppHstr(String crsInfId, String usrMl) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("crsInfId", crsInfId);
+        param.put("usrMl", usrMl);
+        
+        // SQL 쿼리 실행
+        return this.getSqlSession().insert(NAME_SPACE + "insertOneAppHstr", param);
+    }
 
     @Override
-    public boolean existsAppHstr(String crsInfId, String usrId) {
+    public boolean existsAppHstr(String crsInfId, String usrMl) {
         return this.getSqlSession().selectOne(NAME_SPACE + "existsAppHstr", Map.of(
             "crsInfId", crsInfId,
-            "usrId", usrId
+            "usrMl", usrMl
         ));
     }
 
     @Override
-    public String findAppHstrId(String crsInfId, String usrId) {
+    public String findAppHstrId(String crsInfId, String usrMl) {
         return this.getSqlSession().selectOne(NAME_SPACE + "findAppHstrId", Map.of(
             "crsInfId", crsInfId,
-            "usrId", usrId
+            "usrMl", usrMl
         ));
     }
+
+	@Override
+	public int countCurrentUserInCourse(String crsInfId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "countCurrentUserInCourse", crsInfId);
+	}
 }

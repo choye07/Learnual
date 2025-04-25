@@ -1,5 +1,6 @@
 package com.learn.bbs.crs.apphstr.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,8 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.learn.bbs.crs.apphstr.service.AppHstrService;
 import com.learn.bbs.crs.apphstr.vo.AppHstrVO;
+import com.learn.bbs.usr.vo.UsrVO;
+import com.learn.exceptions.AccessDeniedException;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpSession;
 
 
 /**
@@ -23,13 +26,29 @@ public class AppHstrController {
     
     @PostMapping("/insttn/usr/detail/{crsInfId}/register")
     public String doRegisterCourse(@PathVariable String crsInfId,
-			  					   Model model) {
-    	AppHstrVO appHstrVO = new AppHstrVO();
-    	appHstrVO.setCrsInfId(crsInfId);
-    	appHstrVO.setUsrId("USR-20250419-000002"); // 로그인된 유저의 ID <- 여기서 session 사용하시면 될듯!
+                                    Model model,
+                                    HttpSession session) {
+        UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+        
+        if (usrVO == null) {
+            throw new AccessDeniedException();
+        }
 
-    	this.appHstrService.insertOneAppHstr(appHstrVO);
-    	
-    	return "redirect:/insttn/usr/detail/{crsInfId}";
+        String usrMl = usrVO.getUsrMl();
+        
+        // '강좌 신청 시' 정원 초과 체크
+        boolean isCourseFull = this.appHstrService.insertOneAppHstr(crsInfId, usrMl);
+
+        // 정원 초과일 경우
+        if (!isCourseFull) {
+            model.addAttribute("isCourseFull", true);
+            return "insttn/usr/detail/" + crsInfId;
+        }
+
+        // 정원 초과 아닐 경우
+        this.appHstrService.insertOneAppHstr(crsInfId, usrMl);
+        
+        model.addAttribute("isCourseFull", false);
+        return "insttn/usr/detail/" + crsInfId;
     }
 }

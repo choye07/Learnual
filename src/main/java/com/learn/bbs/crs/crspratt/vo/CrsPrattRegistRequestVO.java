@@ -3,31 +3,40 @@ package com.learn.bbs.crs.crspratt.vo;
 import java.util.List;
 
 public class CrsPrattRegistRequestVO extends CrsPrattVO {
-	private String logId;
-	private List<String> selectedUserIds;
-	private List<String> notConfirmedUsrIds;
+//	private String logId;
+	private List<String> selectedUserEmails;
+//	private List<String> notConfirmedUsrEmails;
+	private String usrMl;
 
-	public String getLogId() {
-		return logId;
+	public String getUsrMl() {
+	    return usrMl;
 	}
 
-	public void setLogId(String logId) {
-		this.logId = logId;
+	public void setUsrMl(String usrMl) {
+	    this.usrMl = usrMl;
+	}
+	
+	public List<String> getSelectedUserEmails() {
+	    return selectedUserEmails;
 	}
 
-	public List<String> getSelectedUserIds() {
-		return selectedUserIds;
+	public void setSelectedUserEmails(List<String> selectedUserEmails) {
+	    this.selectedUserEmails = selectedUserEmails;
 	}
+	
+//	public List<String> getNotConfirmedUsrEmails() {
+//		return notConfirmedUsrEmails;
+//	}
+//	public void setNotConfirmedUsrEmails(List<String> notConfirmedUsrEmails) {
+//		this.notConfirmedUsrEmails = notConfirmedUsrEmails;
+//	}
 
-	public void setSelectedUserIds(List<String> selectedUserIds) {
-		this.selectedUserIds = selectedUserIds;
-	}
+//	public String getLogId() {
+//		return logId;
+//	}
+//
+//	public void setLogId(String logId) {
+//		this.logId = logId;
+//	}
 
-	public List<String> getNotConfirmedUsrIds() {
-		return notConfirmedUsrIds;
-	}
-
-	public void setNotConfirmedUsrIds(List<String> notConfirmedUsrIds) {
-		this.notConfirmedUsrIds = notConfirmedUsrIds;
-	}
 }
