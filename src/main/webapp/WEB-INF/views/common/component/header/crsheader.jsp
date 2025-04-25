@@ -10,7 +10,7 @@
 				</div>
 				<div class="course-area">
 					<div class="insttn-logo">
-						<a href="#">학원 logo</a>
+						<a href="/insttn/crs">학원 logo</a>
 					</div>
 				</div>
 			</div>

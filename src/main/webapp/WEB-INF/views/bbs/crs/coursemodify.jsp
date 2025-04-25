@@ -18,9 +18,9 @@
 	<div class="dashboard course">
 		<!-- 관리자 권한이 있는 유저만 활성화 가능 -->
 		<jsp:include
-			page="/WEB-INF/views/common/component/sidebar/crssidebar.jsp" />
+			page="/WEB-INF/views/common/component/sidebar/insttnsidebar.jsp" />
 		<jsp:include
-			page="/WEB-INF/views/common/component/header/crsheader.jsp" />
+			page="/WEB-INF/views/common/component/header/insttnheader.jsp" />
 
 		<div class="dashboard-main course">
 			<div class="main-wrapper course-modify">

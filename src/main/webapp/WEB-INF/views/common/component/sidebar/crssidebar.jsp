@@ -18,28 +18,29 @@
 	<div class="menu-wrapper">
 		<!-- sidebar menu1 -->
 		<ul class="menu1 sidebar-menu">
-			<li class="sidebar-main-menu"><a href="#">관리자 메인메뉴1</a>
+			<li class="sidebar-main-menu"><a href="#">학습관리자 메인메뉴1</a>
 				<div class="btn-toggle on">
 					<a href="#">toggle</a>
 				</div></li>
 			<ul class="menu-list">
-				<li><a href="#">관리자 sub메뉴1</a></li>
-				<li><a href="#">관리자 sub메뉴2</a></li>
-				<li><a href="#">관리자 sub메뉴3</a></li>
-				<li><a href="#">관리자 sub메뉴4</a></li>
+				<li><a href="#">학습관리자 sub메뉴1</a></li>
+				<li><a href="#">학습관리자 sub메뉴2</a></li>
+				<li><a href="#">학습관리자 sub메뉴3</a></li>
+				<li><a href="#">학습관리자 sub메뉴4</a></li>
 			</ul>
 		</ul>
 		<!-- sidebar menu2 -->
 		<ul class="menu2 sidebar-menu">
-			<li class="sidebar-main-menu"><a href="#">관리자 메인메뉴2</a>
+			<li class="sidebar-main-menu"><a href="#">게시판 바로가기</a>
 				<div class="btn-toggle on">
 					<a href="#">toggle</a>
 				</div></li>
 			<ul class="menu-list">
-				<li><a href="#">관리자 sub메뉴1</a></li>
-				<li><a href="#">관리자 sub메뉴2</a></li>
-				<li><a href="#">관리자 sub메뉴3</a></li>
-				<li><a href="#">관리자 sub메뉴4</a></li>
+				<li><a href="#">강좌공지사항</a></li>
+				<li><a href="#">강좌자료실</a></li>
+				<li><a href="#">상담요청</a></li>
+				<li><a href="#">시험게시판</a></li>
+				<li><a href="#">과제게시판</a></li>
 			</ul>
 		</ul>
 	</div>
