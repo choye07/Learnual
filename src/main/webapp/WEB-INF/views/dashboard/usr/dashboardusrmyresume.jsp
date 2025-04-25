@@ -21,7 +21,6 @@
 		<jsp:include
 			page="/WEB-INF/views/common/component/header/dashboardheaderusr.jsp" />
 
-
 		<div class="dashboard-main student">
 			<div class="main-wrapper">
 				<div class="dashboard-col1">
@@ -39,58 +38,24 @@
 							</div>
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
-								<li class="menu-item on"><a href="/dashboard/usr">개인정보관리</a></li>
-								<li class="menu-item"><a href="/dashboard/usr/course">나의 수강 목록</a></li>
-								<li class="menu-item"><a href="/dashboard/usr/resume">나의 이력서 목록</a></li>
+								<li class="menu-item"><a href="/dashboard/usr">개인정보관리</a></li>
+								<li class="menu-item"><a href="/dashboard/usr/course">나의
+										수강 목록</a></li>
+								<li class="menu-item on"><a href="/dashboard/usr/resume">나의
+										이력서 목록</a></li>
 							</ul>
 						</div>
 
 						<div class="dashboard-content-area">
 							<!-- view content 삽입 start -->
-							<div class="myinfo manage-board view">
+							<div class="myresume manage-board">
 								<div class="manage-board-wrapper">
 									<div class="manage-board-header">
-										<h2>개인 정보 관리</h2>
+										<h2>나의 이력서 목록</h2>
 									</div>
 
 									<div class="manage-board-body">
-
-										<div class="regist-usr-form">
-											<div class="email-area">
-												<label for="email">이메일</label> <input id="usrMl"
-													name="usrMl" type="email" value="${userInputRegist.usrMl}" />
-											</div>
-
-											<div class="name-area">
-												<label for="name">이름</label> <input id="usrNm" name="usrNm"
-													type="text" value="${userInputRegist.usrNm}" required />
-											</div>
-
-											<div class="password-area">
-												<label for="password">비밀번호</label> <input id="usrPw"
-													name="usrPw" type="password" required />
-											</div>
-											<div class="confirm-password-area">
-												<label for="password">비밀번호 확인</label> <input
-													id="confirmUsrPw" name="confirmUsrPw" required="password" />
-											</div>
-											<div class="address-area">
-												<label for="address">주소</label> <input id="usrAdrs"
-													name="usrAdrs" type="text"
-													value="${userInputRegist.usrAdrs}" required />
-											</div>
-											<div class="phone-area">
-												<label for="phone">전화번호</label> <input id="usrPn"
-													name="usrPn" type="text" value="${userInputRegist.usrPn}"
-													required />
-											</div>
-
-											<div class="btn-area">
-												<form action="/editmyinformation" method="get">
-													<button class="btn2 btn-edit" type="submit">수정</button>
-												</form>
-											</div>
-										</div>
+										<!-- data -->
 									</div>
 								</div>
 							</div>

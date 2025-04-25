@@ -18,25 +18,25 @@
 	<div class="dashboard course">
 		<!-- 관리자 권한이 있는 유저만 활성화 가능 -->
 		<jsp:include
-			page="/WEB-INF/views/common/component/sidebar/crssidebar.jsp" />
+			page="/WEB-INF/views/common/component/sidebar/insttnsidebar.jsp" />
 		<jsp:include
-			page="/WEB-INF/views/common/component/header/crsheader.jsp" />
+			page="/WEB-INF/views/common/component/header/insttnheader.jsp" />
 
 		<div class="dashboard-main course">
 
 			<div class="main-wrapper course-confirm">
 				<div class="main-wrapper-top">
-					<h1>강의 확정</h1>
-					<h2>강의명: ${courseName}</h2>
+					<h1>강좌 확정</h1>
+					<h2>강좌명: ${courseName}</h2>
 				</div>
 				<div class="main-wrapper-body">
-					<h3>해당 강의를 신청한 회원 내역</h3>
+					<h3>해당 강좌를 신청한 회원 내역</h3>
 
 					<div class="applied-user-list-area">
 						<c:choose>
 							<c:when test="${empty confirmedUsers}">
 								<p class="empty-user-list">신청한 회원이 없습니다.</p>
-								<a class="btn-abandon" href="javascript:void(0);" data-id="${crsInfId}">폐강</a>
+								<a class="btn-abandon btn" href="javascript:void(0);" data-id="${crsInfId}">폐강</a>
 							</c:when>
 							<c:otherwise>
 								<form id="confirm-applied-user-form"

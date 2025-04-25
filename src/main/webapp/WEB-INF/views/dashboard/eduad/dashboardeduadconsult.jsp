@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>대시보드-강사</title>
+<title>대시보드-강사-상담요청목록</title>
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
 <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script src="/js/common.js" type="text/javascript"></script>
@@ -14,7 +14,6 @@
 
 <body>
 	<div class="dashboard tutor">
-
 		<jsp:include
 			page="/WEB-INF/views/common/component/sidebar/eduadsidebar.jsp" />
 		<jsp:include
@@ -40,8 +39,8 @@
 							</div>
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
-								<li class="menu-item on"><a href="/dashboard/eduad">개인정보관리</a></li>
-								<li class="menu-item"><a href="/dashboard/eduad/course">나의
+								<li class="menu-item"><a href="/dashboard/eduad">개인정보관리</a></li>
+								<li class="menu-item on"><a href="/dashboard/eduad/course">나의
 										강의 목록</a></li>
 								<li class="menu-item"><a href="/dashboard/eduad/consult">상담
 										요청 목록</a></li>
@@ -50,52 +49,14 @@
 
 						<div class="dashboard-content-area">
 							<!-- view content 삽입 start -->
-							<div class="myinfo manage-board view">
+							<div class="myconsultaion manage-board">
 								<div class="manage-board-wrapper">
 									<div class="manage-board-header">
-										<h2>개인 정보 관리</h2>
+										<h2>상담요청 목록</h2>
 									</div>
 
 									<div class="manage-board-body">
-
-										<!-- 
-                    regist-usr-form -> regist-eduad-form으로 변경 -->
-										<div class="regist-eduad-form">
-											<div class="email-area">
-												<label for="email">이메일</label> <input id="usrMl"
-													name="usrMl" type="email" value="${userInputRegist.usrMl}" />
-											</div>
-
-											<div class="name-area">
-												<label for="name">이름</label> <input id="usrNm" name="usrNm"
-													type="text" value="${userInputRegist.usrNm}" required />
-											</div>
-
-											<div class="password-area">
-												<label for="password">비밀번호</label> <input id="usrPw"
-													name="usrPw" type="password" required />
-											</div>
-											<div class="confirm-password-area">
-												<label for="password">비밀번호 확인</label> <input
-													id="confirmUsrPw" name="confirmUsrPw" required="password" />
-											</div>
-											<div class="address-area">
-												<label for="address">주소</label> <input id="usrAdrs"
-													name="usrAdrs" type="text"
-													value="${userInputRegist.usrAdrs}" required />
-											</div>
-											<div class="phone-area">
-												<label for="phone">전화번호</label> <input id="usrPn"
-													name="usrPn" type="text" value="${userInputRegist.usrPn}"
-													required />
-											</div>
-
-											<div class="btn-area">
-												<form action="/editmyinformation" method="get">
-													<button class="btn2 btn-edit" type="submit">수정</button>
-												</form>
-											</div>
-										</div>
+										<!-- data -->
 									</div>
 								</div>
 							</div>

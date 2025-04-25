@@ -15,12 +15,12 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
 		<form:form modelAttribute="loginRequestVO" class="login-form">
 
 			<input type="hidden" class="next-url" name="nextUrl" />
 			<!-- 화면에 데이터를 숨겨서 보냄  -->
-
 
 			<div class="login-main">
 				<div class="login-main-wrapper">
@@ -62,11 +62,17 @@
 						</form>
 
 						<div class="btn-area">
-							    <button type="button" class="btn-login" id="usr-login" data-action="/usr/login">사용자 Login</button>
-							    <button type="button" class="btn-login" id="pltadm-login" data-action="/plta/login">관리자 Login</button>
-							    <button type="button" class="btn-login" id="instr-login" data-action="/instr/login">강사 Login</button>
-							    <button type="button" class="btn-login" id="sprad-login" data-action="/sprad/login">슈퍼관리자 Login</button>
-								<div class="btn-regist-area">
+							<button type="button" class="btn-login" id="usr-login"
+								data-action="/usr/login">사용자 Login</button>
+							<div class="admin-btn-area">
+								<button type="button" class="btn-login" id="pltadm-login"
+									data-action="/plta/login">관리자 Login</button>
+								<button type="button" class="btn-login" id="instr-login"
+									data-action="/instr/login">강사 Login</button>
+								<button type="button" class="btn-login" id="sprad-login"
+									data-action="/sprad/login">슈퍼관리자 Login</button>
+							</div>
+							<div class="btn-regist-area">
 								<button class="btn-regist1" type="button">고객으로 가입하기</button>
 								<button class="btn-regist2" type="button">담당자로 가입하기</button>
 							</div>
@@ -75,7 +81,8 @@
 				</div>
 			</div>
 		</form:form>
-		<jsp:include page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
 	</div>
 </body>
 </html>
