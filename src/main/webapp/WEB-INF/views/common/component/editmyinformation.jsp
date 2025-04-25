@@ -23,54 +23,60 @@
 				</div>
 
 				<div class="manage-board-body">
-					<form:form modelAttribute="usrEditMyinformationVO"
+					<form:form modelAttribute="myInformationRequestVO"
+					action="/pltad/editmyinformation"
+   					 method="POST"
 						class="regist-usr-form">
 							<div class="email-area">
-								<label for="email">이메일</label> <input id="usrMl" name="usrMl"
-									type="email" value="${userInputRegist.usrMl}" />
-								<c:if test="${not empty emailErrorMessage}">
-									<div class="error emailDuplicateError">
-										${emailErrorMessage}</div>
-								</c:if>
-								<form:errors path="usrMl" element="div"
-									cssClass="error emailDuplicateError" />
-							</div>
+								<label for="email">계정</label> <input id="myiLgnId"
+								name="myiLgnId" value="${inputEdit.myiLgnId}" />
+							<form:errors path="myiLgnId" cssClass="error myiLgnId" />
+						</div>
 
 							<div class="name-area">
-								<label for="name">이름</label> <input id="usrNm" name="usrNm"
-									type="text" value="${userInputRegist.usrNm}" required />
-								 <form:errors path="usrNm" element="div" cssClass="error" /> 
+								<label for="name">이름</label> <input id="myiNm" name="myiNm"
+									type="text" value="${inputEdit.myiNm}" />
+								 <c:if test="${not empty errorMessage}">
+									<div class="error myiNm">${errorMessage}</div>
+								</c:if>
+								 <form:errors path="myiNm" element="div" cssClass="error" /> 
 							</div>
 
 							<div class="password-area">
-								<label for="password">비밀번호</label> <input id="usrPw"
-									name="usrPw" type="password" required />
+								<label for="password">비밀번호</label> <input id="myiLgnPw"
+									name="myiLgnPw" type="password"  />
 								<c:if test="${not empty errorMessage}">
-									<div class="error passwordEqualError">${errorMessage}</div>
+									<div class="error myiLgnPw">${errorMessage}</div>
 								</c:if>
-								<form:errors path="usrPw" element="div"
-									cssClass="error passwordPatternError" />
+								<form:errors path="myiLgnPw" element="div"
+									cssClass="error myiLgnPw" />
 							</div>
 							<div class="confirm-password-area">
-								<label for="password">비밀번호 확인</label> <input id="confirmUsrPw"
-									name="confirmUsrPw" required="password" />
+								<label for="password">비밀번호 확인</label> <input id="myiConfirlgnPw"
+									name="myiConfirlgnPw" type="password" />
 								<c:if test="${not empty errorMessage}">
-									<div class="error passwordEqualError">${errorMessage}</div>
+									<div class="error myiConfirlgnPw">${errorMessage}</div>
 								</c:if>
-								<form:errors path="confirmUsrPw" element="div"
-									cssClass="error passwordPatternError" />
+								<form:errors path="myiConfirlgnPw" element="div"
+									cssClass="error myiConfirlgnPw" />
 							</div>
 
 							<div class="address-area">
-								<label for="address">주소</label> <input id="usrAdrs"
-									name="usrAdrs" type="text" value="${userInputRegist.usrAdrs}"
-									required />
-								<form:errors path="usrAdrs" element="div" cssClass="error" />
+								<label for="address">주소</label> <input id="myiAdrs"
+									name="myiAdrs" type="text" value="${inputEdit.myiAdrs}"
+									 />
+								<c:if test="${not empty errorMessage}">
+									<div class="error myiAdrs">${errorMessage}</div>
+								</c:if>
+								<form:errors path="myiAdrs" element="div" cssClass="error" />
 							</div>
 							<div class="phone-area">
-								<label for="phone">전화번호</label> <input id="usrPn" name="usrPn"
-									type="text" value="${userInputRegist.usrPn}" required />
-								<form:errors path="usrPn" element="div" cssClass="error" />
+								<label for="phone">전화번호</label> <input id="myiPn" name="myiPn"
+									type="text" value="${inputEdit.myiPn}"  />
+								<c:if test="${not empty errorMessage}">
+									<div class="error myiPn">${errorMessage}</div>
+								</c:if>
+								<form:errors path="myiPn" element="div" cssClass="error myiPn" />
 							</div>
 
 							<div class="btn-area">

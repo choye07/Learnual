@@ -30,7 +30,7 @@
             <li><a href="#">관리자 sub메뉴1</a></li>
             <li><a href="#">관리자 sub메뉴2</a></li>
             <li><a href="#">관리자 sub메뉴3</a></li>
-            <li><a href="#">관리자 sub메뉴4</a></li>
+            <li><a href="/viewmyinfo">관리자 나의 정보 수정</a></li>
           </ul>
         </ul>
         <!-- sidebar menu2 -->

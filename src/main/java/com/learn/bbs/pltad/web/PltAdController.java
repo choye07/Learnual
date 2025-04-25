@@ -11,11 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.learn.bbs.pltad.dao.PltAdDao;
 import com.learn.bbs.pltad.service.PltAdService;
 import com.learn.bbs.pltad.vo.PltadRegistRequestVO;
 import com.learn.bbs.pltad.vo.PltadmLoginRequestVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.common.vo.LoginRequestVO;
+import com.learn.common.vo.MyInformationRequestVO;
+import com.learn.exceptions.MyInformationUpdateException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +32,9 @@ public class PltAdController {
 	
     @Autowired
     private PltAdService pltAdService;
+    
+    @Autowired
+    private PltAdDao pltAdDao;
     
 	    @PostMapping("/spr/pltadmanage/regist")
     public String doPltadRegist(@Valid 
@@ -87,6 +93,36 @@ public class PltAdController {
     	// 세션 폐기 (로그아웃)
     	session.invalidate(); 
     	return "redirect:/";
+    }
+    
+    
+    @PostMapping("/pltad/editmyinformation")
+    public String doEditMyInformation(@Valid @ModelAttribute MyInformationRequestVO myInformationRequestVO,
+                                       BindingResult bindingResult, Model model, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("inputEdit", myInformationRequestVO);
+            return "common/component/editmyinformation";
+        }
+
+        PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+        // 사용자, 관리자, 강사의 공통화 유효처리를 위한 객체로 어떤 역할인지 모르기 때문에 세션값을 다시 담는다 .
+        myInformationRequestVO.setMyiLgnId(pltadmVO.getPltadmLgnId());
+
+        try {
+            boolean isUpdated = pltAdService.updateUsrEditMyinformation(myInformationRequestVO);
+
+            if (isUpdated) {
+                PltadmVO updatedPltadmVO = pltAdDao.selectOneUsrBy(myInformationRequestVO.getMyiLgnId());
+                session.setAttribute("__LOGIN_PLTADM__", updatedPltadmVO);
+                return "redirect:/viewmyinfo";
+            }
+        } catch (MyInformationUpdateException mue) {
+            model.addAttribute("errorMessage", mue.getMessage());
+            model.addAttribute("inputEdit", myInformationRequestVO);
+            return "common/component/editmyinformation";
+        }
+
+        return "redirect:/";
     }
 
 }

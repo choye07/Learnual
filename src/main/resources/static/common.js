@@ -252,38 +252,68 @@ $(document).ready(function () {
   /* 대시보드 이벤트 end */
 
   // 소희 Part start ----------------------------------
-  /* 사용자 회원 가입시 동의 여부 이벤트 start*/
-  // 개인정보 수집 및 이용 동의 라디오 버튼 확인
-  $("input[name='private-agreement']").on("change", function () {
-    privateAgreed =
-      $("input[name='private-agreement']:checked").val() === "agree";
-    if (!privateAgreed) {
-      alert("개인정보 수집 및 이용에 동의해주셔야 회원가입이 완료됩니다.");
-    }
-  });
+      /* 사용자 회원 가입시 동의 여부 이벤트 start*/
+      // 개인정보 수집 및 이용 동의 라디오 버튼 확인
+  	
+  	$("input[name='terms-agreement']").on("change", function() {
+  		termsAgreed = $("input[name='terms-agreement']:checked").val() === "agree";
+  		if (!termsAgreed) {
+  			alert("이용약에 동의해주셔야 회원가입이 완료됩니다.");
+  		}
+  	});
 
-  // 폼 제출 시 유효성 검사
-  $("#regist-agreement-form").on("submit", function (e) {
-    if (!termsAgreed || !privateAgreed) {
-      alert("모든 동의 사항에 체크하셔야 회원가입이 완료됩니다.");
-      e.preventDefault(); // 폼 제출 방지
-      return false;
-    }
-  });
-  /* 사용자 회원 가입시 동의 여부 이벤트 end*/
+  	$("input[name='private-agreement']").on("change", function() {
+  		privateAgreed = $("input[name='private-agreement']:checked").val() === "agree";
+  		if (!privateAgreed) {
+  			alert("개인정보 수집 및 이용에 동의해주셔야 회원가입이 완료됩니다.");
+  		}
+  	});
 
-  /* 로그인 시 사용자, 관리자, 강사  누구로 로그인을 할건지에 대한 이벤트 start */
-  // 버튼 클릭에 따라 사용자, 관리자, 강사로 구별되어 로그인 된다.
-  $(".btn-login").on("click", function () {
-    const form = $(".login-form");
-    const actionUrl = $(this).data("action");
-    form.attr("action", actionUrl);
-    form.submit();
-  });
+  	// 폼 제출 시 유효성 검사
+  	$("#regist-agreement-form").on("submit", function(e) {
+  		if (!termsAgreed || !privateAgreed) {
+  			alert("모든 동의 사항에 체크하셔야 회원가입이 완료됩니다.");
+  			e.preventDefault(); // 폼 제출 방지
+  			return false;
+  		}
+  	});
+      /* 사용자 회원 가입시 동의 여부 이벤트 end*/
 
-  /* 로그인 시 강사, 회원, 관리자 누구로 로그인을 할건지에 대한 이벤트 end */
+      /* 로그인 시 사용자, 관리자, 강사  누구로 로그인을 할건지에 대한 이벤트 start */
+      // 버튼 클릭에 따라 사용자, 관리자, 강사로 구별되어 로그인 된다. 
+      $(".btn-login").on("click", function() {
+          const form = $(".login-form");
+          const actionUrl = $(this).data("action");
+          form.attr("action", actionUrl); 
+          form.submit();
+      });
 
-  // 소희 Part end ----------------------------------
+      /* 로그인 시 강사, 회원, 관리자 누구로 로그인을 할건지에 대한 이벤트 end */
+  	
+  	
+  	$(".regist-btns button").click(function() {
+  		if (confirm("정말 취소하시겠습니까?")) {
+  			// "예"를 클릭하면 이전 페이지로 이동
+  			window.history.back();
+  		} else {
+  			// "아니오"를 클릭하면 현재 페이지에 머무름
+  			// 아무 작업도 하지 않음
+  			return false;
+  		}
+  	});
+  	
+  	/* 관리자 - 개인 정보 관리 페이지에서 수정 버튼을 클릭시 실행할 이벤트 start */
+  	$('#btn-edit').click(function() {
+  		if (confirm('정말 수정하시겠습니까?')) {
+  			window.location.href = '/editmyinformation';
+  		} else {
+  			// 취소 버튼을 누른 경우
+  			return false;
+  		}
+  	});
+  	/* 관리자 - 개인 정보 관리 페이지에서 수정 버튼을 클릭시 실행할 이벤트 end */
+
+      // 소희 Part end ----------------------------------
 
   /* ================================= */
   /* 0419 유진 파트 start */

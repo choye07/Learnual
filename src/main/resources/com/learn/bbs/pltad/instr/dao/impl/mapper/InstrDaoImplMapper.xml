@@ -131,6 +131,7 @@ FROM INSTR WHERE INSTR_LGN_ID = #{_parameter}
 	     , INSTR_LST_LGN_DT = SYSDATE
 	     , INSTR_LGN_IP = NULL
 	     , INSTR_LGN_YN = 'Y'
+	     , INSTR_BLK_YN = 'N'
 	 WHERE INSTR_LGN_ID = #{_parameter}
     </update>
     
