@@ -1,16 +1,15 @@
-package com.learn.main.menu.vo;
+package com.learn.bbs.menu.vo;
 
 /**
  * @TableName MENU
  * @TableComment null
- * 메뉴
  */
 public class MenuVO {
 
     /**
      * @ColumnName MENU_ID
      * @ColumnType VARCHAR2(50)
-     * @ColumnComment 메뉴를 구별하는 고유한 번호(CLSS_CD-YYYYMMDD-NNNNNN)
+     * @ColumnComment 메뉴를 구별하는 고유한 번호(MENU-YYYYMMDD-NNNNNN)
      */
     private String menuId;
 
@@ -57,18 +56,39 @@ public class MenuVO {
     private String menuDelYn;
 
     /**
-     * @ColumnName CMCD_ID
-     * @ColumnType VARCHAR2(50)
-     * @ColumnComment 메뉴 대분류를 구별하는 번호 (메모 확인)(CM-YYYYMMDD-NNNNNN)
-     */
-    private String cmcdId;
-
-    /**
      * @ColumnName INSTTN_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 기관(학원) 정보의 고유한 아이디(INSTTN-YYYYMMDD-NNNNNN)
      */
     private String insttnId;
+
+    /**
+     * @ColumnName MENU_HGH_RNK_ID
+     * @ColumnType VARCHAR2(50)
+     * @ColumnComment 상위 메뉴 아이디
+     */
+    private String menuHghRnkId;
+
+    /**
+     * @ColumnName MENU_ACC
+     * @ColumnType VARCHAR2(50)
+     * @ColumnComment 메뉴 접근 권한
+     */
+    private String menuAcc;
+
+    /**
+     * @ColumnName MENU_US_YN
+     * @ColumnType VARCHAR2(1)
+     * @ColumnComment 메뉴 사용 여부
+     */
+    private String menuUsYn;
+
+    /**
+     * @ColumnName CRS_INF_ID
+     * @ColumnType VARCHAR2(50)
+     * @ColumnComment 강좌 정보를 구분할 고유한 문자열(CRS_INF-YYYYMMDD-NNNNNN)
+     */
+    private String crsInfId;
 
     public String getMenuId() {
         return this.menuId;
@@ -126,14 +146,6 @@ public class MenuVO {
         this.menuDelYn = menuDelYn;
     }
     
-    public String getCmcdId() {
-        return this.cmcdId;
-    }
-    
-    public void setCmcdId(String cmcdId) {
-        this.cmcdId = cmcdId;
-    }
-    
     public String getInsttnId() {
         return this.insttnId;
     }
@@ -142,8 +154,40 @@ public class MenuVO {
         this.insttnId = insttnId;
     }
     
+    public String getMenuHghRnkId() {
+        return this.menuHghRnkId;
+    }
+    
+    public void setMenuHghRnkId(String menuHghRnkId) {
+        this.menuHghRnkId = menuHghRnkId;
+    }
+    
+    public String getMenuAcc() {
+        return this.menuAcc;
+    }
+    
+    public void setMenuAcc(String menuAcc) {
+        this.menuAcc = menuAcc;
+    }
+    
+    public String getMenuUsYn() {
+        return this.menuUsYn;
+    }
+    
+    public void setMenuUsYn(String menuUsYn) {
+        this.menuUsYn = menuUsYn;
+    }
+    
+    public String getCrsInfId() {
+        return this.crsInfId;
+    }
+    
+    public void setCrsInfId(String crsInfId) {
+        this.crsInfId = crsInfId;
+    }
+    
     @Override
     public String toString() {
-        return "MenuVO(menuId: " + menuId + ", menuNm: " + menuNm + ", menuUrl: " + menuUrl + ", menuRgstDt: " + menuRgstDt + ", menuUpdtDt: " + menuUpdtDt + ", menuDelDt: " + menuDelDt + ", menuDelYn: " + menuDelYn + ", cmcdId: " + cmcdId + ", insttnId: " + insttnId + ", )";
+        return "MenuVO(menuId: " + menuId + ", menuNm: " + menuNm + ", menuUrl: " + menuUrl + ", menuRgstDt: " + menuRgstDt + ", menuUpdtDt: " + menuUpdtDt + ", menuDelDt: " + menuDelDt + ", menuDelYn: " + menuDelYn + ", insttnId: " + insttnId + ", menuHghRnkId: " + menuHghRnkId + ", menuAcc: " + menuAcc + ", menuUsYn: " + menuUsYn + ", crsInfId: " + crsInfId + ", )";
     }
 }

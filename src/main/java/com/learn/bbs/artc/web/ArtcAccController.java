@@ -1,9 +1,9 @@
-package com.learn.bbs.pltad.artc.web;
+package com.learn.bbs.artc.web;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-import com.learn.bbs.pltad.artc.service.ArtcAccService;
+import com.learn.bbs.artc.service.ArtcAccService;
 
 
 /**

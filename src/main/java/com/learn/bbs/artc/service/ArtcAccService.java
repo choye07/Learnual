@@ -1,11 +1,11 @@
-package com.learn.bbs.pltad.artc.service;
+package com.learn.bbs.artc.service;
 
+import java.util.List;
 
-/**
- * @TableName ARTC_ACC
- * @TableComment null
- * 게시판 권한
- */
+import com.learn.bbs.artc.vo.ArtcAccVO;
+
 public interface ArtcAccService {
+	
+	public List<ArtcAccVO> selectAllArtcAcc (String artcId);
 
 }

@@ -1,16 +1,15 @@
-package com.learn.bbs.pltad.artc.vo;
+package com.learn.bbs.artc.vo;
 
 /**
  * @TableName ARTC_ACC
  * @TableComment null
- * 게시판 권한
  */
 public class ArtcAccVO {
 
     /**
      * @ColumnName ARTC_ACC_ID
      * @ColumnType VARCHAR2(50)
-     * @ColumnComment 게시판을 CRUD할 수 있는 권한 아이디(회원, 강사, 플랫폼 관리자 권한 ID)
+     * @ColumnComment 게시판 권한을 식별할 고유한 번호(ARTAC-YYYYMMDD-NNNNNN)
      */
     private String artcAccId;
 
@@ -44,8 +43,8 @@ public class ArtcAccVO {
 
     /**
      * @ColumnName ARTC_ID
-     * @ColumnType VARCHAR2(255)
-     * @ColumnComment null
+     * @ColumnType VARCHAR2(50)
+     * @ColumnComment 게시판을 구분할 고유한 문자열 (ARTC-YYYYMMDD-NNNNNN)
      */
     private String artcId;
 

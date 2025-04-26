@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.bbs.menu.dao.impl.MenuDaoImpl">
+
+	<insert id="insertNewMenu"
+		parameterType="com.learn.bbs.menu.vo.MenuRegistRequestVO">
+
+		INSERT INTO MENU
+		(MENU_ID,
+		MENU_NM,
+		MENU_URL,
+		MENU_RGST_DT,
+		MENU_UPDT_DT,
+		MENU_DEL_DT,
+		MENU_DEL_YN,
+		INSTTN_ID,
+		MENU_HGH_RNK_ID,
+		MENU_ACC,
+		MENU_US_YN
+		<if test="crsInfId!=null">
+			, CRS_INF_ID
+		</if>
+		)
+		VALUES(
+		('MN-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' ||
+		LPAD(SEQ_MN_PK.NEXTVAL, 6,
+		'0'))
+		, #{menuNm}
+		, #{menuUrl}
+		, SYSDATE
+		, NULL
+		, NULL
+		, 'N'
+		, 'learnual'
+		, NULL
+		, #{menuAcc}
+		, 'Y'
+		<if test="crsInfId!=null">
+			, #{crsInfId}
+		</if>
+		)
+	</insert>
+
+</mapper>

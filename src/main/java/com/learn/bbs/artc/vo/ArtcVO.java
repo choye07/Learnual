@@ -1,16 +1,17 @@
-package com.learn.bbs.pltad.artc.vo;
+package com.learn.bbs.artc.vo;
+
+import java.util.List;
 
 /**
  * @TableName ARTC
  * @TableComment null
- * 게시판
  */
 public class ArtcVO {
 
     /**
      * @ColumnName ARTC_ID
      * @ColumnType VARCHAR2(50)
-     * @ColumnComment 게시판을 구분할 고유한 문자열
+     * @ColumnComment 게시판을 구분할 고유한 문자열 (ARTC-YYYYMMDD-NNNNNN)
      */
     private String artcId;
 
@@ -22,11 +23,25 @@ public class ArtcVO {
     private String artcNm;
 
     /**
-     * @ColumnName ARTC_PHT_YN
+     * @ColumnName ARTC_US_YN
      * @ColumnType CHAR(1)
-     * @ColumnComment 사진이 포함되어 있는지에 대한 여부
+     * @ColumnComment 게시판 사용 여부
      */
-    private String artcPhtYn;
+    private String artcUsYn;
+
+    /**
+     * @ColumnName ARTC_FL_YN
+     * @ColumnType CHAR(1)
+     * @ColumnComment 게시판 첨부 파일 사용 여부
+     */
+    private String artcFlYn;
+
+    /**
+     * @ColumnName ARTC_URL_YN
+     * @ColumnType CHAR(1)
+     * @ColumnComment 게시판 URL 첨부 여부
+     */
+    private String artcUrlYn;
 
     /**
      * @ColumnName ARTC_RGST_DT
@@ -57,20 +72,43 @@ public class ArtcVO {
     private String artcDelYn;
 
     /**
-     * @ColumnName ARTC_ACC_ID
-     * @ColumnType VARCHAR2(50)
-     * @ColumnComment 게시판을 CRUD할 수 있는 권한 아이디(회원, 강사, 플랫폼 관리자 권한 ID)
-     */
-    private String artcAccId;
-
-    /**
      * @ColumnName INSTTN_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 기관(학원) 정보의 고유한 아이디(INSTTN-YYYYMMDD-NNNNNN)
      */
     private String insttnId;
 
-    public String getArtcId() {
+    /**
+     * @ColumnName CRS_INF_ID
+     * @ColumnType VARCHAR2(50)
+     * @ColumnComment 강좌 정보를 구분할 고유한 문자열(CRS_INF-YYYYMMDD-NNNNNN)
+     */
+    private String crsInfId;
+    
+    
+    private ArtcAccVO artcAccVO;
+    
+    private List<ArtcAccVO> artcAccList;
+    
+    
+
+    public ArtcAccVO getArtcAccVO() {
+		return artcAccVO;
+	}
+
+	public void setArtcAccVO(ArtcAccVO artcAccVO) {
+		this.artcAccVO = artcAccVO;
+	}
+
+	public List<ArtcAccVO> getArtcAccList() {
+		return artcAccList;
+	}
+
+	public void setArtcAccList(List<ArtcAccVO> artcAccList) {
+		this.artcAccList = artcAccList;
+	}
+
+	public String getArtcId() {
         return this.artcId;
     }
     
@@ -86,12 +124,28 @@ public class ArtcVO {
         this.artcNm = artcNm;
     }
     
-    public String getArtcPhtYn() {
-        return this.artcPhtYn;
+    public String getArtcUsYn() {
+        return this.artcUsYn;
     }
     
-    public void setArtcPhtYn(String artcPhtYn) {
-        this.artcPhtYn = artcPhtYn;
+    public void setArtcUsYn(String artcUsYn) {
+        this.artcUsYn = artcUsYn;
+    }
+    
+    public String getArtcFlYn() {
+        return this.artcFlYn;
+    }
+    
+    public void setArtcFlYn(String artcFlYn) {
+        this.artcFlYn = artcFlYn;
+    }
+    
+    public String getArtcUrlYn() {
+        return this.artcUrlYn;
+    }
+    
+    public void setArtcUrlYn(String artcUrlYn) {
+        this.artcUrlYn = artcUrlYn;
     }
     
     public String getArtcRgstDt() {
@@ -126,14 +180,6 @@ public class ArtcVO {
         this.artcDelYn = artcDelYn;
     }
     
-    public String getArtcAccId() {
-        return this.artcAccId;
-    }
-    
-    public void setArtcAccId(String artcAccId) {
-        this.artcAccId = artcAccId;
-    }
-    
     public String getInsttnId() {
         return this.insttnId;
     }
@@ -142,8 +188,16 @@ public class ArtcVO {
         this.insttnId = insttnId;
     }
     
+    public String getCrsInfId() {
+        return this.crsInfId;
+    }
+    
+    public void setCrsInfId(String crsInfId) {
+        this.crsInfId = crsInfId;
+    }
+    
     @Override
     public String toString() {
-        return "ArtcVO(artcId: " + artcId + ", artcNm: " + artcNm + ", artcPhtYn: " + artcPhtYn + ", artcRgstDt: " + artcRgstDt + ", artcUpdtDt: " + artcUpdtDt + ", artcDelDt: " + artcDelDt + ", artcDelYn: " + artcDelYn + ", artcAccId: " + artcAccId + ", insttnId: " + insttnId + ", )";
+        return "ArtcVO(artcId: " + artcId + ", artcNm: " + artcNm + ", artcUsYn: " + artcUsYn + ", artcFlYn: " + artcFlYn + ", artcUrlYn: " + artcUrlYn + ", artcRgstDt: " + artcRgstDt + ", artcUpdtDt: " + artcUpdtDt + ", artcDelDt: " + artcDelDt + ", artcDelYn: " + artcDelYn + ", insttnId: " + insttnId + ", crsInfId: " + crsInfId + ", )";
     }
 }

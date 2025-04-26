@@ -2,6 +2,45 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.learn.bbs.pltad.artc.dao.impl.ArtcAccDaoImpl">
-    
+<mapper namespace="com.learn.bbs.artc.dao.impl.ArtcAccDaoImpl">
+
+	<select id="selectAllArtcAcc" parameterType="string"
+		resultType="com.learn.bbs.artc.vo.ArtcAccVO">
+	SELECT
+		ARTC_ACC_ID,
+		ARTC_ACC_WR,
+		ARTC_ACC_RD,
+		ARTC_ACC_UPDT,
+		ARTC_ACC_DEL ,
+		ARTC_ID
+	  FROM ARTC_ACC
+	 WHERE ARTC_ID = #{_parameter}
+	</select>
+	
+	<insert id="insertNewArtcAcc"
+	        parameterType="com.learn.bbs.artc.vo.ArtcRegistRequestVO">
+	INSERT INTO ARTC_ACC
+	(ARTC_ACC_ID
+	, ARTC_ACC_WR
+	, ARTC_ACC_RD
+	, ARTC_ACC_UPDT
+	, ARTC_ACC_DEL
+	, ARTC_ACC_RGST_DT
+	, ARTC_ACC_UPDT_DT
+	, ARTC_ACC_DEL_YN
+	, ARTC_ACC_DEL_DT
+	, ARTC_ID)
+	VALUES(
+	('ARTCACC-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_ARTCACC_PK.NEXTVAL,
+	6, '0'))
+	, #{artcAccWr}
+	, #{artcAccRd}
+	, #{artcAccUpdt}
+	, #{artcAccDel}
+	,SYSDATE
+	,NULL
+	,'N'
+	,NULL
+	, #{artcId})
+	</insert>
 </mapper>
