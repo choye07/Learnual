@@ -12,6 +12,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfStartAndEndTimeRequestVO;
 import com.learn.bbs.crs.crspratt.vo.CrsPrattRegistRequestVO;
 import com.learn.bbs.crs.sbj.vo.SbjVO;
 import com.learn.bbs.pltad.cnfr.vo.CnfrHstrConfirmReadVO;
@@ -65,4 +66,7 @@ public interface CrsInfService {
     public String selectOneInstrName(String crsInfId);
     
     public CrsInfCourseListReadResponseVO selectAvailableFourCoursesWithStatus(String usrId, String insttnId);
+    
+    // 강좌 정보의 수업 시작 시간 & 종료 시간 로직 - 소희 
+    public CrsInfStartAndEndTimeRequestVO getCourseTimeStartAndEnd  (String crsInfId);
 }

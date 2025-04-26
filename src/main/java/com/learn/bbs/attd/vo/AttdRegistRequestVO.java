@@ -4,9 +4,9 @@ package com.learn.bbs.attd.vo;
 /**
  * @TableName ATTD
  * @TableComment null
- * 출석 VO
+ * 출석VO
  */
-public class AttdVO {
+public class AttdRegistRequestVO {
 
     /**
      * @ColumnName ATTD_ID
@@ -140,6 +140,10 @@ public class AttdVO {
      * @ColumnComment 과목을 구별하는 고유한 번호
      */
     private String sbjId;
+    
+    private String usrMl;
+    
+    private String attdUsrCurrent;
 
     public String getAttdId() {
         return this.attdId;
@@ -293,8 +297,20 @@ public class AttdVO {
         this.sbjId = sbjId;
     }
     
-    @Override
-    public String toString() {
-        return "AttdVO(attdId: " + attdId + ", attdDlyYn: " + attdDlyYn + ", attdTm: " + attdTm + ", attdTdYn: " + attdTdYn + ", attdTdTm: " + attdTdTm + ", attdErlvYn: " + attdErlvYn + ", attdEalvTm: " + attdEalvTm + ", attdAbsRsn: " + attdAbsRsn + ", attdAbsTm: " + attdAbsTm + ", attdOtngYn: " + attdOtngYn + ", attdOtngTm: " + attdOtngTm + ", attdRtTm: " + attdRtTm + ", attdRgstDt: " + attdRgstDt + ", attdUpdtDt: " + attdUpdtDt + ", attdDelDt: " + attdDelDt + ", attdDelYn: " + attdDelYn + ", crsInfId: " + crsInfId + ", usrId: " + usrId + ", sbjId: " + sbjId + ", )";
-    }
+    public String getUsrMl() {
+		return usrMl;
+	}
+
+	public void setUsrMl(String usrMl) {
+		this.usrMl = usrMl;
+	}
+
+	public String getAttdUsrCurrent() {
+		return attdUsrCurrent;
+	}
+
+	public void setAttdUsrCurrent(String attdUsrCurrent) {
+		this.attdUsrCurrent = attdUsrCurrent;
+	}
+	
 }

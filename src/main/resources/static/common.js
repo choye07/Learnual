@@ -252,68 +252,221 @@ $(document).ready(function () {
   /* 대시보드 이벤트 end */
 
   // 소희 Part start ----------------------------------
-      /* 사용자 회원 가입시 동의 여부 이벤트 start*/
-      // 개인정보 수집 및 이용 동의 라디오 버튼 확인
-  	
-  	$("input[name='terms-agreement']").on("change", function() {
-  		termsAgreed = $("input[name='terms-agreement']:checked").val() === "agree";
-  		if (!termsAgreed) {
-  			alert("이용약에 동의해주셔야 회원가입이 완료됩니다.");
-  		}
-  	});
+          /* 사용자 회원 가입시 동의 여부 이벤트 start*/
+          // 개인정보 수집 및 이용 동의 라디오 버튼 확인
+      	
+      	$("input[name='terms-agreement']").on("change", function() {
+      		termsAgreed = $("input[name='terms-agreement']:checked").val() === "agree";
+      		if (!termsAgreed) {
+      			alert("이용약관에 동의해주셔야 회원가입이 완료됩니다.");
+      		}
+      	});
 
-  	$("input[name='private-agreement']").on("change", function() {
-  		privateAgreed = $("input[name='private-agreement']:checked").val() === "agree";
-  		if (!privateAgreed) {
-  			alert("개인정보 수집 및 이용에 동의해주셔야 회원가입이 완료됩니다.");
-  		}
-  	});
+      	$("input[name='private-agreement']").on("change", function() {
+      		privateAgreed = $("input[name='private-agreement']:checked").val() === "agree";
+      		if (!privateAgreed) {
+      			alert("개인정보 수집 및 이용에 동의해주셔야 회원가입이 완료됩니다.");
+      		}
+      	});
 
-  	// 폼 제출 시 유효성 검사
-  	$("#regist-agreement-form").on("submit", function(e) {
-  		if (!termsAgreed || !privateAgreed) {
-  			alert("모든 동의 사항에 체크하셔야 회원가입이 완료됩니다.");
-  			e.preventDefault(); // 폼 제출 방지
-  			return false;
-  		}
-  	});
-      /* 사용자 회원 가입시 동의 여부 이벤트 end*/
+      	// 폼 제출 시 유효성 검사
+      	$("#regist-agreement-form").on("submit", function(e) {
+      		if (!termsAgreed || !privateAgreed) {
+      			alert("모든 동의 사항에 체크하셔야 회원가입이 완료됩니다.");
+      			e.preventDefault(); // 폼 제출 방지
+      			return false;
+      		}
+      	});
+          /* 사용자 회원 가입시 동의 여부 이벤트 end*/
 
-      /* 로그인 시 사용자, 관리자, 강사  누구로 로그인을 할건지에 대한 이벤트 start */
-      // 버튼 클릭에 따라 사용자, 관리자, 강사로 구별되어 로그인 된다. 
-      $(".btn-login").on("click", function() {
-          const form = $(".login-form");
-          const actionUrl = $(this).data("action");
-          form.attr("action", actionUrl); 
-          form.submit();
-      });
+          /* 로그인 시 사용자, 관리자, 강사  누구로 로그인을 할건지에 대한 이벤트 start */
+          // 버튼 클릭에 따라 사용자, 관리자, 강사로 구별되어 로그인 된다. 
+          $(".btn-login").on("click", function() {
+              const form = $(".login-form");
+              const actionUrl = $(this).data("action");
+              form.attr("action", actionUrl); 
+              form.submit();
+          });
 
-      /* 로그인 시 강사, 회원, 관리자 누구로 로그인을 할건지에 대한 이벤트 end */
-  	
-  	
-  	$(".regist-btns button").click(function() {
-  		if (confirm("정말 취소하시겠습니까?")) {
-  			// "예"를 클릭하면 이전 페이지로 이동
-  			window.history.back();
-  		} else {
-  			// "아니오"를 클릭하면 현재 페이지에 머무름
-  			// 아무 작업도 하지 않음
-  			return false;
-  		}
-  	});
-  	
-  	/* 관리자 - 개인 정보 관리 페이지에서 수정 버튼을 클릭시 실행할 이벤트 start */
-  	$('#btn-edit').click(function() {
-  		if (confirm('정말 수정하시겠습니까?')) {
-  			window.location.href = '/editmyinformation';
-  		} else {
-  			// 취소 버튼을 누른 경우
-  			return false;
-  		}
-  	});
-  	/* 관리자 - 개인 정보 관리 페이지에서 수정 버튼을 클릭시 실행할 이벤트 end */
+          /* 로그인 시 강사, 회원, 관리자 누구로 로그인을 할건지에 대한 이벤트 end */
+      	
+      	
+      	$("#regist-cancle").click(function() {
+      		if (confirm("정말 취소하시겠습니까?")) {
+      			window.history.back();
+      		} else {
+      			// "아니오"를 클릭하면 현재 페이지에 머무름
+      			return false;
+      		}
+      	});
+      	
+      	/* 관리자 - 개인 정보 관리 페이지에서 수정 버튼을 클릭시 실행할 이벤트 start */
+      	$('#btn-edit').click(function() {
+      		if (confirm('정말 수정하시겠습니까?')) {
+      			window.location.href = '/editmyinformation';
+      		} else {
+      			// 취소 버튼을 누른 경우
+      			return false;
+      		}
+      	});
+      	/* 관리자 - 개인 정보 관리 페이지에서 수정 버튼을 클릭시 실행할 이벤트 end */
+		
+		/* 사용자 출석 요청 버튼 클릭 후 비활성화 start */
+		
+		// 현재 시간을 가져오는 함수 (서버시간이 달라서 제대로 측정하기 힘들어서 사용.)
+		function getFormattedCurrentTime() {
+		    const currentTime = new Date();
+		    return currentTime.getFullYear() + '-' +
+		        ('0' + (currentTime.getMonth() + 1)).slice(-2) + '-' +
+		        ('0' + currentTime.getDate()).slice(-2) + ' ' +
+		        ('0' + currentTime.getHours()).slice(-2) + ':' +
+		        ('0' + currentTime.getMinutes()).slice(-2) + ':' +
+		        ('0' + currentTime.getSeconds()).slice(-2);
+		}
 
-      // 소희 Part end ----------------------------------
+		
+		$('#course-attd').on('click', function () {
+		    const button = this;
+
+		    button.disabled = true;
+
+		    fetch('/attd/regist', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json',
+		        },
+		        body: JSON.stringify({
+		            "attdDlyYn": "Y",
+		            "attdTm": getFormattedCurrentTime(),
+		            "attdTdYn": "N",
+		            "attdErlvYn": "N",
+		            "attdAbsRsn": "N",
+		            "attdOtngYn": "N",
+		            "attdDelYn": "N"
+		        }),
+		    })
+		        .then(response => response.json()) // 응답을 JSON으로 파싱
+		        .then(data => {
+				console.log("date duqn : " + JSON.stringify(data));
+		            if (data.attdUsrCurrent) {
+		                alert(`출석 상태: ${data.attdUsrCurrent}`);
+
+		                // 버튼 텍스트 변경
+		                button.textContent = data.attdUsrCurrent;
+		                button.style.backgroundColor = '#ffffff'; // 버튼 배경색 변경
+		                button.style.color = '#000000'; // 버튼 글자색 변경
+		                button.style.cursor = 'not-allowed'; // 커서 스타일 변경
+
+		                // 클릭 이벤트 제거
+		                $(button).off('click');
+		            } else {
+		                alert('출석 요청 처리 중 문제가 발생했습니다.');
+		                button.disabled = false; // 버튼 다시 활성화
+		            }
+		        })
+		        .catch(error => {
+		            console.error('에러 발생:', error);
+		            alert('네트워크 에러가 발생했습니다.');
+		            button.disabled = false; // 버튼 다시 활성화
+		        });
+				
+				// 현재 출석 숫자 가져오기
+				           var currentAttendance = parseInt($(".attd-status-data .attd-data1:first-child span").text());
+				           
+				           // 숫자 증가시키기
+				           var newAttendance = currentAttendance + 1;
+
+				           // 증가된 숫자 표시
+				           $(".attd-status-data .attd-data1:first-child span").text(newAttendance);
+		});
+		/* 사용자 출석 요청 버튼 클릭 후 비활 성화 end */
+		
+		/* 사용자 외출 요청 버튼 클릭 후 비활성화 start */
+		// 공통 POST 요청 함수
+		function sendPostRequest(data) {
+			fetch('/attd/current', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						throw new Error('요청 실패');
+					}
+				})
+				.then(data => {
+					alert('출석 상태 업데이트 완료');
+					console.log('서버 응답:', data);
+				})
+				.catch(error => {
+					console.error('에러 발생:', error);
+					alert('네트워크 에러가 발생했습니다.');
+				});
+		}
+	
+		// 외출 버튼 클릭 이벤트
+		$('#course-out-status').on('click', () => {
+			sendPostRequest({
+				attdOtngYn: 'Y',
+				attdOtngTm: getFormattedCurrentTime(),
+			});
+		});
+	
+		// 조퇴 버튼 클릭 이벤트
+		$('#course-leave-early').on('click', function () {
+		    const button = $('#course-leave-early');
+		    button.disabled = true; // 버튼 비활성화
+
+		    sendPostRequest({
+		        attdErlvYn: 'Y',
+		        attdEalvTM: getFormattedCurrentTime(),
+		    })
+		        .then(data => {
+		            console.log("서버 응답:", JSON.stringify(data));
+		            if (data.attdUsrCurrent) {
+		                alert(`출석 상태: ${data.attdUsrCurrent}`);
+
+		                // 버튼 텍스트 및 스타일 업데이트
+		                button.textContent = data.attdUsrCurrent;
+						alert();
+		                button.css({
+							background: "#fff",
+						});
+						button.style.backgroundColor = '#ffffff !important'; // 버튼 배경색 변경
+		                button.style.color = '#000000'; // 버튼 글자색 변경
+		                button.style.cursor = 'not-allowed'; // 커서 스타일 변경
+						button.innerText = "제발변경 ..";
+
+		                // 클릭 이벤트 제거
+		                $(button).off('click');
+		            } else {
+		                alert('출석 요청 처리 중 문제가 발생했습니다.');
+		                button.disabled = false; // 버튼 다시 활성화
+		            }
+		        })
+		        .catch(error => {
+		            console.error('에러 발생:', error);
+		            alert('네트워크 에러가 발생했습니다.');
+		            button.disabled = false; // 버튼 다시 활성화
+		        });
+		});
+
+	
+		// 결석 버튼 클릭 이벤트
+		$('#course-absence').on('click', () => {
+			//const currentTime = getFormattedCurrentTime();
+			sendPostRequest({
+				attdAbsRsn: 'Y',
+				attdAbsTm: getFormattedCurrentTime(),
+			});
+		});
+		/* 사용자 외출 요청 버튼 클릭 후 비활성화 end */
+
+          // 소희 Part end ----------------------------------
 
   /* ================================= */
   /* 0419 유진 파트 start */

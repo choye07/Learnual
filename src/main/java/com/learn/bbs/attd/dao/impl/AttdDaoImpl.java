@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.attd.dao.AttdDao;
+import com.learn.bbs.attd.vo.AttdRegistRequestVO;
 
 
 /**
@@ -23,5 +24,22 @@ public class AttdDaoImpl extends SqlSessionDaoSupport implements AttdDao {
         super.setSqlSessionTemplate(sqlSessionTemplate);
     }
 
+	@Override
+	public int insertNewUsrAttd(AttdRegistRequestVO attdRegistRequestVO) {
+		return this.getSqlSession().insert(NAME_SPACE + "insertNewUsrAttd", attdRegistRequestVO);
+	}
 
+	@Override
+	public AttdRegistRequestVO selectOneUsrAttdBy(String usrMl) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectOneUsrAttdBy", usrMl);
+	}
+
+	@Override
+	public int updateOneUsrAttdCurrent(AttdRegistRequestVO attdRegistRequestVO) {
+		return this.getSqlSession().update(NAME_SPACE + "updateOneUsrAttdCurrent",attdRegistRequestVO);
+		
+	}
+	
+	
+    
 }

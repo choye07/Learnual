@@ -265,7 +265,7 @@
 						</div>
 						<div class="regist-btns">
 							<button type="submit">동의하기</button>
-							<button type="button">취소하기</button>
+							<button type="button" id="regist-cancle">취소하기</button>
 						</div>
 					</form:form>
 				</form>

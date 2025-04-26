@@ -3,5 +3,121 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.attd.dao.impl.AttdDaoImpl">
+        <insert id="insertNewUsrAttd" parameterType="com.learn.bbs.attd.vo.AttdRegistRequestVO">
+        INSERT INTO ATTD ( 
+          ATTD_ID
+        , ATTD_DLY_YN
+        , ATTD_TM
+        , ATTD_TD_YN
+        , ATTD_TD_TM
+        , ATTD_ERLV_YN
+        , ATTD_EALV_TM
+        , ATTD_ABS_RSN
+        , ATTD_ABS_TM
+        , ATTD_OTNG_YN
+        , ATTD_OTNG_TM
+        , ATTD_RT_TM
+        , ATTD_RGST_DT
+        , ATTD_UPDT_DT
+        , ATTD_DEL_DT
+        , ATTD_DEL_YN
+        , CRS_INF_ID
+        , USR_ID, SBJ_ID)
+        VALUES (
+            'ATTD-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_USR_PK.NEXTVAL, 6, '0')
+            , #{attdDlyYn}
+            , TO_DATE(#{attdTm}, 'YYYY-MM-DD HH24:MI:SS')
+            , #{attdTdYn}
+            , TO_DATE(#{attdTdTm}, 'YYYY-MM-DD HH24:MI:SS')
+            , #{attdErlvYn}
+            , TO_DATE(#{attdEalvTm}, 'YYYY-MM-DD HH24:MI:SS')
+            , #{attdAbsRsn}
+            , TO_DATE(#{attdAbsTm}, 'YYYY-MM-DD HH24:MI:SS')
+            , #{attdOtngYn}
+            , TO_DATE(#{attdOtngTm}, 'YYYY-MM-DD HH24:MI:SS')
+			, TO_DATE(#{attdRtTm}, 'YYYY-MM-DD HH24:MI:SS')
+            , SYSDATE
+            , TO_DATE(#{attdUpdtDt}, 'YYYY-MM-DD HH24:MI:SS')
+            , TO_DATE(#{attdDelDt}, 'YYYY-MM-DD HH24:MI:SS')
+            , #{attdDelYn}
+            ,(SELECT cp.crs_INF_ID 
+               FROM CRS_PRATT cp 
+               LEFT OUTER JOIN usr u ON cp.usr_ID = u.usr_id 
+              WHERE u.USR_ML = #{usrMl} AND ROWNUM = 1)
+           ,(SELECT usr_id 
+               FROM usr 
+              WHERE USR_ML = #{usrMl} AND ROWNUM = 1)
+           ,(SELECT cp.sbj_id 
+               FROM CRS_PRATT cp 
+               LEFT OUTER JOIN usr u ON cp.usr_ID = u.usr_id 
+              WHERE u.USR_ML = #{usrMl} AND ROWNUM = 1)
+        )
+    </insert>
     
+    <select id="selectOneUsrAttdBy"
+         parameterType="string"
+         resultType="com.learn.bbs.attd.vo.AttdRegistRequestVO">
+         
+     SELECT ATTD_ID
+		, ATTD_DLY_YN
+		, ATTD_TM
+		, ATTD_TD_YN
+		, ATTD_TD_TM
+		, ATTD_ERLV_YN
+		, ATTD_EALV_TM
+		, ATTD_ABS_RSN
+		, ATTD_ABS_TM
+		, ATTD_OTNG_YN
+		, ATTD_OTNG_TM
+		, ATTD_RT_TM
+		, ATTD_RGST_DT
+		, ATTD_UPDT_DT
+		, ATTD_DEL_DT
+		, ATTD_DEL_YN
+		, CRS_INF_ID
+		, USR_ID
+		, SBJ_ID
+		FROM ATTD
+    WHERE 1=1
+      AND USR_ID = (SELECT USR_ID 
+                    FROM USR 
+                    WHERE USR_ML = #{_parameter})
+      AND ROWNUM = 1
+    </select>
+    
+    
+    <update id="updateOneUsrAttdCurrent" parameterType="com.learn.bbs.attd.vo.AttdRegistRequestVO">
+    UPDATE ATTD
+    <set>
+        <if test="attdErlvYn != null and attdErlvYn != ''">
+            ATTD_ERLV_YN = #{attdErlvYn},
+            ATTD_EALV_TM = SYSDATE,
+        </if>
+        <if test="attdAbsRsn != null and attdAbsRsn != ''">
+            ATTD_ABS_RSN = #{attdAbsRsn},
+            ATTD_ABS_TM = SYSDATE,
+        </if>
+        <if test="attdOtngYn != null and attdOtngYn != ''">
+            ATTD_OTNG_YN = #{attdOtngYn},
+            ATTD_OTNG_TM = SYSDATE,
+        </if>
+        <!-- 나중에 복귀기능 만들때 따로 빼야됨  -->
+<!-- 		<if test="attdOtngYn != null and attdOtngYn.equals('Y')">
+		   ATTD_RT_TM = SYSDATE
+		</if> -->
+        ATTD_UPDT_DT = SYSDATE
+    </set>
+    WHERE USR_ID = (
+        SELECT USR_ID 
+        FROM USR 
+        WHERE USR_ML = #{usrMl} AND ROWNUM = 1
+    )
+    AND ATTD_ID = (
+        SELECT ATTD_ID 
+        FROM TEAM_A.ATTD 
+        ORDER BY ATTD_RGST_DT DESC 
+        FETCH FIRST 1 ROWS ONLY
+    )
+</update>
+
 </mapper>

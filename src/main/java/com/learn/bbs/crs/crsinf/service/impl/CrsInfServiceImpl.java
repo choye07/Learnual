@@ -21,6 +21,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfStartAndEndTimeRequestVO;
 import com.learn.bbs.crs.crspratt.dao.CrsPrattDao;
 import com.learn.bbs.crs.crspratt.vo.CrsPrattRegistRequestVO;
 import com.learn.bbs.crs.sbj.dao.SbjDao;
@@ -342,5 +343,13 @@ public class CrsInfServiceImpl implements CrsInfService {
 	    responseVO.setIsRegistered(isRegistered);
 
 	    return responseVO;
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public CrsInfStartAndEndTimeRequestVO getCourseTimeStartAndEnd(String crsInfId) {
+		CrsInfStartAndEndTimeRequestVO crsInfStartAndEndTimeRequestVO = this.crsInfDao.selectCourseTimeStartAndEnd(crsInfId);
+		
+		return crsInfStartAndEndTimeRequestVO;
 	}
 }
