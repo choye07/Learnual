@@ -3,64 +3,69 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.pltad.cnfr.dao.impl.CnfrHstrDaoImpl">
-    <insert id="insertRegisteredUsers" parameterType="map">
-		  INSERT INTO CNFR_HSTR (
-		    CNFR_HSTR_ID,
-		    CNFR_HSTR_APP_DT,
-		    CNFR_HSTR_YN,
-		    CRS_INF_ID,
-		    USR_ID
-		  )
-		  SELECT
-		    'CNFR_HSTR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CNFR_HSTR_PK.NEXTVAL, 6, '0'),
-		    SYSDATE,
-		    'Y',
-		    CRS_INF_ID,
-		    USR_ID
-		  FROM (
-		    SELECT
-		      AH.CRS_INF_ID,
-		      AH.USR_ID
-		    FROM APP_HSTR AH
-		    JOIN CRS_INF CI ON AH.CRS_INF_ID = CI.CRS_INF_ID
-		    WHERE CI.CRS_INF_DDLN_YN = 'Y'
-		    GROUP BY AH.CRS_INF_ID, AH.USR_ID
-		    HAVING COUNT(*) > (
-		      SELECT COUNT(*)
-		      FROM CNCL_HSTR CH
-		      JOIN APP_HSTR AH2 ON CH.APP_HSTR_ID = AH2.APP_HSTR_ID
-		      WHERE AH2.CRS_INF_ID = AH.CRS_INF_ID
-		        AND AH2.USR_ID = AH.USR_ID
-		    )
-		  ) AHX
-		  WHERE NOT EXISTS (
-		    SELECT 1
-		    FROM CNFR_HSTR CH
-		    WHERE CH.CRS_INF_ID = AHX.CRS_INF_ID
-		      AND CH.USR_ID = AHX.USR_ID
-		  )
-    </insert>
+    <insert id="insertRegisteredUsers" parameterType="string">
+	  INSERT INTO CNFR_HSTR (
+	    CNFR_HSTR_ID,
+	    CNFR_HSTR_APP_DT,
+	    CNFR_HSTR_YN,
+	    CRS_INF_ID,
+	    USR_ID
+	  )
+	  SELECT
+	    'CNFR_HSTR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CNFR_HSTR_PK.NEXTVAL, 6, '0'),
+	    SYSDATE,
+	    'Y',
+	    AHX.CRS_INF_ID,
+	    AHX.USR_ID
+	  FROM (
+	    SELECT
+	      AH.CRS_INF_ID,
+	      AH.USR_ID
+	    FROM APP_HSTR AH
+	    JOIN CRS_INF CI ON AH.CRS_INF_ID = CI.CRS_INF_ID
+	    WHERE CI.CRS_INF_DDLN_YN = 'Y'
+	      AND CI.INSTTN_ID = #{insttnId}
+	    GROUP BY AH.CRS_INF_ID, AH.USR_ID
+	    HAVING COUNT(AH.APP_HSTR_ID) > (
+	      SELECT COUNT(CH.CNCL_HSTR_ID)
+	      FROM CNCL_HSTR CH
+	      JOIN APP_HSTR AH2 ON CH.APP_HSTR_ID = AH2.APP_HSTR_ID
+	      WHERE AH2.CRS_INF_ID = AH.CRS_INF_ID
+	        AND AH2.USR_ID = AH.USR_ID
+	    )
+	  ) AHX
+	  WHERE NOT EXISTS (
+	    SELECT 1
+	    FROM CNFR_HSTR CH
+	    WHERE CH.CRS_INF_ID = AHX.CRS_INF_ID
+	      AND CH.USR_ID = AHX.USR_ID
+	  )
+	</insert>
 
-    <select id="selectAllConfirmedUsers" parameterType="string" resultType="com.learn.bbs.pltad.cnfr.vo.CnfrHstrConfirmReadVO">
-	    SELECT CH.CRS_INF_ID
-	         , CI.CRS_INF_NM
-	         , U.USR_ID
-	         , U.USR_NM
-	         , U.USR_ML
-	         , U.USR_PN
-	         , U.USR_ADRS
-	         , (
-	            SELECT TO_CHAR(MAX(AH.APP_HSTR_RGST_DT), 'YYYY-MM-DD')
-	            FROM APP_HSTR AH
-	            WHERE AH.USR_ID = CH.USR_ID
-	              AND AH.CRS_INF_ID = CH.CRS_INF_ID
-	           ) AS APP_HSTR_RGST_DT
-	      FROM CNFR_HSTR CH
-	     INNER JOIN USR U 
-	        ON CH.USR_ID = U.USR_ID
-	     INNER JOIN CRS_INF CI
-            ON CH.CRS_INF_ID = CI.CRS_INF_ID
-	     WHERE CH.CRS_INF_ID = #{crsInfId}
-	     ORDER BY APP_HSTR_RGST_DT
+    <select id="selectAllConfirmedUsers" 
+            parameterType="map" 
+            resultType="com.learn.bbs.pltad.cnfr.vo.CnfrHstrConfirmReadVO">
+		  SELECT CH.CRS_INF_ID
+		       , CI.CRS_INF_NM
+		       , U.USR_ID
+		       , U.USR_NM
+		       , U.USR_ML
+		       , U.USR_PN
+		       , U.USR_ADRS
+		       , (
+		          SELECT TO_CHAR(MAX(AH.APP_HSTR_RGST_DT), 'YYYY-MM-DD')
+		          FROM APP_HSTR AH
+		          WHERE AH.USR_ID = CH.USR_ID
+		            AND AH.CRS_INF_ID = CH.CRS_INF_ID
+		         ) AS APP_HSTR_RGST_DT
+		       , CI.INSTTN_ID
+		    FROM CNFR_HSTR CH
+		   INNER JOIN USR U 
+		      ON CH.USR_ID = U.USR_ID
+		   INNER JOIN CRS_INF CI
+		      ON CH.CRS_INF_ID = CI.CRS_INF_ID
+		   WHERE CH.CRS_INF_ID = #{crsInfId}
+		     AND CI.INSTTN_ID = #{insttnId}
+		   ORDER BY APP_HSTR_RGST_DT
     </select>
 </mapper>

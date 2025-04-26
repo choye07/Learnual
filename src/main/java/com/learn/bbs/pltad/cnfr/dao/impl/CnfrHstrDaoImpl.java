@@ -28,13 +28,16 @@ public class CnfrHstrDaoImpl extends SqlSessionDaoSupport implements CnfrHstrDao
     }
 
 	@Override
-	public int insertRegisteredUsers() {
-		Map<String, Object> param = new HashMap<>();
-		return this.getSqlSession().insert(NAME_SPACE + "insertRegisteredUsers", param);
+	public int insertRegisteredUsers(String insttnId) {
+		return this.getSqlSession().insert(NAME_SPACE + "insertRegisteredUsers", insttnId);
 	}
 
 	@Override
-	public List<CnfrHstrConfirmReadVO> selectAllConfirmedUsers(String crsInfId) {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectAllConfirmedUsers", crsInfId);
+	public List<CnfrHstrConfirmReadVO> selectAllConfirmedUsers(String crsInfId, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("crsInfId", crsInfId);
+	    param.put("insttnId", insttnId);
+		
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAllConfirmedUsers", param);
 	}
 }

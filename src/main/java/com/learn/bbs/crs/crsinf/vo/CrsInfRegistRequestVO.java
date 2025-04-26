@@ -44,6 +44,8 @@ public class CrsInfRegistRequestVO {
     @NotEmpty(message = "강사는 1명 선택해야 합니다.") 
     private String instrId;
     
+    private String insttnId;
+    
 //    private String loginId;
 //    
 //    public String getLoginId() {
@@ -136,5 +138,13 @@ public class CrsInfRegistRequestVO {
 
 	public void setInstrId(String instrId) {
 		this.instrId = instrId;
+	}
+
+	public String getInsttnId() {
+		return insttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		this.insttnId = insttnId;
 	}
 }

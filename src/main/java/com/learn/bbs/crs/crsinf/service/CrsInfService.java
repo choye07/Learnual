@@ -7,6 +7,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfCourseListReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfEndUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
@@ -23,35 +24,31 @@ import com.learn.bbs.pltad.instr.vo.InstrVO;
 public interface CrsInfService {
 	public boolean insertOneCourse(CrsInfRegistRequestVO crsInfRegistRequestVO);
 	
-	public boolean countCourseName(String crsInfNm);
+	public boolean countCourseName(String crsInfNm, String insttnId);
 	
-	public String selectCourseName(String crsInfId);
+	public String selectCourseName(String crsInfId, String insttnId);
 	
-	public List<CrsInfPltadReadResponseVO> selectAllCourseForPltad();
+	public List<CrsInfPltadReadResponseVO> selectAllCourseForPltad(String insttnId);
 	
-	public List<CrsInfPltadFinishedReadResponseVO> selectAllFinishedCourseForPltad();
+	public List<CrsInfPltadFinishedReadResponseVO> selectAllFinishedCourseForPltad(String insttnId);
 	
 	public boolean updateOneCourse(CrsInfModifyRequestVO crsInfModifyRequestVO);
 	
-	public CrsInfModifyRequestVO selectAllInfoFromOneCourse(String crsInfId);
+	public CrsInfModifyRequestVO selectAllInfoFromOneCourse(String crsInfId, String insttnId);
 	
-	public boolean deleteOneCourse(String crsInfId);
+	public boolean deleteOneCourse(String crsInfId, String insttnId);
 	
-	public List<CrsInfAvailableReadResponseVO> selectRegisterableCourses();
+	public List<CrsInfAvailableReadResponseVO> selectRegisterableCourses(String insttnId);
 	
-	public List<CrsInfAvailableReadResponseVO> selectCoursesForUser(String usrMl);
-	
-//	public List<CrsInfAvailableReadResponseVO> selectAvailableFourCoursesForUser(String usrMl);
-	
-	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId);
+	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId, String insttnId);
 
-	public boolean isAppliedOrCancelled(String crsInfId, String usrMl);
+	public boolean isAppliedOrCancelled(String crsInfId, String usrMl, String insttnId);
 	
-	public boolean endOneCourse(String crsInfId);
+	public boolean endOneCourse(CrsInfEndUpdateRequestVO crsInfEndUpdateRequestVO);
 	
-	public int insertRegisteredUsers();
+	public int insertRegisteredUsers(String insttnId);
 	
-	public List<CnfrHstrConfirmReadVO> getConfirmedUsers(String crsInfId);
+	public List<CnfrHstrConfirmReadVO> getConfirmedUsers(String crsInfId, String insttnId);
 	
 	public boolean insertCrsPratt(CrsPrattRegistRequestVO crsPrattRegistRequestVO);
 	
@@ -63,9 +60,9 @@ public interface CrsInfService {
     
     public boolean abandonOneCourse(CrsInfAbandonUpdateRequestVO crsInfAbandonUpdateRequestVO);
     
-    public List<CrsInfAbandonReadResponseVO> selectAbandonCourse();
+    public List<CrsInfAbandonReadResponseVO> selectAbandonCourse(String insttnId);
     
     public String selectOneInstrName(String crsInfId);
     
-    public CrsInfCourseListReadResponseVO selectAvailableFourCoursesWithStatus(String usrId);
+    public CrsInfCourseListReadResponseVO selectAvailableFourCoursesWithStatus(String usrId, String insttnId);
 }

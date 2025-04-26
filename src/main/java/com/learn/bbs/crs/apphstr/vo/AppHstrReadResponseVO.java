@@ -1,10 +1,6 @@
-package com.learn.bbs.pltad.cnfr.vo;
+package com.learn.bbs.crs.apphstr.vo;
 
-/*
- * 플랫폼관리자가 강좌 마감 한 뒤에 그 제목 클릭하면 출력할 정보들
- */
-
-public class CnfrHstrConfirmReadVO {
+public class AppHstrReadResponseVO {
     private String crsInfId;
     private String crsInfNm;
     private String usrId;
@@ -13,7 +9,6 @@ public class CnfrHstrConfirmReadVO {
     private String usrPn;
     private String usrAdrs;
     private String appHstrRgstDt;
-    private String insttnId;
     
 	public String getCrsInfId() {
 		return crsInfId;
@@ -21,17 +16,17 @@ public class CnfrHstrConfirmReadVO {
 	public void setCrsInfId(String crsInfId) {
 		this.crsInfId = crsInfId;
 	}
-    public String getUsrId() {
-		return usrId;
-	}
-	public void setUsrId(String usrId) {
-		this.usrId = usrId;
-	}
 	public String getCrsInfNm() {
 		return crsInfNm;
 	}
 	public void setCrsInfNm(String crsInfNm) {
 		this.crsInfNm = crsInfNm;
+	}
+	public String getUsrId() {
+		return usrId;
+	}
+	public void setUsrId(String usrId) {
+		this.usrId = usrId;
 	}
 	public String getUsrNm() {
 		return usrNm;
@@ -62,11 +57,5 @@ public class CnfrHstrConfirmReadVO {
 	}
 	public void setAppHstrRgstDt(String appHstrRgstDt) {
 		this.appHstrRgstDt = appHstrRgstDt;
-	}
-	public String getInsttnId() {
-		return insttnId;
-	}
-	public void setInsttnId(String insttnId) {
-		this.insttnId = insttnId;
 	}
 }

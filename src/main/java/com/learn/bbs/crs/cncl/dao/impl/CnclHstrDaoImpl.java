@@ -1,5 +1,8 @@
 package com.learn.bbs.crs.cncl.dao.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,11 @@ public class CnclHstrDaoImpl extends SqlSessionDaoSupport implements CnclHstrDao
     }
     
     @Override
-    public boolean existsCancelledAppHstr(String appHstrId) {
-        return this.getSqlSession().selectOne(NAME_SPACE + "existsCancelledAppHstr", appHstrId);
+    public boolean existsCancelledAppHstr(String appHstrId, String insttnId) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("appHstrId", appHstrId);
+        param.put("insttnId", insttnId);
+        
+        return this.getSqlSession().selectOne(NAME_SPACE + "existsCancelledAppHstr", param);
     }
 }

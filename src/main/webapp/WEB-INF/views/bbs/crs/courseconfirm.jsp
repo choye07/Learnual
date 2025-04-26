@@ -30,7 +30,7 @@
 					<h2>강좌명: ${courseName}</h2>
 				</div>
 				<div class="main-wrapper-body">
-					<h3>해당 강좌를 신청한 회원 내역</h3>
+					<h3>현재 해당 강좌를 신청한 회원 내역</h3>
 
 					<div class="applied-user-list-area">
 						<c:choose>

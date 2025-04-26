@@ -111,6 +111,13 @@ public class CrsInfVO {
      * @ColumnComment 강좌 수강인원
      */
     private int crsInfPrsCnt;
+    
+    /**
+     * @ColumnName INSTTN_ID
+     * @ColumnType VARCHAR2(50)
+     * @ColumnComment 기관(학원) 아이디
+     */
+    private String insttnId;
 
     public String getCrsInfId() {
         return this.crsInfId;
@@ -235,5 +242,13 @@ public class CrsInfVO {
 
 	public void setCrsInfAbdnYn(String crsInfAbdnYn) {
 		this.crsInfAbdnYn = crsInfAbdnYn;
+	}
+
+	public String getInsttnId() {
+		return insttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		this.insttnId = insttnId;
 	}
 }

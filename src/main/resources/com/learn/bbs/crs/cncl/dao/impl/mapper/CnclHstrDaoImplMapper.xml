@@ -8,22 +8,33 @@
         SELECT 'CNCL_HSTR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_CNCL_HSTR_PK.NEXTVAL, 6, '0') FROM DUAL
     </selectKey>
     INSERT INTO CNCL_HSTR (
-        CNCL_HSTR_ID,
-        CNCL_HSTR_RGST_DT,
-        APP_HSTR_ID
-    ) VALUES (
-        #{cnclHstrId},
-        SYSDATE,
-        #{appHstrId}
-    )
+           CNCL_HSTR_ID
+         , CNCL_HSTR_RGST_DT
+         , APP_HSTR_ID
+    ) SELECT
+         #{cnclHstrId},
+         SYSDATE,
+         h.APP_HSTR_ID
+      FROM APP_HSTR h
+     INNER JOIN USR u 
+        ON h.USR_ID = u.USR_ID
+     WHERE h.APP_HSTR_ID = #{appHstrId}
+       AND u.INSTTN_ID = #{insttnId}
     </insert>
     
-    <select id="existsCancelledAppHstr" resultType="boolean">
-        SELECT CASE 
-                 WHEN COUNT(*) > 0 THEN 1 
-                 ELSE 0 
-               END AS result
-          FROM CNCL_HSTR
-         WHERE APP_HSTR_ID = #{appHstrId}
+    <select id="existsCancelledAppHstr" 
+            parameterType="map"
+            resultType="boolean">
+    SELECT CASE 
+	  WHEN COUNT(*) > 0 THEN 1 
+	  ELSE 0 
+           END AS result
+      FROM CNCL_HSTR ch
+     INNER JOIN APP_HSTR ah 
+        ON ch.APP_HSTR_ID = ah.APP_HSTR_ID
+     INNER JOIN USR u 
+        ON ah.USR_ID = u.USR_ID
+     WHERE ch.APP_HSTR_ID = #{appHstrId}
+       AND u.INSTTN_ID = #{insttnId}
     </select>
 </mapper>

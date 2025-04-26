@@ -23,17 +23,18 @@ public class CnclHstrServiceImpl implements CnclHstrService {
     private AppHstrDao appHstrDao;
 
     @Override
-    public boolean insertCancelledAppHstr(String crsInfId, String usrMl) {
-        boolean hasApplied = this.appHstrDao.existsAppHstr(crsInfId, usrMl);
+    public boolean insertCancelledAppHstr(String crsInfId, String usrMl, String insttnId) {
+        boolean hasApplied = this.appHstrDao.existsAppHstr(crsInfId, usrMl, insttnId);
         
         if (!hasApplied) {
             throw new CnclHstrInsertException(crsInfId);
         }
 
-        String appHstrId = this.appHstrDao.findAppHstrId(crsInfId, usrMl);
+        String appHstrId = this.appHstrDao.findAppHstrId(crsInfId, usrMl, insttnId);
         
         CnclCancellationRequestVO cnclCancellationRequestVO = new CnclCancellationRequestVO();
         cnclCancellationRequestVO.setAppHstrId(appHstrId);
+        cnclCancellationRequestVO.setInsttnId(insttnId);
 
         // 신청 취소 내역 삽입
         return this.cnclHstrDao.insertCancelledAppHstr(cnclCancellationRequestVO) > 0;

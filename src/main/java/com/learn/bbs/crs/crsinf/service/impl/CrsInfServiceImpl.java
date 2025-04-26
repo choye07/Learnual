@@ -1,7 +1,5 @@
 package com.learn.bbs.crs.crsinf.service.impl;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +16,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfCourseListReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfEndUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
@@ -30,7 +29,6 @@ import com.learn.bbs.pltad.cnfr.dao.CnfrHstrDao;
 import com.learn.bbs.pltad.cnfr.vo.CnfrHstrConfirmReadVO;
 import com.learn.bbs.pltad.crssbj.dao.CrsSbjDao;
 import com.learn.bbs.pltad.crssbj.vo.CrsSbjRegistRequestVO;
-import com.learn.bbs.pltad.dao.PltAdDao;
 import com.learn.bbs.pltad.instr.dao.InstrDao;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.exceptions.CnfrHstrInsertException;
@@ -38,7 +36,6 @@ import com.learn.exceptions.CrsInfDeleteException;
 import com.learn.exceptions.CrsInfRegistException;
 import com.learn.exceptions.CrsInfUpdateException;
 import com.learn.exceptions.CrsPrattRegistException;
-import com.learn.exceptions.InstrRegistException;
 
 /**
  * @author 최예진
@@ -63,8 +60,6 @@ public class CrsInfServiceImpl implements CrsInfService {
     private CrsPrattDao crsPrattDao;
     @Autowired
     private CnfrHstrDao cnfrHstrDao;
-    @Autowired
-    private PltAdDao pltAdDao;
 
     @Transactional
     @Override
@@ -95,26 +90,26 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional(readOnly = true)
 	@Override
-	public boolean countCourseName(String crsInfNm) {
-		return this.crsInfDao.countCourseName(crsInfNm) > 0;
+	public boolean countCourseName(String crsInfNm, String insttnId) {
+		return this.crsInfDao.countCourseName(crsInfNm, insttnId) > 0;
 	}
     
     @Transactional(readOnly = true)
 	@Override
-	public String selectCourseName(String crsInfId) {
-		return this.crsInfDao.selectCourseName(crsInfId);
+	public String selectCourseName(String crsInfId, String insttnId) {
+		return this.crsInfDao.selectCourseName(crsInfId, insttnId);
 	}
+    
+    @Transactional(readOnly = true)
+    @Override
+	public List<CrsInfPltadReadResponseVO> selectAllCourseForPltad(String insttnId) {
+		return this.crsInfDao.selectAllCourseForPltad(insttnId);
+    }
 
     @Transactional(readOnly = true)
 	@Override
-	public List<CrsInfPltadReadResponseVO> selectAllCourseForPltad() {
-		return this.crsInfDao.selectAllCourseForPltad();
-	}
-
-    @Transactional(readOnly = true)
-	@Override
-	public List<CrsInfPltadFinishedReadResponseVO> selectAllFinishedCourseForPltad() {
-    	return this.crsInfDao.selectAllFinishedCourseForPltad();
+	public List<CrsInfPltadFinishedReadResponseVO> selectAllFinishedCourseForPltad(String insttnId) {
+    	return this.crsInfDao.selectAllFinishedCourseForPltad(insttnId);
 	}
 
     @Transactional
@@ -147,9 +142,9 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional(readOnly = true)
 	@Override
-	public CrsInfModifyRequestVO selectAllInfoFromOneCourse(String crsInfId) {
+	public CrsInfModifyRequestVO selectAllInfoFromOneCourse(String crsInfId, String insttnId) {
     	// 다시 정보 불러와서 수정 form에 보여줘야한다.
-    	CrsInfModifyRequestVO oneCourse = this.crsInfDao.selectAllInfoFromOneCourse(crsInfId);
+    	CrsInfModifyRequestVO oneCourse = this.crsInfDao.selectAllInfoFromOneCourse(crsInfId, insttnId);
     	
     	List<String> subjectNameList = new ArrayList<>();
     	
@@ -164,22 +159,14 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional
 	@Override
-	public boolean deleteOneCourse(String crsInfId) {
-		int isUpdated = this.crsInfDao.deleteOneCourse(crsInfId);
+	public boolean deleteOneCourse(String crsInfId, String insttnId) {
+		int isUpdated = this.crsInfDao.deleteOneCourse(crsInfId, insttnId);
 		
 		if(isUpdated == 0) {
 			throw new CrsInfDeleteException(crsInfId);
 		}
 		
 		return isUpdated > 0;
-	}
-
-    @Transactional
-	@Override
-	public List<CrsInfAvailableReadResponseVO> selectCoursesForUser(String usrMl) {
-        List<CrsInfAvailableReadResponseVO> availableCourses = this.crsInfDao.selectAvailableCoursesForUser();
-
-		return availableCourses;
 	}
     
 //    @Override
@@ -200,14 +187,14 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional(readOnly = true)
 	@Override
-	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId) {
-    	return this.crsInfDao.selectCourseDetail(crsInfId);
+	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId, String insttnId) {
+    	return this.crsInfDao.selectCourseDetail(crsInfId, insttnId);
 	}
 
     @Transactional(readOnly = true)
-    public boolean isAppliedOrCancelled(String crsInfId, String usrMl) {
+    public boolean isAppliedOrCancelled(String crsInfId, String usrMl, String insttnId) {
         // 신청 내역 ID 조회
-        String appHstrId = this.appHstrDao.findAppHstrId(crsInfId, usrMl);
+        String appHstrId = this.appHstrDao.findAppHstrId(crsInfId, usrMl, insttnId);
 
         if (appHstrId == null) {
             // 신청 안 했으면 -> 신청 버튼 보여줌
@@ -215,18 +202,18 @@ public class CrsInfServiceImpl implements CrsInfService {
         }
 
         // 신청은 했고, 취소 안 했으면 -> 신청 취소 버튼 보여줌
-        boolean isCancelled = this.cnclHstrDao.existsCancelledAppHstr(appHstrId);
+        boolean isCancelled = this.cnclHstrDao.existsCancelledAppHstr(appHstrId, insttnId);
         return !isCancelled;
     }
 
     @Transactional
 	@Override
-	public boolean endOneCourse(String crsInfId) {
-		int isUpdated = this.crsInfDao.endOneCourse(crsInfId);
+	public boolean endOneCourse(CrsInfEndUpdateRequestVO crsInfEndUpdateRequestVO) {
+		int isUpdated = this.crsInfDao.endOneCourse(crsInfEndUpdateRequestVO);
 		
 		// DB 수정 실패
 		if(isUpdated == 0) {
-			throw new CrsInfUpdateException(crsInfId);
+			throw new CrsInfUpdateException(crsInfEndUpdateRequestVO.getCrsInfId());
 		}
 		
 		return isUpdated > 0;
@@ -234,14 +221,14 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional(readOnly = true)
 	@Override
-	public List<CrsInfAvailableReadResponseVO> selectRegisterableCourses() {
-		return this.crsInfDao.selectAvailableCoursesForUser();
+	public List<CrsInfAvailableReadResponseVO> selectRegisterableCourses(String insttnId) {
+		return this.crsInfDao.selectAvailableCoursesForUser(insttnId);
 	}
 	
     @Transactional(readOnly = true)
 	@Override
-	public int insertRegisteredUsers() {
-		int isInserted = this.cnfrHstrDao.insertRegisteredUsers();
+	public int insertRegisteredUsers(String insttnId) {
+		int isInserted = this.cnfrHstrDao.insertRegisteredUsers(insttnId);
 		
 		if(isInserted == 0) {
 			throw new CnfrHstrInsertException();
@@ -252,8 +239,8 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional(readOnly = true)
 	@Override
-	public List<CnfrHstrConfirmReadVO> getConfirmedUsers(String crsInfId) {
-		return this.cnfrHstrDao.selectAllConfirmedUsers(crsInfId);
+	public List<CnfrHstrConfirmReadVO> getConfirmedUsers(String crsInfId, String insttnId) {
+		return this.cnfrHstrDao.selectAllConfirmedUsers(crsInfId, insttnId);
 	}
 
     @Transactional
@@ -273,12 +260,15 @@ public class CrsInfServiceImpl implements CrsInfService {
     @Override
     public void saveConfirmedUsersToPratt(CrsPrattRegistRequestVO crsPrattRegistRequestVO) {
         String crsInfId = crsPrattRegistRequestVO.getCrsInfId();
+        String insttnId = crsPrattRegistRequestVO.getInsttnId();
+        
         List<String> selectedEmails = crsPrattRegistRequestVO.getSelectedUserEmails();
 
-        List<CnfrHstrConfirmReadVO> confirmedUsers = this.getConfirmedUsers(crsInfId);
+        List<CnfrHstrConfirmReadVO> confirmedUsers = this.getConfirmedUsers(crsInfId, insttnId);
 
         List<CnfrHstrConfirmReadVO> selectedUsers = new ArrayList<>();
         for (CnfrHstrConfirmReadVO user : confirmedUsers) {
+        	System.out.println("유저이메일은 " + user.getUsrMl());
             if (selectedEmails.contains(user.getUsrMl())) {
                 selectedUsers.add(user);
             }
@@ -289,6 +279,7 @@ public class CrsInfServiceImpl implements CrsInfService {
             crsPrattRegistRequest.setCrsInfId(crsInfId);
             crsPrattRegistRequest.setUsrId(user.getUsrId());
             crsPrattRegistRequest.setUsrMl(user.getUsrMl());
+            crsPrattRegistRequest.setInsttnId(user.getInsttnId());
 
             this.insertCrsPratt(crsPrattRegistRequest);
         }
@@ -321,8 +312,8 @@ public class CrsInfServiceImpl implements CrsInfService {
 
     @Transactional(readOnly = true)
 	@Override
-	public List<CrsInfAbandonReadResponseVO> selectAbandonCourse() {
-		return this.crsInfDao.selectAbandonCourse();
+	public List<CrsInfAbandonReadResponseVO> selectAbandonCourse(String insttnId) {
+		return this.crsInfDao.selectAbandonCourse(insttnId);
 	}
 
     @Transactional(readOnly = true)
@@ -333,15 +324,17 @@ public class CrsInfServiceImpl implements CrsInfService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public CrsInfCourseListReadResponseVO selectAvailableFourCoursesWithStatus(String usrMl) {
-	    int count = this.crsPrattDao.checkUserHasCrsPratt(usrMl);
+	public CrsInfCourseListReadResponseVO selectAvailableFourCoursesWithStatus(String usrMl, String insttnId) {
+	    int count = this.crsPrattDao.checkUserHasCrsPratt(usrMl, insttnId);
 	    boolean isRegistered = count > 0;
 
 	    List<CrsInfAvailableReadResponseVO> courseList;
 	    if (isRegistered) {
-	        courseList = this.crsInfDao.selectMyCourseForUser(usrMl);
+	    	// 수강 이력 O; 현재 수강중인 강좌 목록을 보여준다
+	        courseList = this.crsInfDao.selectMyCourseForUser(usrMl, insttnId);
 	    } else {
-	        courseList = this.crsInfDao.selectAvailableFourCoursesForUser();
+	    	// 수강 이력 X; 수강 중인 강좌가 현재 없기 때문에 강좌 신청 가능 목록을 보여준다
+	        courseList = this.crsInfDao.selectAvailableFourCoursesForUser(insttnId);
 	    }
 
 	    CrsInfCourseListReadResponseVO responseVO = new CrsInfCourseListReadResponseVO();

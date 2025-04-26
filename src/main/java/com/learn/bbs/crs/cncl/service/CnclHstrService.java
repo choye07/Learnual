@@ -6,5 +6,5 @@ package com.learn.bbs.crs.cncl.service;
  * 취소 내역
  */
 public interface CnclHstrService {
-	public boolean insertCancelledAppHstr(String crsInfId, String usrMl);
+	public boolean insertCancelledAppHstr(String crsInfId, String usrMl, String insttnId);
 }
