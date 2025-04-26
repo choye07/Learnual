@@ -17,10 +17,9 @@
 
 			<div class="header-right">
 				<ul class="insttn-menu">
-					<li><a href="#">학원소개</a></li>
-					<li><a href="#">오시는길</a></li>
-					<li><a href="/insttn/crs">임시 강좌메인</a></li>
-					<li><a href="/">러뉴얼 바로가기</a></li>
+					<li><a href="#">학원 공지사항</a></li>
+					<li><a href="#">학원 QnA</a></li>
+					<li><a href="#">나의 강좌목록</a></li>
 				</ul>
 				<div class="btn-notification">
 					<a href="#">notification</a>

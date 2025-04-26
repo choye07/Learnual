@@ -25,6 +25,28 @@
 
 		<div class="dashboard-main course">
 			<div class="main-wrapper">
+				<div class="course-info v2">
+					<div class="course-info-wrapper">
+						<div class="course-info-title">
+							<p>강의명:</p>
+							<h2>Kt ds 25기 풀스택 전문가 양성과정</h2>
+						</div>
+						<div class="course-info-period">
+							<p>
+								강의신청일: <span>2024.11.01</span>
+							</p>
+							<p>
+								신청마감일: <span>2025.01.10</span>
+							</p>
+							<p>
+								강의시작일: <span>2025.01.14</span>
+							</p>
+							<p>
+								강의종료일: <span>2025.06.20</span>
+							</p>
+						</div>
+					</div>
+				</div>
 
 				<div class="contents">
 
@@ -39,12 +61,10 @@
 								</div>
 								<div class="board-manager-toolbox">
 									<div class="btn-modify">
-										<a href="/crntc/modify/${selectedCrNotice.crntcId}">게시글
-											수정</a>
+										<a href="/crntc/modify/${selectedCrNotice.crntcId}">게시글 수정</a>
 									</div>
 									<div class="btn-delete">
-										<a href="/crntc/delete/${selectedCrNotice.crntcId}">게시글
-											삭제</a>
+										<a href="/crntc/delete/${selectedCrNotice.crntcId}">게시글 삭제</a>
 									</div>
 									<div class="btn-add-notice">
 										<a href="/crntc/write">공지글 작성</a>

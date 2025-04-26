@@ -17,8 +17,17 @@
 
 			<div class="header-right">
 				<ul class="course-menu">
+									<li><a href="#">
+							강좌 공지사항
+					</a></li>
+										<li><a href="#">
+							강좌 QnA
+					</a></li>
+										<li><a href="#">
+							시험 게시판
+					</a></li>
 					<li><a href="#">
-							<div class="dashboard-icon">icon</div>대시보드 이동
+							과제 게시판
 					</a></li>
 				</ul>
 				<div class="btn-notification">
