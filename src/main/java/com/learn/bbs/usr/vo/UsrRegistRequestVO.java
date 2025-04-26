@@ -41,6 +41,12 @@ public class UsrRegistRequestVO {
 	
 	// 회원의 비밀번호 암호화를 위한 문자열
 	private String usrSlt;
+	
+	// 회원의 권한 코드 아이디 
+	private String cmcdId;
+	
+	// 기관(학원) 정보의 고유한 아이디
+	private String insttnId;
 
 	public String getUsrMl() {
 		return usrMl;
@@ -104,6 +110,22 @@ public class UsrRegistRequestVO {
 
 	public void setUsrRcptAgrYn(String usrRcptAgrYn) {
 		this.usrRcptAgrYn = usrRcptAgrYn;
+	}
+
+	public String getCmcdId() {
+		return cmcdId;
+	}
+
+	public void setCmcdId(String cmcdId) {
+		this.cmcdId = cmcdId;
+	}
+
+	public String getInsttnId() {
+		return insttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		this.insttnId = insttnId;
 	}
 
 }

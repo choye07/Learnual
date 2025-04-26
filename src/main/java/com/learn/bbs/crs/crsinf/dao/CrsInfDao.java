@@ -11,6 +11,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfStartAndEndTimeRequestVO;
 
 /**
  * @TableName CRS_INF
@@ -64,4 +65,7 @@ public interface CrsInfDao {
 	
 	// 해당 강좌의 정원 불러오기
 	public int selectLimitedCount(String crsInfId, String insttnId);
+	
+	// 해당 강좌 정보의 수업 시작 시간 & 종료 시간 - 소희
+		public CrsInfStartAndEndTimeRequestVO selectCourseTimeStartAndEnd (String crsInfId);
 }

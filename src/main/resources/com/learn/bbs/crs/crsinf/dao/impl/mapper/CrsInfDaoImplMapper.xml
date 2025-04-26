@@ -455,4 +455,15 @@ SELECT CRS_INF_ID
 	     WHERE CRS_INF_ID = #{crsInfId}
 	       AND INSTTN_ID = #{insttnId}
     </select>
+    
+    <!-- 소희 start   -->
+    <select id="selectCourseTimeStartAndEnd" parameterType="com.learn.bbs.crs.crsinf.vo.CrsInfStartAndEndTimeRequestVO">
+    
+    SELECT TO_CHAR(CRS_INF_ST_DT, 'HH24:MI') AS crsInfStDt
+		, TO_CHAR(CRS_INF_END_DT, 'HH24:MI') AS crsInfEndDt
+	  FROM CRS_INF 
+	 WHERE CRS_INF_ID =  #{crsInfId}
+    </select>
+    
+    <!-- 소희 end   -->
 </mapper>

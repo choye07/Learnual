@@ -50,8 +50,8 @@
 				0,
 				'N' ,
 				'N' ,
-				'회원권한 코드아이디 들어갈예정',
-				'기관 아이디 들어갈 예정',
+				'USACC',
+				#{insttnId},
 				CASE
 				WHEN #{usrRcptAgrYn} = 'Y' THEN 'Y'
 				ELSE 'N'

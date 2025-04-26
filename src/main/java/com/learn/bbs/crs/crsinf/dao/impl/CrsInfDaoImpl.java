@@ -19,6 +19,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfStartAndEndTimeRequestVO;
 
 
 /**
@@ -144,5 +145,10 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	    param.put("insttnId", insttnId);
 	    
 		return this.getSqlSession().selectOne(NAME_SPACE + "selectLimitedCount", param);
+	}
+	
+	@Override
+	public CrsInfStartAndEndTimeRequestVO selectCourseTimeStartAndEnd(String crsInfId) {
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseTimeStartAndEnd", crsInfId);
 	}
 }
