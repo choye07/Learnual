@@ -1,6 +1,11 @@
 package com.learn.insttn.service;
 
+import java.util.List;
+
+import com.learn.insttn.vo.InsttnListVO;
 import com.learn.insttn.vo.InsttnRegistRequestVO;
+import com.learn.insttn.vo.InsttnSearchRequestVO;
+import com.learn.insttn.vo.InsttnVO;
 
 /**
  * @author 최예진
@@ -10,5 +15,10 @@ public interface InsttnService {
 	
 	// 기관(학원) 등록
 	public boolean createNewInsttn(InsttnRegistRequestVO insttnRegistRequestVO);
+	
+	public InsttnVO selectOneInsttn(String insttnId);
+
+
+	public List<InsttnVO> selectAllinsttn(InsttnSearchRequestVO insttnSearchRequestVO);
 
 }

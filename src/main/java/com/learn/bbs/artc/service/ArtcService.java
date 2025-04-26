@@ -1,12 +1,15 @@
-package com.learn.bbs.pltad.artc.service;
+package com.learn.bbs.artc.service;
 
+import java.util.List;
 
+import com.learn.bbs.artc.vo.ArtcReadRequestVO;
+import com.learn.bbs.artc.vo.ArtcRegistRequestVO;
+import com.learn.bbs.artc.vo.ArtcVO;
 
-/**
- * @TableName ARTC
- * @TableComment null
- * 게시판
- */
 public interface ArtcService {
+	
+	public List<ArtcVO> selectAllArtc(ArtcReadRequestVO ArtcReadRequestVO);
+	
+	public boolean createNewArtc(ArtcRegistRequestVO artcRegistRequestVO);
 
 }

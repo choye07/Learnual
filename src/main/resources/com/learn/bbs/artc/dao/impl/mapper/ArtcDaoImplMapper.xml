@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
+
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.learn.bbs.pltad.artc.dao.impl.ArtcDaoImpl">
-    
+<mapper namespace="com.learn.bbs.artc.dao.impl.ArtcDaoImpl">
+	<insert id="insertNewArtc"
+		parameterType="com.learn.bbs.artc.vo.ArtcRegistRequestVO">
+		<selectKey order="BEFORE" resultType="string"
+			keyProperty="artcId">
+			<!-- 아이디 값을 생성해주는 태그 -->
+			SELECT 'ARTC-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' ||
+			LPAD(SEQ_ARTC_PK.NEXTVAL, 6, '0')
+			FROM DUAL
+		</selectKey>
+		INSERT INTO ARTC
+		(ARTC_ID,
+		ARTC_NM,
+		ARTC_US_YN,
+		ARTC_FL_YN,
+		ARTC_URL_YN,
+		ARTC_RGST_DT,
+		ARTC_UPDT_DT,
+		ARTC_DEL_DT,
+		ARTC_DEL_YN,
+		INSTTN_ID
+		<if test="crsInfId!=null">
+			, CRS_INF_ID
+		</if>
+		)VALUES(
+		#{artcId}
+		,#{artcNm}
+		, #{artcUsYn}
+		, 'N'
+		, 'N'
+		, SYSDATE
+		, NULL
+		, NULL
+		, 'N'
+		, 'learnual'
+		<if test="crsInfId!=null">
+			, #{crsInfId}
+		</if>
+		)
+	</insert>
 </mapper>

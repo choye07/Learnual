@@ -1,5 +1,10 @@
 package com.learn.insttn.vo;
 
+import java.util.List;
+
+import com.learn.bbs.crs.crsinf.vo.CrsInfVO;
+import com.learn.bbs.pltad.instr.vo.InstrVO;
+
 /**
  * @TableName MENU
  * @TableComment null
@@ -76,8 +81,29 @@ public class InsttnVO {
      * @ColumnComment 기관(학원) 아이디 삭제 여부
      */
     private String insttnDelYn;
+    
+    private List<CrsInfVO> crsInfList;
+    
+    private InstrVO instrVO;
+ 
+    
+    public InstrVO getInstrVO() {
+		return instrVO;
+	}
 
-    public String getInsttnId() {
+	public void setInstrVO(InstrVO instrVO) {
+		this.instrVO = instrVO;
+	}
+
+	public List<CrsInfVO> getCrsInfList() {
+		return crsInfList;
+	}
+
+	public void setCrsInfList(List<CrsInfVO> crsInfList) {
+		this.crsInfList = crsInfList;
+	}
+
+	public String getInsttnId() {
         return this.insttnId;
     }
     

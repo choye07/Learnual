@@ -13,34 +13,6 @@
 </head>
 
 <body>
-	<ul class="quick-navbar learnual">
-		<li class="quick-menu learnual"><a href="/">
-				<div class="quick-icon">img</div>
-				<p>러뉴얼 홈</p>
-		</a></li>
-		<li class="quick-menu insttn"><a href="/insttn">
-				<div class="quick-icon">img</div>
-				<p>학원 홈</p>
-		</a></li>
-		<li class="quick-menu course"><a href="/insttn/crs">
-				<div class="quick-icon">img</div>
-				<p>강좌 홈</p>
-		</a></li>
-		<li class="quick-menu dashboard"><a href="/dashboard/usr">
-				<div class="quick-icon">img</div>
-				<p>대시보드(학생)</p>
-		</a></li>
-		<li class="quick-menu dashboard"><a href="/dashboard/eduad">
-				<div class="quick-icon">img</div>
-				<p>대시보드(강사)</p>
-		</a></li>
-		<!-- 슈퍼관리자 계정만 활성화 -->
-		<li class="quick-menu super"><a href="#">
-				<div class="quick-icon">img</div>
-				<p>슈퍼관리자 메뉴</p>
-		</a></li>
-	</ul>
-
 	<div class="wrapper">
 		<jsp:include
 			page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
@@ -86,26 +58,58 @@
 						<div class="search-area academy">
 							<form id="search-academy-form" class="search-form" action="#">
 								<div class="search-input-area">
-									<label for="search-academy">학원명 검색 입력란</label> <input
-										id="search-academy" type="text" placeholder="학원명을 입력하세요" />
+									<select name="select-search-cat">
+										<option selected>학원</option>
+										<option>과정</option>
+										<c:if test="${not empty Search.writeInsttnNm }">
+											<option selected>학원</option>
+											<option>과정</option>
+										</c:if>
+										<c:if test="${not empty Search.writeCrsInfNm }">
+											<option>학원</option>
+											<option selected>과정</option>
+										</c:if>
+									</select> <label for="search-academy">과정 명 검색 입력란</label>
+									<c:choose>
+										<c:when test="${not empty Search.writeInsttnNm }">
+											<input id="search-academy" type="text"
+												placeholder="${ Search.writeInsttnNm }"
+												value="${ Search.writeInsttnNm }" />
+										</c:when>
+										<c:when test="${not empty Search.writeCrsInfNm }">
+											<input id="search-academy" type="text"
+												placeholder="${ Search.writeCrsInfNm }"
+												value="${ Search.writeCrsInfNm }" />
+										</c:when>
+										<c:otherwise>
+											<input id="search-academy" type="text"
+												placeholder="학원 / 과정 명을 입력해주세요" />
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div class="search-button-area">
-									<button type="button btn3">검색</button>
+									<button class="insttn-search-button btn3" type="button">검색</button>
 								</div>
 							</form>
 						</div>
 
 						<ul class="search-academy-list-wrapper list-wrapper">
 							<!-- search item forEach start -->
-							<li><a href="#">
-									<p>(채용예정자 전형) 풀스택 양성과정</p> <span>(주)그린 컴퓨터 아카데미</span> <span>서울시
-										동작구 연남동</span>
-							</a></li>
-							<li><a href="#">
-									<p>(재직자 전형)AZURE 보안 전문가 과정</p> <span>(주)그린 컴퓨터 아카데미</span> <span>서울시
-										동작구 연남동</span>
-							</a></li>
-							<!-- search item forEach end -->
+							<c:choose>
+								<c:when test="${not empty insttnList}">
+									<c:forEach items="${insttnList}" var="insttn">
+										<c:forEach items="${insttn.crsInfList}" var="crsInf">
+											<li><a href="/${insttn.insttnId}">
+													<p>${crsInf.crsInfNm}</p> <span>(주)${insttn.insttnNm}</span>
+													<span>${insttn.insttnAdrs}</span>
+											</a></li>
+										</c:forEach>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<li><a href="#"><p>일치하는 학원 / 과정이 없습니다.</p></a></li>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 
 						<ul class="pagination">

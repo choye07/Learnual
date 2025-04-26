@@ -3,17 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.insttn.dao.impl.InsttnDaoImpl">
-
-<insert id="insertNewInsttn"
-parameterType="com.learn.insttn.vo.InsttnRegistRequestVO">
-	<selectKey order="BEFORE" resultType="string" keyProperty="insttnId">
+	<resultMap type="com.learn.insttn.vo.InsttnVO"
+		id="InsttnVOMap" autoMapping="true">
+		<!-- 컬럼과 맵핑되는 멤버 변수의 이름을 연결시킨다. -->
+		<id column="INSTTN_ID" property="insttnId" /> <!-- 조회한 컬럼이 PK일 경우 ID태그를 사용 -->
+		<association property="instrVO"
+			javaType="com.learn.bbs.pltad.instr.vo.InstrVO" autoMapping="true">
+			<id column="INSTR_ID" property="instrId" />
+		</association>
+		<collection property="crsInfList"
+			ofType="com.learn.bbs.crs.crsinf.vo.CrsInfVO" autoMapping="true">
+			<id column="CRS_INF_ID" property="crsInfId" />
+		</collection> <!-- DB테이블안에서 1:N 관계이면 list 사용시 collection -->
+	</resultMap>
+	<insert id="insertNewInsttn"
+		parameterType="com.learn.insttn.vo.InsttnRegistRequestVO">
+		<selectKey order="BEFORE" resultType="string"
+			keyProperty="insttnId">
 			<!-- 아이디 값을 생성해주는 태그 -->
-			SELECT 'INSTTN-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_INSTTN_PK.NEXTVAL, 6,
-				'0')
-				FROM DUAL
+			SELECT 'INSTTN-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' ||
+			LPAD(SEQ_INSTTN_PK.NEXTVAL, 6,
+			'0')
+			FROM DUAL
 		</selectKey>
-	INSERT INTO
-	INSTTN (
+		INSERT INTO
+		INSTTN (
 		INSTTN_ID,
 		INSTTN_NM,
 		INSTTN_BSNS_NB,
@@ -24,7 +38,7 @@ parameterType="com.learn.insttn.vo.InsttnRegistRequestVO">
 		INSTTN_UPDT_DT,
 		INSTTN_DEL_DT,
 		INSTTN_DEL_YN)
-	VALUES(
+		VALUES(
 		#{insttnId},
 		#{insttnNm},
 		#{insttnBsnsNb},
@@ -35,6 +49,28 @@ parameterType="com.learn.insttn.vo.InsttnRegistRequestVO">
 		NULL ,
 		NULL,
 		'N' )
-</insert>
-    
+	</insert>
+	<select id="selectAllInsttn"
+		parameterType="com.learn.insttn.vo.InsttnSearchRequestVO"
+		resultMap="InsttnVOMap">
+		SELECT 
+		i.INSTTN_ID,
+		i.INSTTN_NM ,
+		i.INSTTN_ADRS,
+		ci.CRS_INF_NM
+		FROM INSTTN i
+		LEFT OUTER
+		JOIN INSTR ins
+		ON i.INSTTN_ID = ins.INSTTN_ID
+		LEFT OUTER JOIN CRS_INF ci
+		ON ins.INSTR_ID = ci.INSTR_ID
+		<where>
+			<if test='writeInsttnNm!=null and writeInsttnNm !=""'>
+				UPPER(i.INSTTN_NM) LIKE  UPPER('%' || #{writeInsttnNm}|| '%' )
+			</if>
+			<if test='writeCrsInfNm!=null and writeCrsInfNm !=""'>
+				UPPER(ci.CRS_INF_NM) LIKE UPPER ('%' || #{writeCrsInfNm}|| '%')
+			</if>
+		</where>
+	</select>
 </mapper>

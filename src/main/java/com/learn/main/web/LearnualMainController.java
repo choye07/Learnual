@@ -1,14 +1,13 @@
 package com.learn.main.web;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.learn.Util.SessionUtil;
 import com.learn.bbs.pltad.instr.service.InstrService;
@@ -16,13 +15,15 @@ import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.bbs.pltad.service.PltAdService;
 import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.usr.service.UsrService;
-import com.learn.bbs.usr.vo.UsrEditMyinformationVO;
 import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.MyInformationRequestVO;
+import com.learn.insttn.service.InsttnService;
+import com.learn.insttn.vo.InsttnListVO;
+import com.learn.insttn.vo.InsttnSearchRequestVO;
+import com.learn.insttn.vo.InsttnVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 
 @Controller
 public class LearnualMainController {
@@ -38,12 +39,18 @@ public class LearnualMainController {
 	
 	@Autowired
 	private InstrService instrService;
+	
+	@Autowired
+	private InsttnService insttnService; 
 
-	@GetMapping("/")
-	public String goMain() {
+	@GetMapping("/main")
+	public String goMain(Model model, InsttnSearchRequestVO insttnSearchRequestVO) {
+			List<InsttnVO> insttnList = this.insttnService.selectAllinsttn(insttnSearchRequestVO);
+			model.addAttribute("insttnList", insttnList);
+			model.addAttribute("Search",insttnSearchRequestVO);
 		return "main/mainhome";
 	}
-
+	
 	@GetMapping("/login")
 	public String goMainLogin() {
 		return "main/mainlogin";

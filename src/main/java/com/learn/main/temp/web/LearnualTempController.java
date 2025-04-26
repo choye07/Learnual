@@ -51,4 +51,10 @@ public class LearnualTempController {
 		return "/bbs/tst/tstboardwriteeduad";
 	}
 	
+	@GetMapping("/test10")
+	public String viewTest10() {
+		return "/insttn/maininsttn";
+	}
+	
+	
 }
