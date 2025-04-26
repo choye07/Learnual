@@ -10,9 +10,7 @@
 			<ul class="header-right-nav">
 				<li><a href="#">About</a></li>
 				<li><a href="#">Product</a></li>
-				<li><a href="/dashboard/usr">학생대시보드</a></li>
-				<li><a href="/dashboard/eduad">강사대시보드</a></li>
-				<li><a href="/insttn">학원페이지</a></li>
+				<li><a href="#">Contact Us</a></li>
 			</ul>
 		</div>
 	</div>

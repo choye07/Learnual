@@ -138,40 +138,71 @@
 								<div class="todo-date">
 									<div class="todo-date1">
 										<div class="todo-date1-box1">
-											<div class="todo-date1-date">20</div>
+											<!-- 일 -->
+											<div class="todo-date1-date"></div>
 										</div>
 										<div class="todo-date1-box2">
-											<div class="todo-date1-month">04</div>
-											<div class="todo-date1-year">2025</div>
+											<!-- 월 -->
+											<div class="todo-date1-month"></div>
+											<!-- 년 -->
+											<div class="todo-date1-year"></div>
 										</div>
 									</div>
 									<div class="todo-date2">
-										<div class="todo-date2-day">MONDAY</div>
+										<!-- 요일 -->
+										<div class="todo-date2-day"></div>
 									</div>
 								</div>
-								<!-- 강의계획서 엑셀에서 만약 해당 날짜에
+							</div>
+							<!-- 강의계획서 엑셀에서 만약 해당 날짜에
                        데이터가 존재한다면 로딩하는 영역 -->
-								<div class="today-course">
-									<p>금일 예정 계획</p>
-									<div class="today-data">엑셀에서 불러온 데이터</div>
-								</div>
-								<div class="todo-custom">
-									<p>추가 계획</p>
-									<!-- 강사가 추가한 todo list 목록 -->
-									<ul class="todo-item-wrapper">
-										<!-- 템플릿으로 추가될 todo list item -->
-									</ul>
-									<!-- 숨겨져 있다가 btn-todo-edit클릭 시 나타나는 영역 -->
-									<div class="todo-edit-area">
-										<input class="custom-todo-input" type="text"
-											placeholder="추가할 계획을 작성하세요" />
-										<button class="btn-add">추가</button>
-									</div>
+							<div class="today-course">
+								<p>금일 예정 계획</p>
+								<!-- 04.26 강의계획서 투두 수정 -->
+								<c:choose>
+									<c:when test="${not empty todoList.todoList}">
+										<!-- todoList.todoList가 있을 때 출력 -->
+										<div class="today-todo">
+											<ul>
+												<c:forEach var="todo" items="${todoList.todoList}">
+													<li>${todo.todoCtt}</li>
+												</c:forEach>
+											</ul>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<!-- todoList.todoList가 없을 때 파일 첨부 영역 -->
+										<div class="file-area form-group">
+											<label>강의계획서</label>
+											<div class="file-container">
+												<div class="file-item">
+													<input type="file" id="file" name="file" />
+													<button type="button" class="btn-planner-remove btn">삭제</button>
+												</div>
+											</div>
+										</div>
+										<button type="button" class="btn-planner-add">등록</button>
+									</c:otherwise>
+								</c:choose>
+							</div>
+
+							<div class="todo-custom">
+								<p>추가 계획</p>
+								<!-- 강사가 추가한 todo list 목록 -->
+								<ul class="todo-item-wrapper">
+									<!-- 템플릿으로 추가될 todo list item -->
+								</ul>
+								<!-- 숨겨져 있다가 btn-todo-edit클릭 시 나타나는 영역 -->
+								<div class="todo-edit-area">
+									<input class="custom-todo-input" type="text"
+										placeholder="추가할 계획을 작성하세요" />
+									<button class="btn-add">추가</button>
 								</div>
 							</div>
-							<div class="btn-todo-edit">
-								<a href="#">+</a>
-							</div>
+						</div>
+
+						<div class="btn-todo-edit">
+							<a href="#">+</a>
 						</div>
 					</div>
 					<!-- right-widget2 todo end -->
