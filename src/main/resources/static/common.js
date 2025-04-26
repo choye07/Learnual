@@ -1000,8 +1000,6 @@ $(document).ready(function () {
           writeInsttnNm = '';
           writeCrsInfNm = searchText;
       }
-      alert(searchText);
-      alert(writeInsttnNm + "," + writeCrsInfNm);
       location.href = url + "?writeInsttnNm=" + writeInsttnNm + "&writeCrsInfNm=" + writeCrsInfNm;
   });
   /* 학원 검색 이벤트*/
