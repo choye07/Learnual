@@ -1,6 +1,7 @@
 package com.learn.bbs.crs.apphstr.dao.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.learn.bbs.crs.apphstr.dao.AppHstrDao;
+import com.learn.bbs.crs.apphstr.vo.AppHstrReadResponseVO;
+import com.learn.bbs.crs.apphstr.vo.AppHstrRegistRequestVO;
 
 /**
  * @author 최예진
@@ -26,33 +29,45 @@ public class AppHstrDaoImpl extends SqlSessionDaoSupport implements AppHstrDao {
     }
 
     @Override
-    public int insertOneAppHstr(String crsInfId, String usrMl) {
+    public int insertOneAppHstr(AppHstrRegistRequestVO appHstrRegistRequestVO) {
+        return this.getSqlSession().insert(NAME_SPACE + "insertOneAppHstr", appHstrRegistRequestVO);
+    }
+
+    @Override
+    public boolean existsAppHstr(String crsInfId, String usrMl, String insttnId) {
         Map<String, Object> param = new HashMap<>();
         param.put("crsInfId", crsInfId);
         param.put("usrMl", usrMl);
+        param.put("insttnId", insttnId);
         
-        // SQL 쿼리 실행
-        return this.getSqlSession().insert(NAME_SPACE + "insertOneAppHstr", param);
+        return this.getSqlSession().selectOne(NAME_SPACE + "existsAppHstr", param);
     }
 
     @Override
-    public boolean existsAppHstr(String crsInfId, String usrMl) {
-        return this.getSqlSession().selectOne(NAME_SPACE + "existsAppHstr", Map.of(
-            "crsInfId", crsInfId,
-            "usrMl", usrMl
-        ));
+    public String findAppHstrId(String crsInfId, String usrMl, String insttnId) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("crsInfId", crsInfId);
+        param.put("usrMl", usrMl);
+        param.put("insttnId", insttnId);
+        
+        return this.getSqlSession().selectOne(NAME_SPACE + "findAppHstrId", param);
     }
 
     @Override
-    public String findAppHstrId(String crsInfId, String usrMl) {
-        return this.getSqlSession().selectOne(NAME_SPACE + "findAppHstrId", Map.of(
-            "crsInfId", crsInfId,
-            "usrMl", usrMl
-        ));
+    public int countCurrentUserInCourse(String crsInfId, String insttnId) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("crsInfId", crsInfId);
+        param.put("insttnId", insttnId);
+        
+        return this.getSqlSession().selectOne(NAME_SPACE + "countCurrentUserInCourse", param);
     }
 
 	@Override
-	public int countCurrentUserInCourse(String crsInfId) {
-		return this.getSqlSession().selectOne(NAME_SPACE + "countCurrentUserInCourse", crsInfId);
+	public List<AppHstrReadResponseVO> selectCurrentUserInCourse(String crsInfId, String insttnId) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("crsInfId", crsInfId);
+        param.put("insttnId", insttnId);
+        
+        return this.getSqlSession().selectList(NAME_SPACE + "selectCurrentUserInCourse", param);
 	}
 }

@@ -50,7 +50,18 @@
 								    <c:if test="${activeCourse.status ne 'doingApply' and activeCourse.status ne 'isAbandon'}">
 
 									<li><a
-										href="/insttn/pltad/detail/${activeCourse.crsInfId}">
+									        <c:choose>
+									            <c:when test="${activeCourse.status == 'beforeApp'}">
+									                href="/insttn/pltad/detail/${activeCourse.crsInfId}"
+									            </c:when>
+									            <c:when test="${activeCourse.status == 'inApply' || activeCourse.status == 'canEnd' || activeCourse.status == 'canAbandon'}">
+									                href="/insttn/pltad/current/${activeCourse.crsInfId}"
+									            </c:when>
+									            <c:when test="${activeCourse.status == 'endApply'}">
+									                href="/insttn/pltad/finish/${activeCourse.crsInfId}"
+									            </c:when>
+									        </c:choose>
+									    >
 											<h3>${activeCourse.crsInfNm}</h3>
 									</a>
 										<p class="period">

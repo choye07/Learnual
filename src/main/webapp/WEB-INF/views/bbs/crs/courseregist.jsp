@@ -50,13 +50,19 @@
 												/ <span class="max-capa">${availableCourse.crsInfPrsCnt}</span>
 												명
 											</p>
-									</a> <%--<div class="article-direct">
-                        <a class="btn-modify" href="/insttn/pltad/modify/${activeCourse.crsInfId}">수정</a>
-                        <a class="btn-delete" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">삭제</a>
-                        <c:if test="${activeCourse.deadlineToday}">
-                            <a class="btn-shutdown" href="#">마감</a> 
-                        </c:if>
-                      </div> --%></li>
+									</a> 
+									<c:choose>
+									    <c:when test="${availableCourse.status eq 'abandon'}">
+									        <p class="status">폐강된 강좌입니다.</p>
+									    </c:when>
+									    <c:when test="${availableCourse.status eq 'finish'}">
+									        <p class="status">마감된 강좌입니다.</p>
+									    </c:when>
+									    <c:otherwise>
+									        <p class="status">신청 가능한 강좌입니다.</p>
+									    </c:otherwise>
+									</c:choose>
+									</li>
 								</c:forEach>
 							</ul>
 

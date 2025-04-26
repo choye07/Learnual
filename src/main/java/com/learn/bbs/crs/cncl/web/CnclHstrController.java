@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.learn.bbs.crs.cncl.service.CnclHstrService;
 import com.learn.bbs.usr.vo.UsrVO;
+import com.learn.exceptions.AccessDeniedException;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,8 +28,12 @@ public class CnclHstrController {
     							 Model model,
     							 HttpSession session) {
     	UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+    	
+    	if(usrVO == null) {
+    		throw new AccessDeniedException();
+    	}
 
-        this.cnclHstrService.insertCancelledAppHstr(crsInfId, usrVO.getUsrMl());
+        this.cnclHstrService.insertCancelledAppHstr(crsInfId, usrVO.getUsrMl(), usrVO.getInsttnId());
 
         return "redirect:/insttn/usr/detail/{crsInfId}";
     }

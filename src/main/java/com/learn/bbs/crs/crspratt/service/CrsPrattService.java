@@ -1,8 +1,8 @@
 package com.learn.bbs.crs.crspratt.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
-import com.learn.bbs.crs.crspratt.dao.CrsPrattDao;
+import com.learn.bbs.crs.crspratt.vo.CrsPrattReadResponseVO;
 import com.learn.bbs.crs.crspratt.vo.CrsPrattRegistRequestVO;
 
 /**
@@ -11,4 +11,8 @@ import com.learn.bbs.crs.crspratt.vo.CrsPrattRegistRequestVO;
  */
 public interface CrsPrattService {
 	public boolean insertCrsPratt(CrsPrattRegistRequestVO crsPrattRegistRequestVO);
+	
+	public List<CrsPrattReadResponseVO> selectUsersFromCrsPratt(String crsInfId, String insttnId);
+	
+	public String selectCourseName(String crsInfId, String insttnId);
 }

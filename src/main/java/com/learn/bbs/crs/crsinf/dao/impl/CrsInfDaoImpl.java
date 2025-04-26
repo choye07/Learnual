@@ -14,6 +14,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAbandonUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfEndUpdateRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfModifyRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
@@ -42,23 +43,31 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	}
 
 	@Override
-	public int countCourseName(String crsInfNm) {
-		return this.getSqlSession().selectOne(NAME_SPACE + "countCourseName", crsInfNm);
+	public int countCourseName(String crsInfNm, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("crsInfNm", crsInfNm);
+	    param.put("insttnId", insttnId);
+	    
+	    return this.getSqlSession().selectOne(NAME_SPACE + "countCourseName", param);
 	}
 	
 	@Override
-	public String selectCourseName(String crsInfId) {
-		return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseName", crsInfId);
+	public String selectCourseName(String crsInfId, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("crsInfId", crsInfId);
+	    param.put("insttnId", insttnId);
+	    
+	    return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseName", param);
 	}
 
 	@Override
-	public List<CrsInfPltadReadResponseVO> selectAllCourseForPltad() {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectAllCourseForPltad");
+	public List<CrsInfPltadReadResponseVO> selectAllCourseForPltad(String insttnId) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAllCourseForPltad", insttnId);
 	}
 
 	@Override
-	public List<CrsInfPltadFinishedReadResponseVO> selectAllFinishedCourseForPltad() {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectAllFinishedCourseForPltad");
+	public List<CrsInfPltadFinishedReadResponseVO> selectAllFinishedCourseForPltad(String insttnId) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAllFinishedCourseForPltad", insttnId);
 	}
 
 	@Override
@@ -67,53 +76,73 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	}
 
 	@Override
-	public CrsInfModifyRequestVO selectAllInfoFromOneCourse(String crsInfId) {
-		return this.getSqlSession().selectOne(NAME_SPACE + "selectAllInfoFromOneCourse", crsInfId);
+	public CrsInfModifyRequestVO selectAllInfoFromOneCourse(String crsInfId, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("crsInfId", crsInfId);
+	    param.put("insttnId", insttnId);
+	    
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectAllInfoFromOneCourse", param);
 	}
 
 	@Override
-	public int deleteOneCourse(String crsInfId) {
-		return this.getSqlSession().update(NAME_SPACE + "deleteOneCourse", crsInfId);
+	public int deleteOneCourse(String crsInfId, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("crsInfId", crsInfId);
+	    param.put("insttnId", insttnId);
+	    
+		return this.getSqlSession().update(NAME_SPACE + "deleteOneCourse", param);
 	}
 
 	@Override
-	public List<CrsInfAvailableReadResponseVO> selectAvailableCoursesForUser() {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableCoursesForUser");
+	public List<CrsInfAvailableReadResponseVO> selectAvailableCoursesForUser(String insttnId) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableCoursesForUser", insttnId);
 	}
 	
 
 	@Override
-	public List<CrsInfAvailableReadResponseVO> selectAvailableFourCoursesForUser() {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableFourCoursesForUser");
+	public List<CrsInfAvailableReadResponseVO> selectAvailableFourCoursesForUser(String insttnId) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAvailableFourCoursesForUser", insttnId);
 	}
 	
 	@Override
-	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrMl) {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectMyCourseForUser", usrMl);
+	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrMl, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("usrMl", usrMl);
+	    param.put("insttnId", insttnId);
+	    
+		return this.getSqlSession().selectList(NAME_SPACE + "selectMyCourseForUser", param);
 	}
 
 	@Override
-	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId) {
-		return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseDetail", crsInfId);
+	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("crsInfId", crsInfId);
+	    param.put("insttnId", insttnId);
+	    
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseDetail", param);
 	}
 
 	@Override
-	public int endOneCourse(String crsInfId) {
-		return this.getSqlSession().update(NAME_SPACE + "endOneCourse", crsInfId);
+	public int endOneCourse(CrsInfEndUpdateRequestVO crsInfEndUpdateRequestVO) {
+		return this.getSqlSession().update(NAME_SPACE + "endOneCourse", crsInfEndUpdateRequestVO);
 	}
 
 	@Override
 	public int abandonOneCourse(CrsInfAbandonUpdateRequestVO crsInfAbandonUpdateRequestVO) {
-		return this.getSqlSession().update(NAME_SPACE + "abandonOneCourse", crsInfAbandonUpdateRequestVO.getCrsInfId());
+		return this.getSqlSession().update(NAME_SPACE + "abandonOneCourse", crsInfAbandonUpdateRequestVO);
 	}
 
 	@Override
-	public List<CrsInfAbandonReadResponseVO> selectAbandonCourse() {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectAbandonCourse");
+	public List<CrsInfAbandonReadResponseVO> selectAbandonCourse(String insttnId) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAbandonCourse", insttnId);
 	}
 
 	@Override
-	public int selectLimitedCount(String crsInfId) {
-		return this.getSqlSession().selectOne(NAME_SPACE + "selectLimitedCount", crsInfId);
+	public int selectLimitedCount(String crsInfId, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("crsInfId", crsInfId);
+	    param.put("insttnId", insttnId);
+	    
+		return this.getSqlSession().selectOne(NAME_SPACE + "selectLimitedCount", param);
 	}
 }

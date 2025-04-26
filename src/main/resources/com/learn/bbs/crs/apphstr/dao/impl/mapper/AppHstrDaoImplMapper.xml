@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.crs.apphstr.dao.impl.AppHstrDaoImpl">
-    <insert id="insertOneAppHstr">
+    <insert id="insertOneAppHstr" parameterType="com.learn.bbs.crs.apphstr.vo.AppHstrRegistRequestVO">
         <selectKey keyProperty="appHstrId" resultType="string" order="BEFORE">
             SELECT 'APP_HSTR-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || LPAD(SEQ_APP_HSTR_PK.NEXTVAL, 6, '0') FROM DUAL
         </selectKey>
@@ -16,11 +16,14 @@
 		           , SYSDATE
 		           , #{crsInfId}
 		           , u.USR_ID
-		    FROM USR u
-		    WHERE u.USR_ML = #{usrMl}
+		        FROM USR u
+		       WHERE u.USR_ML = #{usrMl}
+		         AND u.INSTTN_ID = #{insttnId}
     </insert>
     
-    <select id="existsAppHstr" resultType="boolean">
+    <select id="existsAppHstr" 
+            resultType="boolean"
+            parameterType="map">
         SELECT CASE 
              WHEN COUNT(ah.APP_HSTR_ID) > 0 THEN 1 
              ELSE 0 
@@ -30,23 +33,53 @@
 	        ON ah.USR_ID = u.USR_ID
 	     WHERE ah.CRS_INF_ID = #{crsInfId}
 	       AND u.USR_ML = #{usrMl}
+	       AND u.INSTTN_ID = #{insttnId}
     </select>
     
-    <select id="findAppHstrId" resultType="string">
+    <select id="findAppHstrId" 
+            resultType="string"
+            parameterType="map">
         SELECT MAX(ah.APP_HSTR_ID)
 	      FROM APP_HSTR ah
 	     INNER JOIN USR u 
 	        ON ah.USR_ID = u.USR_ID
 	     WHERE ah.CRS_INF_ID = #{crsInfId}
 	       AND u.USR_ML = #{usrMl}
+	       AND u.INSTTN_ID = #{insttnId}
     </select>
     
     <select id="countCurrentUserInCourse" resultType="_int">
-        SELECT COUNT(AH.APP_HSTR_ID)
-		  FROM APP_HSTR AH
-		  LEFT OUTER JOIN CNCL_HSTR CH 
-		    ON AH.APP_HSTR_ID = CH.APP_HSTR_ID
-		 WHERE AH.CRS_INF_ID = #{crsInfId}
-		   AND CH.CNCL_HSTR_ID IS NULL
-    </select>
+	    SELECT COUNT(AH.APP_HSTR_ID)
+	    FROM APP_HSTR AH
+	    LEFT OUTER JOIN CNCL_HSTR CH 
+	      ON AH.APP_HSTR_ID = CH.APP_HSTR_ID
+	    INNER JOIN CRS_INF CI 
+	      ON AH.CRS_INF_ID = CI.CRS_INF_ID
+	    WHERE AH.CRS_INF_ID = #{crsInfId}
+	      AND CI.INSTTN_ID = #{insttnId}
+	      AND CH.CNCL_HSTR_ID IS NULL
+	</select>
+    
+    <select id="selectCurrentUserInCourse"
+        parameterType="map"
+        resultType="com.learn.bbs.crs.apphstr.vo.AppHstrReadResponseVO">
+	    SELECT ah.CRS_INF_ID
+	         , ci.CRS_INF_NM
+	         , u.USR_ID
+	         , u.USR_NM
+	         , u.USR_ML
+	         , u.USR_PN
+	         , u.USR_ADRS
+	         , TO_CHAR(ah.APP_HSTR_RGST_DT, 'YYYY-MM-DD') AS appHstrRgstDt
+	      FROM APP_HSTR ah
+	      LEFT OUTER JOIN CNCL_HSTR ch 
+	        ON ah.APP_HSTR_ID = ch.APP_HSTR_ID
+	     INNER JOIN USR u
+	        ON ah.USR_ID = u.USR_ID
+	     INNER JOIN CRS_INF ci
+	        ON ah.CRS_INF_ID = ci.CRS_INF_ID
+	     WHERE ah.CRS_INF_ID = #{crsInfId}
+	       AND u.INSTTN_ID = #{insttnId}
+	       AND ch.CNCL_HSTR_ID IS NULL
+</select>
 </mapper>
