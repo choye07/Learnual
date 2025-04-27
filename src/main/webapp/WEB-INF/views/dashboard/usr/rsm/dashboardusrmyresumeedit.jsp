@@ -39,62 +39,44 @@
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
 								<li class="menu-item"><a href="#">개인정보관리</a></li>
-								<li class="menu-item"><a href="#">나의
-										수강 목록</a></li>
-								<li class="menu-item on"><a href="#">나의
-										이력서 목록</a></li>
+								<li class="menu-item"><a href="#">나의 수강 목록</a></li>
+								<li class="menu-item on"><a href="#">나의 이력서 목록</a></li>
 							</ul>
 						</div>
 
 						<div class="dashboard-content-area">
 							<!-- view content 삽입 start -->
-							<div class="rsm-board board student">
+							<div class="rsm-board board student edit">
 								<div class="board-header">
-									<h1>이력서 목록</h1>
+									<h1>이력서 수정</h1>
 									<div class="board-toolbox">
-										<div class="btn-write">
-											<a href="#">이력서 작성</a>
+										<div class="btn-go-list">
+											<a href="#">목록 보기</a>
 										</div>
 									</div>
 								</div>
 
 								<div class="board-body">
-									<div class="board-list-top">
-										<div>이력서 제목</div>
-										<div>이력서 관리</div>
+									<div class="board-wrapper">
+										<form id="rsm-form" action="#">
+											<!-- 모든 input의 id명을 name과 통일 시키는걸 추천! -->
+											<!-- name은 VO의 멤버변수 값과 똑같이 만드세요 -->
+											<!-- p.s 직접 하시는 게 좋을 것 같아 놔두었어요. -->
+											<div class="custom1-area form-group">
+												<label>이력서 제목</label> <input type="text"
+													value="기존 작성 되었던 제목" />
+											</div>
+											<div class="writer-area form-group">
+												<label>작성자</label> <input type="text" value="장유진" />
+											</div>
+											<div class="custom3-area form-group">
+												<label>내용</label> <input type="file" />
+											</div>
+											<div class="btn-area">
+												<button type="submit">수정내용 저장</button>
+											</div>
+										</form>
 									</div>
-									<!-- 이력서 목록 -->
-									<ul class="board-list-wrapper">
-										<!-- 이력서 view 페이지가 없기 때문에 a태그로 감싸지 않음 -->
-										<li>
-											<div class="rsm-content-area">
-												<div class="rsm-content-title">내가 작성한 이력서 제목1</div>
-												<span class="rsm-content-time">2025-04-19</span>
-											</div>
-											<div class="rsm-manage-area">
-												<a href="#">재등록</a> <a href="#">다운로드</a> <a href="#">삭제</a>
-											</div>
-										</li>
-										<li>
-											<div class="rsm-content-area">
-												<div class="rsm-content-title">내가 작성한 이력서 제목2</div>
-												<span class="rsm-content-time">2025-04-21</span>
-											</div>
-											<div class="rsm-manage-area">
-												<a href="#">재등록</a> <a href="#">다운로드</a> <a href="#">삭제</a>
-											</div>
-										</li>
-									</ul>
-
-									<ul class="pagination">
-										<li><a href="#">이전</a></li>
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li><a href="#">다음</a></li>
-									</ul>
 								</div>
 							</div>
 							<!-- view content 삽입 end -->

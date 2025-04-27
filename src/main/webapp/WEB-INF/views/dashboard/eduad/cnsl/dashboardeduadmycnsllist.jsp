@@ -49,14 +49,42 @@
 
 						<div class="dashboard-content-area">
 							<!-- view content 삽입 start -->
-							<div class="myconsultaion manage-board">
+							<div class="my-cnsl manage-board">
 								<div class="manage-board-wrapper">
 									<div class="manage-board-header">
 										<h2>상담요청 목록</h2>
 									</div>
 
 									<div class="manage-board-body">
-										<!-- data -->
+										<!-- view main content insert start -->
+											<div class="board-list-top">
+												<div>강좌명</div>
+												<div>홍길동</div>
+												<div>상담요청일</div>
+												<div>상담완료여부</div>
+											</div>
+
+											<ul class="board-list-wrapper">
+												<!-- forEach start -->
+												<li class="list-item"><a href="#">
+														<div>풀스택 25기 전문가 양성과정</div>
+														<div>홍길동</div>
+														<div>2025.04.23 오후 18:00</div>
+														<div>N</div>
+												</a></li>
+												<!-- forEach end -->
+											</ul>
+
+											<ul class="pagination">
+												<li><a href="#">이전</a></li>
+												<li><a href="#">1</a></li>
+												<li><a href="#">2</a></li>
+												<li><a href="#">3</a></li>
+												<li><a href="#">4</a></li>
+												<li><a href="#">5</a></li>
+												<li><a href="#">다음</a></li>
+											</ul>
+										<!-- view main content insert end -->
 									</div>
 								</div>
 							</div>

@@ -50,7 +50,7 @@
 
 						<div class="dashboard-content-area">
 							<!-- view content 삽입 start -->
-							<div class="mycourse manage-board view">
+							<div class="mycourse manage-board">
 								<div class="manage-board-wrapper">
 									<div class="manage-board-header">
 										<h2>나의 강의 목록</h2>
