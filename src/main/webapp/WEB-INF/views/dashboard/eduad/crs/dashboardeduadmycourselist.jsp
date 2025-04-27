@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>대시보드-강사-상담요청목록</title>
+<title>대시보드-강사-나의강의목록</title>
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
 <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script src="/js/common.js" type="text/javascript"></script>
@@ -14,6 +14,7 @@
 
 <body>
 	<div class="dashboard tutor">
+	
 		<jsp:include
 			page="/WEB-INF/views/common/component/sidebar/eduadsidebar.jsp" />
 		<jsp:include
@@ -49,14 +50,62 @@
 
 						<div class="dashboard-content-area">
 							<!-- view content 삽입 start -->
-							<div class="myconsultaion manage-board">
+							<div class="mycourse manage-board">
 								<div class="manage-board-wrapper">
 									<div class="manage-board-header">
-										<h2>상담요청 목록</h2>
+										<h2>나의 강의 목록</h2>
 									</div>
 
 									<div class="manage-board-body">
-										<!-- data -->
+										<!-- view main content insert start -->
+										<div class="usr-courses-area">
+											<div class="board-list-top">
+												<div>강좌명</div>
+												<div>강사명</div>
+												<div>강의 시작일</div>
+												<div>강의 종료일</div>
+											</div>
+
+											<ul class="board-list-wrapper">
+												<!-- forEach start -->
+												<li class="list-item"><a href="#">
+														<div class="item-course-name">풀스택 25기 전문가 양성과정</div>
+														<div class="item-instr-name">장민창</div>
+														<div class="item-course-start-time">2025.04.23 오후
+															18:00</div>
+														<div class="item-course-end-time">2025.04.25 오후
+															12:00</div>
+												</a></li>
+												<li class="list-item"><a href="#">
+														<div class="item-course-name">자바</div>
+														<div class="item-instr-name">장민창</div>
+														<div class="item-course-start-time">2025.04.23 오후
+															18:00</div>
+														<div class="item-course-end-time">2025.04.25 오후
+															12:00</div>
+												</a></li>
+												<li class="list-item"><a href="#">
+														<div class="item-course-name">(재직자 대상) React 실무 과정</div>
+														<div class="item-instr-name">장민창</div>
+														<div class="item-course-start-time">2025.04.23 오후
+															18:00</div>
+														<div class="item-course-end-time">2025.04.25 오후
+															12:00</div>
+												</a></li>
+												<!-- forEach end -->
+											</ul>
+
+											<ul class="pagination">
+												<li><a href="#">이전</a></li>
+												<li><a href="#">1</a></li>
+												<li><a href="#">2</a></li>
+												<li><a href="#">3</a></li>
+												<li><a href="#">4</a></li>
+												<li><a href="#">5</a></li>
+												<li><a href="#">다음</a></li>
+											</ul>
+										</div>
+										<!-- view main content insert end -->
 									</div>
 								</div>
 							</div>

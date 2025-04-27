@@ -798,6 +798,7 @@ label {
 /* ---------------------------------- */
 /* 이력서 게시판 custom css */
 .board.rsm-board {
+	box-shadow: none;
   .board-body {
     /* 이력서 게시판 목록보기 css start */
     .board-list-top {
@@ -2656,21 +2657,46 @@ label {
     }
   }
 }
-
+/* -------------------------------------- */
 /* footer 공통 css */
 .footer {
   padding: 2.5rem 0;
+  background-color: #ddd;
 
   .footer-wrapper {
     display: flex;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    gap: 5rem;
 
-    .footer-logo {
-      width: 5.625rem;
+    .footer-content1 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      .footer-logo {
+        width: 5.625rem;
+        height: 3rem;
+        opacity: 0.75;
+        background: url("/asset/logo/learnual-logo-text.svg") no-repeat
+          center/contain;
+        font-size: 0;
+      }
     }
 
     .footer-contents {
       flex-grow: 1;
       display: flex;
+      gap: 5rem;
+      font-size: 0.9rem;
+      color: #555;
+
+      p {
+        margin-bottom: 0.625rem;
+      }
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.325rem;
+      }
     }
   }
 }
@@ -3988,6 +4014,7 @@ label {
       gap: 3rem;
 
       .course-info {
+      	background-image: none !important;
         display: grid;
         grid-template-columns: 8rem 1fr 8rem 1fr;
         gap: 0rem;
