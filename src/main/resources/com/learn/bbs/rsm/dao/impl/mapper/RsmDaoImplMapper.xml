@@ -3,5 +3,99 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.rsm.dao.impl.RsmDaoImpl">
-    
+
+	<resultMap type="com.learn.bbs.rsm.vo.RsmVO" id="RsmVOMap"
+		autoMapping="true">
+		<id column="RSM_ID" property="rsmId" />
+
+		<association property="file"
+			javaType="com.learn.bbs.file.vo.FlVO" autoMapping="true">
+			<id column="FL_ID" property="flId" />
+		</association>
+	</resultMap>
+
+	<select id="selectAllRsmCount" resultType="_int">
+		SELECT COUNT(RSM_ID)
+		FROM RSM
+		WHERE USR_ID = #{usrId}
+		AND RSM_DEL_YN = 'N'
+	</select>
+
+	<select id="selectAllRsm" parameterType="string"
+		resultMap="RsmVOMap">
+		SELECT RSM.RSM_ID
+		, RSM.RSM_TTL
+		, RSM.RSM_RGST_DT
+		, FL.FL_ID
+		,
+		FL.FL_NM
+		, FL.FL_OBFS_NM
+		, FL.FL_OBFS_PTH
+		, FL.FL_SZ
+		, FL.ID
+		FROM RSM
+		INNER
+		JOIN FL
+		ON FL.ID = RSM.RSM_ID
+		WHERE RSM.USR_ID = #{usrId}
+		AND
+		RSM.RSM_DEL_YN = 'N'
+		ORDER BY RSM_ID DESC
+	</select>
+
+
+	<insert id="insertNewRsm"
+		parameterType="com.learn.bbs.rsm.vo.RsmWriteRequestVO">
+
+		<!-- id값을 생성해주는 태그, 미리 생성하기 때문에 order="BEFORE" -->
+		<selectKey order="BEFORE" resultType="string"
+			keyProperty="rsmId">
+			SELECT 'RSM-' ||
+			TO_CHAR(SYSDATE, 'YYYYMMDD') || '-'
+			||
+			LPAD(SEQ_RSM_PK.NEXTVAL, 6, '0')
+			FROM DUAL
+		</selectKey>
+
+		INSERT INTO RSM
+		(RSM_ID
+		, RSM_TTL
+		, RSM_RGST_DT
+		, RSM_UPDT_DT
+		, RSM_DEL_DT
+		, RSM_DEL_YN
+		, USR_ID
+		, ARTC_ID)
+		VALUES(
+		#{rsmId}
+		,#{rsmTtl}
+		,
+		SYSDATE
+		, ''
+		,
+		''
+		, 'N'
+		, #{usrId}
+		, #{artcId})
+	</insert>
+
+	<delete id="deleteOneRsm"
+		parameterType="com.learn.bbs.rsm.vo.RsmDeleteRequestVO">
+		UPDATE RSM
+		SET RSM_DEL_DT = SYSDATE
+		, RSM_DEL_YN = 'Y'
+		WHERE RSM_ID = #{rsmId}
+		AND USR_ID = #{usrId}
+	</delete>
+
+
+	<update id="updateOneRsm"
+		parameterType="com.learn.bbs.rsm.vo.RsmUpdateRequestVO">
+		UPDATE RSM
+		SET RSM_TTL = #{rsmTtl}
+		, RSM_UPDT_DT = SYSDATE
+		WHERE RSM_ID = #{rsmId}
+		AND USR_ID = #{usrId}
+	</update>
+
 </mapper>
