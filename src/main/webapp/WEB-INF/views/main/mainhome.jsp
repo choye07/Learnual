@@ -26,11 +26,11 @@
 				<div class="quick-icon">img</div>
 				<p>강좌 홈</p>
 		</a></li>
-		<li class="quick-menu dashboard"><a href="/dashboard/usr">
+		<li class="quick-menu dashboard"><a href="/usr/INSTTN-20250424-000001/dashboard">
 				<div class="quick-icon">img</div>
 				<p>대시보드(학생)</p>
 		</a></li>
-		<li class="quick-menu dashboard"><a href="/dashboard/eduad">
+		<li class="quick-menu dashboard"><a href="/eduad/INSTTN-20250424-000001/dashboard">
 				<div class="quick-icon">img</div>
 				<p>대시보드(강사)</p>
 		</a></li>
