@@ -13,6 +13,34 @@
 </head>
 
 <body>
+	<ul class="quick-navbar learnual">
+		<li class="quick-menu learnual"><a href="/main">
+				<div class="quick-icon">img</div>
+				<p>러뉴얼 홈</p>
+		</a></li>
+		<li class="quick-menu insttn"><a href="/insttn">
+				<div class="quick-icon">img</div>
+				<p>학원 홈</p>
+		</a></li>
+		<li class="quick-menu course"><a href="/insttn/crs">
+				<div class="quick-icon">img</div>
+				<p>강좌 홈</p>
+		</a></li>
+		<li class="quick-menu dashboard"><a href="/usr/INSTTN-20250424-000001/dashboard">
+				<div class="quick-icon">img</div>
+				<p>대시보드(학생)</p>
+		</a></li>
+		<li class="quick-menu dashboard"><a href="/eduad/INSTTN-20250424-000001/dashboard">
+				<div class="quick-icon">img</div>
+				<p>대시보드(강사)</p>
+		</a></li>
+		<!-- 슈퍼관리자 계정만 활성화 -->
+		<li class="quick-menu super"><a href="#">
+				<div class="quick-icon">img</div>
+				<p>슈퍼관리자 메뉴</p>
+		</a></li>
+	</ul>
+
 	<div class="wrapper">
 		<jsp:include
 			page="/WEB-INF/views/common/component/header/learnualheader.jsp" />

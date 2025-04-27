@@ -53,14 +53,63 @@ public class LearnualMainController {
 	}
 
 	// 임시 대시보드 매핑
-	@GetMapping("/dashboard/usr")
-	public String goUsrDashboard() {
-		return "dashboard/dashboardusr";
+	//@GetMapping("/dashboard/usr")
+	@GetMapping("/usr/INSTTN-20250424-000001/dashboard")
+	public String goUsrDashboard(HttpSession session, Model model) {
+		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+		PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+		
+		MyInformationRequestVO myInformationRequestVO = new MyInformationRequestVO();
+		
+		// 사용자가 로그인 중이라면
+		if (usrVO == null && pltadmVO == null && instrVO == null) {
+			// 세션에 사용자가 없으면 로그인 페이지로 리다이렉트
+			return "redirect:/login";
+		} 
+		// 강사나 플랫폼 관리자가 들어갈 경우.
+		else if (pltadmVO != null || instrVO != null) {
+			return "redirect:/learnual";
+		}
+		
+		if(usrVO != null ) {
+			myInformationRequestVO = SessionUtil.myInformationUtil(usrVO); 
+			model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
+
+			return "dashboard/usr/dashboardusr";
+		} 
+		
+		return "dashboard/usr/dashboardusr";
 	}
 
-	@GetMapping("/dashboard/eduad")
-	public String goEduadDashboard() {
-		return "dashboard/dashboardeduad";
+	@GetMapping("/eduad/INSTTN-20250424-000001/dashboard")
+	//@GetMapping("/eduad/{기관}/dashboard")
+	public String goEduadDashboard(HttpSession session, Model model) {
+		
+		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+		PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+		
+		MyInformationRequestVO myInformationRequestVO = new MyInformationRequestVO();
+		
+		// 강사가 로그인 중이라면
+		if (usrVO == null && pltadmVO == null && instrVO == null) {
+			// 세션에 강사가 없으면 로그인 페이지로 리다이렉트
+			return "redirect:/login";
+		} 
+		// 사용자나 플랫폼 관리자가 들어갈 경우.
+		else if (usrVO != null || pltadmVO != null) {
+			return "redirect:/learnual";
+		}
+		
+		if(instrVO != null ) {
+			myInformationRequestVO = SessionUtil.myInformationUtil(instrVO); 
+			model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
+
+			return "dashboard/eduad/dashboardeduad";
+		} 
+		
+		return "dashboard/eduad/dashboardeduad";
 	}
 
 //	@GetMapping("/insttn")
@@ -133,7 +182,7 @@ public class LearnualMainController {
 			return "common/component/viewmyinfo";
 		}
 		else  {
-			myInformationRequestVO = SessionUtil.myInformationUtil(pltadmVO);
+			myInformationRequestVO = SessionUtil.myInformationUtil(pltadmVO); 
 
 			model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
 
