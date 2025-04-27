@@ -1,8 +1,8 @@
 package com.learn.bbs.usr.dao;
 
-import com.learn.bbs.usr.vo.UsrEditMyinformationVO;
 import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 import com.learn.bbs.usr.vo.UsrVO;
+import com.learn.common.vo.MyInformationRequestVO;
 
 public interface UsrDao {
 	
@@ -31,8 +31,7 @@ public interface UsrDao {
 	// -> 물리적 삭제가 아닌 삭제 여부를 'Y'로 변경 후 변경된 당일 날짜 등록.
 	public int deleteOneUsrBy(String usrMl);
 	
-	// 이메일 계정으로 나의 정보 수정.
-	//	-> 비밀번호, 이름, 전화번호, 주소를 입력하지 않을 시 변경 X.
-	public int updateOneUsrEditMyinformation(UsrEditMyinformationVO usrEditMyinformationVO);
-	
+	// 이메일 계정으로 관리자 정보 수정.
+    //	-> 비밀번호, 이름, 전화번호, 주소를 입력하지 않을 시 변경 X.
+    public int updateOneUsrEditMyinformation(MyInformationRequestVO myInfromationRequestVO);
 }

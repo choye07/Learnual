@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.learn.bbs.pltad.instr.dao.InstrDao;
 import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
+import com.learn.common.vo.MyInformationRequestVO;
 
 
 /**
@@ -60,6 +61,11 @@ public class InstrDaoImpl extends SqlSessionDaoSupport implements InstrDao {
 	@Override
 	public int deleteOneUsrBy(String instrLgnId) {
 		return this.getSqlSession().update(NAME_SPACE + "deleteOneUsrBy",instrLgnId);
+	}
+	
+	@Override
+	public int updateOneUsrEditMyinformation(MyInformationRequestVO myInfromationRequestVO) {
+		return this.getSqlSession().update(NAME_SPACE + "updateOneUsrEditMyinformation",myInfromationRequestVO);		
 	}
 	
 	@Override

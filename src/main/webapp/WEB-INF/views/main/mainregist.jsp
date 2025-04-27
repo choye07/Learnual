@@ -41,7 +41,8 @@
 						<div class="email-input-area">
 							<input id="usrMl" name="usrMl" type="email"
 								value="${userInputRegist.usrMl}" />
-							<button class="btn2 btn-email-check">이메일 중복체크</button>
+								<!-- 추후 해당 버튼 구현 예정  -->
+							<!-- <button class="btn2 btn-email-check">이메일 중복체크</button> -->
 						</div>
 
  						<c:if test="${not empty emailErrorMessage}">

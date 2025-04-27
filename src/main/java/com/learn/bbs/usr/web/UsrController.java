@@ -13,17 +13,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.learn.bbs.usr.dao.UsrDao;
 import com.learn.bbs.usr.service.UsrService;
 import com.learn.bbs.usr.vo.UsrLoginRequestVO;
 import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.AjaxResponse;
 import com.learn.common.vo.LoginRequestVO;
+import com.learn.common.vo.MyInformationRequestVO;
+import com.learn.exceptions.MyInformationUpdateException;
 import com.learn.exceptions.UsrRegistException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +39,9 @@ public class UsrController {
 
     @Autowired
     private UsrService usrService;
+    
+    @Autowired
+    private UsrDao usrDao;
 	
 	@PostMapping("/usr/regist")
     public String doUsrRegist(
@@ -122,6 +127,35 @@ public class UsrController {
     		session.setAttribute("__LOGIN_USER__", usrVO);
 
     	return "redirect:"+ nextUrl;
+    }
+    
+    @PostMapping("/usr/editmyinformation")
+    public String doEditMyInformation(@Valid @ModelAttribute MyInformationRequestVO myInformationRequestVO,
+                                       BindingResult bindingResult, Model model, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("inputEdit", myInformationRequestVO);
+            return "common/component/editmyinformation";
+        }
+
+        UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USR__");
+        // 사용자, 관리자, 강사의 공통화 유효처리를 위한 객체로 어떤 역할인지 모르기 때문에 세션값을 다시 담는다 .
+        myInformationRequestVO.setMyiLgnId(usrVO.getUsrMl());
+
+        try {
+            boolean isUpdated = usrService.updateUsrEditMyinformation(myInformationRequestVO);
+
+            if (isUpdated) {
+            	UsrVO updatedUsrVO = usrDao.selectOneUsrBy(myInformationRequestVO.getMyiLgnId());
+                session.setAttribute("__LOGIN_USR__", updatedUsrVO);
+                return "redirect:/viewmyinfo";
+            }
+        } catch (MyInformationUpdateException mue) {
+            model.addAttribute("errorMessage", mue.getMessage());
+            model.addAttribute("inputEdit", myInformationRequestVO);
+            return "common/component/editmyinformation";
+        }
+
+        return "redirect:/";
     }
     
     
