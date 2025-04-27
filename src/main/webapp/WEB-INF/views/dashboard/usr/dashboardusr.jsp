@@ -34,7 +34,7 @@
 									<a href="#">user-info-img</a>
 								</div>
 								<p class="user-greeting">
-									<span class="user-name">홍길동</span> 님 안녕하세요!
+									<span class="user-name">케이티</span> 님 안녕하세요!
 								</p>
 							</div>
 							<!-- 대시보드 좌측 탭 메뉴 -->
@@ -57,31 +57,31 @@
 
 										<div class="regist-usr-form">
 											<div class="email-area">
-												<label for="email">이메일</label> <input id="usrMl"
-													name="usrMl" type="email" value="${userInputRegist.usrMl}" />
+												<label for="email">이메일</label> <input id="myiLgnId"
+													name="myiLgnId" type="email" value="${inputEdit.myiLgnId}" />
 											</div>
 
 											<div class="name-area">
-												<label for="name">이름</label> <input id="usrNm" name="usrNm"
-													type="text" value="${userInputRegist.usrNm}" required />
+												<label for="name">이름</label> <input id="myiNm" name="myiNm"
+													type="text" value="${inputEdit.myiNm}" required />
 											</div>
 
 											<div class="password-area">
-												<label for="password">비밀번호</label> <input id="usrPw"
-													name="usrPw" type="password" required />
+												<label for="password">비밀번호</label> <input id="myiLgnPw"
+													name="myiLgnPw" type="password" required />
 											</div>
 											<div class="confirm-password-area">
 												<label for="password">비밀번호 확인</label> <input
 													id="confirmUsrPw" name="confirmUsrPw" required="password" />
 											</div>
 											<div class="address-area">
-												<label for="address">주소</label> <input id="usrAdrs"
-													name="usrAdrs" type="text"
-													value="${userInputRegist.usrAdrs}" required />
+												<label for="address">주소</label> <input id="myiAdrs"
+													name="myiAdrs" type="text"
+													value="${inputEdit.myiAdrs}" required />
 											</div>
 											<div class="phone-area">
-												<label for="phone">전화번호</label> <input id="usrPn"
-													name="usrPn" type="text" value="${userInputRegist.usrPn}"
+												<label for="phone">전화번호</label> <input id="myiPn"
+													name="myiPn" type="text" value="${inputEdit.myiPn}"
 													required />
 											</div>
 
