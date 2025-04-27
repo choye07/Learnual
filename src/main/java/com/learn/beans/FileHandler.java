@@ -1,7 +1,8 @@
- package com.learn.beans;
+package com.learn.beans;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,7 @@ public class FileHandler {
 	private boolean obfuscationHideExtEnable;
 
 	private String osname;
-	
+
 	public void setBaseDirWindows(String baseDirWindows) {
 		this.baseDirWindows = baseDirWindows;
 	}
@@ -44,28 +45,26 @@ public class FileHandler {
 
 	public StoredFile store(MultipartFile multipartFile) { // 사용자가 서버에 보내준 파일이 들어감
 		// 방어코딩: 파일이 없거나, 빈 파일을 보내는 경우
-		if(multipartFile == null || multipartFile.isEmpty()) {
+		if (multipartFile == null || multipartFile.isEmpty()) {
 			return null;
 		}
-		
+
 		// 난독화 여부에 따라 난독화를 설정함
 		String fileName = this.getObfuscationFileName(multipartFile.getOriginalFilename());
-		
+
 		// 목적지 설정
 		File storePath = null;
 
-		if(osname.startsWith("windows")) {
+		if (osname.startsWith("windows")) {
 			storePath = new File(this.baseDirWindows, fileName);
-		}
-		else if(osname.startsWith("mac")) {
+		} else if (osname.startsWith("mac")) {
 			String homePath = System.getProperty("user.home");
 			storePath = new File(homePath + this.baseDirMacos, fileName);
-		}
-		else {
+		} else {
 			storePath = new File(this.baseDirLinux, fileName);
 		}
-		
-		if(!storePath.getParentFile().exists()) {
+
+		if (!storePath.getParentFile().exists()) {
 			storePath.getParentFile().mkdirs();
 		}
 		// 업로드한 파일을 저장한다.
@@ -83,16 +82,13 @@ public class FileHandler {
 		String extension = "";
 
 		if (originalFilename != null && originalFilename.contains(".")) {
-		    extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1); // ex: "pdf"
+			extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1); // ex: "pdf"
 		}
-		
+
 		// 업로드 성공: 사용자에게 파일 정보를 보여줌
 		// String fileName, String realFileName, String realFilePath, long fileSize
-		return new StoredFile(multipartFile.getOriginalFilename(),
-							  fileName,
-							  storePath.getAbsolutePath(),
-							  storePath.length(),
-							  extension);
+		return new StoredFile(multipartFile.getOriginalFilename(), fileName, storePath.getAbsolutePath(),
+				storePath.length(), extension);
 	}
 
 	// 파일 난독화 설정
@@ -118,14 +114,17 @@ public class FileHandler {
 		private String realFilePath;
 		private long fileSize;
 		private String fileType;
+		private Path storedPath;
+		private File storedFile;
 
-		public StoredFile(String fileName, String realFileName, String realFilePath
-						, long fileSize, String fileType) {
+		public StoredFile(String fileName, String realFileName, String realFilePath, long fileSize, String fileType) {
 			this.fileName = fileName;
 			this.realFileName = realFileName;
 			this.realFilePath = realFilePath;
 			this.fileSize = fileSize;
 			this.fileType = fileType;
+			this.storedFile = new File(realFilePath);
+			this.storedPath = this.storedFile.toPath();
 		}
 
 		public String getFileName() {
@@ -146,6 +145,14 @@ public class FileHandler {
 
 		public String getFileType() {
 			return this.fileType;
+		}
+
+		public Path getStoredPath() {
+			return storedPath;
+		}
+
+		public File getStoredFile() {
+			return storedFile;
 		}
 
 	}
