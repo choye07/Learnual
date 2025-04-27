@@ -133,6 +133,7 @@ public class PltAdServiceImpl implements PltAdService {
 		return this.pltAdDao.deleteOneUsrBy(pltadmLgnId) > 0;
 	}
 
+	@Transactional
 	@Override
 	public boolean updateUsrEditMyinformation(MyInformationRequestVO myInfromationRequestVO) {
 		// 1. pltAd 테이블에 email 이 있는지 조회한다.

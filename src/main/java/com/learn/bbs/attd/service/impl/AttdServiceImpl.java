@@ -7,12 +7,12 @@ import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.learn.Util.DateTimeFormatterUtil;
 import com.learn.bbs.attd.dao.AttdDao;
 import com.learn.bbs.attd.service.AttdService;
 import com.learn.bbs.attd.vo.AttdRegistRequestVO;
 import com.learn.bbs.crs.crsinf.dao.CrsInfDao;
 import com.learn.bbs.crs.crsinf.vo.CrsInfStartAndEndTimeRequestVO;
+import com.learn.util.DateTimeFormatterUtil;
 
 
 /**

@@ -23,8 +23,20 @@
 				</div>
 
 				<div class="manage-board-body">
+				<!-- 세션 값에 따라 action 경로 설정 -->
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.__LOGIN_USER__}">
+                            <c:set var="actionPath" value="/usr/editmyinformation" />
+                        </c:when>
+                        <c:when test="${not empty sessionScope.__LOGIN_INSTR__}">
+                            <c:set var="actionPath" value="/instr/editmyinformation" />
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="actionPath" value="/pltad/editmyinformation" />
+                        </c:otherwise>
+                    </c:choose>
 					<form:form modelAttribute="myInformationRequestVO"
-					action="/pltad/editmyinformation"
+					action="${actionPath}"
    					 method="POST"
 						class="regist-usr-form">
 							<div class="email-area">

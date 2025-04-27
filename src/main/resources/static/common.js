@@ -626,6 +626,110 @@ $(document).ready(function () {
     });
 
   // 글 수정 페이지 이벤트 종료
+  
+  /* 0423 유진 파트 start */
+  	/* 이력서 관리 게시판 - 게시글 생성 이벤트 start */
+  	// 이력서 목록 조회
+  	function loadRsmList() {
+  		$.ajax({
+  			url: "/mypageinfo/rsm/ajax/list", // 목록 조회 API
+  			method: "GET",
+  			success: function(data) {
+  				var list = data.data.rsmList; // AjaxResponse로 감싸져 있어서 내부 구조 접근
+  				var $container = $(".board-list-wrapper"); // 이력서 목록 영역
+  				location.reload();
+
+
+  				// 새 목록 append
+  				list.forEach(rsm => {
+  					var html = `
+  						<li data-rsm-id="${rsm.rsmId}">
+  								<div class="rsm-content-area">
+  								<div class="rsm-content-title">${rsm.rsmTtl}</div>
+  							<span class="rsm-content-time">${rsm.rsmRgstDt}</span>
+  							</div>
+  							<div class="rsm-manage-area">
+  								<a href="/eduad/file/${rsm.rsmId}/${rsm.file.flId}">다운로드</a>
+  							<button type="button" class="btn-file-remove btn"
+  								onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+  							</div>
+  						</li>
+  						`;
+  					$container.append(html);
+  				});
+  			}
+  		});
+  	}
+  	// 글 작성 이벤트 
+  	$(".rsm-board").on("click", ".btn-rsm-regist", function() {
+  		
+  		// 기존에 등록폼이 있는지 확인
+  		if ($(".board-list-wrapper").find(".rsm-write-form").length > 0) {
+  			alert("이미 작성 중인 이력서 폼이 있습니다.");
+  			return;
+  		}
+
+  		var $template = $(".rsm-form-container"); // DOM 선택
+  		var $formContent = $($template.prop("content")).clone(); // 템플릿 복제 
+
+  		// 폼 이벤트 바인딩
+  		$formContent.find("form.rsm-write-form").on("submit", function(e) {
+  			e.preventDefault();
+  			var formData = new FormData(this);
+  			// 여기에 파일을 직접 넣어줘야한다.
+  			var inputFile = $("input[name='file']")[0]; // DOM Element
+  			formData.append("file", inputFile.files[0]); // 실제 파일 객체
+
+  			$.ajax({
+  				url: "/mypageinfo/rsm/write",
+  				method: "POST",
+  				data: formData,
+  				processData: false,
+  				contentType: false,
+  				success: function() {
+  					alert("이력서가 등록되었습니다.");
+  					$formContent.remove(); // 폼 닫기
+  					loadRsmList(); // 목록만 새로 불러오기
+  				},
+  				error: function(xhr) {
+  					if (xhr.status === 400) {
+  						var errors = xhr.responseJSON.data;
+  						$formContent.find(".rsmTtl-error").text(errors.rsmTtl || "");
+  					} else {
+  						alert("파일을 첨부해야합니다.");
+  					}
+  				},
+  			});
+  		});
+
+  		// 등록 폼 추가
+  		$(".board-list-wrapper").append($formContent);
+  	});
+
+  	// 이력서 등록 이벤트 끝
+
+  	// 이력서 삭제 이벤트 시작
+  	$(".rsm-body").on("click", ".btn-file-remove", function() {
+  		if (!confirm("정말 삭제하시겠습니까?")) return;
+
+  		var rsmId = $(this).closest("li").data("rsm-id");
+
+  		$.ajax({
+  			url: `/mypageinfo/rsm/delete/${rsmId}`,
+  			method: "GET",
+  			success: function() {
+  				alert("삭제되었습니다.");
+  				console.log("불러온 리스트:", data);
+  				location.reload();
+  			},
+  			error: function() {
+  				alert("삭제에 실패했습니다.");
+  			}
+  		});
+  	});
+  	// 이력서 삭제 이벤트 끝
+  	/* 0424 유진 파트 end */
+  	/* ================================= */
 
   /* 
   1. +버튼 클릭 시 

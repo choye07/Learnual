@@ -67,17 +67,20 @@ public class CrsInfController {
 		return "/bbs/crs/coursemanage";
 	}
 
-	@GetMapping("/insttn")
-	public String showAvailableCourses(Model model, HttpSession session) {
+	@GetMapping("/{inttnId}")
+	public String showAvailableCourses(Model model, HttpSession session,@PathVariable String sesInsttnId) {
 		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
 		PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
 
 		// 현재 로그인한 사용자가 회원인지 플랫폼관리자인지에 따라 insttnId 가져오는 기준이 바뀐다.
 		String insttnId = usrVO != null ? usrVO.getInsttnId() : (pltadmVO != null ? pltadmVO.getInsttnId() : null);
 
+		if(!sesInsttnId.equals(insttnId)) {
+			
+		}
 		CrsInfCourseListReadResponseVO result = crsInfService.selectAvailableFourCoursesWithStatus(
-						usrVO != null ? usrVO.getUsrMl() : null, insttnId
-		);
+				usrVO != null ? usrVO.getUsrMl() : null, insttnId
+				);
 
 		model.addAttribute("availableCourses", result.getCourseList());
 		model.addAttribute("isRegistered", result.getIsRegistered());

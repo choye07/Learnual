@@ -3,7 +3,7 @@
 <div class="header">
 	<div class="header-wrapper">
 		<h1 class="header-logo">
-			<a href="/">로고</a>
+			<a href="/learnual">로고</a>
 		</h1>
 
 		<div class="header-right">

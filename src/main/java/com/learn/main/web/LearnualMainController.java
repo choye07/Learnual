@@ -9,18 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.learn.Util.SessionUtil;
-import com.learn.bbs.pltad.instr.service.InstrService;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
-import com.learn.bbs.pltad.service.PltAdService;
 import com.learn.bbs.pltad.vo.PltadmVO;
-import com.learn.bbs.usr.service.UsrService;
 import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.MyInformationRequestVO;
 import com.learn.insttn.service.InsttnService;
-import com.learn.insttn.vo.InsttnListVO;
 import com.learn.insttn.vo.InsttnSearchRequestVO;
 import com.learn.insttn.vo.InsttnVO;
+import com.learn.util.SessionUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,20 +26,10 @@ public class LearnualMainController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LearnualMainController.class);
 	
-	
-	@Autowired
-	private UsrService usrService;
-	
-	@Autowired
-	private PltAdService pltAdService;
-	
-	@Autowired
-	private InstrService instrService;
-	
 	@Autowired
 	private InsttnService insttnService; 
 
-	@GetMapping("/main")
+	@GetMapping("/learnual")
 	public String goMain(Model model, InsttnSearchRequestVO insttnSearchRequestVO) {
 			List<InsttnVO> insttnList = this.insttnService.selectAllinsttn(insttnSearchRequestVO);
 			model.addAttribute("insttnList", insttnList);
@@ -133,12 +119,27 @@ public class LearnualMainController {
 			// 세션에 사용자가 없으면 로그인 페이지로 리다이렉트
 			return "redirect:/login";
 		}
-
-		myInformationRequestVO = SessionUtil.myInformationUtil(usrVO, pltadmVO, instrVO);
 		
-		model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
+		if(usrVO != null ) {
+			model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
 
-		return "common/component/viewmyinfo";
+			return "common/component/viewmyinfo";
+		} 
+		
+		else if (instrVO != null ) {
+			myInformationRequestVO = SessionUtil.myInformationUtil(instrVO);
+			model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
+
+			return "common/component/viewmyinfo";
+		}
+		else  {
+			myInformationRequestVO = SessionUtil.myInformationUtil(pltadmVO);
+
+			model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
+
+			return "common/component/viewmyinfo";
+		}
+		
 	}
 	
 	@GetMapping("/editmyinformation")
@@ -155,11 +156,26 @@ public class LearnualMainController {
 			return "redirect:/login";
 		}
 		
-		myInformationRequestVO = SessionUtil.myInformationUtil(usrVO, pltadmVO, instrVO);
-
-		model.addAttribute("inputEdit", myInformationRequestVO); 
+		//myInformationRequestVO = SessionUtil.myInformationUtil(usrVO, pltadmVO, instrVO);
 		
-		return "common/component/editmyinformation";
+		if(usrVO != null ) {
+			myInformationRequestVO = SessionUtil.myInformationUtil(usrVO);
+			return "common/component/editmyinformation";
+		} 
+		
+		else if (instrVO != null ) {
+			myInformationRequestVO = SessionUtil.myInformationUtil(instrVO);
+			model.addAttribute("inputEdit", myInformationRequestVO); 
+			return "common/component/editmyinformation";
+		}
+		else  {
+			myInformationRequestVO = SessionUtil.myInformationUtil(pltadmVO);
+
+			model.addAttribute("inputEdit", myInformationRequestVO); 
+			
+			return "common/component/editmyinformation";
+		}
+		
 	}
 	
 	/**

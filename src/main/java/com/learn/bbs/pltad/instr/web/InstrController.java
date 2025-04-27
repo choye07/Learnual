@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.learn.bbs.pltad.instr.dao.InstrDao;
 import com.learn.bbs.pltad.instr.service.InstrService;
 import com.learn.bbs.pltad.instr.vo.InstrLoginRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
+import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.common.vo.LoginRequestVO;
+import com.learn.common.vo.MyInformationRequestVO;
+import com.learn.exceptions.MyInformationUpdateException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -34,6 +38,9 @@ public class InstrController {
 
     @Autowired
     private InstrService instrService;
+    
+    @Autowired
+    private InstrDao instrDao;
     
     @PostMapping("pltad/instrmanage/regist")
     public String doInstrRegist(@Valid 
@@ -54,7 +61,7 @@ public class InstrController {
     
     @PostMapping("/instr/login")
 	public String doLogin(@Valid @ModelAttribute LoginRequestVO loginRequestVO, BindingResult bindingResult,
-			@RequestParam(required = false, defaultValue = "/") String nextUrl, Model model, HttpSession session,
+			@RequestParam(required = false, defaultValue = "/learnual") String nextUrl, Model model, HttpSession session,
 			HttpServletRequest request) {
 
 		// 사용자의 IP 를 가져올 때 HttpServeltRequest 가 사용.
@@ -90,7 +97,36 @@ public class InstrController {
     	
     	// 세션 폐기 (로그아웃)
     	session.invalidate(); 
-    	return "redirect:/";
+    	return "redirect:/learnual";
+    }
+    
+    @PostMapping("/instr/editmyinformation")
+    public String doEditMyInformation(@Valid @ModelAttribute MyInformationRequestVO myInformationRequestVO,
+                                       BindingResult bindingResult, Model model, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("inputEdit", myInformationRequestVO);
+            return "common/component/editmyinformation";
+        }
+
+        InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+        // 사용자, 관리자, 강사의 공통화 유효처리를 위한 객체로 어떤 역할인지 모르기 때문에 세션값을 다시 담는다 .
+        myInformationRequestVO.setMyiLgnId(instrVO.getInstrLgnId());
+
+        try {
+            boolean isUpdated = instrService.updateUsrEditMyinformation(myInformationRequestVO);
+
+            if (isUpdated) {
+            	InstrVO updatedInstrVO = instrDao.selectOneUsrBy(myInformationRequestVO.getMyiLgnId());
+                session.setAttribute("__LOGIN_INSTR__", updatedInstrVO);
+                return "/dashboard/dashboardeduad";
+            }
+        } catch (MyInformationUpdateException mue) {
+            model.addAttribute("errorMessage", mue.getMessage());
+            model.addAttribute("inputEdit", myInformationRequestVO);
+            return "common/component/editmyinformation";
+        }
+
+        return "redirect:/learnual";
     }
 
 }

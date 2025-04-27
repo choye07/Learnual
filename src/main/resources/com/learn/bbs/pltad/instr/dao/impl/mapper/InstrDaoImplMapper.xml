@@ -150,30 +150,30 @@ FROM INSTR WHERE INSTR_LGN_ID = #{_parameter}
 	   INSTR_DEL_DT = SYSDATE
 	 WHERE INSTR_LGN_ID = #{_parameter}
     </update>  
-<!-- 강사 개인정보 수정 미 정  -->
-<!-- 	<update id="updateOneUsrEditMyinformation"
-		parameterType="com.learn.bbs.usr.vo.UsrEditMyinformationVO">
-		UPDATE USR
-		SET
-		<if test="usrPw != null and usrPw != ''">
-			USR_PW = #{usrPw},
-		</if>
-		<if test="usrSlt != null and usrSlt != ''">
-			USR_SLT = #{usrSlt},
-		</if>
-		<if test="usrNm != null and usrNm != ''">
-		USR_NM = #{usrNm},
-		</if>
-		<if test="usrPn != null and usrPn != ''">
-		USR_PN = #{usrPn},
-		</if>
-		<if test="usrAdrs != null and usrAdrs != ''">
-		USR_ADRS = #{usrAdrs},
-		</if>
-		USR_UPDT_DT = SYSDATE,
-		USR_LST_PW_MDFY_DT = SYSDATE
-		WHERE USR_ML = #{usrMl}
-	</update> -->
+	<!-- 강사 개인정보 수정   -->
+	<update id="updateOneUsrEditMyinformation"
+			parameterType="com.learn.common.vo.MyInformationRequestVO">
+			UPDATE INSTR
+			SET
+			<if test="myiLgnPw != null and myiLgnPw != ''">
+				INSTR_LGN_PW = #{myiLgnPw},
+			</if>
+			<if test="myiLgnSlt != null and myiLgnSlt != ''">
+				INSTR_LGN_SLT_PW = #{myiLgnSlt},
+			</if>
+			<if test="myiNm != null and myiNm != ''">
+				INSTR_NM = #{myiNm},
+			</if>
+			<if test="myiPn != null and myiPn != ''">
+				INSTR_PN = #{myiPn},
+			</if>
+			<if test="myiAdrs != null and myiAdrs != ''">
+				INSTR_ADRS = #{myiAdrs},
+			</if>
+				INSTR_UPDT_DT = SYSDATE,
+				INSTR_LST_PW_MDFY_DT = SYSDATE
+			WHERE INSTR_LGN_ID = #{myiLgnId}
+	</update>
 
     <select id="selectAllInstrs" resultType="com.learn.bbs.pltad.instr.vo.InstrVO">
         SELECT INSTR_ID

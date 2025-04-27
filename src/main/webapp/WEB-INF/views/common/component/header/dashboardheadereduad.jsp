@@ -17,7 +17,7 @@
 
 			<div class="header-right">
 				<div class="btn-direct">
-					<a href="/">러뉴얼 바로가기</a>
+					<a href="/learnual">러뉴얼 바로가기</a>
 				</div>
 				<div class="btn-notification">
 					<a href="#">notification</a>

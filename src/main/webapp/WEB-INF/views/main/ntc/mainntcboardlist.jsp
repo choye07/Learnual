@@ -26,7 +26,7 @@
 						<h1>러뉴얼 공지사항</h1>
 						<div class="board-toolbox">
 							<div class="btn-goMain">
-								<a href="/">홈으로</a>
+								<a href="/learnual">홈으로</a>
 							</div>
 							<div class="btn-add-notice">
 								<a href="/ntc/write">공지글 작성</a>
