@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.usr.dao.UsrDao;
 import com.learn.bbs.usr.service.UsrService;
 import com.learn.bbs.usr.vo.UsrEditMyinformationVO;
@@ -11,6 +12,8 @@ import com.learn.bbs.usr.vo.UsrLoginRequestVO;
 import com.learn.bbs.usr.vo.UsrRegistRequestVO;
 import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.beans.Sha;
+import com.learn.common.vo.MyInformationRequestVO;
+import com.learn.exceptions.MyInformationUpdateException;
 import com.learn.exceptions.UsrLoginException;
 import com.learn.exceptions.UsrRegistException;
 
@@ -117,45 +120,51 @@ public class UsrServiceImpl implements UsrService {
 
     @Transactional
 	@Override
-	public boolean updateUsrEditMyinformation(UsrEditMyinformationVO usrEditMyinformationVO) {
-    	// 1. user 테이블에 email 이 있는지  조회한다.
-    	boolean emailCheck = checkDuplicateEmail(usrEditMyinformationVO.getUsrMl());
-    	
-    	
-    	if(emailCheck) { // true 시 해당 계정이 있다면
-    		
-    		
-    		if(usrEditMyinformationVO.getUsrPw() != null && !usrEditMyinformationVO.getUsrPw().isEmpty()) {
-    		// 2. 수정 정보에 비밀번호 변경 데이터가 있다면 암호화를 진행.
-    		String salt=  this.sha.generateSalt();
-    		
-    		String password =  usrEditMyinformationVO.getUsrPw();
-    		password = this.sha.getEncrypt(password, salt); 
-    		usrEditMyinformationVO.setUsrPw(password);
-    		usrEditMyinformationVO.setUsrSlt(salt);
-    		} else { 
-    			// 만약 비밀번호가 없다면?
-    			// 1. email 로 회원의 모든 정보를 조회한 후에 해당 계정의 비밀번호를 저장해준다. 
-    			UsrVO usrVO = this.usrDao.selectOneUsrBy(usrEditMyinformationVO.getUsrMl());
-    			usrEditMyinformationVO.setUsrPw(usrVO.getUsrPw());
-    			usrEditMyinformationVO.setUsrSlt(usrVO.getUsrSlt());
-    			
-    		}
-    		
-    		//if(usrEditMyinformationVO.getUsrNm() != null || usrEditMyinformationVO.getUsrNm() != "") {
-        		// 3. 수정 정보에 해당 변경 데이터들의  데이터를 넣어준다.
-    			usrEditMyinformationVO.setUsrNm(usrEditMyinformationVO.getUsrNm());
-    			usrEditMyinformationVO.setUsrPn(usrEditMyinformationVO.getUsrPn());
-    			usrEditMyinformationVO.setUsrAdrs(usrEditMyinformationVO.getUsrAdrs());
+	public boolean updateUsrEditMyinformation(MyInformationRequestVO myInfromationRequestVO) {
+		// 1. pltAd 테이블에 email 이 있는지 조회한다.
+		boolean emailCheck = this.checkDuplicateEmail(myInfromationRequestVO.getMyiLgnId());
 
-        	//}
-    		
-    			return this.usrDao.updateOneUsrEditMyinformation(usrEditMyinformationVO) > 0;
-    		
-    	}
-    	
-    	return false;
-    	
+		if (!emailCheck) {
+			throw new MyInformationUpdateException("해당 이메일이 존재하지 않습니다.", myInfromationRequestVO);
+		}
+
+		// 2. 비밀번호 변경 데이터 처리
+		if (myInfromationRequestVO.getMyiLgnPw() != null && !myInfromationRequestVO.getMyiLgnPw().isEmpty()) {
+			// 2. 수정 정보에 비밀번호 변경 데이터가 있다면 암호화를 진행.
+			String salt = this.sha.generateSalt();
+
+			String password = myInfromationRequestVO.getMyiLgnPw();
+			password = this.sha.getEncrypt(password, salt);
+			myInfromationRequestVO.setMyiLgnPw(password);
+			myInfromationRequestVO.setMyiLgnSlt(salt);
+		} else {
+			// 만약 비밀번호가 없다면?
+			// 2-1. email 로 회원의 모든 정보를 조회한 후에 해당 계정의 비밀번호를 저장해준다.
+			UsrVO usrVO = this.usrDao.selectOneUsrBy(myInfromationRequestVO.getMyiLgnId());
+
+			if (usrVO == null) {
+				throw new MyInformationUpdateException("회원 정보 조회 중 오류가 발생했습니다.", myInfromationRequestVO);
+			}
+
+			myInfromationRequestVO.setMyiLgnPw(usrVO.getUsrPw());
+			myInfromationRequestVO.setMyiLgnSlt(usrVO.getUsrSlt());
+
+		}
+
+		// 3. 수정 정보 처리
+		if (myInfromationRequestVO.getMyiNm() == null || myInfromationRequestVO.getMyiNm().isEmpty()) {
+			throw new MyInformationUpdateException("이름이 유효하지 않습니다.", myInfromationRequestVO);
+		}
+
+		if (myInfromationRequestVO.getMyiPn() == null || myInfromationRequestVO.getMyiPn().isEmpty()) {
+			throw new MyInformationUpdateException("전화번호가 유효하지 않습니다.", myInfromationRequestVO);
+		}
+
+		if (myInfromationRequestVO.getMyiAdrs() == null || myInfromationRequestVO.getMyiAdrs().isEmpty()) {
+			throw new MyInformationUpdateException("주소가 유효하지 않습니다.", myInfromationRequestVO);
+		}
+
+		// 4. 업데이트 처리
+		return this.usrDao.updateOneUsrEditMyinformation(myInfromationRequestVO) > 0;
 	}
-    
 }

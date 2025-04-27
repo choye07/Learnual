@@ -1244,11 +1244,11 @@ label {
 /* 나의 정보 수정 css */
 .manage-board.myinfo.edit {
   input {
-    &#usrNm,
-    &#usrPw,
-    &#confirmUsrPw,
-    &#usrAdrs,
-    &#usrPn {
+    &#myiNm,
+    &#myiLgnPw,
+    &#myiConfirlgnPw,
+    &#myiAdrs,
+    &#myiPn {
       border: 1px solid #ccc;
       pointer-events: all;
     }
