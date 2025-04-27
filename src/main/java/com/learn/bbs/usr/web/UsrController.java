@@ -74,7 +74,7 @@ public class UsrController {
     	    model.addAttribute("userInputRegist", usrRegistRequestVO);
     	    return "main/mainregist";
     	}
-    	return "redirect:/"; // 페이지 바뀔 예정.	
+    	return "redirect:/main"; // 페이지 바뀔 예정.	
     } 
 	
     @ResponseBody 
@@ -100,7 +100,7 @@ public class UsrController {
     public String doLogin(
     		@Valid @ModelAttribute LoginRequestVO loginRequestVO,
 			BindingResult bindingResult,
-			@RequestParam( required = false, defaultValue = "/") String nextUrl,
+			@RequestParam( required = false, defaultValue = "/learnual") String nextUrl,
 			Model model,
 			HttpSession session,
 			HttpServletRequest request) {
@@ -155,7 +155,7 @@ public class UsrController {
             return "common/component/editmyinformation";
         }
 
-        return "redirect:/";
+        return "redirect:/learnual";
     }
     
     
@@ -168,7 +168,7 @@ public class UsrController {
     	
     	// 세션 폐기 (로그아웃)
     	session.invalidate(); 
-    	return "redirect:/";
+    	return "redirect:/learnual";
     }
     
     @GetMapping("/usr/delete-me")

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.learn.Util.SessionUtil;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.usr.vo.UsrVO;
@@ -17,6 +16,7 @@ import com.learn.common.vo.MyInformationRequestVO;
 import com.learn.insttn.service.InsttnService;
 import com.learn.insttn.vo.InsttnSearchRequestVO;
 import com.learn.insttn.vo.InsttnVO;
+import com.learn.util.SessionUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -29,7 +29,7 @@ public class LearnualMainController {
 	@Autowired
 	private InsttnService insttnService; 
 
-	@GetMapping("/main")
+	@GetMapping("/learnual")
 	public String goMain(Model model, InsttnSearchRequestVO insttnSearchRequestVO) {
 			List<InsttnVO> insttnList = this.insttnService.selectAllinsttn(insttnSearchRequestVO);
 			model.addAttribute("insttnList", insttnList);

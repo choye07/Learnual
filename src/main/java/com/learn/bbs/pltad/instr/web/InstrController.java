@@ -61,7 +61,7 @@ public class InstrController {
     
     @PostMapping("/instr/login")
 	public String doLogin(@Valid @ModelAttribute LoginRequestVO loginRequestVO, BindingResult bindingResult,
-			@RequestParam(required = false, defaultValue = "/") String nextUrl, Model model, HttpSession session,
+			@RequestParam(required = false, defaultValue = "/learnual") String nextUrl, Model model, HttpSession session,
 			HttpServletRequest request) {
 
 		// 사용자의 IP 를 가져올 때 HttpServeltRequest 가 사용.
@@ -97,7 +97,7 @@ public class InstrController {
     	
     	// 세션 폐기 (로그아웃)
     	session.invalidate(); 
-    	return "redirect:/";
+    	return "redirect:/learnual";
     }
     
     @PostMapping("/instr/editmyinformation")
@@ -126,7 +126,7 @@ public class InstrController {
             return "common/component/editmyinformation";
         }
 
-        return "redirect:/";
+        return "redirect:/learnual";
     }
 
 }

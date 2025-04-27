@@ -1,4 +1,4 @@
-package com.learn.Util;
+package com.learn.util;
 
 import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.bbs.pltad.vo.PltadmVO;

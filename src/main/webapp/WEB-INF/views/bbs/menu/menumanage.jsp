@@ -12,6 +12,10 @@
 <script src="/js/common.js" type="text/javascript"></script>
 </head>
 <body>
+
+			<div>
+				<jsp:include page="/WEB-INF/views/main/mainloginstatus.jsp" />
+			</div>
 	<div class="article-manage">
 		<h1>메뉴 관리</h1>
 		<div class="home-page-button-group">
@@ -56,7 +60,7 @@
 					<c:choose>
 						<c:when test="${not empty cmCdList }">
 							<c:forEach items="${cmCdList}" var="cmcd" varStatus="status">
-								<input type="checkbox" name="menuAcc"
+								<input type="checkbox" name="menuAcc-check"
 									id="menuAcc${status.index}" value="${cmcd.cmcdId}" /> ${cmcd.cmcdNm}
 							</c:forEach>
 						</c:when>

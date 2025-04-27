@@ -57,7 +57,7 @@ public class PltAdController {
 
 	@PostMapping("/plta/login")
 	public String doLogin(@Valid @ModelAttribute LoginRequestVO loginRequestVO, BindingResult bindingResult,
-			@RequestParam(required = false, defaultValue = "/") String nextUrl, Model model, HttpSession session,
+			@RequestParam(required = false, defaultValue = "/learnual") String nextUrl, Model model, HttpSession session,
 			HttpServletRequest request) {
 		// 사용자의 IP 를 가져올 때 HttpServeltRequest 가 사용.
 		String userIp = request.getRemoteAddr();
@@ -92,7 +92,7 @@ public class PltAdController {
     	
     	// 세션 폐기 (로그아웃)
     	session.invalidate(); 
-    	return "redirect:/";
+    	return "redirect:/learnual";
     }
     
     
@@ -122,7 +122,7 @@ public class PltAdController {
             return "common/component/editmyinformation";
         }
 
-        return "redirect:/";
+        return "redirect:/learnual";
     }
 
 }

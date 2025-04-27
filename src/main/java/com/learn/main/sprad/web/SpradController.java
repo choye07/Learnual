@@ -35,7 +35,7 @@ public class SpradController {
     
 	@PostMapping("/sprad/login")
 	public String doLogin(@Valid @ModelAttribute LoginRequestVO loginRequestVO, BindingResult bindingResult,
-			@RequestParam(required = false, defaultValue = "/") String nextUrl, Model model, HttpSession session,
+			@RequestParam(required = false, defaultValue = "/learnual") String nextUrl, Model model, HttpSession session,
 			HttpServletRequest request) {
 		
 		String userIp = request.getRemoteAddr();
@@ -66,7 +66,7 @@ public class SpradController {
     	
     	// 세션 폐기 (로그아웃)
     	session.invalidate(); 
-    	return "redirect:/";
+    	return "redirect:/learnual";
     }
 
 }
