@@ -20,7 +20,7 @@
 			page="/WEB-INF/views/common/component/sidebar/usrsidebar.jsp" />
 		<jsp:include
 			page="/WEB-INF/views/common/component/header/dashboardheaderusr.jsp" />
-
+		<jsp:include page="/WEB-INF/views/main/mainloginstatus.jsp" />
 
 		<div class="dashboard-main student">
 			<div class="main-wrapper">
@@ -34,12 +34,12 @@
 									<a href="#">user-info-img</a>
 								</div>
 								<p class="user-greeting">
-									<span class="user-name">케이티</span> 님 안녕하세요!
+									<span class="user-name">${inputEdit.myiNm}</span> 님 안녕하세요!
 								</p>
 							</div>
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
-								<li class="menu-item on"><a href="/dashboard/usr">개인정보관리</a></li>
+								<li class="menu-item on"><a id="dashboard-usr-information" href="">개인정보관리</a></li>
 								<li class="menu-item"><a href="/dashboard/usr/course">나의 수강 목록</a></li>
 								<li class="menu-item"><a href="/dashboard/usr/resume">나의 이력서 목록</a></li>
 							</ul>
@@ -67,13 +67,14 @@
 											</div>
 
 											<div class="password-area">
-												<label for="password">비밀번호</label> <input id="myiLgnPw"
+												<label for="password">비밀번호 수정</label> <input id="myiLgnPw"
 													name="myiLgnPw" type="password" required />
 											</div>
-											<div class="confirm-password-area">
+											<!-- 개인 정보 관리 쪽이라 비밀번호 확인은 필요없다 판단. -->
+											<!-- <div class="confirm-password-area">
 												<label for="password">비밀번호 확인</label> <input
 													id="confirmUsrPw" name="confirmUsrPw" required="password" />
-											</div>
+											</div> -->
 											<div class="address-area">
 												<label for="address">주소</label> <input id="myiAdrs"
 													name="myiAdrs" type="text"
