@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.learn.bbs.crs.crsinf.dao.CrsInfDao;
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
 import com.learn.bbs.pltad.dao.PltAdDao;
 import com.learn.bbs.pltad.instr.dao.InstrDao;
 import com.learn.bbs.pltad.instr.service.InstrService;
@@ -205,5 +206,11 @@ public class InstrServiceImpl implements InstrService {
 	@Override
 	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId) {
 		return this.crsInfDao.selectCoursesForInstr(instrId, insttnId);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId, String insttnId) {
+    	return this.crsInfDao.selectCourseDetail(crsInfId, insttnId);
 	}
 }
