@@ -24,4 +24,5 @@ public interface InsttnService {
 	
 	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId);
 
+	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrMl, String insttnId);
 }

@@ -82,6 +82,7 @@ public class LearnualMainController {
 			myInformationRequestVO = SessionUtil.myInformationUtil(usrVO);
 			if (usrVO.getInsttnId().equals(usrDashBoardInsttnId)) {
 				model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
+				model.addAttribute("insttnId", usrVO.getInsttnId());
 				return "dashboard/usr/dashboardusr";
 			}
 		}
@@ -89,6 +90,39 @@ public class LearnualMainController {
 		return "redirect:/learnual";
 	}
 
+	@GetMapping("/usr/{eduadDashBoardInsttnId}/dashboard/courselist")
+	public String showusrCoursList(HttpSession session, Model model, @PathVariable String eduadDashBoardInsttnId) {
+
+		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+		PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+
+		// 유저가 로그인 중이라면
+		if (usrVO == null && pltadmVO == null && instrVO == null) {
+			// 세션에 유저가 없으면 로그인 페이지로 리다이렉트
+			return "redirect:/login";
+		}
+		// 강사나 플랫폼 관리자가 들어갈 경우.
+		else if (instrVO != null || pltadmVO != null) {
+			return "redirect:/learnual";
+		}
+
+		List<CrsInfAvailableReadResponseVO> courseList = this.insttnService.selectMyCourseForUser(usrVO.getUsrMl(),
+				eduadDashBoardInsttnId);
+		
+		if (usrVO != null) {
+			if (usrVO.getInsttnId().equals(eduadDashBoardInsttnId)) {
+				model.addAttribute("courseList", courseList); // JSP에서 사용할 이름으로 모델 추가
+				model.addAttribute("insttnId", usrVO.getInsttnId());
+				model.addAttribute("usrName", usrVO.getUsrNm());
+
+				return "dashboard/usr/crs/dashboardusrmycourse";
+			}
+		}
+
+		return "redirect:/learnual";
+	}
+	
 	@GetMapping("/eduad/{eduadDashBoardInsttnId}/dashboard") // eduadDashBoardInsttnId = 강사 가 가지고 있는 기관(학원 id)
 	public String goEduadDashboard(HttpSession session, Model model, @PathVariable String eduadDashBoardInsttnId) {
 
@@ -114,6 +148,7 @@ public class LearnualMainController {
 			if (instrVO.getInsttnId().equals(eduadDashBoardInsttnId)) {
 				model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
 				model.addAttribute("insttnId", instrVO.getInsttnId());
+				model.addAttribute("instrName", instrVO.getInstrNm());
 
 				// 투두리스트를 읽어온다.
 				TodoListVO todoListVO = this.todoService.getAllMyTodo(instrVO.getInstrLgnId());
@@ -133,9 +168,6 @@ public class LearnualMainController {
 		PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
 		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
 
-		List<CrsInfAvailableReadResponseVO> courseList = this.insttnService.selectCoursesForInstr(instrVO.getInstrId(),
-				eduadDashBoardInsttnId);
-
 		// 강사가 로그인 중이라면
 		if (usrVO == null && pltadmVO == null && instrVO == null) {
 			// 세션에 강사가 없으면 로그인 페이지로 리다이렉트
@@ -145,11 +177,16 @@ public class LearnualMainController {
 		else if (usrVO != null || pltadmVO != null) {
 			return "redirect:/learnual";
 		}
+		
+
+		List<CrsInfAvailableReadResponseVO> courseList = this.insttnService.selectCoursesForInstr(instrVO.getInstrId(),
+				eduadDashBoardInsttnId);
 
 		if (instrVO != null) {
 			if (instrVO.getInsttnId().equals(eduadDashBoardInsttnId)) {
 				model.addAttribute("courseList", courseList); // JSP에서 사용할 이름으로 모델 추가
 				model.addAttribute("insttnId", instrVO.getInsttnId());
+				model.addAttribute("instrName", instrVO.getInstrNm());
 
 				return "dashboard/eduad/crs/dashboardeduadmycourselist";
 			}

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,14 +29,14 @@
 				<div class="quick-icon">img</div>
 				<p>강좌 홈</p>
 		</a></li>
-		<li class="quick-menu dashboard"><a href="/dashboard/usr">
-				<div class="quick-icon">img</div>
-				<p>대시보드(학생)</p>
-		</a></li>
-		<li class="quick-menu dashboard"><a href="/dashboard/eduad">
-				<div class="quick-icon">img</div>
-				<p>대시보드(강사)</p>
-		</a></li>
+        <li class="quick-menu dashboard" id="dashboard-usr-insttnid"><a href="">
+                <div class="quick-icon">img</div>
+                <p>대시보드(학생)</p>
+        </a></li>
+        <li class="quick-menu dashboard " id="dashboard-instr-insttnid"><a href="">
+                <div class="quick-icon">img</div>
+                <p>대시보드(강사)</p>
+        </a></li>
 		<!-- 슈퍼관리자 계정만 활성화 -->
 		<li class="quick-menu super"><a href="#">
 				<div class="quick-icon">img</div>
@@ -64,18 +65,18 @@
 									<h2>${courseDetail.crsInfNm}</h2>
 								</div>
 								<div class="course-info-period">
-									<p>
-										강의신청일: <span>${courseDetail.crsInfAppDt}</span>
-									</p>
-									<p>
-										신청마감일: <span>${courseDetail.crsInfDdlnDt}</span>
-									</p>
-									<p>
-										강의시작일: <span>${courseDetail.crsInfStDt}</span>
-									</p>
-									<p>
-										강의종료일: <span>${courseDetail.crsInfEndDt}</span>
-									</p>
+									   <p>
+									        강의신청일: <span>${fn:substring(courseDetail.crsInfAppDt, 0, 10)}</span>
+									    </p>
+									    <p>
+									        신청마감일: <span>${fn:substring(courseDetail.crsInfDdlnDt, 0, 10)}</span>
+									    </p>
+									    <p>
+									        강의시작일: <span>${fn:substring(courseDetail.crsInfStDt, 0, 10)}</span>
+									    </p>
+									    <p>
+									        강의종료일: <span>${fn:substring(courseDetail.crsInfEndDt, 0, 10)}</span>
+									    </p>
 								</div>
 							</div>
 
