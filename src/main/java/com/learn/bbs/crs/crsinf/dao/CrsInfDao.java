@@ -68,4 +68,10 @@ public interface CrsInfDao {
 	
 	// 해당 강좌 정보의 수업 시작 시간 & 종료 시간 - 소희
 		public CrsInfStartAndEndTimeRequestVO selectCourseTimeStartAndEnd (String crsInfId);
+		
+	// 강사가 맡은 네가지 강좌
+	public List<CrsInfAvailableReadResponseVO> selectFourCoursesForInstr(String instrId, String insttnId);
+	
+	// 강사가 맡은 모든 강좌
+	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId);
 }

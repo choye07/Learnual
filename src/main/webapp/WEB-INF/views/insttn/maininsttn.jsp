@@ -20,7 +20,7 @@
 				<div class="quick-icon">img</div>
 				<p>러뉴얼 홈</p>
 		</a></li>
-		<li class="quick-menu insttn"><a href="/insttn">
+		<li class="quick-menu insttn"><a href="/${insttnId}">
 				<div class="quick-icon">img</div>
 				<p>학원 홈</p>
 		</a></li>
@@ -97,6 +97,9 @@
 							<div>
 								<h2>
 									<c:choose>
+									    <c:when test="${isInstr}">
+                                            나의 가르칠 강좌
+                                        </c:when>
 										<c:when test="${isRegistered}">
 							                수강 중인 강좌 목록
 							            </c:when>
@@ -107,39 +110,69 @@
 								</h2>
 								<c:choose>
 									<c:when test="${isAdmin}">
-										<a href="/insttn/pltad">관리하기</a>
+										<a href="/pltad/${sessionScope.__LOGIN_PLTADM__.insttnId}">관리하기</a>
 									</c:when>
 									<c:when test="${isStudent}">
-										<a href="/insttn/usr">신청하기</a>
+										<a href="/usr/${sessionScope.__LOGIN_USER__.insttnId}">신청하기</a>
 									</c:when>
+									<c:when test="${isInstr}">
+                                        <a href="/instr/${sessionScope.__LOGIN_INSTR__.insttnId}">강사 강좌</a>
+                                    </c:when>
 									<c:otherwise>
 										<span>로그인이 필요합니다.</span>
 									</c:otherwise>
 								</c:choose>
 							</div>
 							<div class="course-wrapper">
-								<div class="course-article">
-									<ul class="article-content">
-										<c:set var="linkBase"
-											value="${isRegistered ? '/insttn/pltad/zz/' : '/insttn/usr/detail/'}" />
-
-										<c:choose>
-											<c:when test="${not empty availableCourses}">
-												<c:forEach var="availableCourse" items="${availableCourses}">
-													<li><a href="${linkBase}${availableCourse.crsInfId}">
-															<h3>${availableCourse.crsInfNm}</h3>
-													</a>
-														<p class="period">
-															<span>${availableCourse.crsInfStDt}</span> ~ <span>${availableCourse.crsInfEndDt}</span>
-														</p></li>
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												<li>현재 신청 가능한 강좌가 없습니다.</li>
-											</c:otherwise>
+							    <div class="course-article">
+							        <ul class="article-content">
+							            <c:set var="linkBase" value="${'/usr/'}" />
+							
+							            <c:choose>
+										    <c:when test="${isInstr}">
+										        <c:choose>
+										            <c:when test="${empty instrCourses}">
+										                <li>강사가 맡고 있는 강좌가 없습니다.</li>
+										            </c:when>
+										            <c:otherwise>
+										                <c:forEach var="instrCourse" items="${instrCourses}">
+										                    <li>
+										                        <a href="instr/${sessionScope.__LOGIN_INSTR__.insttnId}/${instrCourse.crsInfId}/course">
+										                            <h3>${instrCourse.crsInfNm}</h3>
+										                        </a>
+										                        <p class="period">
+										                            <span>${instrCourse.crsInfStDt}</span> ~ <span>${instrCourse.crsInfEndDt}</span>
+										                        </p>
+										                    </li>
+										                </c:forEach>
+										            </c:otherwise>
+										        </c:choose>
+										    </c:when>
+										    <c:when test="${not empty availableCourses}">
+										        <c:forEach var="availableCourse" items="${availableCourses}">
+										            <li>
+										                <c:choose>
+										                    <c:when test="${isRegistered}">
+										                        <a href="${linkBase}${insttnId}/${availableCourse.crsInfId}/course">
+										                    </c:when>
+										                    <c:otherwise>
+										                        <a href="${linkBase}${insttnId}/${availableCourse.crsInfId}/detail">
+										                    </c:otherwise>
+										                </c:choose>
+										                    <h3>${availableCourse.crsInfNm}</h3>
+										                </a>
+										                <p class="period">
+										                    <span>${availableCourse.crsInfStDt}</span> ~ <span>${availableCourse.crsInfEndDt}</span>
+										                </p>
+										            </li>
+										        </c:forEach>
+										    </c:when>
+										    <c:otherwise>
+										        <li>현재 신청 가능한 강좌가 없습니다.</li>
+										    </c:otherwise>
 										</c:choose>
-									</ul>
-								</div>
+							        </ul>
+							    </div>
 							</div>
 						</div>
 						<!-- 세션값에 따라 현재 개설강좌목록 or 나의 수강강좌목록이 출력됨 end -->

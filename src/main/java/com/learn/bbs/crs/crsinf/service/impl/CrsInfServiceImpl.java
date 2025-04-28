@@ -352,4 +352,10 @@ public class CrsInfServiceImpl implements CrsInfService {
 		
 		return crsInfStartAndEndTimeRequestVO;
 	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectFourCoursesForInstr(String instrId, String insttnId) {
+		return this.crsInfDao.selectFourCoursesForInstr(instrId, insttnId);
+	}
 }

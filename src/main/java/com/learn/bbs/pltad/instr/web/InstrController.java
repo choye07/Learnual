@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.instr.web;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.pltad.instr.dao.InstrDao;
 import com.learn.bbs.pltad.instr.service.InstrService;
 import com.learn.bbs.pltad.instr.vo.InstrLoginRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
+import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.common.vo.LoginRequestVO;
 import com.learn.common.vo.MyInformationRequestVO;
 import com.learn.exceptions.MyInformationUpdateException;
@@ -118,7 +123,7 @@ public class InstrController {
             if (isUpdated) {
             	InstrVO updatedInstrVO = instrDao.selectOneUsrBy(myInformationRequestVO.getMyiLgnId());
                 session.setAttribute("__LOGIN_INSTR__", updatedInstrVO);
-                return "/dashboard/dashboardeduad";
+                return "redirect:/eduad/"+instrVO.getInsttnId()+"/dashboard";
             }
         } catch (MyInformationUpdateException mue) {
             model.addAttribute("errorMessage", mue.getMessage());
@@ -128,5 +133,22 @@ public class InstrController {
 
         return "redirect:/learnual";
     }
+    
+ 	// 강사가 가르칠(가르치고 있는) 강좌들을 보여준다 
+ 	@GetMapping("instr/{insttnId}")
+ 	public String showAvailableCoursesForInstr(Model model, HttpSession session, @PathVariable String insttnId) {
+ 		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
 
+ 		List<CrsInfAvailableReadResponseVO> instrCourses = this.instrService
+ 				.selectCoursesForInstr(instrVO.getInstrId(), instrVO.getInsttnId());
+
+ 		if(!insttnId.equals(instrVO.getInsttnId())) {
+ 			return "redirect:/instr/" + instrVO.getInsttnId();
+ 		}
+ 		
+ 		model.addAttribute("isInstr", true);
+ 		model.addAttribute("instrCourses", instrCourses);
+
+ 		return "/bbs/crs/courseregist";
+ 	}
 }

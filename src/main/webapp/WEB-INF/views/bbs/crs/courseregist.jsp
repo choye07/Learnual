@@ -26,44 +26,66 @@
 
 			<div class="main-wrapper course-regist">
 				<div class="main-wrapper-top">
-					<h1>현재 개설 강좌 목록</h1>
+				    <c:choose>
+				        <c:when test="${isUsr}">
+				            <h1>현재 개설 강좌 목록</h1>
+				        </c:when>
+				        <c:when test="${isInstr}">
+                            <h1>내가 가르치는 강좌</h1>
+                        </c:when>
+				    </c:choose>
 				</div>
 
 				<div class="course-wrapper">
 					<div class="course-article widget-article">
 						<div class="article-title">
-							<h2>현재 개설 중인 강좌</h2>
+							<c:choose>
+		                        <c:when test="${isUsr}">
+		                            <h2>현재 개설 강좌 목록</h2>
+		                        </c:when>
+		                        <c:when test="${isInstr}">
+		                            <h2>내가 가르치는 강좌</h2>
+		                        </c:when>
+		                    </c:choose>
 						</div>
 
 						<div>
 							<ul class="article-content">
-								<c:forEach var="availableCourse" items="${availableCourses}">
-									<li><a
-										href="/insttn/usr/detail/${availableCourse.crsInfId}">
-											<h3>${availableCourse.crsInfNm}</h3>
-
-											<p class="period">
-												<span>${availableCourse.crsInfStDt}</span> ~ <span>${availableCourse.crsInfEndDt}</span>
-											</p>
-											<p class="available-capa">
-												수강인원 : <span class="current-capa">${availableCourse.crsCurPrsCnt}</span>
-												/ <span class="max-capa">${availableCourse.crsInfPrsCnt}</span>
-												명
-											</p>
-									</a> 
-									<c:choose>
-									    <c:when test="${availableCourse.status eq 'abandon'}">
-									        <p class="status">폐강된 강좌입니다.</p>
-									    </c:when>
-									    <c:when test="${availableCourse.status eq 'finish'}">
-									        <p class="status">마감된 강좌입니다.</p>
-									    </c:when>
-									    <c:otherwise>
-									        <p class="status">신청 가능한 강좌입니다.</p>
-									    </c:otherwise>
-									</c:choose>
-									</li>
-								</c:forEach>
+							    <c:forEach var="availableCourse" items="${availableCourses}">
+							        <li>
+							            <a href="${sessionScope.__LOGIN_USER__.insttnId}/${availableCourse.crsInfId}/detail">
+							                <h3>${availableCourse.crsInfNm}</h3>
+							                <p class="period">
+							                    <span>${availableCourse.crsInfStDt}</span> ~ <span>${availableCourse.crsInfEndDt}</span>
+							                </p>
+							                <p class="available-capa">
+							                    수강인원 : <span class="current-capa">${availableCourse.crsCurPrsCnt}</span> / <span class="max-capa">${availableCourse.crsInfPrsCnt}</span>명
+							                </p>
+							            </a>
+							            <c:choose>
+							                <c:when test="${availableCourse.status eq 'abandon'}">
+							                    <p class="status">폐강된 강좌입니다.</p>
+							                </c:when>
+							                <c:when test="${availableCourse.status eq 'finish'}">
+							                    <p class="status">마감된 강좌입니다.</p>
+							                </c:when>
+							                <c:otherwise>
+							                    <p class="status">신청 가능한 강좌입니다.</p>
+							                </c:otherwise>
+							            </c:choose>
+							        </li>
+							    </c:forEach>
+							
+							    <c:forEach var="instrCourse" items="${instrCourses}">
+							        <li class="instr-course">
+							            <a href="/instr/${sessionScope.__LOGIN_INSTR__.insttnId}/${instrCourse.crsInfId}/course">
+							                <h3>${instrCourse.crsInfNm}</h3>
+							                <p class="period">
+							                    <span>${instrCourse.crsInfStDt}</span> ~ <span>${instrCourse.crsInfEndDt}</span>
+							                </p>
+							            </a>
+							        </li>
+							    </c:forEach>
 							</ul>
 
 							<ul class="pagination">

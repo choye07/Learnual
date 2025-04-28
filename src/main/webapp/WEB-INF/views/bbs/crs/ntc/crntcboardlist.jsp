@@ -55,11 +55,13 @@
 							<h1>강좌 공지사항</h1>
 							<div class="board-toolbox">
 								<div class="btn-goMain">
-									<a href="/insttn/crs">홈으로</a>
+									<a href="/usr/${insttnId}/${crsInfId}/course">홈으로</a>
 									<!-- 수정예정 -->
 								</div>
 								<div class="btn-add-notice">
-									<a href="/crntc/write">공지글 작성</a>
+								    <c:if test="${showButton eq true}">
+									   <a href="/crntc/write">공지글 작성</a>
+									</c:if>
 								</div>
 							</div>
 						</div>

@@ -20,7 +20,7 @@
 			page="/WEB-INF/views/common/component/sidebar/eduadsidebar.jsp" />
 		<jsp:include
 			page="/WEB-INF/views/common/component/header/dashboardheadereduad.jsp" />
-
+		<jsp:include page="/WEB-INF/views/main/mainloginstatus.jsp" />
 		<!-- student -> tutor class 변환 -->
 		<div class="dashboard-main tutor">
 			<div class="main-wrapper">
@@ -36,13 +36,13 @@
 									<a href="#">user-info-img</a>
 								</div>
 								<p class="user-greeting">
-									<span class="user-name">홍길동</span> 님 안녕하세요!
+									<span class="user-name">${inputEdit.myiNm}</span> 님 안녕하세요!
 								</p>
 							</div>
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
-								<li class="menu-item on"><a href="/dashboard/eduad">개인정보관리</a></li>
-								<li class="menu-item"><a href="/dashboard/eduad/course">나의
+								<li class="menu-item on"><a id="dashboard-instr-information" href="">개인정보관리</a></li>
+								<li class="menu-item"><a href="/eduad/${insttnId}/dashboard/courselist">나의
 										강의 목록</a></li>
 								<li class="menu-item"><a href="/dashboard/eduad/consult">상담
 										요청 목록</a></li>
@@ -76,10 +76,11 @@
 												<label for="password">비밀번호</label> <input id="myiLgnPw"
 													name="myiLgnPw" type="password" required />
 											</div>
-											<div class="confirm-password-area">
+											<!-- 개인 정보 관리 쪽이라 비밀번호 확인은 필요없다 판단. -->
+											<!-- <div class="confirm-password-area">
 												<label for="password">비밀번호 확인</label> <input
 													id="confirmUsrPw" name="confirmUsrPw" required="password" />
-											</div>
+											</div> -->
 											<div class="address-area">
 												<label for="address">주소</label> <input id="myiAdrs"
 													name="myiAdrs" type="text"

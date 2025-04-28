@@ -23,8 +23,9 @@ public class CnclHstrController {
     @Autowired
     private CnclHstrService cnclHstrService;
 
-    @PostMapping("/insttn/usr/detail/{crsInfId}/cancel")
-    public String doCancelCourse(@PathVariable String crsInfId, 
+    @PostMapping("/usr/{insttnId}/{crsInfId}/detail/cancel")
+    public String doCancelCourse(@PathVariable String insttnId,
+    							 @PathVariable String crsInfId, 
     							 Model model,
     							 HttpSession session) {
     	UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
@@ -32,9 +33,15 @@ public class CnclHstrController {
     	if(usrVO == null) {
     		throw new AccessDeniedException();
     	}
+    	
+    	String nowInsttnId = usrVO.getInsttnId();
+    	
+        if (!insttnId.equals(nowInsttnId)) {
+            return "redirect:/usr/" + nowInsttnId + "/" + crsInfId + "/detail/cancel";
+        }
 
         this.cnclHstrService.insertCancelledAppHstr(crsInfId, usrVO.getUsrMl(), usrVO.getInsttnId());
 
-        return "redirect:/insttn/usr/detail/{crsInfId}";
+        return "redirect:/usr/" + nowInsttnId + "/" + crsInfId + "/detail";
     }
 }

@@ -20,7 +20,7 @@
 				<div class="quick-icon">img</div>
 				<p>러뉴얼 홈</p>
 		</a></li>
-		<li class="quick-menu insttn"><a href="/insttn">
+		<li class="quick-menu insttn"><a href="${insttnId}">
 				<div class="quick-icon">img</div>
 				<p>학원 홈</p>
 		</a></li>
@@ -45,8 +45,11 @@
 
 	<div class="dashboard course">
 		<!-- 관리자 권한이 있는 유저만 활성화 가능 -->
-		<jsp:include
-			page="/WEB-INF/views/common/component/sidebar/crssidebar.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/sidebar/crssidebar.jsp">
+		    <jsp:param name="insttnId" value="${insttnId}" />
+		    <jsp:param name="crsInfId" value="${courseDetail.crsInfId}" />
+		</jsp:include>
+		
 		<jsp:include
 			page="/WEB-INF/views/common/component/header/crsheader.jsp" />
 
@@ -58,20 +61,20 @@
 							<div class="course-info-wrapper">
 								<div class="course-info-title">
 									<p>강의명:</p>
-									<h2>Kt ds 25기 풀스택 전문가 양성과정</h2>
+									<h2>${courseDetail.crsInfNm}</h2>
 								</div>
 								<div class="course-info-period">
 									<p>
-										강의신청일: <span>2024.11.01</span>
+										강의신청일: <span>${courseDetail.crsInfAppDt}</span>
 									</p>
 									<p>
-										신청마감일: <span>2025.01.10</span>
+										신청마감일: <span>${courseDetail.crsInfDdlnDt}</span>
 									</p>
 									<p>
-										강의시작일: <span>2025.01.14</span>
+										강의시작일: <span>${courseDetail.crsInfStDt}</span>
 									</p>
 									<p>
-										강의종료일: <span>2025.06.20</span>
+										강의종료일: <span>${courseDetail.crsInfEndDt}</span>
 									</p>
 								</div>
 							</div>
@@ -83,7 +86,7 @@
 						<div class="course-notice widget-article">
 							<div>
 								<h2>강좌 공지사항</h2>
-								<a href="/crntc/list">더보기</a>
+								<a href="/usr/${insttnId}/${courseDetail.crsInfId}/ARTC-20240427-000001/list">더보기</a>
 							</div>
 
 							<div>

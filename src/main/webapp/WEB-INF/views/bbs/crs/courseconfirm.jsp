@@ -63,7 +63,7 @@
 										</div>
 									</c:forEach>
 									<div class="btn-area">
-										<button type="button" id="btn-real-confirm" data-id="${crsInfId}">강의 확정하기</button>
+										<button type="button" id="btn-real-confirm" data-insttnn-id="${sessionScope.__LOGIN_PLTADM__.insttnId}" data-id="${crsInfId}">강의 확정하기</button>
 									</div>
 								</form>
 							</c:otherwise>

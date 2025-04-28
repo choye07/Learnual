@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.learn.bbs.crs.crsinf.dao.CrsInfDao;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.pltad.dao.PltAdDao;
 import com.learn.bbs.pltad.instr.dao.InstrDao;
 import com.learn.bbs.pltad.instr.service.InstrService;
 import com.learn.bbs.pltad.instr.vo.InstrLoginRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
-import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.beans.Sha;
 import com.learn.common.dao.SesCmcdDao;
 import com.learn.common.vo.LoginRequestVO;
@@ -37,6 +38,9 @@ public class InstrServiceImpl implements InstrService {
     
     @Autowired
     private SesCmcdDao sesCmcdDao;
+    
+    @Autowired
+    private CrsInfDao crsInfDao;
     
     @Autowired
     private Sha sha;
@@ -197,4 +201,9 @@ public class InstrServiceImpl implements InstrService {
 		return this.instrDao.selectAllInstrs();
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId) {
+		return this.crsInfDao.selectCoursesForInstr(instrId, insttnId);
+	}
 }
