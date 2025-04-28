@@ -55,8 +55,8 @@
 		<div class="dashboard-main insttn">
 			<div class="main-wrapper">
 				<div class="visual insttn">
-					<img src="/asset/isttn/visual01.jpg" alt="insttn-visual-img01">
-					<img src="/asset/isttn/visual02.jpg" alt="insttn-visual-img02">
+					<img src="/asset/isttn/lecture1.jpg" alt="insttn-visual-img01">
+					<img src="/asset/isttn/lecture2.jpg" alt="insttn-visual-img02">
 				</div>
 				<div class="widget-wrapper">
 					<div class="dashboard-row1">
