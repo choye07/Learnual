@@ -149,6 +149,7 @@ public class LearnualMainController {
 		if (instrVO != null) {
 			if (instrVO.getInsttnId().equals(eduadDashBoardInsttnId)) {
 				model.addAttribute("courseList", courseList); // JSP에서 사용할 이름으로 모델 추가
+				model.addAttribute("insttnId", instrVO.getInsttnId());
 
 				return "dashboard/eduad/crs/dashboardeduadmycourselist";
 			}

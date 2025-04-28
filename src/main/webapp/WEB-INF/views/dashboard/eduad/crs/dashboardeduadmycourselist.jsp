@@ -69,7 +69,7 @@
 											<ul class="board-list-wrapper">
 											    <c:forEach var="course" items="${courseList}">
 											        <li class="list-item">
-											            <a href="#">
+											            <a href="/instr/${insttnId}/${course.crsInfId}/course">
 											                <div class="item-course-name">${course.crsInfNm}</div>
 											                <div class="item-instr-name">${course.instrNm}</div>
 											                <div class="item-course-start-time">${course.crsInfStDt}</div>

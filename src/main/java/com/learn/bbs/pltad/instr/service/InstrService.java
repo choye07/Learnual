@@ -3,6 +3,7 @@ package com.learn.bbs.pltad.instr.service;
 import java.util.List;
 
 import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfDetailReadResponseVO;
 import com.learn.bbs.pltad.instr.vo.InstrLoginRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrRegistRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
@@ -31,4 +32,6 @@ public interface InstrService {
  	public List<InstrVO> selectAllInstrs();
  	
  	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId);
+ 	
+ 	public CrsInfDetailReadResponseVO selectCourseDetail(String crsInfId, String insttnId);
 }

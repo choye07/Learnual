@@ -151,4 +151,21 @@ public class InstrController {
 
  		return "/bbs/crs/courseregist";
  	}
+ 	
+ 	@GetMapping("instr/{insttnId}/{crsInfId}/course")
+ 	public String showInstrCourse(@PathVariable String insttnId,
+					 			  @PathVariable String crsInfId,
+					 			  Model model,
+					 			  HttpSession session) {
+		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+		
+		if(!insttnId.equals(instrVO.getInsttnId())) {
+		return "redirect:/instr/" + instrVO.getInsttnId() + "/" + crsInfId + "/course";
+		}
+		
+		model.addAttribute("insttnId", insttnId);
+		model.addAttribute("courseDetail", this.instrService.selectCourseDetail(crsInfId, instrVO.getInsttnId()));
+		
+		return "bbs/crs/maincourse";
+	}
 }
