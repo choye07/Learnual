@@ -78,7 +78,7 @@
 							
 							    <c:forEach var="instrCourse" items="${instrCourses}">
 							        <li class="instr-course">
-							            <a href="/instr/${sessionScope.__LOGIN_INSTR__.insttnId}/${instrCourse.crsInfId}/course">
+							            <a href="/eduad/${sessionScope.__LOGIN_INSTR__.insttnId}/${instrCourse.crsInfId}/course">
 							                <h3>${instrCourse.crsInfNm}</h3>
 							                <p class="period">
 							                    <span>${instrCourse.crsInfStDt}</span> ~ <span>${instrCourse.crsInfEndDt}</span>
