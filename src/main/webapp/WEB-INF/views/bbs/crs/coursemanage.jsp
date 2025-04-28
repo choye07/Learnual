@@ -30,7 +30,7 @@
 					<div class="board-toolbox">
 						<div class="board-manager-toolbox">
 							<div class="btn-add-course">
-								<a href="/insttn/pltad/create">강좌 추가</a>
+								<a href="/pltad/${sessionScope.__LOGIN_PLTADM__.insttnId}/create">강좌 추가</a>
 							</div>
 						</div>
 					</div>
@@ -52,13 +52,13 @@
 									<li><a
 									        <c:choose>
 									            <c:when test="${activeCourse.status == 'beforeApp'}">
-									                href="/insttn/pltad/detail/${activeCourse.crsInfId}"
+									                href="/pltad/${sessionScope.__LOGIN_PLTADM__.insttnId}/${activeCourse.crsInfId}/detail"
 									            </c:when>
 									            <c:when test="${activeCourse.status == 'inApply' || activeCourse.status == 'canEnd' || activeCourse.status == 'canAbandon'}">
-									                href="/insttn/pltad/current/${activeCourse.crsInfId}"
+									                href="/pltad/${sessionScope.__LOGIN_PLTADM__.insttnId}/${activeCourse.crsInfId}/current"
 									            </c:when>
 									            <c:when test="${activeCourse.status == 'endApply'}">
-									                href="/insttn/pltad/finish/${activeCourse.crsInfId}"
+									                href="/pltad/${sessionScope.__LOGIN_PLTADM__.insttnId}/${activeCourse.crsInfId}/finish"
 									            </c:when>
 									        </c:choose>
 									    >
@@ -76,8 +76,8 @@
 										<div class="article-direct">
 										    <c:choose>
 										        <c:when test="${activeCourse.status eq 'beforeApp'}">
-										            <a class="btn-modify" href="/insttn/pltad/modify/${activeCourse.crsInfId}">수정</a>
-										            <a class="btn-delete" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">삭제</a>
+										            <a class="btn-modify" href="/pltad/${sessionScope.__LOGIN_PLTADM__.insttnId}/${activeCourse.crsInfId}/modify">수정</a>
+										            <a class="btn-delete" href="javascript:void(0);" data-insttnn-id="${sessionScope.__LOGIN_PLTADM__.insttnId}" data-id="${activeCourse.crsInfId}">삭제</a>
 										        </c:when>
 										
 										        <c:when test="${activeCourse.status eq 'inApply'}">
@@ -85,9 +85,9 @@
 										        </c:when>
 										
 										        <c:when test="${activeCourse.status eq 'canEnd' or activeCourse.status eq 'canAbandon'}">
-												    <a class="btn-shutdown" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">마감</a>
+												    <a class="btn-shutdown" href="javascript:void(0);" data-insttnn-id="${sessionScope.__LOGIN_PLTADM__.insttnId}" data-id="${activeCourse.crsInfId}">마감</a>
 												    <c:if test="${activeCourse.status eq 'canAbandon'}">
-												        <a class="btn-abandon" href="javascript:void(0);" data-id="${activeCourse.crsInfId}">폐강</a>
+												        <a class="btn-abandon" href="javascript:void(0);" data-insttnn-id="${sessionScope.__LOGIN_PLTADM__.insttnId}" data-id="${activeCourse.crsInfId}">폐강</a>
 												    </c:if>
 												</c:when>
 										
@@ -125,7 +125,7 @@
 								<c:forEach var="inactiveCourse" items="${inactiveCourses}">
 								    <c:if test="${inactiveCourse.status eq 'isEnd'}">
 								        <li>
-								            <a href="/insttn/pltad/confirm/${inactiveCourse.crsInfId}">
+								            <a href="/pltad/${sessionScope.__LOGIN_PLTADM__.insttnId}/${inactiveCourse.crsInfId}/confirm">
 								                <h3>${inactiveCourse.crsInfNm}</h3>
 								            </a>
 								            <p class="period">
@@ -159,7 +159,7 @@
 							<ul class="article-content">
 								<c:forEach var="abandonCourse" items="${abandonCourses}">
 									<li><a
-										href="/insttn/pltad/detail/${abandonCourse.crsInfId}">
+										href="${sessionScope.__LOGIN_PLTADM__.insttnId}/${abandonCourse.crsInfId}/detail">
 											<h3>${abandonCourse.crsInfNm}</h3>
 									</a>
 										<p class="period">
