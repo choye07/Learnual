@@ -3,5 +3,144 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.bbs.eduad.todo.dao.impl.TodoDaoImpl">
-    
+
+	<resultMap type="com.learn.bbs.eduad.todo.vo.TodoVO"
+		id="InstrTodoMap" autoMapping="true">
+		<id column="TODO_ID" property="todoId" />
+		<association property="crsInfVO"
+			javaType="com.learn.bbs.crs.crsinf.vo.CrsInfVO" autoMapping="true">
+			<id column="CRS_INF_ID" property="crsInfId" />
+		</association>
+	</resultMap>
+
+	<resultMap type="com.learn.bbs.eduad.todo.vo.TodoVO"
+		id="TodoCrsInfInstrMap" autoMapping="true">
+		<id column="TODO_ID" property="todoId" />
+		<association property="crsInfVO"
+			javaType="com.learn.bbs.crs.crsinf.vo.CrsInfVO" autoMapping="true">
+			<id column="CRS_INF_ID" property="crsInfId" />
+		</association>
+	</resultMap>
+
+	<select id="selectAllCountTodo" parameterType="string">
+		SELECT COUNT(TODO_ID)
+		FROM TODO
+		WHERE LGN_ID = #{lgnId}
+		AND TRUNC(TODO_RGST_DT) = TRUNC(SYSDATE)
+		AND TODO_DEL_YN = 'N'
+	</select>
+
+
+	<select id="selectMyAllTodo" parameterType="string"
+		resultMap="InstrTodoMap">
+
+		SELECT CI.INSTR_ID
+		, CI.CRS_INF_NM
+		, TODO.TODO_CTT
+		,
+		TODO.TODO_FINISH_YN
+		, TODO.TODO_RGST_DT
+		FROM TODO
+		INNER JOIN CRS_INF CI
+		ON CI.CRS_INF_ID = TODO.CRS_INF_ID
+		WHERE TODO.LGN_ID = #{lgnId}
+		AND
+		TRUNC(TODO.TODO_RGST_DT) = TRUNC(SYSDATE)
+		AND TODO_DEL_YN = 'N'
+		ORDER BY
+		TODO_ID ASC
+	</select>
+
+	<select id="selectAllTodo" parameterType="string"
+		resultMap="TodoCrsInfInstrMap">
+		SELECT CI_INSTR.CRS_INF_ID
+		, CI_INSTR.INSTR_ID
+		,
+		CI_INSTR.INSTR_ML
+		, CI_INSTR.CRS_INF_NM
+		, TODO.TODO_CTT
+		,
+		TODO.TODO_FINISH_YN
+		FROM (
+		SELECT INSTR.INSTR_ID
+		, INSTR.INSTR_ML
+		,
+		CI.CRS_INF_ID
+		, CI.CRS_INF_NM
+		FROM CRS_INF CI
+		INNER JOIN INSTR
+		ON
+		CI.INSTR_ID = INSTR.INSTR_ID
+		) CI_INSTR
+		LEFT OUTER JOIN TODO
+		ON
+		CI_INSTR.CRS_INF_ID = TODO.CRS_INF_ID
+		WHERE TODO.CRS_INF_ID =
+		#{crsInfId}
+		AND CI_INSTR.INSTR_ID = #{lgnId}
+	</select>
+
+
+	<insert id="insertNewTodo"
+		parameterType="com.learn.bbs.eduad.todo.vo.TodoWriteRequestVO">
+
+		<!-- id값을 생성해주는 태그, 미리 생성하기 때문에 order="BEFORE" -->
+		<selectKey order="BEFORE" resultType="string"
+			keyProperty="todoId">
+			SELECT 'TODO-' ||
+			TO_CHAR(SYSDATE, 'YYYYMMDD') || '-'
+			||
+			LPAD(SEQ_TODO_PK.NEXTVAL, 6, '0')
+			FROM DUAL
+		</selectKey>
+
+		INSERT INTO TODO
+		(TODO_ID
+		, TODO_CTT
+		, TODO_FINISH_YN
+		,
+		TODO_RGST_DT
+		,
+		TODO_UPDT_DT
+		, TODO_DEL_DT
+		, TODO_DEL_YN
+		, LGN_ID
+		,
+		CRS_INF_ID
+		, ARTC_ID)
+		VALUES(
+		#{todoId}
+		, #{todoCtt}
+		, 'N'
+		, SYSDATE
+		, ''
+		, ''
+		,
+		'N'
+		, #{lgnId}
+		,
+		#{crsInfId}
+		, #{artcId})
+	</insert>
+
+	<delete id="deleteOneTodo"
+		parameterType="com.learn.bbs.eduad.todo.vo.TodoDeleteRequestVO">
+		UPDATE TODO
+		SET
+		TODO_DEL_DT = SYSDATE
+		, TODO_DEL_YN = 'Y'
+		WHERE TODO_ID = #{todoId}
+	</delete>
+
+	<update id="updateOneTodo"
+		parameterType="com.learn.bbs.eduad.todo.vo.TodoUpdateRequestVO">
+		UPDATE TODO
+		SET TODO_CTT= #{todoCtt}
+		,
+		TODO_FINISH_YN =
+		#{todoFinishYn}
+		, TODO_UPDT_DT = SYSDATE
+		WHERE TODO_ID = #{todoId}
+	</update>
+
 </mapper>

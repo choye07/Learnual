@@ -1,10 +1,30 @@
 package com.learn.bbs.eduad.todo.service;
 
 
-/**
- * @author 최예진
- * 투두리스트
- */
+
+import com.learn.bbs.eduad.todo.vo.TodoDeleteRequestVO;
+import com.learn.bbs.eduad.todo.vo.TodoListVO;
+import com.learn.bbs.eduad.todo.vo.TodoUpdateRequestVO;
+import com.learn.bbs.eduad.todo.vo.TodoVO;
+import com.learn.bbs.eduad.todo.vo.TodoWriteRequestVO;
+import com.learn.bbs.file.vo.FlVO;
+
 public interface TodoService {
+	
+		// 오늘의 모든 투두 조회 
+		// 강사 대시보드 = 강의 계획서 + 강사 직접 추가한 투두
+		public TodoListVO getAllMyTodo(String lgnId);
+		
+		// 강좌에 올라갈 학습목표이자 강사의 모든 강좌 투두를 추가
+		public boolean createNewTodoByFile(TodoWriteRequestVO todoWriteRequestVO);
+		
+		// 투두 추가
+		public boolean createNewTodo(TodoWriteRequestVO todoWriteRequestVO);
+		
+		// 투두 삭제
+		public boolean deleteOneTodo(TodoDeleteRequestVO todoDeleteRequestVO);
+		
+		// 투두 수정
+		public boolean updateOneTodo(TodoUpdateRequestVO todoUpdateRequestVO);
 
 }

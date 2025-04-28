@@ -16,17 +16,24 @@ public class FlArchUpdateRequestVO {
 	@NotEmpty(message = "내용은 필수 입력값입니다.")
 	private String flArchCtt;
 
-	private String instrId;
-
 	private String flArchId;
 
 	// 새로 첨부된 파일 등록을 위해 MultipartFile 타입을 사용한다.
 	private List<MultipartFile> flList;
-    
+
 	// 삭제할 기존 파일 ID - 유지할 파일을 서버에게 알려주기 위해 필요함
 	private List<String> deleteFileIds;
 
+	// 게시판 아이디
+	private String artcId;
+	// 학원 아이디
+	private String insttnId;
+	// 강좌 아이디
+	private String crsInfId;
+	// 로그인 아이디 (학생, 강사 로그인 아이디)
+	private String lgnId;
 
+	
 	public String getFlArchTtl() {
 		return flArchTtl;
 	}
@@ -41,14 +48,6 @@ public class FlArchUpdateRequestVO {
 
 	public void setFlArchCtt(String flArchCtt) {
 		this.flArchCtt = flArchCtt;
-	}
-
-	public String getInstrId() {
-		return instrId;
-	}
-
-	public void setInstrId(String instrId) {
-		this.instrId = instrId;
 	}
 
 	public String getFlArchId() {
@@ -75,4 +74,36 @@ public class FlArchUpdateRequestVO {
 		this.deleteFileIds = deleteFileIds;
 	}
 
+	public String getArtcId() {
+		return artcId;
+	}
+
+	public void setArtcId(String artcId) {
+		this.artcId = artcId;
+	}
+
+	public String getInsttnId() {
+		return insttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		this.insttnId = insttnId;
+	}
+
+	public String getCrsInfId() {
+		return crsInfId;
+	}
+
+	public void setCrsInfId(String crsInfId) {
+		this.crsInfId = crsInfId;
+	}
+
+	public String getLgnId() {
+		return lgnId;
+	}
+
+	public void setLgnId(String lgnId) {
+		this.lgnId = lgnId;
+	}
+	
 }

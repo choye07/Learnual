@@ -7,26 +7,29 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.constraints.NotEmpty;
 
 public class FlArchWriteRequestVO {
-	
+
 	@NotEmpty(message = "제목은 필수 입력값입니다.")
 	private String flArchTtl;
 
 	@NotEmpty(message = "내용은 필수 입력값입니다.")
 	private String flArchCtt;
 
-	// 강사 아이디
-	private String instrId;
-
 	// 게시글 아이디
 	private String flArchId;
 	
 	// 게시판 아이디
-    private String artcId;
-	
+	private String artcId;
+	// 학원 아이디
+	private String insttnId;
+	// 강좌 아이디
+	private String crsInfId;
+	// 로그인 아이디 (학생, 강사 로그인 아이디)
+	private String lgnId;
+
+
 	// 첨부파일이 여러개인 경우 List이다.
 	private List<MultipartFile> flList;
 
-	
 	public String getFlArchTtl() {
 		return flArchTtl;
 	}
@@ -42,15 +45,6 @@ public class FlArchWriteRequestVO {
 	public void setFlArchCtt(String flArchCtt) {
 		this.flArchCtt = flArchCtt;
 	}
-	
-	public String getInstrId() {
-		return instrId;
-	}
-
-	public void setInstrId(String instrId) {
-		this.instrId = instrId;
-	}
-
 
 	public String getFlArchId() {
 		return flArchId;
@@ -75,6 +69,29 @@ public class FlArchWriteRequestVO {
 	public void setArtcId(String artcId) {
 		this.artcId = artcId;
 	}
-	
 
+	public String getInsttnId() {
+		return insttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		this.insttnId = insttnId;
+	}
+
+	public String getCrsInfId() {
+		return crsInfId;
+	}
+
+	public void setCrsInfId(String crsInfId) {
+		this.crsInfId = crsInfId;
+	}
+
+	public String getLgnId() {
+		return lgnId;
+	}
+
+	public void setLgnId(String lgnId) {
+		this.lgnId = lgnId;
+	}
+	
 }

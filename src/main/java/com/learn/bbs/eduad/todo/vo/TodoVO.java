@@ -1,5 +1,8 @@
 package com.learn.bbs.eduad.todo.vo;
 
+import com.learn.bbs.crs.crsinf.vo.CrsInfVO;
+import com.learn.bbs.file.vo.FlVO;
+
 /**
  * @TableName TODO
  * @TableComment null
@@ -62,13 +65,17 @@ public class TodoVO {
      * @ColumnComment 강좌 정보를 구분할 고유한 문자열(CRS_INF-YYYYMMDD-NNNNNN)
      */
     private String crsInfId;
+    
+    
+    private CrsInfVO crsInfVO;
 
     /**
      * @ColumnName SBJ_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 과목을 구별하는 고유한 번호
      */
-    private String sbjId;
+    // 사용하지 않은 컬럼이라 주석처리
+    // private String sbjId;
 
     /**
      * @ColumnName ARTC_ID
@@ -77,7 +84,39 @@ public class TodoVO {
      */
     private String artcId;
 
-    public String getTodoId() {
+    // 강사가 로그인한 아이디(이메일 형식)가 들어옴
+    private String lgnId;
+    
+    // 강의 계획서를 저장할 파일
+    private FlVO flVO;
+    
+    
+
+	public CrsInfVO getCrsInfVO() {
+		return crsInfVO;
+	}
+
+	public void setCrsInfVO(CrsInfVO crsInfVO) {
+		this.crsInfVO = crsInfVO;
+	}
+
+	public FlVO getFlVO() {
+		return flVO;
+	}
+
+	public void setFlVO(FlVO flVO) {
+		this.flVO = flVO;
+	}
+
+	public String getLgnId() {
+		return lgnId;
+	}
+
+	public void setLgnId(String lgnId) {
+		this.lgnId = lgnId;
+	}
+
+	public String getTodoId() {
         return this.todoId;
     }
     
@@ -141,14 +180,6 @@ public class TodoVO {
         this.crsInfId = crsInfId;
     }
     
-    public String getSbjId() {
-        return this.sbjId;
-    }
-    
-    public void setSbjId(String sbjId) {
-        this.sbjId = sbjId;
-    }
-    
     public String getArtcId() {
         return this.artcId;
     }
@@ -159,6 +190,6 @@ public class TodoVO {
     
     @Override
     public String toString() {
-        return "TodoVO(todoId: " + todoId + ", todoCtt: " + todoCtt + ", todoFinishYn: " + todoFinishYn + ", todoRgstDt: " + todoRgstDt + ", todoUpdtDt: " + todoUpdtDt + ", todoDelDt: " + todoDelDt + ", todoDelYn: " + todoDelYn + ", crsInfId: " + crsInfId + ", sbjId: " + sbjId + ", artcId: " + artcId + ", )";
+        return "TodoVO(todoId: " + todoId + ", todoCtt: " + todoCtt + ", todoFinishYn: " + todoFinishYn + ", todoRgstDt: " + todoRgstDt + ", todoUpdtDt: " + todoUpdtDt + ", todoDelDt: " + todoDelDt + ", todoDelYn: " + todoDelYn + ", lgnId: " + lgnId +", crsInfId: " + crsInfId  + ", artcId: " + artcId + ", )";
     }
 }
