@@ -2,7 +2,10 @@ package com.learn.bbs.eduad.flarch.vo;
 
 import java.util.List;
 
+import com.learn.bbs.artc.vo.ArtcVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfVO;
 import com.learn.bbs.file.vo.FlVO;
+import com.learn.insttn.vo.InsttnVO;
 
 //TODO 회원 되면은 private MembersVO memberVO; 추가하기
 
@@ -83,31 +86,24 @@ public class FlArchVO {
      */
     private String flArchDelYn;
 
-    /**
-     * @ColumnName INSTR_ID
-     * @ColumnType VARCHAR2(50)
-     * @ColumnComment 강사의 계정 아이디(이메일 형식)
-     */
-    private String instrId;
-    
-
-    /**
-     * @ColumnName ARTC_ID
-     * @ColumnType VARCHAR2(50)
-     * @ColumnComment 게시판을 구분할 고유한 문자열
-     */
-    private String artcId;
-    
-    /**
-     * 파일을 여러개 업로드 할 수 있도록 리스트로 받아온다.
-     */
+    // 파일을 여러개 업로드 할 수 있도록 리스트로 받아온다.
     private List<FlVO> flList;
-    
 
-    //TODO 멤버(회원) 추가하기
-    
-    
-    
+    // 게시판 아이디
+ 	private String artcId;
+ 	private ArtcVO artcVO;
+ 	
+ 	// 학원 아이디
+ 	private String insttnId;
+ 	private InsttnVO insttnVO;
+ 	
+ 	// 강좌 아이디
+ 	private String crsInfId;
+ 	private CrsInfVO crsInfVO;
+ 	
+ 	// 로그인 아이디 (학생, 강사 로그인 아이디)
+ 	private String lgnId;
+
     
     public List<FlVO> getFlList() {
 		return flList;
@@ -197,15 +193,32 @@ public class FlArchVO {
         this.flArchDelYn = flArchDelYn;
     }
     
-    public String getInstrId() {
-        return this.instrId;
-    }
     
-    public void setInstrId(String instrId) {
-        this.instrId = instrId;
-    }
-    
-    public String getArtcId() {
+    public String getInsttnId() {
+		return insttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		this.insttnId = insttnId;
+	}
+
+	public String getCrsInfId() {
+		return crsInfId;
+	}
+
+	public void setCrsInfId(String crsInfId) {
+		this.crsInfId = crsInfId;
+	}
+
+	public String getLgnId() {
+		return lgnId;
+	}
+
+	public void setLgnId(String lgnId) {
+		this.lgnId = lgnId;
+	}
+
+	public String getArtcId() {
         return this.artcId;
     }
     
@@ -213,8 +226,34 @@ public class FlArchVO {
         this.artcId = artcId;
     }
     
-    @Override
+    public ArtcVO getArtcVO() {
+		return artcVO;
+	}
+
+	public void setArtcVO(ArtcVO artcVO) {
+		this.artcVO = artcVO;
+	}
+
+	public InsttnVO getInsttnVO() {
+		return insttnVO;
+	}
+
+	public void setInsttnVO(InsttnVO insttnVO) {
+		this.insttnVO = insttnVO;
+	}
+
+	public CrsInfVO getCrsInfVO() {
+		return crsInfVO;
+	}
+
+	public void setCrsInfVO(CrsInfVO crsInfVO) {
+		this.crsInfVO = crsInfVO;
+	}
+
+	@Override
     public String toString() {
-        return "FlArchVO(flArchId: " + flArchId + ", flArchTtl: " + flArchTtl + ", flArchCtt: " + flArchCtt + ", flArchViewCnt: " + flArchViewCnt + ", flArchOrgType: " + flArchOrgType + ", flArchMdfyType: " + flArchMdfyType + ", flArchRgstDt: " + flArchRgstDt + ", flArchUpdtDt: " + flArchUpdtDt + ", flArchDelDt: " + flArchDelDt + ", flArchDelYn: " + flArchDelYn + ", instrId: " + instrId + ", artcId: " + artcId + ", )";
+        return "FlArchVO(flArchId: " + flArchId + ", flArchTtl: " + flArchTtl + ", flArchCtt: " + flArchCtt + ", flArchViewCnt: " + flArchViewCnt + ", flArchOrgType: " + flArchOrgType + ", flArchMdfyType: " + flArchMdfyType 
+        		+ ", flArchRgstDt: " + flArchRgstDt + ", flArchUpdtDt: " + flArchUpdtDt + ", flArchDelDt: " + flArchDelDt + ", flArchDelYn: " + flArchDelYn 
+        		+ ", lgnId: " + lgnId + ", artcId: " + artcId + ", insttnId: " + insttnId + " , crsInfId: " + crsInfId +")";
     }
 }

@@ -1,4 +1,13 @@
 $(document).ready(function () {
+	// 날짜 정보 저장
+	var today = new Date();
+
+	var day = String(today.getDate()).padStart(2, '0');
+	var month = String(today.getMonth() + 1).padStart(2, '0');
+	var year = today.getFullYear();
+
+	var weekDays = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+	var dayOfWeek = weekDays[today.getDay()];
   /* ================================ */
   /* 휘원 0418 추가한 부분 start */
   /* 메인 이벤트 start */
@@ -796,54 +805,208 @@ $(document).ready(function () {
   	// 이력서 삭제 이벤트 끝
   	/* 0424 유진 파트 end */
   	/* ================================= */
+	/* 0426 유진 파트 start */
+	/* 강사 투두 대시보드 이벤트 start */
 
-  /* 
-  1. +버튼 클릭 시 
-    1-1. input영역 미끄러져 내려오기 (toggle)
-    1-2. 삭제 버튼 보이기
-  */
-  $(".btn-todo-edit").on("click", function () {
-    $(".todo-edit-area").slideToggle(300);
-    $(".todo-item-manage").toggleClass("on");
-  });
+	// 강사 전용 대시보드에만 적용될 로직
+	$(".todo.right-widget").each(function() {
+		$(".todo-date1-date").text(day);
+		$(".todo-date1-month").text(month);
+		$(".todo-date1-year").text(year);
+		$(".todo-date2-day").text(dayOfWeek);
+		var todoListExists = (typeof todoList !== "undefined" && todoList.todoList && todoList.todoList.length > 0);
 
-  /* 2. input에 값을 적고 추가 버튼 클릭할 경우 todo-item append */
-  $(".todo-edit-area")
-    .find(".btn-add")
-    .on("click", function () {
-      var userInput = $(this)
-        .closest(".todo-edit-area")
-        .find(".custom-todo-input")
-        .val();
+		// 강의 계획서가 이미 있으면 투두 리스트를 보여준다. 
+		if (todoListExists === true || todoListExists === 'true') {
+			// 투두리스트가 있을 때 즉, 강의 계획서가 이미 올라가서 투두로 저장되어 있는 상태이므로 
+			// 강의 계획서 첨부 영역을 보여주지 않는다.
+			$(".file-area").hide();
 
-      var todoItemDom = $($("#todo-item-template").html());
-      todoItemDom.find(".todo-item-content").text(userInput);
-      todoItemDom.on("click", function () {
-        $(this).toggleClass("done");
-      });
-      todoItemDom.find(".btn-todo-delete").on("click", function () {
-        $(this).closest(".todo-item").remove();
-      });
-      $(".right-widget.todo").find(".todo-item-wrapper").append(todoItemDom);
-    });
+		} else { // 투두리스트가 없을 때
+			$(".file-area").show();
+		}
+	});
 
-  /* 3. todo-item을 클릭하면 done toggle 처리 */
-  // $(".right-widget.todo")
-  //   .find(".todo-item")
-  //   .on("click", function () {
-  //     $(this).toggleClass("done");
-  //   });
+	// 강의 계획서 등록 버튼 클릭 시 투두로 추가되는 이벤트
+	$(".today-course").on("click", ".btn-planner-add", function() {
 
-  /* 4. todo-item 삭제버튼을 클릭하면 todo-item 지워짐*/
-  // $(".right-widget.todo")
-  //   .find(".todo-item")
-  //   .find(".btn-todo-delete")
-  //   .on(".click", function () {
-  //     $(this).closest(".todo-item").remove();
-  //   });
+		var inputFile = $("input[name='file']")[0]; // DOM Element
+		// 파일이 첨부되었는지 체크
+		if (!inputFile || inputFile.files.length === 0) {
+			alert("파일을 첨부해주세요.");
+			return;
+		}
 
-  /* 0419 유진 파트 end */
-  /* ================================= */
+		var formData = new FormData();
+		formData.append("file", inputFile.files[0]);
+
+		$.ajax({
+			type: "POST",
+			url: "/eduad/todo/write",
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(result) {
+				if (result) {
+					alert("강의 계획서가 등록되었습니다.");
+					location.reload();
+				} else {
+					alert("등록에 실패했습니다.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.log("Error Details:", xhr.responseText);  // 서버에서 보낸 오류 메시지 확인
+				alert("서버 통신 오류");
+			}
+		});
+	});
+
+	/* 
+		1. +버튼 클릭 시 
+		  1-1. input영역 미끄러져 내려오기 (toggle)
+		  1-2. 삭제 버튼 보이기
+		*/
+	$(".btn-todo-edit").on("click", function() {
+		$(".todo-edit-area").show();
+		$(".todo-item-manage").toggleClass("on");
+	});
+
+	/* 2. input에 값을 적고 추가 버튼 클릭할 경우 todo-item append */
+	$(".todo-edit-area")
+		.find(".btn-add")
+		.on("click", function() {
+
+			var userInput = $(this)
+				.closest(".todo-edit-area")
+				.find(".custom-todo-input")
+				.val();
+
+			// 유효성 검사: 추가하려는 입력값이 비어있는지 확인
+			if ($.trim(userInput) === "") {
+				alert("추가하려는 투두의 내용을 입력해주세요.");
+				return;
+			}
+
+			var todoItemDom = $($("#todo-item-template").html());
+			todoItemDom.find(".todo-item-content").text(userInput);
+
+			// 완료 토글
+			todoItemDom.on("click", function() {
+				$(this).toggleClass("done");
+			});
+
+
+			// 투두 내용 리스트에 추가
+			$(".right-widget.todo").find(".todo-item-wrapper").append(todoItemDom);
+
+			var formData = new FormData();
+			formData.append("todoCtt", userInput);
+
+			// AJAX로 서버에 전송
+			$.ajax({
+				type: "POST",
+				url: "/eduad/todo/write",
+				data: formData,
+				contentType: false,
+				processData: false,
+				success: function(result) {
+					console.log(result);
+					location.reload();
+				},
+				error: function(xhr) {
+					alert("투두 등록 실패!");
+					console.log(xhr.status);       // TODO ex) 400, 500
+					console.log(xhr.responseText); // 에러 메세지
+				}
+			});
+		});
+	// 강의 계획서 등록 이벤트 끝
+
+
+	/* 
+	1. +버튼 클릭 시 
+	  1-1. input영역 미끄러져 내려오기 (toggle)
+	  1-2. 삭제 버튼 보이기
+	*/
+	$(".btn-todo-edit").on("click", function() {
+		$(".todo-edit-area").show();
+		$(".todo-item-manage").toggleClass("on");
+	});
+
+	/*	// 일반 투두 추가
+		 2. input에 값을 적고 추가 버튼 클릭할 경우 todo-item append
+		$(".todo-edit-area")
+			.find(".btn-add")
+			.on("click", function() {
+				var userInput = $(this)
+					.closest(".todo-edit-area")
+					.find(".custom-todo-input")
+					.val();
+
+				// 유효성 검사: 추가하려는 입력값이 비어있는지 확인
+				if ($.trim(userInput) === "") {
+					alert("추가하려는 투두의 내용을 입력해주세요.");
+					return;
+				}
+
+				var todoItemDom = $($("#todo-item-template").html());
+				todoItemDom.find(".todo-item-content").text(userInput);
+
+				// 완료 토글
+				todoItemDom.on("click", function() {
+					$(this).toggleClass("done");
+				});
+
+
+				todoItemDom.find(".btn-todo-delete").on("click", function() {
+					$(this).closest(".todo-item").remove();
+				});
+
+				$(".right-widget.todo").find(".todo-item-wrapper").append(todoItemDom);
+
+				var formData = new FormData();
+				formData.append("todoCtt", userInput);
+
+				// AJAX로 서버에 전송
+				$.ajax({
+					type: "POST",
+					url: "/eduad/todo/write",
+					data: formData,
+					contentType: false,
+					processData: false,
+					success: function(result) {
+						location.reload();
+					},
+					error: function(xhr) {
+						alert("투두 등록 실패!");
+						console.log(xhr.status);       // TODO ex) 400, 500
+						console.log(xhr.responseText); // 에러 메세지
+					}
+				});
+
+			});*/
+
+	/* 3. todo-item을 클릭하면 done toggle 처리 */
+	// $(".right-widget.todo")
+	//   .find(".todo-item")
+	//   .on("click", function () {
+	//     $(this).toggleClass("done");
+	//   });
+
+	/* 4. todo-item 삭제버튼을 클릭하면 todo-item 지워짐*/
+	// $(".right-widget.todo")
+	//   .find(".todo-item")
+	//   .find(".btn-todo-delete")
+	//   .on(".click", function () {
+	//     $(this).closest(".todo-item").remove();
+	//   });
+
+	/* 0419 유진 파트 end */
+	/* ================================= */
+
+
+	/* 0419 유진 파트 end */
+	/* ================================= */
 
   /* 강준식 기능들 */
   /* ------------강준식----------------- */

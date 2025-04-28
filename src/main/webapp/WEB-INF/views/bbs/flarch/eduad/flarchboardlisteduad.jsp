@@ -14,11 +14,18 @@
 </head>
 
 <body>
+<!-- 학원 아이디, 강좌 아이디, 게시판 아이디를 hidden 필드로 처리 -->
+<!-- <input type="hidden" name="usrInsttnId" value="INSTR-20250424-000001" /> -->
+    <%-- <input type="hidden" name="crsInfId" value="${crsInfId}" /> --%>
+    <input type="hidden" name="crsInfId" value="CRS_INF-20250425-000008" />
+    <%-- <input type="hidden" name="artcId" value="${artcId}" /> --%>
+    <input type="hidden" name="artcId" value="test" />
 	<div class="dashboard course">
 		<jsp:include
 			page="/WEB-INF/views/common/component/sidebar/crssidebar.jsp" />
 		<jsp:include
 			page="/WEB-INF/views/common/component/header/crsheader.jsp" />
+		<jsp:include page="/WEB-INF/views/main/mainloginstatus.jsp" />
 
 		<div class="dashboard-main course">
 			<div class="main-wrapper assignment">
@@ -54,11 +61,11 @@
 								<a href="#">홈으로</a>
 							</div>
 							<div class="btn-add-notice">
-								<a href="/eduad/flarch/write">게시글 작성</a>
+								<a id="dashboard-common-flarch" href="/eduad/flarch/write">게시글 작성</a>
 							</div>
 						</div>
 					</div>
-
+					
 					<div class="board-body">
 						<div class="board-list-top">
 							<div>No</div>
