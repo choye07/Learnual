@@ -77,10 +77,12 @@
 				                <c:choose>
 				                    <c:when test="${showCancelButton}">
 				                        <a href="javascript:void(0);" class="btn-cancel"
+				                           data-insttnn-id="${insttnId}"
 				                           data-id="${courseDetail.crsInfId}"> 신청 취소 </a>
 				                    </c:when>
 				                    <c:otherwise>
 				                        <a href="javascript:void(0);" class="btn-regist"
+				                           data-insttnn-id="${insttnId}"
 				                           data-id="${courseDetail.crsInfId}"> 강좌 신청 </a>
 				                    </c:otherwise>
 				                </c:choose>

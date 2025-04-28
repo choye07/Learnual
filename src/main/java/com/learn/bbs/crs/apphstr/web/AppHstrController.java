@@ -31,7 +31,7 @@ public class AppHstrController {
     private AppHstrService appHstrService;
     
     @ResponseBody
-    @PostMapping("/insttn/usr/detail/{crsInfId}/register")
+    @PostMapping("/usr/{insttnId}/{crsInfId}/detail/register")
     public String doRegisterCourse(@PathVariable String crsInfId, HttpSession session) {
         UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
 
@@ -49,12 +49,20 @@ public class AppHstrController {
         return isSuccess ? "OK" : "FULL";
     }
     
-    @GetMapping("/insttn/pltad/current/{crsInfId}")
-    public String showCurrentUserInCourse(@PathVariable String crsInfId, Model model, HttpSession session) {
+    @GetMapping("/pltad/{insttnId}/{crsInfId}/current")
+    public String showCurrentUserInCourse(@PathVariable String insttnId,
+    									  @PathVariable String crsInfId, 
+    									  Model model, HttpSession session) {
     	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
 
         if (pltadmVO == null) {
             throw new AccessDeniedException();
+        }
+        
+        String nowInsttnId = pltadmVO.getInsttnId();
+
+        if (!insttnId.equals(nowInsttnId)) {
+            return "redirect:/pltad/" + nowInsttnId + "/" + crsInfId + "/current";
         }
         
         List<AppHstrReadResponseVO> currentUsers = this.appHstrService.selectCurrentUserInCourse(crsInfId, pltadmVO.getInsttnId());

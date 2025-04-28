@@ -27,12 +27,21 @@ public class CrsPrattController {
     @Autowired
     private CrsPrattService crsPrattService;
     
-    @GetMapping("/insttn/pltad/finish/{crsInfId}")
-    public String showCurrentUserInCourse(@PathVariable String crsInfId, Model model, HttpSession session) {
+    @GetMapping("/pltad/{insttnId}/{crsInfId}/finish")
+    public String showCurrentUserInCourse(@PathVariable String insttnId,
+    									  @PathVariable String crsInfId, 
+    									  Model model, 
+    									  HttpSession session) {
     	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
 
         if (pltadmVO == null) {
             throw new AccessDeniedException();
+        }
+        
+        String nowInsttnId = pltadmVO.getInsttnId();
+        
+        if (!insttnId.equals(nowInsttnId)) {
+            return "redirect:/pltad/" + nowInsttnId + "/" + crsInfId + "/finish";
         }
         
         List<CrsPrattReadResponseVO> currentUsers = this.crsPrattService.selectUsersFromCrsPratt(crsInfId, pltadmVO.getInsttnId());

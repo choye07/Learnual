@@ -14,7 +14,7 @@
 
 <body>
 	<ul class="quick-navbar learnual">
-		<li class="quick-menu learnual"><a href="/main">
+		<li class="quick-menu learnual"><a href="/learnual">
 				<div class="quick-icon">img</div>
 				<p>러뉴얼 홈</p>
 		</a></li>

@@ -811,12 +811,15 @@ $(document).ready(function () {
   // 제출 버튼 클릭 시 폼 전송
 
   // 강준식 2025-04-20 수정
+  // 강준식 2025-04-27 수정
   // -----------------------------------------
-  $("course-create")
+  $(".course-create")
     .find(".btn-submit")
     .on("click", function (e) {
       e.preventDefault();
 
+      const insttnId = $(this).data("insttn-id");
+      
       $("#crsInfPrsCnt-error").text("");
 
       // 수강 인원 체크; 0이나 빈 값일시
@@ -836,7 +839,7 @@ $(document).ready(function () {
       $("#course-create-form")
         .attr({
           method: "POST",
-          action: "/insttn/pltad/create",
+          action: "/pltad/" + insttnId + "/create",
         })
         .submit();
     });
@@ -844,19 +847,22 @@ $(document).ready(function () {
   /* 강좌 생성 이벤트 end */
 
   /* 강좌 신청 페이지에서 뒤로 가기 */
-  $(".course-create")
+  /* $(".course-create")
     .find(".btn-cancel")
     .on("click", function () {
       window.location.href = "/insttn/pltad";
-    });
-
+    }); 
+  */
+    
   /* 강좌 수정 이벤트 start */
 
   // 수정 로직
-  $(".course-manage")
+  $(".course-modify")
     .find(".btn-update")
     .on("click", function (e) {
       e.preventDefault();
+      
+      const insttnId = $(this).data("insttn-id");
 
       $("#crsInfPrsCnt-error").text("");
 
@@ -879,7 +885,7 @@ $(document).ready(function () {
       $("#course-create-form")
         .attr({
           method: "POST",
-          action: "/insttn/pltad/modify/" + courseId,
+          action: "/pltad/" + insttnId + "/"  + courseId + "/modify"
         })
         .submit();
     });
@@ -893,17 +899,20 @@ $(document).ready(function () {
     .find(".btn-delete")
     .on("click", function () {
       var crsInfId = $(this).data("id");
-
+      var insttnId = $(this).data("insttnn-id");
       // 삭제 확인
       if (confirm("정말 해당 강좌를 삭제하시겠습니까?")) {
         $.ajax({
-          url: "/insttn/pltad/delete/" + crsInfId,
+          url: "/pltad/" + insttnId + "/" + crsInfId + "/delete",
           type: "POST",
           success: function (response) {
             alert("삭제가 완료되었습니다.");
-            window.location.href = "/insttn/pltad";
+            window.location.href = "/pltad/" + insttnId;
           },
           error: function (xhr, status, error) {
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
             alert("삭제에 실패했습니다.");
           },
         });
@@ -920,10 +929,11 @@ $(document).ready(function () {
     .find(".btn-regist")
     .on("click", function () {
       var crsInfId = $(this).data("id");
-
+      var insttnId = $(this).data("insttnn-id");
+      
       if (confirm("정말 해당 강좌를 신청하시겠습니까?")) {
         $.ajax({
-          url: "/insttn/usr/detail/" + crsInfId + "/register",
+          url: "/usr/" + insttnId + "/" + crsInfId + "/detail/register",
           type: "POST",
           success: function (response) {
             if (response === "FULL") {
@@ -948,17 +958,20 @@ $(document).ready(function () {
     .find(".btn-cancel")
     .on("click", function () {
       const crsInfId = $(this).data("id");
-
+      const insttnId = $(this).data("insttnn-id");
+      
       if (confirm("정말 신청을 취소하시겠습니까?")) {
         $.ajax({
-          url: "/insttn/usr/detail/" + crsInfId + "/cancel",
+          url: "/usr/" + insttnId + "/" + crsInfId + "/detail/cancel",
           type: "POST",
           success: function () {
             alert("신청이 취소되었습니다.");
-            // window.location.href = "/insttn/usr/detail/" + crsInfId;
             location.reload();
           },
           error: function (xhr, status, error) {
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
             alert("신청 취소 실패했습니다.");
           },
         });
@@ -975,10 +988,11 @@ $(document).ready(function () {
     .find(".btn-shutdown")
     .on("click", function () {
       const crsInfId = $(this).data("id");
+      const insttnId = $(this).data("insttnn-id")
 
       if (confirm("정말 해당 강의를 마감하시겠습니까?")) {
         $.ajax({
-          url: "/insttn/pltad/end/" + crsInfId,
+          url: "/pltad/" + insttnId + "/" + crsInfId + "/end",
           type: "POST",
           success: function () {
             alert("강의가 마감되었습니다.");
@@ -1003,10 +1017,11 @@ $(document).ready(function () {
     .find(".btn-abandon")
     .on("click", function () {
       const crsInfId = $(this).data("id");
+      const insttnId = $(this).data("insttnn-id");
 
       if (confirm("정말 해당 강의를 폐강하시겠습니까?")) {
         $.ajax({
-          url: "/insttn/pltad/abandon/" + crsInfId,
+          url: "/pltad/" + insttnId + "/" + crsInfId + "/abandon",
           type: "POST",
           success: function () {
             alert("강의가 폐강되었습니다.");
@@ -1027,14 +1042,15 @@ $(document).ready(function () {
     .find(".btn-abandon")
     .on("click", function () {
       const crsInfId = $(this).data("id");
+      const insttnId = $(this).data("insttnn-id");
 
       if (confirm("정말 해당 강의를 폐강하시겠습니까?")) {
         $.ajax({
-          url: "/insttn/pltad/abandon/" + crsInfId,
+          url: "/pltad/" + insttnId + "/" + crsInfId + "/abandon",
           type: "POST",
           success: function () {
             alert("강의가 폐강되었습니다.");
-            window.location.href = "/insttn/pltad";
+            window.location.href = "/pltad/" + insttnId;
           },
           error: function (xhr, status, error) {
             console.log(xhr);
@@ -1055,6 +1071,7 @@ $(document).ready(function () {
     .find("#btn-real-confirm")
     .click(function () {
       const crsInfId = $(this).data("id");
+      const insttnId = $(this).data("insttnn-id")
       const form = $("#confirm-applied-user-form");
 
       const selectedUsers = $('input[name="selectedUserEmails"]:checked');
@@ -1081,7 +1098,7 @@ $(document).ready(function () {
 
       form.attr({
         method: "POST",
-        action: "/insttn/pltad/confirm/" + crsInfId,
+        action: "/pltad/" + insttnId + "/" + crsInfId + "/confirm"
       }).submit();
     });
 

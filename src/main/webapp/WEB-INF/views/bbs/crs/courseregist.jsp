@@ -39,7 +39,7 @@
 							<ul class="article-content">
 								<c:forEach var="availableCourse" items="${availableCourses}">
 									<li><a
-										href="/insttn/usr/detail/${availableCourse.crsInfId}">
+										href="${sessionScope.__LOGIN_USER__.insttnId}/${availableCourse.crsInfId}/detail">
 											<h3>${availableCourse.crsInfNm}</h3>
 
 											<p class="period">
