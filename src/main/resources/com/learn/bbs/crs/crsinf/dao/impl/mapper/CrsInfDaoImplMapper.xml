@@ -466,4 +466,59 @@ SELECT CRS_INF_ID
     </select>
     
     <!-- 소희 end   -->
+    
+    <select id="selectCoursesForInstr"
+            parameterType="map"
+            resultType="com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO">
+        SELECT CRS.CRS_INF_ID
+		     , CRS.CRS_INF_NM
+		     , CRS.CRS_INF_CRS_ROOM_NM
+		     , CRS.CRS_INF_ST_DT
+		     , CRS.CRS_INF_END_DT
+		     , CRS.CRS_INF_APP_DT
+		     , CRS.CRS_INF_DDLN_DT
+		     , CRS.CRS_INF_PRS_CNT
+		     , CRS.CRS_INF_ABDN_YN
+		     , INS.INSTR_NM
+		  FROM CRS_INF CRS
+		  JOIN INSTR INS ON CRS.INSTR_ID = INS.INSTR_ID
+		 WHERE CRS.INSTR_ID = #{instrId}
+		   AND CRS.INSTTN_ID = #{insttnId}
+		   AND CRS.CRS_INF_DEL_YN = 'N'
+		 ORDER BY CRS.CRS_INF_ST_DT ASC
+    </select>
+    
+    <select id="selectFourCoursesForInstr"
+        resultType="com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO"
+        parameterType="map">
+        <![CDATA[
+            SELECT CRS_INF_ID
+		         , CRS_INF_NM
+		         , CRS_INF_CRS_ROOM_NM
+		         , CRS_INF_ST_DT
+		         , CRS_INF_END_DT
+		         , CRS_INF_APP_DT
+		         , CRS_INF_DDLN_DT
+		         , CRS_INF_PRS_CNT
+		         , CRS_INF_ABDN_YN
+		    FROM (
+		        SELECT 
+		            CRS.CRS_INF_ID,
+		            CRS.CRS_INF_NM,
+		            CRS.CRS_INF_CRS_ROOM_NM,
+		            CRS.CRS_INF_ST_DT,
+		            CRS.CRS_INF_END_DT,
+		            CRS.CRS_INF_APP_DT,
+		            CRS.CRS_INF_DDLN_DT,
+		            CRS.CRS_INF_PRS_CNT,
+		            CRS.CRS_INF_ABDN_YN
+		        FROM CRS_INF CRS
+		       WHERE CRS.INSTR_ID = #{instrId}
+		         AND CRS.INSTTN_ID = #{insttnId}
+		         AND CRS.CRS_INF_DEL_YN = 'N'
+		       ORDER BY CRS.CRS_INF_ST_DT ASC
+		    )
+		    WHERE ROWNUM <= 4
+		  ]]>
+    </select>
 </mapper>

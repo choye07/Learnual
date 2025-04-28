@@ -1177,7 +1177,7 @@ $(document).ready(function () {
       var selectbox = $("select[name='select-search-cat']").val();  // 이름 속성 수정
       var writeInsttnNm;
       var writeCrsInfNm;
-      var url = "/main";
+      var url = "/learnual";
       var searchText = $("#search-academy").val();
 
       if (selectbox === '학원') {

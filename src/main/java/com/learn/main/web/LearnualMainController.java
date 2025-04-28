@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.usr.vo.UsrVO;
@@ -107,8 +108,39 @@ public class LearnualMainController {
 			
 			if(instrVO.getInsttnId().equals(eduadDashBoardInsttnId)) {
 			model.addAttribute("inputEdit", myInformationRequestVO); // JSP에서 사용할 이름으로 모델 추가
+			model.addAttribute("insttnId", instrVO.getInsttnId());
 
 			return "dashboard/eduad/dashboardeduad";
+			}
+		} 
+		
+		return "redirect:/learnual";
+	}
+	
+	@GetMapping("/eduad/{eduadDashBoardInsttnId}/dashboard/courselist")
+	public String showInstrCoursList(HttpSession session, Model model, @PathVariable String eduadDashBoardInsttnId) {
+		
+		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+		PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+		
+		List<CrsInfAvailableReadResponseVO> courseList = this.insttnService.selectCoursesForInstr(instrVO.getInstrId(), eduadDashBoardInsttnId);
+		
+		// 강사가 로그인 중이라면
+		if (usrVO == null && pltadmVO == null && instrVO == null) {
+			// 세션에 강사가 없으면 로그인 페이지로 리다이렉트
+			return "redirect:/login";
+		} 
+		// 사용자나 플랫폼 관리자가 들어갈 경우.
+		else if (usrVO != null || pltadmVO != null) {
+			return "redirect:/learnual";
+		}
+		
+		if(instrVO != null ) {
+			if(instrVO.getInsttnId().equals(eduadDashBoardInsttnId)) {
+			model.addAttribute("courseList", courseList); // JSP에서 사용할 이름으로 모델 추가
+
+			return "dashboard/eduad/crs/dashboardeduadmycourselist";
 			}
 		} 
 		

@@ -69,4 +69,6 @@ public interface CrsInfService {
     
     // 강좌 정보의 수업 시작 시간 & 종료 시간 로직 - 소희 
     public CrsInfStartAndEndTimeRequestVO getCourseTimeStartAndEnd  (String crsInfId);
+    
+    public List<CrsInfAvailableReadResponseVO> selectFourCoursesForInstr(String instrId, String insttnId);
 }

@@ -20,7 +20,7 @@
 				<div class="quick-icon">img</div>
 				<p>러뉴얼 홈</p>
 		</a></li>
-		<li class="quick-menu insttn"><a href="/insttn">
+		<li class="quick-menu insttn"><a href="${insttnId}">
 				<div class="quick-icon">img</div>
 				<p>학원 홈</p>
 		</a></li>
@@ -45,8 +45,11 @@
 
 	<div class="dashboard course">
 		<!-- 관리자 권한이 있는 유저만 활성화 가능 -->
-		<jsp:include
-			page="/WEB-INF/views/common/component/sidebar/crssidebar.jsp" />
+		<jsp:include page="/WEB-INF/views/common/component/sidebar/crssidebar.jsp">
+		    <jsp:param name="insttnId" value="${insttnId}" />
+		    <jsp:param name="crsInfId" value="${courseDetail.crsInfId}" />
+		</jsp:include>
+		
 		<jsp:include
 			page="/WEB-INF/views/common/component/header/crsheader.jsp" />
 
@@ -83,7 +86,7 @@
 						<div class="course-notice widget-article">
 							<div>
 								<h2>강좌 공지사항</h2>
-								<a href="/crntc/list">더보기</a>
+								<a href="/usr/${insttnId}/${courseDetail.crsInfId}/ARTC-20240427-000001/list">더보기</a>
 							</div>
 
 							<div>

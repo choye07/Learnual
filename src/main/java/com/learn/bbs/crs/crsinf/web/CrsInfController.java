@@ -75,16 +75,25 @@ public class CrsInfController {
 	public String showAvailableCourses(Model model, HttpSession session, @PathVariable String insttnId) {
 		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
 		PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
 
-		// 현재 로그인한 사용자가 회원인지 플랫폼관리자인지에 따라 insttnId 가져오는 기준이 바뀐다.
-		String nowInsttnId = usrVO != null ? usrVO.getInsttnId() : (pltadmVO != null ? pltadmVO.getInsttnId() : null);
+	    // 현재 로그인한 사용자가 회원, 플랫폼 관리자, 강사 중 누구인지에 따라 insttnId 가져오는 기준 변경
+	    String nowInsttnId = null;
+	    if (usrVO != null) {
+	        nowInsttnId = usrVO.getInsttnId();
+	    } else if (pltadmVO != null) {
+	        nowInsttnId = pltadmVO.getInsttnId();
+	    } else if (instrVO != null) {
+	        nowInsttnId = instrVO.getInsttnId();
+	        model.addAttribute("instrCourses", this.crsInfService.selectFourCoursesForInstr(instrVO.getInstrId(), nowInsttnId));
+	    }
 
 		// 만약 세션의 insttnId과 endpoint의 insttnId가 다르면 현재 유저가 로그인한 insttnId로 변경하여 redirect
 		if(!insttnId.equals(nowInsttnId)) {
 			return "redirect:/" + nowInsttnId;
 		}
 		
-		CrsInfCourseListReadResponseVO result = crsInfService.selectAvailableFourCoursesWithStatus(
+		CrsInfCourseListReadResponseVO result = this.crsInfService.selectAvailableFourCoursesWithStatus(
 				usrVO != null ? usrVO.getUsrMl() : null, insttnId
 				);
 
@@ -93,6 +102,7 @@ public class CrsInfController {
 
 		model.addAttribute("isStudent", usrVO != null);
 		model.addAttribute("isAdmin", pltadmVO != null);
+		model.addAttribute("isInstr", instrVO != null);
 
 		return "insttn/maininsttn";
 	}
@@ -108,6 +118,8 @@ public class CrsInfController {
 		if(!insttnId.equals(usrVO.getInsttnId())) {
 			return "redirect:/usr/" + usrVO.getInsttnId();
 		}
+		
+		model.addAttribute("isUsr", true);
 		
 		model.addAttribute("availableCourses", availableCourses);
 
@@ -125,6 +137,7 @@ public class CrsInfController {
 			return "redirect:/usr/" + usrVO.getInsttnId();
 		}
 		
+		model.addAttribute("insttnId", insttnId);
 		model.addAttribute("courseDetail", this.crsInfService.selectCourseDetail(crsInfId, usrVO.getInsttnId()));
 		
 		return "bbs/crs/maincourse";
