@@ -116,7 +116,7 @@
 										<a href="/usr/${sessionScope.__LOGIN_USER__.insttnId}">신청하기</a>
 									</c:when>
 									<c:when test="${isInstr}">
-                                        <a href="/instr/${sessionScope.__LOGIN_INSTR__.insttnId}">강사 강좌</a>
+                                        <a href="/eduad/${sessionScope.__LOGIN_INSTR__.insttnId}">강사 강좌</a>
                                     </c:when>
 									<c:otherwise>
 										<span>로그인이 필요합니다.</span>
@@ -137,7 +137,7 @@
 										            <c:otherwise>
 										                <c:forEach var="instrCourse" items="${instrCourses}">
 										                    <li>
-										                        <a href="instr/${sessionScope.__LOGIN_INSTR__.insttnId}/${instrCourse.crsInfId}/course">
+										                        <a href="eduad/${sessionScope.__LOGIN_INSTR__.insttnId}/${instrCourse.crsInfId}/course">
 										                            <h3>${instrCourse.crsInfNm}</h3>
 										                        </a>
 										                        <p class="period">
