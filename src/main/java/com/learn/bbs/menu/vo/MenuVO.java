@@ -1,5 +1,9 @@
 package com.learn.bbs.menu.vo;
 
+import java.util.List;
+
+import com.learn.main.cmcd.vo.CmCodeVO;
+
 /**
  * @TableName MENU
  * @TableComment null
@@ -89,8 +93,9 @@ public class MenuVO {
      * @ColumnComment 강좌 정보를 구분할 고유한 문자열(CRS_INF-YYYYMMDD-NNNNNN)
      */
     private String crsInfId;
+    
 
-    public String getMenuId() {
+	public String getMenuId() {
         return this.menuId;
     }
     

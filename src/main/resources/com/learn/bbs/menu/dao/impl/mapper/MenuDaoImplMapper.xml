@@ -42,5 +42,15 @@
 		</if>
 		)
 	</insert>
+	
+	<select id="selectAllMenu"
+			resultType="com.learn.bbs.menu.vo.MenuVO">
+		SELECT MENU_ID,
+			 MENU_NM
+		FROM MENU
+	  	<if test="insttnId != 'learnual' and insttnId != null">
+			WHERE INSTTN_ID = #{insttnId}
+		</if>
+	</select>
 
 </mapper>

@@ -1,5 +1,11 @@
 package com.learn.bbs.menu.vo;
 
+import java.util.List;
+
+import com.learn.main.cmcd.vo.CmCodeVO;
+
+import jakarta.validation.constraints.NotEmpty;
+
 /**
  * @TableName MENU
  * @TableComment null
@@ -18,6 +24,7 @@ public class MenuRegistRequestVO {
      * @ColumnType VARCHAR2(100)
      * @ColumnComment 메뉴 이름
      */
+    @NotEmpty(message = "메뉴 명을 입력해주세요.")
     private String menuNm;
 
     /**
@@ -25,6 +32,7 @@ public class MenuRegistRequestVO {
      * @ColumnType VARCHAR2(100)
      * @ColumnComment 메뉴 URL
      */
+    @NotEmpty(message = "메뉴 url을 입력해주세요.")
     private String menuUrl;
 
     /**
@@ -59,6 +67,7 @@ public class MenuRegistRequestVO {
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 메뉴 접근 권한
      */
+    @NotEmpty(message = "접근 권한을 체크해주세요.")
     private String menuAcc;
 
     /**
@@ -66,6 +75,7 @@ public class MenuRegistRequestVO {
      * @ColumnType VARCHAR2(1)
      * @ColumnComment 메뉴 사용 여부
      */
+    @NotEmpty(message = "사용 여부를 체크해주세요.")
     private String menuUsYn;
 
     /**
@@ -74,8 +84,21 @@ public class MenuRegistRequestVO {
      * @ColumnComment 강좌 정보를 구분할 고유한 문자열(CRS_INF-YYYYMMDD-NNNNNN)
      */
     private String crsInfId;
+    
+    private List<CmCodeVO> cmCdList;
+    
+    
+    
 
-    public String getMenuId() {
+    public List<CmCodeVO> getCmCdList() {
+		return cmCdList;
+	}
+
+	public void setCmCdList(List<CmCodeVO> cmCdList) {
+		this.cmCdList = cmCdList;
+	}
+
+	public String getMenuId() {
         return this.menuId;
     }
     

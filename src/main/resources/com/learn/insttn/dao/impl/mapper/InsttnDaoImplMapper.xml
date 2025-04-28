@@ -7,10 +7,10 @@
 		id="InsttnVOMap" autoMapping="true">
 		<!-- 컬럼과 맵핑되는 멤버 변수의 이름을 연결시킨다. -->
 		<id column="INSTTN_ID" property="insttnId" /> <!-- 조회한 컬럼이 PK일 경우 ID태그를 사용 -->
-		<association property="instrVO"
+<!-- 		<association property="instrVO"
 			javaType="com.learn.bbs.pltad.instr.vo.InstrVO" autoMapping="true">
 			<id column="INSTR_ID" property="instrId" />
-		</association>
+		</association> -->
 		<collection property="crsInfList"
 			ofType="com.learn.bbs.crs.crsinf.vo.CrsInfVO" autoMapping="true">
 			<id column="CRS_INF_ID" property="crsInfId" />
@@ -54,23 +54,39 @@
 		parameterType="com.learn.insttn.vo.InsttnSearchRequestVO"
 		resultMap="InsttnVOMap">
 		SELECT 
-		i.INSTTN_ID,
-		i.INSTTN_NM ,
-		i.INSTTN_ADRS,
-		ci.CRS_INF_NM
+			i.INSTTN_ID,
+			i.INSTTN_NM ,
+			i.INSTTN_ADRS,
+			ci.CRS_INF_NM
 		FROM INSTTN i
-		LEFT OUTER
-		JOIN INSTR ins
-		ON i.INSTTN_ID = ins.INSTTN_ID
 		LEFT OUTER JOIN CRS_INF ci
-		ON ins.INSTR_ID = ci.INSTR_ID
+		ON i.INSTTN_ID = ci.INSTTN_ID
 		<where>
+		ci.CRS_INF_ID IS NOT NULL
 			<if test='writeInsttnNm!=null and writeInsttnNm !=""'>
-				UPPER(i.INSTTN_NM) LIKE  UPPER('%' || #{writeInsttnNm}|| '%' )
+				AND UPPER(i.INSTTN_NM) LIKE  UPPER('%' || #{writeInsttnNm}|| '%' )
 			</if>
 			<if test='writeCrsInfNm!=null and writeCrsInfNm !=""'>
-				UPPER(ci.CRS_INF_NM) LIKE UPPER ('%' || #{writeCrsInfNm}|| '%')
+				AND UPPER(ci.CRS_INF_NM) LIKE UPPER ('%' || #{writeCrsInfNm}|| '%')
 			</if>
 		</where>
+	</select>
+	<select id="selectAllInsttnBy" parameterType="string"
+		resultType="com.learn.insttn.vo.InsttnVO">
+		SELECT
+			INSTTN_ID,
+			INSTTN_NM,
+			INSTTN_BSNS_NB,
+			INSTTN_CEO_NM,
+			INSTTN_ADRS,
+			INSTTN_PN,
+			INSTTN_RGST_DT,
+			INSTTN_UPDT_DT,
+			INSTTN_DEL_DT,
+			INSTTN_DEL_YN
+		FROM INSTTN
+		<if test="insttnId != 'learnual' and insttnId != null">
+			WHERE INSTTN_ID = #{insttnId}
+		</if>
 	</select>
 </mapper>

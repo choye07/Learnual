@@ -21,5 +21,7 @@ public interface InsttnDao {
 	//등록된 학원 List
 	public List<InsttnVO> selectAllInsttn (InsttnSearchRequestVO insttnSearchRequestVO);
 	
+	public List<InsttnVO> selectAllInsttnBy (String insttnId);
+	
 
 }

@@ -50,4 +50,10 @@ public class InsttnDaoImpl extends SqlSessionDaoSupport implements InsttnDao {
 		return this.getSqlSession().selectList(NAME_SPACE + "selectAllInsttn", insttnSearchRequestVO);
 	}
 
+	@Override
+	public List<InsttnVO> selectAllInsttnBy(String insttnId) {
+		return this.getSqlSession().selectList(NAME_SPACE+"selectAllInsttnBy" ,insttnId);
+	}
+
+
 }

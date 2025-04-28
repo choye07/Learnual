@@ -1354,22 +1354,31 @@ $(document).ready(function () {
   });
   /* 학원 검색 이벤트*/
 
+
   /* ------------최예진----------*/
   /* 메뉴 관리  */
 
+  $(".insttn-button-group").hide();
+  $(".crsinf-button-group").hide();
   $("#menu-regist").hide();
   $(".check-manage-cat").text("");
 
   $(".main-home").on("click", function() {
       $(".check-manage-cat").text("메인 홈페이지");
+    $(".insttn-button-group").hide();
+    $(".crsinf-button-group").hide();
   });
 
   $(".insttn-home").on("click", function() {
       $(".check-manage-cat").text("학원 홈페이지");
+    $(".crsinf-button-group").hide();
+    $(".insttn-button-group").show();
   });
 
   $(".crs-home").on("click", function() {
       $(".check-manage-cat").text("강좌 홈페이지");
+    $(".insttn-button-group").hide();
+    $(".crsinf-button-group").show();
   });
 
 
@@ -1378,61 +1387,112 @@ $(document).ready(function () {
 
   });
 
+  /* ------------최예진----------*/
+  /* 메뉴 관리  */
+
+  $("#menu-regist").hide();
+  $(".check-manage-cat").text("");
+
+  $(".main-home").on("click", function() {
+  	$(".check-manage-cat").text("메인 홈페이지");
+  });
+
+  $(".insttn-home").on("click", function() {
+  	$(".check-manage-cat").text("학원 홈페이지");
+  });
+
+  $(".crs-home").on("click", function() {
+  	$(".check-manage-cat").text("강좌 홈페이지");
+  });
+
+
+  $(".add-menu").on("click", function() {
+  	$("#menu-regist").show();
+
+  });
+
   /** 메뉴 추가 이벤트 */
   $("#menu-save").on("click", function() {
-        $("form.menu-regist-form")
-            .attr({
-                method: "POST",
-                action: "/menumanage/regist",
-            })
-            .submit();
+      var usrInsttnId = $('input[type="hidden"][name="usrInsttnId"]').val();
+      var pltadInsttnId = $('input[type="hidden"][name="pltadInsttnId"]').val();
+      var instrInsttnId = $('input[type="hidden"][name="instrInsttnId"]').val();
+      var spradInsttnId = $('input[type="hidden"][name="spradInsttnId"]').val();
+
+      var url = "/menumanage/regist";  // 기본 URL
+
+      // 로그인 상태에 따른 URL 변경
+      if (usrInsttnId) {
+          url = "/" + usrInsttnId + url;
+      } else if (pltadInsttnId) {
+          url = "/" + pltadInsttnId + url;
+      } else if (instrInsttnId) {
+          url = "/" + instrInsttnId + url;
+      } else if (spradInsttnId) {
+          url = "/" + spradInsttnId + url;
+      } else {
+          alert("로그인 후 이용해 주세요!");
+          location.href = "/learnual";
+          return; 
+      }
+
+      // 최종 URL 확인
+      console.log("Final URL: /sprad" + url);  // alert 대신 console.log로 확인
+      
+      // 폼 제출
+      $("form.menu-regist-form")
+          .attr({
+              method: "POST",
+              action: "/sprad" + url,
+          })
+          .submit();
   });
 
 
   /** 메뉴 체크 박스 메뉴 접근권한 이벤트*/
-  $('input[type="checkbox"][name="menuAcc"]').on("click", function() {
-      var menuAcc = $(this).val();
-      if ($(this).prop('checked')) {
-          $('input[type="hidden"][name="menuAcc"]').val(menuAcc);
-          /*    $('input[type="checkbox"][name="menuAcc"]').prop('checked', false);
-              $(this).prop('checked', true);*/
-      } 
+  $('input[type="checkbox"][name="menuAcc-check"]').on("click", function() {
+  	var menuAcc = $(this).val();
+  	if ($(this).prop('checked')) {
+  		$('input[type="hidden"][name="menuAcc"]').val(menuAcc);
+  		/*    $('input[type="checkbox"][name="menuAcc"]').prop('checked', false);
+  			$(this).prop('checked', true);*/
+  	}
 
   });
 
   /** 메뉴 체크 박스 이벤트*/
   $('input[type="checkbox"][name="menu-use-yn"]').on("click", function() {
-      var menuUsYn = $(this).val();
-      if ($(this).prop('checked')) {
-          $('input[type="hidden"][name="menuUsYn"]').val(menuUsYn);
-          $('input[type="checkbox"][name="menu-use-yn"]').prop('checked', false);
-          $(this).prop('checked', true);
-      }
+  	var menuUsYn = $(this).val();
+  	if ($(this).prop('checked')) {
+  		$('input[type="hidden"][name="menuUsYn"]').val(menuUsYn);
+  		$('input[type="checkbox"][name="menu-use-yn"]').prop('checked', false);
+  		$(this).prop('checked', true);
+  	}
 
   });
 
 
   /** 게시판 체크박스 이벤트 */
   $('input[type="checkbox"][name="use-yn"]').on("click", function() {
-      var artcUsYn = $(this).val();
-      if ($(this).prop('checked')) {
-          $('input[type="hidden"][name="artcUsYn"]').val(artcUsYn);
-          $('input[type="checkbox"][name="use-yn"]').prop('checked', false);
-          $(this).prop('checked', true);
+  	var artcUsYn = $(this).val();
+  	if ($(this).prop('checked')) {
+  		$('input[type="hidden"][name="artcUsYn"]').val(artcUsYn);
+  		$('input[type="checkbox"][name="use-yn"]').prop('checked', false);
+  		$(this).prop('checked', true);
 
-      }
+  	}
 
   });
   /** 게시판 등록 이벤트 */
   $("#artc-save").on("click", function() {
-      $("form.artc-regist-form")
-          .attr({
-              // 객체 리터럴 타입
-              method: "POST",
-              action: "/artcmanage/regist",
-          })
-          .submit();
+  	$("form.artc-regist-form")
+  		.attr({
+  			// 객체 리터럴 타입
+  			method: "POST",
+  			action: "/artcmanage/regist",
+  		})
+  		.submit();
   });
+
 
 
 });
