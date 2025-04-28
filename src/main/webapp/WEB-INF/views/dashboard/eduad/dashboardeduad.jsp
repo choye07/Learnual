@@ -42,7 +42,7 @@
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
 								<li class="menu-item on"><a id="dashboard-instr-information" href="">개인정보관리</a></li>
-								<li class="menu-item"><a href="/dashboard/eduad/course">나의
+								<li class="menu-item"><a href="/eduad/${insttnId}/dashboard/courselist">나의
 										강의 목록</a></li>
 								<li class="menu-item"><a href="/dashboard/eduad/consult">상담
 										요청 목록</a></li>

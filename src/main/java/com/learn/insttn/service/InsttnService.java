@@ -2,6 +2,7 @@ package com.learn.insttn.service;
 
 import java.util.List;
 
+import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.insttn.vo.InsttnListVO;
 import com.learn.insttn.vo.InsttnRegistRequestVO;
 import com.learn.insttn.vo.InsttnSearchRequestVO;
@@ -20,5 +21,7 @@ public interface InsttnService {
 
 
 	public List<InsttnVO> selectAllinsttn(InsttnSearchRequestVO insttnSearchRequestVO);
+	
+	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId);
 
 }

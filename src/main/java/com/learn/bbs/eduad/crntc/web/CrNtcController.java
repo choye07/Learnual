@@ -14,7 +14,12 @@ import com.learn.bbs.eduad.crntc.vo.CrntcListVO;
 import com.learn.bbs.eduad.crntc.vo.CrntcUpdateRequestVO;
 import com.learn.bbs.eduad.crntc.vo.CrntcVO;
 import com.learn.bbs.eduad.crntc.vo.CrntcWriteRequestVO;
+import com.learn.bbs.pltad.instr.vo.InstrVO;
+import com.learn.bbs.pltad.vo.PltadmVO;
+import com.learn.bbs.usr.vo.UsrVO;
+import com.learn.main.sprad.vo.SpradmVO;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -28,10 +33,31 @@ public class CrNtcController {
     @Autowired
     private CrNtcService crNtcService;
     
-    @GetMapping("/crntc/list")
-    public String viewCourseNoticeList(Model model) {
+    @GetMapping("/usr/{insttnId}/{crsInfId}/ARTC-20240427-000001/list")
+    public String viewCourseNoticeList(@PathVariable String insttnId,
+    								   @PathVariable String crsInfId,
+//    								   @PathVariable String artcId,
+    								   Model model,
+    								   HttpSession session) {
+    	InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+    	SpradmVO spradmVO = (SpradmVO) session.getAttribute("__LOGIN_SPRAD__");
+    	
+		if (instrVO == null && pltadmVO == null && usrVO == null && spradmVO == null) {
+			// 로그인 안되어 있으면
+			return "redirect:/login";
+		} else if(instrVO != null) {
+			model.addAttribute("showButton", true);
+		} else {
+			model.addAttribute("showButton", false);
+		}
+    	
     	CrntcListVO crntcListVO = this.crNtcService.getAllCourseNotice();
     	model.addAttribute("crntcList", crntcListVO);
+    	
+    	model.addAttribute("insttnId", insttnId);
+    	model.addAttribute("crsInfId", crsInfId);
     	
     	return "/bbs/crs/ntc/crntcboardlist";
     }
@@ -80,7 +106,7 @@ public class CrNtcController {
 	}
 	
 	// 강좌 공지사항 하나 삭제하기
-	@GetMapping("crntc/delete/{id}") // 경로 바뀔 수 있음
+	@GetMapping("/crntc/delete/{id}") // 경로 바뀔 수 있음
 	public String deleteOneCourseNotice(@PathVariable String id) {
 		boolean isSuccess = this.crNtcService.deleteOneCourseNoticeBy(id);
 		

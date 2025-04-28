@@ -41,7 +41,7 @@
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
 								<li class="menu-item"><a href="/dashboard/eduad">개인정보관리</a></li>
-								<li class="menu-item on"><a href="/dashboard/eduad/course">나의
+								<li class="menu-item on"><a href="/eduad/{eduadDashBoardInsttnId}/dashboard/courselist">나의
 										강의 목록</a></li>
 								<li class="menu-item"><a href="/dashboard/eduad/consult">상담
 										요청 목록</a></li>
@@ -67,32 +67,16 @@
 											</div>
 
 											<ul class="board-list-wrapper">
-												<!-- forEach start -->
-												<li class="list-item"><a href="#">
-														<div class="item-course-name">풀스택 25기 전문가 양성과정</div>
-														<div class="item-instr-name">장민창</div>
-														<div class="item-course-start-time">2025.04.23 오후
-															18:00</div>
-														<div class="item-course-end-time">2025.04.25 오후
-															12:00</div>
-												</a></li>
-												<li class="list-item"><a href="#">
-														<div class="item-course-name">자바</div>
-														<div class="item-instr-name">장민창</div>
-														<div class="item-course-start-time">2025.04.23 오후
-															18:00</div>
-														<div class="item-course-end-time">2025.04.25 오후
-															12:00</div>
-												</a></li>
-												<li class="list-item"><a href="#">
-														<div class="item-course-name">(재직자 대상) React 실무 과정</div>
-														<div class="item-instr-name">장민창</div>
-														<div class="item-course-start-time">2025.04.23 오후
-															18:00</div>
-														<div class="item-course-end-time">2025.04.25 오후
-															12:00</div>
-												</a></li>
-												<!-- forEach end -->
+											    <c:forEach var="course" items="${courseList}">
+											        <li class="list-item">
+											            <a href="#">
+											                <div class="item-course-name">${course.crsInfNm}</div>
+											                <div class="item-instr-name">${course.instrNm}</div>
+											                <div class="item-course-start-time">${course.crsInfStDt}</div>
+											                <div class="item-course-end-time">${course.crsInfEndDt}</div>
+											            </a>
+											        </li>
+											    </c:forEach>
 											</ul>
 
 											<ul class="pagination">

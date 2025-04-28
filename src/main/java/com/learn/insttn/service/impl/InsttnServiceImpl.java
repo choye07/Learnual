@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.learn.bbs.crs.crsinf.dao.CrsInfDao;
+import com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO;
 import com.learn.insttn.dao.InsttnDao;
 import com.learn.insttn.service.InsttnService;
-import com.learn.insttn.vo.InsttnListVO;
 import com.learn.insttn.vo.InsttnRegistRequestVO;
 import com.learn.insttn.vo.InsttnSearchRequestVO;
 import com.learn.insttn.vo.InsttnVO;
@@ -20,6 +21,9 @@ public class InsttnServiceImpl implements InsttnService {
 
 	@Autowired
 	private InsttnDao insttnDao;
+	
+	@Autowired
+	private CrsInfDao crsInfDao;
 
 	@Override
 	public boolean createNewInsttn(InsttnRegistRequestVO insttnRegistRequestVO) {
@@ -40,6 +44,11 @@ public class InsttnServiceImpl implements InsttnService {
 	public List<InsttnVO> selectAllinsttn(InsttnSearchRequestVO insttnSearchRequestVO) {
 	
 		return this.insttnDao.selectAllInsttn(insttnSearchRequestVO);
+	}
+
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId) {
+		return this.crsInfDao.selectCoursesForInstr(instrId, insttnId);
 	}
 
 }

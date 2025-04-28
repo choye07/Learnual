@@ -151,4 +151,22 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	public CrsInfStartAndEndTimeRequestVO selectCourseTimeStartAndEnd(String crsInfId) {
 		return this.getSqlSession().selectOne(NAME_SPACE + "selectCourseTimeStartAndEnd", crsInfId);
 	}
+
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectFourCoursesForInstr(String instrId, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("instrId", instrId);
+	    param.put("insttnId", insttnId);
+	    
+	    return this.getSqlSession().selectList(NAME_SPACE + "selectFourCoursesForInstr", param);
+	}
+
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("instrId", instrId);
+	    param.put("insttnId", insttnId);
+	    
+	    return this.getSqlSession().selectList(NAME_SPACE + "selectCoursesForInstr", param);
+	}
 }
