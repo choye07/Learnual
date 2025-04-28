@@ -364,35 +364,39 @@ SELECT CRS_INF_ID
     
     <select id="selectMyCourseForUser" resultType="com.learn.bbs.crs.crsinf.vo.CrsInfAvailableReadResponseVO" parameterType="map">
     <![CDATA[
-	    SELECT CRS_INF_ID
-	         , CRS_INF_NM
-	         , CRS_INF_ST_DT
-	         , CRS_INF_END_DT
-	         , CRS_INF_CRS_ROOM_NM
-	         , CRS_INF_PRS_CNT
-	         , INSTR_ID
-	      FROM (
-	        SELECT CI.CRS_INF_ID
-	             , CI.CRS_INF_NM
-	             , CI.CRS_INF_ST_DT
-	             , CI.CRS_INF_END_DT
-	             , CI.CRS_INF_CRS_ROOM_NM
-	             , CI.CRS_INF_PRS_CNT
-	             , CI.INSTR_ID
-	          FROM CRS_PRATT CP
-	         INNER JOIN CRS_INF CI 
-	            ON CP.CRS_INF_ID = CI.CRS_INF_ID
-	         INNER JOIN USR U
-	            ON CP.USR_ID = U.USR_ID
-	         WHERE U.USR_ML = #{usrMl}
-	           AND CI.CRS_INF_DEL_YN = 'N'
-	           AND CP.CRS_PRATT_DEL_YN = 'N'
-	           AND CI.INSTTN_ID = #{insttnId}
-	         ORDER BY CI.CRS_INF_ST_DT
-	      )
-	     WHERE ROWNUM <= 4
-	    ]]>
-    </select>
+        SELECT CRS_INF_ID
+             , CRS_INF_NM
+             , CRS_INF_ST_DT
+             , CRS_INF_END_DT
+             , CRS_INF_CRS_ROOM_NM
+             , CRS_INF_PRS_CNT
+             , INSTR_ID
+             , INSTR_NM
+          FROM (
+            SELECT CI.CRS_INF_ID
+                 , CI.CRS_INF_NM
+                 , CI.CRS_INF_ST_DT
+                 , CI.CRS_INF_END_DT
+                 , CI.CRS_INF_CRS_ROOM_NM
+                 , CI.CRS_INF_PRS_CNT
+                 , CI.INSTR_ID
+                 , I.INSTR_NM 
+              FROM CRS_PRATT CP
+             INNER JOIN CRS_INF CI 
+                ON CP.CRS_INF_ID = CI.CRS_INF_ID
+             INNER JOIN USR U
+                ON CP.USR_ID = U.USR_ID
+             LEFT JOIN INSTR I 
+                ON CI.INSTR_ID = I.INSTR_ID 
+             WHERE U.USR_ML = #{usrMl}
+               AND CI.CRS_INF_DEL_YN = 'N'
+               AND CP.CRS_PRATT_DEL_YN = 'N'
+               AND CI.INSTTN_ID = #{insttnId}
+             ORDER BY CI.CRS_INF_ST_DT
+          )
+         WHERE ROWNUM <= 4
+    ]]>
+</select>
     
     <select id="selectCourseDetail" 
             resultMap="courseDetailMap"
