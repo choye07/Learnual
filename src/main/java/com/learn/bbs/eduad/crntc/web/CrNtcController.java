@@ -73,8 +73,11 @@ public class CrNtcController {
 	public String doCourseNoticeWrite(
 			@Valid @ModelAttribute CrntcWriteRequestVO crntcWriteRequestVO,
 			BindingResult bindingResult,
-			Model model
-			) {
+			Model model,  HttpSession session) {
+    	InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+    	PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+    	UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+    	SpradmVO spradmVO = (SpradmVO) session.getAttribute("__LOGIN_SPRAD__");
 		
 	    // 체크박스 상태에 따라 ntcPinnedYn 값 설정
 	    if (crntcWriteRequestVO.getCrntcPinnedYn() == null) {

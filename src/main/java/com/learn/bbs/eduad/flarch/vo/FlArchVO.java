@@ -5,6 +5,7 @@ import java.util.List;
 import com.learn.bbs.artc.vo.ArtcVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfVO;
 import com.learn.bbs.file.vo.FlVO;
+import com.learn.bbs.pltad.instr.vo.InstrVO;
 import com.learn.insttn.vo.InsttnVO;
 
 //TODO 회원 되면은 private MembersVO memberVO; 추가하기
@@ -104,8 +105,18 @@ public class FlArchVO {
  	// 로그인 아이디 (학생, 강사 로그인 아이디)
  	private String lgnId;
 
-    
-    public List<FlVO> getFlList() {
+ 	private InstrVO instrVO;
+ 	
+
+	public InstrVO getInstrVO() {
+		return instrVO;
+	}
+
+	public void setInstrVO(InstrVO instrVO) {
+		this.instrVO = instrVO;
+	}
+
+	public List<FlVO> getFlList() {
 		return flList;
 	}
 

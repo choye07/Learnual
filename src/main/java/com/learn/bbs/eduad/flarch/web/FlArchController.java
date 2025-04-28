@@ -18,6 +18,7 @@ import com.learn.bbs.eduad.flarch.vo.FlArchUpdateRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchWriteRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
+import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.usr.vo.UsrVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,14 +39,17 @@ public class FlArchController {
 			                              Model model, 
 			                              @PathVariable String insttnId,
                                           @PathVariable String crsInfId,
-                                          @PathVariable String artcId) {
+                                          @PathVariable String artcId,
+                                          HttpSession session) {
 
-		HttpSession session = request.getSession();
+		InstrVO instrVO= (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
 
-		flArchSearchRequestVO.setInsttnId((String) session.getAttribute("INSTTN_ID"));
-		flArchSearchRequestVO.setCrsInfId((String) session.getAttribute("CRS_INF_ID"));
-		flArchSearchRequestVO.setArtcId((String) session.getAttribute("ARTC_ID"));
-		flArchSearchRequestVO.setLgnId((String) session.getAttribute("LGN_ID"));
+		flArchSearchRequestVO.setInsttnId(instrVO.getInsttnId());
+		flArchSearchRequestVO.setCrsInfId("CRS_INF-20250428-000014");
+		flArchSearchRequestVO.setArtcId("ARTC-20250428-000004");
+		flArchSearchRequestVO.setLgnId(instrVO.getInstrLgnId());
+		System.out.println("didididdidi"+instrVO.getInstrLgnId());
 
 		FlArchListVO flArchListVO = this.flArchService.getFlArchBoardList(flArchSearchRequestVO);
 		model.addAttribute("flArchList", flArchListVO);

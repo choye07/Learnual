@@ -81,7 +81,7 @@
 							</div>
 
 						</div>
-						<div class="course-goal">강의학습목표 widget 예정</div>
+						<!-- <div class="course-goal">강의학습목표 widget 예정</div> -->
 					</div>
 					<div class="dashboard-row2">
 						<div class="course-notice widget-article">
