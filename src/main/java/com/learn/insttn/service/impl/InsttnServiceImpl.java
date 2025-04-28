@@ -51,4 +51,9 @@ public class InsttnServiceImpl implements InsttnService {
 		return this.crsInfDao.selectCoursesForInstr(instrId, insttnId);
 	}
 
+	@Override
+	public List<CrsInfAvailableReadResponseVO> selectMyCourseForUser(String usrMl, String insttnId) {
+		return this.crsInfDao.selectMyCourseForUser(usrMl, insttnId);
+	}
+
 }

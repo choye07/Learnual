@@ -40,7 +40,7 @@
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
 								<li class="menu-item on"><a id="dashboard-usr-information" href="">개인정보관리</a></li>
-								<li class="menu-item"><a href="/dashboard/usr/course">나의 수강 목록</a></li>
+								<li class="menu-item"><a href="/usr/${insttnId}/dashboard/courselist">나의 수강 목록</a></li>
 								<li class="menu-item"><a href="/dashboard/usr/resume">나의 이력서 목록</a></li>
 							</ul>
 						</div>

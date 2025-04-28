@@ -35,13 +35,13 @@
 									<a href="#">user-info-img</a>
 								</div>
 								<p class="user-greeting">
-									<span class="user-name">홍길동</span> 님 안녕하세요!
+									<span class="user-name">${instrName}</span> 님 안녕하세요!
 								</p>
 							</div>
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
-								<li class="menu-item"><a href="/dashboard/eduad">개인정보관리</a></li>
-								<li class="menu-item on"><a href="/eduad/{eduadDashBoardInsttnId}/dashboard/courselist">나의
+								<li class="menu-item"><a href="/eduad/${insttnId}/dashboard">개인정보관리</a></li>
+								<li class="menu-item on"><a href="/eduad/${insttnId}/dashboard/courselist">나의
 										강의 목록</a></li>
 								<li class="menu-item"><a href="/dashboard/eduad/consult">상담
 										요청 목록</a></li>
@@ -69,7 +69,7 @@
 											<ul class="board-list-wrapper">
 											    <c:forEach var="course" items="${courseList}">
 											        <li class="list-item">
-											            <a href="#">
+											            <a href="/instr/${insttnId}/${course.crsInfId}/course">
 											                <div class="item-course-name">${course.crsInfNm}</div>
 											                <div class="item-instr-name">${course.instrNm}</div>
 											                <div class="item-course-start-time">${course.crsInfStDt}</div>

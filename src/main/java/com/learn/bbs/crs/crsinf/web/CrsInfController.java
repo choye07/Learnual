@@ -134,7 +134,7 @@ public class CrsInfController {
 		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
 
 		if(!insttnId.equals(usrVO.getInsttnId())) {
-			return "redirect:/usr/" + usrVO.getInsttnId();
+			return "redirect:/usr/" + usrVO.getInsttnId() + "/" + crsInfId + "/course";
 		}
 		
 		model.addAttribute("insttnId", insttnId);

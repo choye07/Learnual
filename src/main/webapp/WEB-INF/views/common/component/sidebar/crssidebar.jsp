@@ -36,7 +36,7 @@
 					<a href="#">toggle</a>
 				</div></li>
 			<ul class="menu-list">
-				<li><a href="/instr///">강좌공지사항</a></li>
+				<li><a href="/usr/${param.insttnId}/${param.crsInfId}/ARTC-20240427-000001/list">강좌공지사항</a></li>
 				<li><a href="#">강좌자료실</a></li>
 				<li><a href="#">상담요청</a></li>
 				<li><a href="#">시험게시판</a></li>
