@@ -118,7 +118,7 @@ public class InstrController {
             if (isUpdated) {
             	InstrVO updatedInstrVO = instrDao.selectOneUsrBy(myInformationRequestVO.getMyiLgnId());
                 session.setAttribute("__LOGIN_INSTR__", updatedInstrVO);
-                return "/dashboard/dashboardeduad";
+                return "redirect:/eduad/"+instrVO.getInsttnId()+"/dashboard";
             }
         } catch (MyInformationUpdateException mue) {
             model.addAttribute("errorMessage", mue.getMessage());

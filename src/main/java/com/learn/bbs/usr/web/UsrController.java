@@ -137,7 +137,7 @@ public class UsrController {
             return "common/component/editmyinformation";
         }
 
-        UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USR__");
+        UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
         // 사용자, 관리자, 강사의 공통화 유효처리를 위한 객체로 어떤 역할인지 모르기 때문에 세션값을 다시 담는다 .
         myInformationRequestVO.setMyiLgnId(usrVO.getUsrMl());
 
@@ -146,8 +146,9 @@ public class UsrController {
 
             if (isUpdated) {
             	UsrVO updatedUsrVO = usrDao.selectOneUsrBy(myInformationRequestVO.getMyiLgnId());
-                session.setAttribute("__LOGIN_USR__", updatedUsrVO);
-                return "redirect:/viewmyinfo";
+                session.setAttribute("__LOGIN_USER__", updatedUsrVO);
+                
+                return "redirect:/usr/"+usrVO.getInsttnId()+"/dashboard";
             }
         } catch (MyInformationUpdateException mue) {
             model.addAttribute("errorMessage", mue.getMessage());
