@@ -10,6 +10,6 @@ public interface ArtcDao {
 
 	public int insertNewArtc(ArtcRegistRequestVO artcRegistRequestVO);
 
-	public List<ArtcVO> selectAllArtc(ArtcReadRequestVO artcReadRequestVO);
+	public List<ArtcVO> selectAllArtc(String Insttn);
 
 }

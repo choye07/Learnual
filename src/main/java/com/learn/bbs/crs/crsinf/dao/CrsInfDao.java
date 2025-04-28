@@ -12,6 +12,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfStartAndEndTimeRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfVO;
 
 /**
  * @TableName CRS_INF
@@ -74,4 +75,12 @@ public interface CrsInfDao {
 	
 	// 강사가 맡은 모든 강좌
 	public List<CrsInfAvailableReadResponseVO> selectCoursesForInstr(String instrId, String insttnId);
+	
+	
+// 슈퍼관리자를 위한 강좌 목록
+	public List<CrsInfVO> selectAllCrsInfForSpradBy(String insttnId);
+	
+	//슈퍼관리자를 위한 강좌 목록의 insttnId 포함
+	public List<CrsInfVO> selectAllInsttnForSpradBy(String crsinfId);
+	
 }

@@ -29,7 +29,7 @@
 								<a href="/learnual">홈으로</a>
 							</div>
 							<div class="btn-add-notice">
-								<a href="/ntc/write">공지글 작성</a>
+								<a href="/learnual/ntc/write">공지글 작성</a>
 							</div>
 						</div>
 					</div>

@@ -43,4 +43,15 @@
 		</if>
 		)
 	</insert>
+	
+	<select id="selectAllArtc"
+	        parameterType="string"
+	        resultType="com.learn.bbs.artc.vo.ArtcVO">
+	SELECT ARTC_ID,
+		   ARTC_NM
+	  FROM ARTC
+	<if test="insttnId!=''and insttnId!=null">
+	 WHERE INSTTN_ID = #{insttnId}
+	</if>
+	</select>
 </mapper>

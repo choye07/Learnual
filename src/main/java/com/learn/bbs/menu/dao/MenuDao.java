@@ -3,7 +3,6 @@ package com.learn.bbs.menu.dao;
 import java.util.List;
 
 import com.learn.bbs.menu.vo.MenuRegistRequestVO;
-import com.learn.bbs.menu.vo.MenuSearchRequestVO;
 import com.learn.bbs.menu.vo.MenuVO;
 
 /**
@@ -15,5 +14,5 @@ public interface MenuDao {
 
 	public int insertNewMenu(MenuRegistRequestVO menuRegistRequestVO);
 	
-	public List<MenuVO> selectAllMenu(MenuSearchRequestVO menuSearchRequestVO);
+	public List<MenuVO> selectAllMenu(String insttnId);
 }

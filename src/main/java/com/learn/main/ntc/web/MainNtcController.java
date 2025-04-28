@@ -29,7 +29,7 @@ public class MainNtcController {
     private MainNtcService mainNtcService;
     
     // 메인 공지사항 list 보기
-    @GetMapping("/ntc/list") // 경로 바뀔 수 있음
+    @GetMapping("/learnual/ntc/list") // 경로 바뀔 수 있음
     public String viewMainNoticeList(Model model) {
     	NtcListVO ntcListVO = this.mainNtcService.getAllMainNotice();
     	model.addAttribute("mainNtcList", ntcListVO);
@@ -37,13 +37,13 @@ public class MainNtcController {
     	return "/main/ntc/mainntcboardlist";
     }
     // 메인 공지사항 작성하기(관리자만 가능)
-	@GetMapping("/ntc/write")
+	@GetMapping("/learnual/ntc/write")
 	public String viewMainNoticeWritePage() {
 		return "/main/ntc/mainntcboardwrite";
 	}
 
 	// 메인 공지사항 작성 받아오기
-	@PostMapping("/ntc/write") // 경로 바뀔 수 있음
+	@PostMapping("/learnual/ntc/write") // 경로 바뀔 수 있음
 	public String doMainNoticeWrite(
 			@Valid @ModelAttribute NtcWriteRequestVO ntcWriteRequestVO,
 			BindingResult bindingResult,
@@ -65,14 +65,14 @@ public class MainNtcController {
 		
 		boolean isCreated = this.mainNtcService.createNewMainNotice(ntcWriteRequestVO);
 		if(isCreated) {
-			return "redirect:/ntc/list";
+			return "redirect:/learnual/ntc/list";
 		}
 		
-		return "/ntc/write";
+		return "/learnual/ntc/write";
 	}
 	
 	// 메인 공지사항 하나 보기
-	@GetMapping("/ntc/view/{id}") // 경로 바뀔 수 있음
+	@GetMapping("/learnual/ntc/view/{id}") // 경로 바뀔 수 있음
 	public String viewOneMainNotice(@PathVariable String id, Model model) {
 		NtcVO ntcVO = this.mainNtcService.getOneMainNotcie(id);
 		model.addAttribute("selectedNotice", ntcVO);

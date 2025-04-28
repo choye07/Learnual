@@ -20,6 +20,7 @@ import com.learn.bbs.crs.crsinf.vo.CrsInfPltadFinishedReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfPltadReadResponseVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfRegistRequestVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfStartAndEndTimeRequestVO;
+import com.learn.bbs.crs.crsinf.vo.CrsInfVO;
 
 
 /**
@@ -168,5 +169,17 @@ public class CrsInfDaoImpl extends SqlSessionDaoSupport implements CrsInfDao {
 	    param.put("insttnId", insttnId);
 	    
 	    return this.getSqlSession().selectList(NAME_SPACE + "selectCoursesForInstr", param);
+	}
+
+
+	@Override
+	public List<CrsInfVO> selectAllCrsInfForSpradBy(String insttnId) {
+		return this.getSqlSession().selectList( NAME_SPACE+"selectAllCrsInfForSpradBy" ,insttnId);
+	}
+
+	@Override
+	public List<CrsInfVO> selectAllInsttnForSpradBy(String crsinfId) {
+		// TODO Auto-generated method stub
+		return this.getSqlSession().selectList( NAME_SPACE+"selectAllInsttnForSpradBy" ,crsinfId);
 	}
 }

@@ -30,8 +30,8 @@ public class ArtcDaoImpl extends SqlSessionDaoSupport implements ArtcDao {
 	}
 
 	@Override
-	public List<ArtcVO> selectAllArtc(ArtcReadRequestVO artcReadRequestVO) {
-		return this.getSqlSession().selectList(NAME_SPACE + "selectAllArtc", artcReadRequestVO);
+	public List<ArtcVO> selectAllArtc(String insttnId) {
+		return this.getSqlSession().selectList(NAME_SPACE + "selectAllArtc", insttnId);
 	}
 
 }
