@@ -39,14 +39,14 @@ public class MenuController {
 		return "bbs/menu/menumanage";
 	}
 
-	@PostMapping("/menumanage/regist")
+	@PostMapping("/{insttnId}/menumanage/regist")
 	public String doRegistMenu(@Valid @ModelAttribute MenuRegistRequestVO menuRegistRequestVO,
 			BindingResult bindingResult, Model model) {
 
 		boolean isRegist = this.MenuService.createNewMenu(menuRegistRequestVO);
 
 		if (isRegist) {
-			return "/success";
+			return "redirect:/menumanage";
 		}
 
 		return "/fail";

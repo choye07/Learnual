@@ -27,18 +27,10 @@
 			, #{crntcCtt}
 			, #{crntcPinnedYn}
 			, SYSDATE
-			, (SELECT ARTC_ID
-			     FROM ARTC
-			    WHERE ARTC_NM = 'crntc')
-			, (SELECT CRS_INF_ID
-			     FROM CRS_INF
-			    WHERE CRS_INF_NM = '풀스택 25기 전문가 양성과정')
-			, (SELECT SBJ_ID
-			     FROM SBJ
-			    WHERE SBJ_NM = '자바')
-			, (SELECT INSTR_ID
-			     FROM INSTR
-			    WHERE INSTR_NM = '장민창'))
+			, ''
+			, '풀스택 25기 전문가 양성과정'
+			,''
+			,'')
     </insert>
     
     <select id="selectCourseNoticeAllCount">

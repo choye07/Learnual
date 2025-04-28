@@ -37,7 +37,7 @@
 				</div></li>
 			<ul class="menu-list">
 				<li><a href="/usr/${param.insttnId}/${param.crsInfId}/ARTC-20240427-000001/list">강좌공지사항</a></li>
-				<li><a href="#">강좌자료실</a></li>
+				<li><a href="/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/list">강좌자료실</a></li>
 				<li><a href="#">상담요청</a></li>
 				<li><a href="#">시험게시판</a></li>
 				<li><a href="#">과제게시판</a></li>

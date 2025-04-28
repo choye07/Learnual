@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.instr.vo;
 
+import com.learn.bbs.eduad.flarch.vo.FlArchVO;
+
 /**
  * @TableName INSTR
  * @TableComment null 강사
@@ -152,6 +154,17 @@ public class InstrVO {
 	 * @ColumnComment 강사의 계정 잠금 여부
 	 */
 	private String instrBlkYn;
+	
+	private FlArchVO flarchVO; 
+
+
+	public FlArchVO getFlarchVO() {
+		return flarchVO;
+	}
+
+	public void setFlarchVO(FlArchVO flarchVO) {
+		this.flarchVO = flarchVO;
+	}
 
 	public String getInstrId() {
 		return this.instrId;

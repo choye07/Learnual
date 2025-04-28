@@ -76,8 +76,8 @@
               /> 
 					</div>
 					<div class="confirm-password-area">
-						<label for="password">비밀번호 확인</label> <input id="confirmUsrPw"
-							name="confirmUsrPw" required="password" />
+						<label for="password" >비밀번호 확인</label> <input id="confirmUsrPw"
+							name="confirmUsrPw" type="password" required />
 						 <c:if test="${not empty errorMessage}">
                 <div class="error passwordEqualError">${errorMessage}</div>
               </c:if>

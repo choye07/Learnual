@@ -19,7 +19,7 @@
 		id="FlArchInstrVOMap" autoMapping="true">
 		<id column="FL_ARCH_ID" property="flArchId" />
 
-		<association property="InstrVO"
+		<association property="instrVO"
 			javaType="com.learn.bbs.pltad.instr.vo.InstrVO" autoMapping="true">
 			<id column="INSTR_ID" property="instrId" />
 		</association>
@@ -48,7 +48,7 @@
              , TO_CHAR(FL_ARCH.FL_ARCH_RGST_DT, 'YYYY-MM-DD') AS FL_ARCH_RGST_DT
          FROM FL_ARCH
          INNER JOIN INSTR
-            ON INSTR.INSTR_ML = FL_ARCH.LGN_ID  
+            ON INSTR.INSTR_LGN_ID= FL_ARCH.LGN_ID  
          WHERE FL_ARCH.FL_ARCH_DEL_YN = 'N'
          AND FL_ARCH.ARTC_ID = #{artcId}
          AND FL_ARCH.CRS_INF_ID = #{crsInfId}
