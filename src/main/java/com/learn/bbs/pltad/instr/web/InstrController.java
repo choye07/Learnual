@@ -135,7 +135,7 @@ public class InstrController {
     }
     
  	// 강사가 가르칠(가르치고 있는) 강좌들을 보여준다 
- 	@GetMapping("instr/{insttnId}")
+ 	@GetMapping("eduad/{insttnId}")
  	public String showAvailableCoursesForInstr(Model model, HttpSession session, @PathVariable String insttnId) {
  		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
 
@@ -143,7 +143,7 @@ public class InstrController {
  				.selectCoursesForInstr(instrVO.getInstrId(), instrVO.getInsttnId());
 
  		if(!insttnId.equals(instrVO.getInsttnId())) {
- 			return "redirect:/instr/" + instrVO.getInsttnId();
+ 			return "redirect:/eduad/" + instrVO.getInsttnId();
  		}
  		
  		model.addAttribute("isInstr", true);
@@ -152,7 +152,7 @@ public class InstrController {
  		return "/bbs/crs/courseregist";
  	}
  	
- 	@GetMapping("instr/{insttnId}/{crsInfId}/course")
+ 	@GetMapping("eduad/{insttnId}/{crsInfId}/course")
  	public String showInstrCourse(@PathVariable String insttnId,
 					 			  @PathVariable String crsInfId,
 					 			  Model model,
@@ -160,7 +160,7 @@ public class InstrController {
 		InstrVO instrVO = (InstrVO) session.getAttribute("__LOGIN_INSTR__");
 		
 		if(!insttnId.equals(instrVO.getInsttnId())) {
-		return "redirect:/instr/" + instrVO.getInsttnId() + "/" + crsInfId + "/course";
+		return "redirect:/eduad/" + instrVO.getInsttnId() + "/" + crsInfId + "/course";
 		}
 		
 		model.addAttribute("insttnId", insttnId);
