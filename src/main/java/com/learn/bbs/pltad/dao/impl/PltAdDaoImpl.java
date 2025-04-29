@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,11 @@ public class PltAdDaoImpl extends SqlSessionDaoSupport implements PltAdDao {
 	public int updateOneUsrEditMyinformation(MyInformationRequestVO myInfromationRequestVO) {
 		return this.getSqlSession().update(NAME_SPACE + "updateOneUsrEditMyinformation",myInfromationRequestVO);
 		
+	}
+
+	@Override
+	public List<PltadmVO> selectAllPltad(String insttnId) {
+		return this.getSqlSession().selectList(NAME_SPACE+"selectAllPltad", insttnId);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -182,7 +184,10 @@ public class PltAdServiceImpl implements PltAdService {
 		// 4. 업데이트 처리
 		return this.pltAdDao.updateOneUsrEditMyinformation(myInfromationRequestVO) > 0;
 	}
-	
-	
+
+	@Override
+	public List<PltadmVO> selectAllPltadm(String insttnId) {
+		return this.pltAdDao.selectAllPltad(insttnId);
+	}
 
 }

@@ -111,6 +111,7 @@ public class SpradMenuController {
 		
 		return "bbs/menu/menumanage";
 	}
+	
 
 
 }

@@ -19,7 +19,7 @@
 		<div class="managepltad-main manage-board">
 			<div class="manage-board-wrapper">
 				<div class="manage-board-header">
-					<h1>플랫폼 관리자 관리</h1>
+					<h1>강사 관리자 관리</h1>
 				</div>
 				<div class="board-toolbox">
 					<div class="board-toolbox-left">
@@ -50,13 +50,13 @@
 								<div class="item-data1">Kim@gmail.com</div>
 								<div class="item-data2">********</div>
 								<div class="item-data3">김대표</div>
-								<div class="item-data4">플랫폼관리자-기관대표</div>
+								<div class="item-data4">강사 관리자-기관대표</div>
 						</a></li>
 						<li><a href="#">
 								<div class="item-data1">Song@naver.com</div>
 								<div class="item-data2">********</div>
 								<div class="item-data3">송담당자</div>
-								<div class="item-data4">플랫폼관리자-강좌담당</div>
+								<div class="item-data4">강사 관리자-강좌담당</div>
 						</a></li>
 					</ul>
 					<!-- 페이지네이션 -->
