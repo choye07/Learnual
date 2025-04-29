@@ -88,6 +88,10 @@ public class CrsInfController {
 	        model.addAttribute("instrCourses", this.crsInfService.selectFourCoursesForInstr(instrVO.getInstrId(), nowInsttnId));
 	    }
 
+	    if(nowInsttnId == null) {
+	    	return "redirect:/login";
+	    }
+	    
 		// 만약 세션의 insttnId과 endpoint의 insttnId가 다르면 현재 유저가 로그인한 insttnId로 변경하여 redirect
 		if(!insttnId.equals(nowInsttnId)) {
 			return "redirect:/" + nowInsttnId;
