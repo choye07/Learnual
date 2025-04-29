@@ -187,6 +187,10 @@ public class LearnualMainController {
 				model.addAttribute("courseList", courseList); // JSP에서 사용할 이름으로 모델 추가
 				model.addAttribute("insttnId", instrVO.getInsttnId());
 				model.addAttribute("instrName", instrVO.getInstrNm());
+				
+				// 투두리스트를 읽어온다.
+				TodoListVO todoListVO = this.todoService.getAllMyTodo(instrVO.getInstrLgnId());
+				model.addAttribute("todoList", todoListVO);
 
 				return "dashboard/eduad/crs/dashboardeduadmycourselist";
 			}

@@ -97,7 +97,10 @@ public class FlArchServiceImpl implements FlArchService {
 	@Transactional
 	@Override
 	public FlArchVO getOneFlArchBoard(String flArchId, boolean isIncrease) {
-
+		
+		System.out.println("서비스");
+		System.out.println("flArchId: " + flArchId);
+		
 		if (isIncrease) {
 			// 조회하려는 게시글의 조회수를 증가시킨다.
 			int updatedCount = this.flArchDao.updateViewCountBy(flArchId);

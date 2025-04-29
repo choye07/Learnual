@@ -61,7 +61,8 @@
 								<a href="#">홈으로</a>
 							</div>
 							<div class="btn-add-notice">
-								<a id="dashboard-common-flarch" href="/eduad/flarch/write">게시글 작성</a>
+								<a id="dashboard-common-flarch" 
+								href="/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/write">게시글 작성</a>
 							</div>
 						</div>
 					</div>
@@ -79,10 +80,10 @@
 									<c:forEach items="${flArchList.flArchList}" var="board"
 										varStatus="status">
 
-										<li><a href="/eduad/flarch/view/${board.flArchId}">
+										<li><a href="/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/view/${board.flArchId}">
 												<div class="board-list-no">${flArchList.flArchCnt - status.index}</div>
 												<div class="board-list-title">${board.flArchTtl}</div>
-												<div class="board-list-writer">강사님의 성명</div>
+												<div class="board-list-writer">김강사</div>
 												<div class="board-list-time">${board.flArchRgstDt}</div>
 										</a></li>
 									</c:forEach>

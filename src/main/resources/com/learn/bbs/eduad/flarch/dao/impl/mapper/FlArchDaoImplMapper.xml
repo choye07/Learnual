@@ -120,10 +120,6 @@
         ON FA.FL_ARCH_ID = FL.ID
         WHERE FA.FL_ARCH_ID = #{flArchId}
           AND FA.FL_ARCH_DEL_YN = 'N'
-          AND FA.ARTC_ID = #{artcId}
-          AND FA.CRS_INF_ID = #{crsInfId}
-          AND FA.INSTTN_ID = #{insttnId}
-          AND FA.LGN_ID = #{lgnId}
 	</select>
 
 	<update id="updateViewCountBy"

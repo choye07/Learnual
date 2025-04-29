@@ -1,5 +1,7 @@
 package com.learn.bbs.usr.vo;
 
+import com.learn.bbs.eduad.flarch.vo.FlArchVO;
+
 /**
  * @TableName USR
  * @TableComment null
@@ -160,8 +162,19 @@ public class UsrVO {
      * @ColumnComment 회원 수신 동의 여부
      */
     private String usrRcptAgrYn;
+    
+    private FlArchVO flarchVO;
+    
 
-    public String getUsrId() {
+    public FlArchVO getFlarchVO() {
+		return flarchVO;
+	}
+
+	public void setFlarchVO(FlArchVO flarchVO) {
+		this.flarchVO = flarchVO;
+	}
+
+	public String getUsrId() {
         return this.usrId;
     }
     
