@@ -4239,7 +4239,7 @@ label {
             .table-header,
             .table-item {
               display: grid;
-              grid-template-columns: 5rem 1fr 1fr 1fr 1fr 1fr;
+              grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
               text-align: center;
 
               > div {
@@ -4267,7 +4267,24 @@ label {
           }
         }
       }
+
+      .btn-back {
+        margin-top: 2rem;
+        display: block;
+        padding: 0.625rem;
+        width: 5rem;
+        text-align: center;
+        background-color: var(--insttn-color);
+        color: #fff;
+        &:hover {
+          background-color: var(--insttn-light-color);
+        }
+      }
     }
+
+    /* ------------------------------------------- */
+    /* 강좌 확정자 목록 css */
+    /* 2025-04-29 강휘원 추가 */
 
     /* ------------------------------------------- */
     /* 0423 강휘원 추가 */
