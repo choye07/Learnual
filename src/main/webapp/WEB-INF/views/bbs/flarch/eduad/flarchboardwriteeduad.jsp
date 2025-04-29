@@ -81,7 +81,8 @@
 							<form:errors path="flArchCtt" element="div" cssClass="error" />
 						</div>
 						<div class="btn-area">
-							<a href="/eduad/flarch/list">
+							<a
+								href="/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/list">
 								<button type="button" class="btn-flarch-list btn">목록 보기</button>
 							</a>
 							<button type="submit" class="btn-flarch-submit btn">작성

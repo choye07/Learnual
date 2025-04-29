@@ -52,7 +52,7 @@
 			<div class="board-toolbox">
 				<div class="board-user-toolbox">
 					<div class="btn-go-list">
-						<a href="/eduad/flarch/list">목록 보기</a>
+						<a href="/usr/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/list">목록 보기</a>
 					</div>
 				</div>
 			</div>
@@ -63,11 +63,11 @@
 			<div class="board-wrapper">
 				<div class="board-info">
 					<label>작성자</label>
-					<div>조인해서 나올 작성자 이름-지금은 폼 이름으로 나옴!</div>
+					<div>김강사</div>
 					<label>작성날짜</label>
 					<div>${flArchVO.flArchRgstDt}</div>
 					<label>이메일</label>
-					<div>${flArchVO.instrId}</div>
+					<div>instr@learnual.com</div>
 					<label>조회수</label>
 					<div>${flArchVO.flArchViewCnt}</div>
 					<label>제목</label>

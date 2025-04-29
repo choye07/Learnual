@@ -6,6 +6,7 @@ import com.learn.bbs.artc.vo.ArtcVO;
 import com.learn.bbs.crs.crsinf.vo.CrsInfVO;
 import com.learn.bbs.file.vo.FlVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
+import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.insttn.vo.InsttnVO;
 
 //TODO 회원 되면은 private MembersVO memberVO; 추가하기
@@ -106,7 +107,18 @@ public class FlArchVO {
  	private String lgnId;
 
  	private InstrVO instrVO;
+ 	private UsrVO usrVO;
  	
+ 	
+ 	
+
+	public UsrVO getUsrVO() {
+		return usrVO;
+	}
+
+	public void setUsrVO(UsrVO usrVO) {
+		this.usrVO = usrVO;
+	}
 
 	public InstrVO getInstrVO() {
 		return instrVO;
