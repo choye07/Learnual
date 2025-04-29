@@ -104,7 +104,16 @@
 							</div>
 							<div class="btn-area">
 								<div class="btn-req-attd">
-									<button class="btn">출석 요청</button>
+									<button class="btn" id=course-attd>출석 요청</button>
+								</div>
+								<div class="btn-req-out">
+									<button class="btn" id=course-out-status>외출</button>
+								</div>
+								<div class="btn-req-early">
+									<button class="btn" id=course-leave-early>조퇴</button>
+								</div>
+								<div class="btn-req-attd">
+									<button class="btn" id=course-absence>결석</button>
 								</div>
 							</div>
 						</div>
