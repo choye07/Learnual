@@ -1095,7 +1095,7 @@ label {
     padding: 2rem;
     border-radius: 0.625rem;
     /* box-shadow: 0 0 10px #0000001a; */
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -1118,7 +1118,11 @@ label {
         gap: 1rem;
         a {
           padding: 0.625rem 1.5rem;
-          font-size: 1.3rem;
+          font-size: 1.1rem;
+          background-color: var(--manager-color);
+          &:hover {
+            background-color: var(--manager-medium-color);
+          }
         }
       }
     }
