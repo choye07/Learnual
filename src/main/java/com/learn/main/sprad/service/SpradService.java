@@ -16,4 +16,5 @@ public interface SpradService {
  	public boolean doLogout(String spradId);
  	// 슈퍼관리자 계정 삭제 기능
  	public boolean doDeleteUsr(String spradId);
+ 	
 }

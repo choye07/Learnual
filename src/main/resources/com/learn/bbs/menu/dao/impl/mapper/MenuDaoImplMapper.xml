@@ -48,8 +48,10 @@
 		SELECT MENU_ID,
 			 MENU_NM
 		FROM MENU
+	   WHERE MENU_US_YN ='Y'
+	   and INSTTN_ID ='learnual'
 	  	<if test="insttnId != 'learnual' and insttnId != null">
-			WHERE INSTTN_ID = #{insttnId}
+			and INSTTN_ID = #{insttnId}
 		</if>
 	</select>
 

@@ -1,5 +1,7 @@
 package com.learn.bbs.pltad.dao;
 
+import java.util.List;
+
 import com.learn.bbs.pltad.vo.PltadRegistRequestVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.common.vo.MyInformationRequestVO;
@@ -12,6 +14,10 @@ public interface PltAdDao {
 	
 	//플랫폼 관린자 등록되어 있는지 체크
 	public int selectPltadCount(String lgnId);
+	
+	//플랫폼 관리자 목록 불러오기
+	public List<PltadmVO> selectAllPltad(String insttnId);
+	
 	
     /**
      * 플랫폼 관리자 로그인 로직을 위한 dao start

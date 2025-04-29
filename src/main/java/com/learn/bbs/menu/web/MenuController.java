@@ -1,56 +1,34 @@
 package com.learn.bbs.menu.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.bbs.menu.service.MenuService;
-import com.learn.bbs.menu.vo.MenuRegistRequestVO;
-import com.learn.main.cmcd.service.CmcdService;
-import com.learn.main.cmcd.vo.CmCodeVO;
+import com.learn.bbs.menu.vo.MenuListVO;
 
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * @TableName MENU
  * @TableComment null 메뉴
  */
-@Controller
+@RestController()
 public class MenuController {
 
 	@Autowired
 	private MenuService MenuService;
 	
-	@Autowired
-	private CmcdService cmcdService;
+
+	@GetMapping("/main")
+	public MenuListVO menuMangeViewPage(HttpSession session,Model model) {
+		return this.MenuService.selectAllMenu("learnual");
+	}
 	
 
-	@GetMapping("/menumanage")
-	public String menuMangeViewPage(@Valid @ModelAttribute MenuRegistRequestVO menuRegistRequestVO,
-			BindingResult bindingResult, Model model) {
-		List<CmCodeVO> cmCdList = this.cmcdService.selectAllCmcd(5);
-		model.addAttribute("cmCdList", cmCdList);
-		return "bbs/menu/menumanage";
-	}
 
-	@PostMapping("/{insttnId}/menumanage/regist")
-	public String doRegistMenu(@Valid @ModelAttribute MenuRegistRequestVO menuRegistRequestVO,
-			BindingResult bindingResult, Model model) {
 
-		boolean isRegist = this.MenuService.createNewMenu(menuRegistRequestVO);
-
-		if (isRegist) {
-			return "redirect:/menumanage";
-		}
-
-		return "/fail";
-	}
 
 	
 }

@@ -19,6 +19,7 @@ import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.common.vo.LoginRequestVO;
 import com.learn.common.vo.MyInformationRequestVO;
 import com.learn.exceptions.MyInformationUpdateException;
+import com.learn.main.sprad.vo.SpradmVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -36,18 +37,18 @@ public class PltAdController {
     @Autowired
     private PltAdDao pltAdDao;
     
-	    @PostMapping("/spr/pltadmanage/regist")
+    @PostMapping("/spr/pltadmanage/regist")
     public String doPltadRegist(@Valid 
 								@ModelAttribute 
 								PltadRegistRequestVO pltadRegistRequestVO,
 								BindingResult bindingResult,
-								Model model) {
-    	
-    	pltadRegistRequestVO.setLgnId("sadmin");
+								Model model, HttpSession session) {
+	    	SpradmVO spradmVO = (SpradmVO) session.getAttribute("__LOGIN_SPRAD__");
+    	pltadRegistRequestVO.setLgnId(spradmVO.getSpradmLgnId());
     	
 		boolean isCreated = this.pltAdService.createNewPltad(pltadRegistRequestVO);
 		if (isCreated) {
-			return "/success";
+			return "redirect:/sprad/learnual/pltadmanage";
 		}
 
     	

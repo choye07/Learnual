@@ -8,6 +8,25 @@ $(document).ready(function () {
 
 	var weekDays = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 	var dayOfWeek = weekDays[today.getDay()];
+	
+	
+
+
+	/** 메뉴 뿌리기 *
+	 * 
+	 */
+	$.get("/main", function(data){
+	var menuList=  data.menuList;
+
+	var menuContent =$(".header-wrapper").find(".header-right-nav");
+	menuList.forEach(function(menu){
+	var mneuitem ="<li><a href='"+menu.menuUrl+"'>"+menu.menuNm+"</a></li>";
+	menuContent.append(mneuitem);
+	});
+
+	});
+	
+	
   /* ================================ */
   /* 휘원 0418 추가한 부분 start */
   /* 메인 이벤트 start */
@@ -544,164 +563,164 @@ $(document).ready(function () {
 
   /* ================================= */
   /* 0419 유진 파트 start */
-  /* 자료실 게시판 - 게시글 생성 이벤트 start */
-  /* 자료실 게시판 - 게시글 생성 이벤트 start */
-  // 글 작성 페이지 이벤트
+   /* 자료실 게시판 - 게시글 생성 이벤트 start */
+   /* 자료실 게시판 - 게시글 생성 이벤트 start */
+   // 글 작성 페이지 이벤트
 
-  // 1. 글 작성시 파일을 추가하면 밑에 또 파일을 추가하는 input이 생긴다.
-  // 2. 파일을 첨부할 수 있는 최대 개수는 4개로 제한한다.
+   // 1. 글 작성시 파일을 추가하면 밑에 또 파일을 추가하는 input이 생긴다.
+   // 2. 파일을 첨부할 수 있는 최대 개수는 4개로 제한한다.
 
-  // 유효한 파일 input 개수 세는 함수
-  function getValidFileInputCount($form) {
-    // 1. input에 파일이 들어 있는 경우
-    var realInputs = $form
-      .find(".file-container input[type='file']")
-      .filter(function () {
-        return this.files && this.files.length > 0;
-      }).length;
+   // 유효한 파일 input 개수 세는 함수
+   function getValidFileInputCount($form) {
+     // 1. input에 파일이 들어 있는 경우
+     var realInputs = $form
+       .find(".file-container input[type='file']")
+       .filter(function () {
+         return this.files && this.files.length > 0;
+       }).length;
 
-    // 2. 기존 파일 항목: input 없이 a 태그만 있는 .file-item
-    var existFiles = $form
-      .find(".file-container .file-item")
-      .filter(function () {
-        return $(this).find("input[type='file']").length === 0;
-      }).length;
+     // 2. 기존 파일 항목: input 없이 a 태그만 있는 .file-item
+     var existFiles = $form
+       .find(".file-container .file-item")
+       .filter(function () {
+         return $(this).find("input[type='file']").length === 0;
+       }).length;
 
-    return realInputs + existFiles;
-  }
+     return realInputs + existFiles;
+   }
 
-  $("form.flarch-write-form, form.flarch-modify-form")
-    .find(".file-container")
-    .on("change", "input[type='file']", function () {
-      var $form = $(this).closest("form");
+   $("form.flarch-write-form, form.flarch-modify-form")
+     .find(".file-container")
+     .on("change", "input[type='file']", function () {
+       var $form = $(this).closest("form");
 
-      var maxFiles = 4;
+       var maxFiles = 4;
 
-      // 현재까지 실제로 선택된 파일 input 개수
-      var totalFilesCount = getValidFileInputCount($form);
+       // 현재까지 실제로 선택된 파일 input 개수
+       var totalFilesCount = getValidFileInputCount($form);
 
-      if (this.files.length === 0) {
-        // 파일을 선택하지 않았으면 아무것도 하지 않음
-        return;
-      }
+       if (this.files.length === 0) {
+         // 파일을 선택하지 않았으면 아무것도 하지 않음
+         return;
+       }
 
-      if (totalFilesCount >= maxFiles) {
-        alert("파일은 최대 4개까지만 첨부할 수 있습니다.");
-        return;
-      }
+       if (totalFilesCount >= maxFiles) {
+         alert("파일은 최대 4개까지만 첨부할 수 있습니다.");
+         return;
+       }
 
-      // "빈 input"이 하나라도 있으면 append 하지 않도록 수정 (중복 방지 핵심)
-      var hasEmptyInput =
-        $form.find(".file-container input[type='file']").filter(function () {
-          return !this.files || this.files.length === 0;
-        }).length > 0;
+       // "빈 input"이 하나라도 있으면 append 하지 않도록 수정 (중복 방지 핵심)
+       var hasEmptyInput =
+         $form.find(".file-container input[type='file']").filter(function () {
+           return !this.files || this.files.length === 0;
+         }).length > 0;
 
-      // append는 조건 만족할 때만 하도록 제한
-      if (!hasEmptyInput && totalFilesCount < maxFiles) {
-        var newItemDom = $($("#flarch-file-item-template").html());
-        $form.find(".file-container").append(newItemDom);
-      }
-    });
+       // append는 조건 만족할 때만 하도록 제한
+       if (!hasEmptyInput && totalFilesCount < maxFiles) {
+         var newItemDom = $($("#flarch-file-item-template").html());
+         $form.find(".file-container").append(newItemDom);
+       }
+     });
 
-  // 3. 파일 삭제 처리 - 동적으로 추가된 파일에 대해 위임 방식으로 이벤트 처리
-  // - 수정 페이지에서 동일한 파일 관련 이벤트
-  $("form.flarch-write-form, form.flarch-modify-form").on(
-    "click",
-    ".btn-file-remove",
-    function () {
-      var $form = $(this).closest("form");
-      var maxFiles = 4;
+   // 3. 파일 삭제 처리 - 동적으로 추가된 파일에 대해 위임 방식으로 이벤트 처리
+   // - 수정 페이지에서 동일한 파일 관련 이벤트
+   $("form.flarch-write-form, form.flarch-modify-form").on(
+     "click",
+     ".btn-file-remove",
+     function () {
+       var $form = $(this).closest("form");
+       var maxFiles = 4;
 
-      var wrappers = $form.find(".file-item");
+       var wrappers = $form.find(".file-item");
 
-      // 첨부파일 레이아웃 깨짐 방지
-      if (wrappers.length <= 1) {
-        return;
-      }
+       // 첨부파일 레이아웃 깨짐 방지
+       if (wrappers.length <= 1) {
+         return;
+       }
 
-      // 삭제할 파일 ID 처리 (수정 폼만 해당)
-      var flId = $(this).data("fl-id");
-      if (flId) {
-        var hiddenInput = $("<input>")
-          .attr("type", "hidden")
-          .attr("name", "deleteFileIds")
-          .val(flId);
-        $("#delete-file-container").append(hiddenInput);
-      }
+       // 삭제할 파일 ID 처리 (수정 폼만 해당)
+       var flId = $(this).data("fl-id");
+       if (flId) {
+         var hiddenInput = $("<input>")
+           .attr("type", "hidden")
+           .attr("name", "deleteFileIds")
+           .val(flId);
+         $("#delete-file-container").append(hiddenInput);
+       }
 
-      // 해당 input 제거
-      $(this).closest(".file-item").remove();
+       // 해당 input 제거
+       $(this).closest(".file-item").remove();
 
-      // file-item template을 이용하여 새 input을 추가
-      // 이미 빈 input이 있으면 새로운 input 추가 안 한다.
-      var totalFilesCount = getValidFileInputCount($form);
-      var hasEmptyInput =
-        $form.find(".file-container input[type='file']").filter(function () {
-          return !this.files || this.files.length === 0;
-        }).length > 0;
+       // file-item template을 이용하여 새 input을 추가
+       // 이미 빈 input이 있으면 새로운 input 추가 안 한다.
+       var totalFilesCount = getValidFileInputCount($form);
+       var hasEmptyInput =
+         $form.find(".file-container input[type='file']").filter(function () {
+           return !this.files || this.files.length === 0;
+         }).length > 0;
 
-      // 삭제 후 파일이 4개 미만이라면, 새 파일 input 추가
-      if (!hasEmptyInput && totalFilesCount < maxFiles) {
-        var newItemDom = $($("#flarch-file-item-template").html());
-        $form.find(".file-container").append(newItemDom);
-      }
-    }
-  );
+       // 삭제 후 파일이 4개 미만이라면, 새 파일 input 추가
+       if (!hasEmptyInput && totalFilesCount < maxFiles) {
+         var newItemDom = $($("#flarch-file-item-template").html());
+         $form.find(".file-container").append(newItemDom);
+       }
+     }
+   );
 
-  // 글 작성 페이지 submit 처리
-  $("form.flarch-write-form")
-    .find(".btn-flarch-submit")
-    .on("click", function () {
-      // 유효성 검사
-      var invalidInputs = $("input:invalid,textarea:invalid");
-      if (invalidInputs.length > 0) {
-        return;
-      }
+   // 글 작성 페이지 submit 처리
+   $("form.flarch-write-form")
+     .find(".btn-flarch-submit")
+     .on("click", function () {
+       // 유효성 검사
+       var invalidInputs = $("input:invalid,textarea:invalid");
+       if (invalidInputs.length > 0) {
+         return;
+       }
 
-      // POST 전송
-      $("form.flarch-write-form")
-        .attr({
-          method: "POST",
-          action: "/eduad/flarch/write",
-        })
-        .submit();
-    });
+       // POST 전송
+       $("form.flarch-write-form")
+         .attr({
+           method: "POST",
+           action: "/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/write",
+         })
+         .submit();
+     });
 
-  // 3. 글 수정 시 submit 처리
-  $("form.flarch-modify-form")
-    .find(".btn-flarch-submit")
-    .on("click", function () {
-      console.log("수정완료 클릭");
+   // 3. 글 수정 시 submit 처리
+   $("form.flarch-modify-form")
+     .find(".btn-flarch-submit")
+     .on("click", function () {
+       console.log("수정완료 클릭");
 
-      // 유효성 검사
-      var invalidInputs = $("input:invalid,textarea:invalid");
-      if (invalidInputs.length > 0) {
-        return;
-      }
+       // 유효성 검사
+       var invalidInputs = $("input:invalid,textarea:invalid");
+       if (invalidInputs.length > 0) {
+         return;
+       }
 
-      var flArchId = $("form.flarch-modify-form")
-        .find("input[name='flArchId']")
-        .val();
-      console.log(flArchId);
+       var flArchId = $("form.flarch-modify-form")
+         .find("input[name='flArchId']")
+         .val();
+       console.log(flArchId);
 
-      // 삭제할 파일 정보가 있는지 확인하고, 없는 경우 deleteFileIds hidden input을 제거
-      var deleteFileIds = $("input[name='deleteFileIds']").length;
-      if (deleteFileIds === 0) {
-        // 삭제할 파일이 없을 경우 삭제 정보가 없도록 폼에서 관련 데이터 제거
-        $("#delete-file-container").empty();
-      }
+       // 삭제할 파일 정보가 있는지 확인하고, 없는 경우 deleteFileIds hidden input을 제거
+       var deleteFileIds = $("input[name='deleteFileIds']").length;
+       if (deleteFileIds === 0) {
+         // 삭제할 파일이 없을 경우 삭제 정보가 없도록 폼에서 관련 데이터 제거
+         $("#delete-file-container").empty();
+       }
 
-      $("form.flarch-modify-form")
-        .attr({
-          method: "POST",
-          action: "/eduad/flarch/modify/" + flArchId,
-        })
-        .submit();
-    });
+       $("form.flarch-modify-form")
+         .attr({
+           method: "POST",
+           action: "/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/modify/" + flArchId,
+         })
+         .submit();
+     });
 
-  // 글 수정 페이지 이벤트 종료
-  
-  /* 0423 유진 파트 start */
+   // 글 수정 페이지 이벤트 종료
+   
+  	/* 0423 유진 파트 start */
   	/* 이력서 관리 게시판 - 게시글 생성 이벤트 start */
   	// 이력서 목록 조회
   	function loadRsmList() {
@@ -717,18 +736,18 @@ $(document).ready(function () {
   				// 새 목록 append
   				list.forEach(rsm => {
   					var html = `
-  						<li data-rsm-id="${rsm.rsmId}">
-  								<div class="rsm-content-area">
-  								<div class="rsm-content-title">${rsm.rsmTtl}</div>
-  							<span class="rsm-content-time">${rsm.rsmRgstDt}</span>
-  							</div>
-  							<div class="rsm-manage-area">
-  								<a href="/eduad/file/${rsm.rsmId}/${rsm.file.flId}">다운로드</a>
-  							<button type="button" class="btn-file-remove btn"
-  								onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
-  							</div>
-  						</li>
-  						`;
+    						<li data-rsm-id="${rsm.rsmId}">
+    								<div class="rsm-content-area">
+    								<div class="rsm-content-title">${rsm.rsmTtl}</div>
+    							<span class="rsm-content-time">${rsm.rsmRgstDt}</span>
+    							</div>
+    							<div class="rsm-manage-area">
+    								<a href="/eduad/file/${rsm.rsmId}/${rsm.file.flId}">다운로드</a>
+    							<button type="button" class="btn-file-remove btn"
+    								onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+    							</div>
+    						</li>
+    						`;
   					$container.append(html);
   				});
   			}
@@ -736,7 +755,7 @@ $(document).ready(function () {
   	}
   	// 글 작성 이벤트 
   	$(".rsm-board").on("click", ".btn-rsm-regist", function() {
-  		
+
   		// 기존에 등록폼이 있는지 확인
   		if ($(".board-list-wrapper").find(".rsm-write-form").length > 0) {
   			alert("이미 작성 중인 이력서 폼이 있습니다.");
@@ -928,7 +947,7 @@ $(document).ready(function () {
 	  1-2. 삭제 버튼 보이기
 	*/
 	$(".btn-todo-edit").on("click", function() {
-		$(".todo-edit-area").show();
+		$(".todo-edit-area").slideToggle(300); 
 		$(".todo-item-manage").toggleClass("on");
 	});
 
@@ -1354,6 +1373,8 @@ $(document).ready(function () {
   /* 학원 검색 이벤트*/
 
 
+
+
   /* ------------최예진----------*/
   /* 메뉴 관리  */
 
@@ -1363,45 +1384,21 @@ $(document).ready(function () {
   $(".check-manage-cat").text("");
 
   $(".main-home").on("click", function() {
-      $(".check-manage-cat").text("메인 홈페이지");
-    $(".insttn-button-group").hide();
-    $(".crsinf-button-group").hide();
-  });
-
-  $(".insttn-home").on("click", function() {
-      $(".check-manage-cat").text("학원 홈페이지");
-    $(".crsinf-button-group").hide();
-    $(".insttn-button-group").show();
-  });
-
-  $(".crs-home").on("click", function() {
-      $(".check-manage-cat").text("강좌 홈페이지");
-    $(".insttn-button-group").hide();
-    $(".crsinf-button-group").show();
-  });
-
-
-  $(".add-menu").on("click", function() {
-      $("#menu-regist").show();
-
-  });
-
-  /* ------------최예진----------*/
-  /* 메뉴 관리  */
-
-  $("#menu-regist").hide();
-  $(".check-manage-cat").text("");
-
-  $(".main-home").on("click", function() {
   	$(".check-manage-cat").text("메인 홈페이지");
+  	$(".insttn-button-group").hide();
+  	$(".crsinf-button-group").hide();
   });
 
   $(".insttn-home").on("click", function() {
   	$(".check-manage-cat").text("학원 홈페이지");
+  	$(".crsinf-button-group").hide();
+  	$(".insttn-button-group").show();
   });
 
   $(".crs-home").on("click", function() {
   	$(".check-manage-cat").text("강좌 홈페이지");
+  	$(".insttn-button-group").hide();
+  	$(".crsinf-button-group").show();
   });
 
 
@@ -1410,42 +1407,152 @@ $(document).ready(function () {
 
   });
 
-  /** 메뉴 추가 이벤트 */
-  $("#menu-save").on("click", function() {
-      var usrInsttnId = $('input[type="hidden"][name="usrInsttnId"]').val();
-      var pltadInsttnId = $('input[type="hidden"][name="pltadInsttnId"]').val();
-      var instrInsttnId = $('input[type="hidden"][name="instrInsttnId"]').val();
-      var spradInsttnId = $('input[type="hidden"][name="spradInsttnId"]').val();
+  /* ------------최예진----------*/
+  /* 메뉴 관리  */
+  var spradInsttnId = $('input[type="hidden"][name="spradInsttnId"]').val();
+  var insttnId = $('input[type="hidden"][name="insttnId"]').val();
+  var crsinfId = $('input[type="hidden"][name="crsinfId"]').val();
 
-      var url = "/menumanage/regist";  // 기본 URL
+  var url = "/menumanage/regist";  // 기본 URL
+  $("#menu-regist").hide();
+  $(".check-manage-cat").text("");
+  $(".insttn-btn").hide();
+  $(".crs-btn").hide();
 
-      // 로그인 상태에 따른 URL 변경
-      if (usrInsttnId) {
-          url = "/" + usrInsttnId + url;
-      } else if (pltadInsttnId) {
-          url = "/" + pltadInsttnId + url;
-      } else if (instrInsttnId) {
-          url = "/" + instrInsttnId + url;
-      } else if (spradInsttnId) {
-          url = "/" + spradInsttnId + url;
-      } else {
-          alert("로그인 후 이용해 주세요!");
-          location.href = "/learnual";
-          return; 
-      }
 
-      // 최종 URL 확인
-      console.log("Final URL: /sprad" + url);  // alert 대신 console.log로 확인
-      
-      // 폼 제출
-      $("form.menu-regist-form")
-          .attr({
-              method: "POST",
-              action: "/sprad" + url,
-          })
-          .submit();
+  $(".main-home").on("click", function() {
+  	$(".check-manage-cat").text("메인 홈페이지");
+  	insttnId='';
+  	crsinfId='';
+  	
   });
 
+  $(".insttn-home").on("click", function() {
+  	$(".check-manage-cat").text("학원 홈페이지");
+  	crsinfId='';
+  	$("#menu-save").hide();
+  	$(".insttn-btn").show();
+  	$(".crs-btn").hide();
+  });
+
+  $(".crs-home").on("click", function() {
+  	$(".check-manage-cat").text("강좌 홈페이지");
+  	$("#menu-save").hide();
+  	$(".insttn-btn").hide();
+  	$(".crs-btn").show();
+  });
+
+  									 
+  												  
+   
+
+  $(".add-menu").on("click", function() {
+  	$("#menu-regist").show();
+  	
+
+  });
+  						
+
+  /** 메뉴 추가 이벤트 */
+  $("#menu-save").on("click", function() {
+																			
+																				
+																				
+																				
+
+								
+  																			
+  	console.log(spradInsttnId);
+
+  	
+						
+										
+								 
+										  
+								 
+										  
+								 
+										  
+			  
+													  
+									  
+				  
+	   
+
+  	// 로그인 상태에 따른 URL 변경
+  	if (spradInsttnId) {
+  		url = "/" + spradInsttnId + url;
+  		alert(url);
+  	}
+  	
+  	// 최종 URL 확인
+  	console.log("Final URL: " + url);  // alert 대신 console.log로 확인
+  						   
+  
+  	// 폼 제출
+  $("form.menu-regist-form")
+  		.attr({
+  			method: "POST",
+  			action: "/sprad" + url,
+  		})
+  		.submit();
+  });
+
+  /** 학원 메뉴  추가 이벤트 */
+  $(".insttn-btn").on("click", function() {
+  							
+
+  	console.log(crsinfId);
+  	console.log(insttnId);
+
+  	// 로그인 상태에 따른 URL 변경
+  	if (spradInsttnId && !insttnId && !crsinfId) {
+  		url = "/" + spradInsttnId + url;
+  		alert(url);
+  	}
+
+  			  
+
+  	// 최종 URL 확인
+  	console.log("Final URL: " + url);  // alert 대신 console.log로 확인
+
+  	// 폼 제출
+  							   
+  									  
+  	/*$("form.menu-regist-form")
+  		.attr({
+  						   
+  			method: "POST",
+  			action: "/sprad" + url,
+  		})
+  		.submit();*/
+  });
+
+
+  /** 강좌 메뉴 추가 이벤트 */
+  $(".crs-btn").on("click", function() {
+
+  	console.log(crsinfId);
+  	console.log(insttnId);
+
+  	// 로그인 상태에 따른 URL 변경
+  	if (spradInsttnId && !insttnId && !crsinfId) {
+  		url = "/" + spradInsttnId + url;
+  		alert(url);
+  	}
+
+
+  	// 최종 URL 확인
+  	console.log("Final URL: " + url);  // alert 대신 console.log로 확인
+
+  	// 폼 제출
+  	$("form.menu-regist-form")
+  		.attr({
+  			method: "POST",
+  			action: "/sprad" + url,
+  		})
+  		.submit();
+  });
 
   /** 메뉴 체크 박스 메뉴 접근권한 이벤트*/
   $('input[type="checkbox"][name="menuAcc-check"]').on("click", function() {
@@ -1493,5 +1600,25 @@ $(document).ready(function () {
   });
 
 
+$("#pltad-regist").on("click",function(){
+	$("form.pltad-regist-form")
+		.attr({
+			// 객체 리터럴 타입
+			method: "POST",
+			action: "/spr/pltadmanage/regist",
+		})
+		.submit();
+});
+
+
+$("#pltad-regist").on("click",function(){
+	$("form.pltad-regist-form")
+		.attr({
+			// 객체 리터럴 타입
+			method: "POST",
+			action: "/spr/pltadmanage/regist",
+		})
+		.submit();
+});
 
 });

@@ -8,9 +8,9 @@
 
 		<div class="header-right">
 			<ul class="header-right-nav">
-				<li><a href="#">About</a></li>
+<!-- 				<li><a href="#">About</a></li>
 				<li><a href="#">Product</a></li>
-				<li><a href="#">Contact Us</a></li>
+				<li><a href="#">Contact Us</a></li> -->
 			</ul>
 		</div>
 	</div>

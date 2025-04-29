@@ -1,11 +1,11 @@
 package com.learn.bbs.pltad.service;
 
+import java.util.List;
+
 import com.learn.bbs.pltad.vo.PltadRegistRequestVO;
 import com.learn.bbs.pltad.vo.PltadmLoginRequestVO;
 import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.common.vo.MyInformationRequestVO;
-
-import jakarta.servlet.http.HttpSession;
 
 public interface PltAdService {
 	public boolean createNewPltad(PltadRegistRequestVO pltadRegistRequestVO);
@@ -20,4 +20,7 @@ public interface PltAdService {
  	public boolean doDeleteUsr(String pltadmLgnId);
  	// 관리자 나의 정보 수정 기능
  	public boolean updateUsrEditMyinformation(MyInformationRequestVO myInfromationRequestVO);
+ 	
+ 	//해당 학원에 모든 플랫폼 관리자 불러오기.
+ 	public List<PltadmVO> selectAllPltadm(String insttnId);
 }

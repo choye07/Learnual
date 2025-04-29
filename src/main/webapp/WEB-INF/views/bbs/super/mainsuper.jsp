@@ -23,19 +23,19 @@
 			<div class="super-main-wrapper">
 				<div class="super-fn-area">
 					<div class="academy-manage-area">
-						<a class="btn-academy-manage btn" href="#">
+						<a class="btn-academy-manage btn" href="/sprad/learnual/insttnmanage">
 							<div class="icon-img">image</div>
 							<h2>학원 관리</h2>
 						</a>
 					</div>
 					<div class="academy-manager-manage-area">
-						<a class="btn-academy-manager-manage btn" href="#">
+						<a class="btn-academy-manager-manage btn" href="/sprad/learnual/pltadmanage">
 							<div class="icon-img">image</div>
 							<h2>학원 관리자 관리</h2>
 						</a>
 					</div>
 					<div class="menu-manage-area">
-						<a class="btn-menu-manage btn" href="#">
+						<a class="btn-menu-manage btn" href="/sprad/menumanage">
 							<div class="icon-img">image</div>
 							<h2>메뉴 관리</h2>
 						</a>

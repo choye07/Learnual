@@ -18,9 +18,6 @@
 			PLTADM_LGN_PW,
 			PLTADM_NM,
 			PLTADM_PN,
-			PLTADM_EMAIL,
-			PLTADM_BRT_DT,
-			PLTADM_ADRS,
 			PLTADM_RGST_DT,
 			PLTADM_UPDT_DT,
 			PLTADM_DEL_DT,
@@ -36,21 +33,18 @@
 			PLTADM_LGN_YN,
 			PLTADM_BLK_YN
 		) VALUES (
-			#{pltadmId},
+			#{pltadmId}, 
 			#{pltadmLgnId},
 			#{pltadmLgnPw},
 			#{pltadmNm},
-			#{pltadmPn},
-			#{pltadmEmail},
-			TO_DATE(#{pltadmBrtDt},'YYYY-MM-DD'),
-			#{pltadmAdrs},
+			#{pltadmPn}, 
 			SYSDATE
 			, NULL
 			, NULL
 			, 'N'
-			, #{insttnId}
-			, #{cmcdId}
-			, #{platadmLgnSlt}
+			, 'learnual' 
+			, '플랫폼 관리자' 
+			,#{platadmLgnSlt}
 			, NULL
 			, NULL
 			, NULL
@@ -179,5 +173,23 @@
 		WHERE PLTADM_LGN_ID = #{myiLgnId}
 </update>
 
+	<select id="selectAllPltad"
+			parameterType="string"
+			resultType="com.learn.bbs.pltad.vo.PltadmVO">
+				SELECT
+					PLTADM_LGN_ID,
+					PLTADM_LGN_PW,
+					PLTADM_NM,
+					PLTADM_PN,
+					PLTADM_EMAIL,
+					PLTADM_BRT_DT,
+					PLTADM_ADRS,
+					PLTADM_RGST_DT,
+					PLTADM_DEL_YN,
+					INSTTN_ID,
+					CMCD_ID
+				FROM PLTADM
+			   WHERE INSTTN_ID =#{_parameter}
+	</select>
 <!-- login 기능 mapper end sh  -->
 </mapper>
