@@ -928,7 +928,7 @@ $(document).ready(function () {
 				contentType: false,
 				processData: false,
 				success: function(result) {
-					console.log(result);
+					//TODO 나중에 reload빼기
 					location.reload();
 				},
 				error: function(xhr) {
@@ -946,10 +946,10 @@ $(document).ready(function () {
 	  1-1. input영역 미끄러져 내려오기 (toggle)
 	  1-2. 삭제 버튼 보이기
 	*/
-	$(".btn-todo-edit").on("click", function() {
+/*	$(".btn-todo-edit").on("click", function() {
 		$(".todo-edit-area").slideToggle(300); 
 		$(".todo-item-manage").toggleClass("on");
-	});
+	});*/
 
 	/*	// 일반 투두 추가
 		 2. input에 값을 적고 추가 버튼 클릭할 경우 todo-item append

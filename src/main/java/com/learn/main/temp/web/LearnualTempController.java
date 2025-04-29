@@ -56,9 +56,9 @@ public class LearnualTempController {
 		return "/insttn/maininsttn";
 	}
 	
-	@GetMapping("/test11")
-	public String viewTest11() {
-		return "bbs/super/managepltadwrite";
-	}
+	/*
+	 * @GetMapping("/test11") public String viewTest11() { return
+	 * "bbs/super/managepltadwrite"; }
+	 */
 	
 }
