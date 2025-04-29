@@ -39,9 +39,12 @@
 							</div>
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
-								<li class="menu-item on"><a id="dashboard-usr-information" href="">개인정보관리</a></li>
-								<li class="menu-item"><a href="/usr/${insttnId}/dashboard/courselist">나의 수강 목록</a></li>
-								<li class="menu-item"><a href="/dashboard/usr/resume">나의 이력서 목록</a></li>
+								<li class="menu-item on"><a id="dashboard-usr-information"
+									href="">개인정보관리</a></li>
+								<li class="menu-item"><a
+									href="/usr/${insttnId}/dashboard/courselist">나의 수강 목록</a></li>
+								<li class="menu-item"><a href="/dashboard/usr/resume">나의
+										이력서 목록</a></li>
 							</ul>
 						</div>
 
@@ -77,8 +80,8 @@
 											</div> -->
 											<div class="address-area">
 												<label for="address">주소</label> <input id="myiAdrs"
-													name="myiAdrs" type="text"
-													value="${inputEdit.myiAdrs}" required />
+													name="myiAdrs" type="text" value="${inputEdit.myiAdrs}"
+													required />
 											</div>
 											<div class="phone-area">
 												<label for="phone">전화번호</label> <input id="myiPn"
@@ -122,8 +125,14 @@
 							<div class="btn-area">
 								<div class="btn-req-attd">
 									<button class="btn" id=course-attd>출석 요청</button>
+								</div>
+								<div class="btn-req-out">
 									<button class="btn" id=course-out-status>외출</button>
+								</div>
+								<div class="btn-req-early">
 									<button class="btn" id=course-leave-early>조퇴</button>
+								</div>
+								<div class="btn-req-attd">
 									<button class="btn" id=course-absence>결석</button>
 								</div>
 							</div>

@@ -358,7 +358,6 @@ $(document).ready(function () {
   		        .then(data => {
   				console.log("date duqn : " + JSON.stringify(data));
   		            if (data.attdUsrCurrent) {
-  		                alert(`출석 상태: ${data.attdUsrCurrent}`);
 
   		                // 버튼 텍스트 변경
   		                button.textContent = data.attdUsrCurrent;
