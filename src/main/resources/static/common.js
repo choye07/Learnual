@@ -1538,7 +1538,7 @@ $(document).ready(function () {
   	// 로그인 상태에 따른 URL 변경
   	if (spradInsttnId && !insttnId && !crsinfId) {
   		url = "/" + spradInsttnId + url;
-  		alert(url);
+  		/*alert(url);*/
   	}
 
 
