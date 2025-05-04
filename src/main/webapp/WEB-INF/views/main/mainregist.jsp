@@ -11,6 +11,7 @@
 <title>러뉴얼 회원가입</title>
 <link rel="stylesheet" href="/css/common.css" type="text/css" />
 <script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/js/common.js" type="text/javascript"></script>
 </head>
 
@@ -91,6 +92,7 @@
 					<div class="address-area">
 						<label for="address">주소</label> <input id="usrAdrs" name="usrAdrs"
 							type="text" value="${userInputRegist.usrAdrs}" required />
+							<button type="button" id="daumPostcode" class="btn2 btn-address-search">주소 검색</button>
 						 <form:errors path="usrAdrs" element="div" cssClass="error" />
 					</div>
 					<div class="phone-area">
