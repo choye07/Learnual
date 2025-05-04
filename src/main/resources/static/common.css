@@ -484,6 +484,8 @@ label {
   #learnual-notice-form {
     .ntcPinnedYn-area {
       justify-content: flex-end;
+      label {
+      width: auto;}
     }
   }
 
@@ -494,9 +496,13 @@ label {
   }
 
   .board-body {
+  		.board-list-top {
+			grid-template-columns: 3fr 1fr 1fr;
+		}
     .board-list-wrapper {
       li {
         a {
+        	grid-template-columns: 3fr 1fr 1fr;
           > div {
             display: flex;
             align-items: center;
@@ -528,6 +534,24 @@ label {
 }
 /* ======================================== */
 /* 공지사항 게시판 custom css */
+.board.notice.learnual-notice {
+	button {
+		background-color: var(--manager-color);
+		&:hover {
+		background-color: var(--manager-medium-color);
+		}
+	}
+	
+	#learnual-notice-form {
+		.form-group.writer-area {
+			input {
+				pointer-events: none;
+				border: 0;
+			}
+		}
+	}
+}
+
 .board.notice.insttn-notice {
   .board-header {
     border-bottom: 3px solid var(--insttn-color);
@@ -3023,8 +3047,14 @@ label {
         /* 학원 검색 section */
         .search-section {
           /* display: none; */
-
+			.empty-search-result {
+				text-align: center;
+				color: #ccc;
+				padding: 2rem 0;
+			}
           .search-area {
+			position: relative;
+			
             .search-form {
               display: flex;
               gap: 0.625rem;
@@ -3037,9 +3067,10 @@ label {
               }
 
               .search-input-area {
-                display: block;
                 width: 70%;
                 padding: 1.25rem 0;
+                display: flex;
+                gap: 0.625rem;
 
                 input {
                   width: 100%;
@@ -3048,6 +3079,18 @@ label {
                   border: 1px solid #ccc;
                   font-size: 1rem;
                   text-indent: 1rem;
+                }
+                
+                #select-search-cat {
+                	font-size: 1.1rem;
+                	padding: 0.325rem;
+                	border: 1px solid #ccc;
+                	border-radius: 0.625rem;
+                	
+                	option {
+                		font-size: 1.1rem;
+                		padding: 0.325rem;
+                	}
                 }
               }
 
@@ -5050,4 +5093,106 @@ student class추가 시 테마 변경 css (학생 전용) */
   }
 }
 /* 0429 예진 파트 end */
+
+/* 0504 휘원 start */
+/* 공지사항 접근 불가 권한 시 보이는 컨테이너 css */
+.access-denied-container {
+  min-height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.3rem;
+} 
+
+.access-denied-container.learnual {
+  .btn {
+    background-color: var(--manager-color);
+  }
+} 
+
+.login-status-wrapper {
+	ul {
+		display: flex;
+		justify-content: flex-end;
+		gap: 1rem;
+		& li {
+			padding: 1.25rem 0;
+			.btn-logout {
+			padding: 0.625rem;
+			color: #ccc;
+			
+			&:hover {
+				background-color: #eee;
+				color: #aaa;
+			}
+			}
+		}
+	}
+
+}
+
+/* 러뉴얼 메인화면 로그인 정보 섹션 */
+.login-status-section {
+	position: relative;
+	
+	.logout-area {
+		position: absolute;
+		top: 0.325rem;
+		right: 0.325rem;
+		a {
+			display: block;
+			padding: 0.625rem;
+			color: #ccc;
+			
+			&:hover {
+				background-color: #eee;
+				color: #aaa;
+			}
+		}
+	}
+
+	.lgn-info-area {
+		margin-top: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem;
+		
+		.data-area {
+			
+			& span {
+				font-weight: 700;
+				font-size: 1.3rem;
+			}
+		}
+		
+		.badge-lgn-info {
+			position: absolute;
+			top: 0;
+			left: 0;
+			text-indent: 1rem;
+			color: #fff;
+			padding: 0.625rem;
+			padding-right: 4rem;
+			clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
+			
+			&.spradm {
+				background: var(--full-gradient-background);
+			}
+			&.pltadm {
+				background: var(--manager-color);
+			}
+			&.instr {
+				background: var(--tutor-color);
+			}
+			&.usr {
+				background: var(--student-color);
+			}
+		}
+	}
+}
+
+
+/* 0504 휘원 end */
 /* ==================================== */

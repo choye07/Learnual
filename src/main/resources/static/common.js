@@ -28,6 +28,9 @@ $(document).ready(function () {
 	
 	
   /* ================================ */
+  /* 휘원 0504 추가한 부분 start */
+  /* 휘원 0504 추가한 부분 end */
+  
   /* 휘원 0418 추가한 부분 start */
   /* 메인 이벤트 start */
   // 메인 화면이 로드될 때 러뉴얼 공지사항 API 호출
@@ -95,7 +98,7 @@ $(document).ready(function () {
         .closest("#learnual-notice-form")
         .attr({
           method: "POST",
-          action: "/ntc/write", // 경로 변경될 수 있음
+          action: "/learnual/ntc/write", // 경로 변경될 수 있음
         })
         .submit();
     });
@@ -1682,3 +1685,4 @@ $("#pltad-regist").on("click",function(){
 });
 
 });
+
