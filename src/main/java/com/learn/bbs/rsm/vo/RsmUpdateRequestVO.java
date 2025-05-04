@@ -1,7 +1,5 @@
 package com.learn.bbs.rsm.vo;
 
-import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -25,6 +23,17 @@ public class RsmUpdateRequestVO {
 
 	// 삭제할 기존 파일 ID - 유지할 파일을 서버에게 알려주기 위해 필요함
 	private String deleteFileId;
+
+	// 학원 아이디
+	private String InsttnId;
+
+	public String getInsttnId() {
+		return InsttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		InsttnId = insttnId;
+	}
 
 	public String getRsmId() {
 		return rsmId;
@@ -73,6 +82,5 @@ public class RsmUpdateRequestVO {
 	public void setDeleteFileId(String deleteFileId) {
 		this.deleteFileId = deleteFileId;
 	}
-	
 
 }

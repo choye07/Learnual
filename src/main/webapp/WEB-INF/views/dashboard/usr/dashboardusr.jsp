@@ -43,7 +43,7 @@
 									href="">개인정보관리</a></li>
 								<li class="menu-item"><a
 									href="/usr/${insttnId}/dashboard/courselist">나의 수강 목록</a></li>
-								<li class="menu-item"><a href="/dashboard/usr/resume">나의
+								<li class="menu-item"><a href="/usr/${insttnId}/dashboard/rsm/list">나의
 										이력서 목록</a></li>
 							</ul>
 						</div>

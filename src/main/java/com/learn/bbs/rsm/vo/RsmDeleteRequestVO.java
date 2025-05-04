@@ -9,9 +9,20 @@ public class RsmDeleteRequestVO {
 
 	// 회원 아이디 = 회원 세션 아이디 usrMl;
 	private String usrId;
-	
+
 	// 삭제할 이력서 첨부파일
 	private FlVO file;
+
+	// 학원 아이디
+	private String InsttnId;
+
+	public String getInsttnId() {
+		return InsttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		InsttnId = insttnId;
+	}
 
 	public String getRsmId() {
 		return rsmId;

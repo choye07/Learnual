@@ -58,7 +58,7 @@
 						<h1>자료실 게시판</h1>
 						<div class="board-toolbox">
 							<div class="btn-goHome">
-								<a href="#">홈으로</a>
+								<a href="/eduad/INSTTN-20250424-000001/CRS_INF-20250420-000003/course">홈으로</a>
 							</div>
 							<div class="btn-add-notice">
 								<a id="dashboard-common-flarch" 

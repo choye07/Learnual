@@ -11,15 +11,12 @@
 		, FL_NM
 		, FL_OBFS_NM
 		, FL_OBFS_PTH
-		,
-		FL_SZ
+		, FL_SZ
 		, FL_RGST_DT
 		, FL_UPDT_DT
 		, FL_DEL_DT
 		, FL_DEL_YN
-		, FL_TYPE_NM
-		,
-		ARTC_ID
+		, ARTC_ID
 		, ID)
 		VALUES('FL-' ||
 		TO_CHAR(SYSDATE, 'YYYYMMDD') || '-'
@@ -33,8 +30,7 @@
 		, ''
 		, ''
 		, 'N'
-		, #{flTypeNm}
-		, '게시판아이디'
+		, #{artcId}
 		, #{id})
 	</insert>
 
@@ -93,12 +89,10 @@
 		UPDATE FL
 		SET FL_NM = #{flNm}
 		, FL_OBFS_NM = #{flObfsNm}
-		,
-		FL_OBFS_PTH = #{flObfsPth}
+		, FL_OBFS_PTH = #{flObfsPth}
 		, FL_SZ = #{flSz}
 		, FL_UPDT_DT = SYSDATE
 		WHERE FL_ID = #{flId}
-		AND ID
-		= #{id}
+		AND ID = #{id}
 	</update>
 </mapper>

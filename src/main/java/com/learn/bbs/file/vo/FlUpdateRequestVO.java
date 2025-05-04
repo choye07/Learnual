@@ -38,13 +38,6 @@ public class FlUpdateRequestVO {
     private long flSz;
     
     /**
-     * @ColumnName FL_TYPE_NM
-     * @ColumnType VARCHAR2(5)
-     * @ColumnComment 파일 확장자명(기존 확장자)
-     */
-    private String flTypeNm;
-
-    /**
      * @ColumnName ARTC_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 게시판을 구분할 고유한 문자열
@@ -96,14 +89,6 @@ public class FlUpdateRequestVO {
 
 	public void setFlSz(long flSz) {
 		this.flSz = flSz;
-	}
-
-	public String getFlTypeNm() {
-		return flTypeNm;
-	}
-
-	public void setFlTypeNm(String flTypeNm) {
-		this.flTypeNm = flTypeNm;
 	}
 
 	public String getArtcId() {

@@ -13,6 +13,17 @@ public class RsmSearchRequestVO extends Search {
 	// 회원 아이디 = 회원 세션 아이디 usrMl;
 	private String usrId;
 
+	// 학원 아이디
+	private String InsttnId;
+
+	public String getInsttnId() {
+		return InsttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		InsttnId = insttnId;
+	}
+
 	public String getRsmTtl() {
 		return rsmTtl;
 	}

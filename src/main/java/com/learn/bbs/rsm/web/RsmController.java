@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.learn.bbs.rsm.service.RsmService;
 import com.learn.bbs.rsm.vo.RsmListVO;
 import com.learn.bbs.rsm.vo.RsmSearchRequestVO;
+import com.learn.bbs.usr.vo.UsrVO;
 
 @Controller
 public class RsmController {
@@ -16,16 +19,17 @@ public class RsmController {
 	private RsmService rsmService;
 	
 	// 이력서 목록 조회
-		@GetMapping("/mypageinfo/rsm/list")
-		public String viewMyRsmList(Model model, RsmSearchRequestVO rsmSearchRequestVO) {
-	// TODO 마이페이지가 안열려서 세션값으로 아직 못한다.					, HttpSession session) {
+		@GetMapping("/usr/{insttnId}/dashboard/rsm/list")
+		public String viewMyRsmList(@PathVariable String insttnId, 
+				                    RsmSearchRequestVO rsmSearchRequestVO,
+				                    Model model,
+				                    @SessionAttribute("__LOGIN_USER__") UsrVO usrVO) {
 
 			// 회원의 정보를 Session 에서 가져온다. (__LOGIN_USER__) => UsrVO
-//	   	 	UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
 
 			// 세션에서 회원 아이디를 가져온다.
-//	   	 	rsmSearchRequestVO.setUsrMl(usrVO.getUsrMl());
-			rsmSearchRequestVO.setUsrId("회원 세션 테스트 아이디");
+	   	 	rsmSearchRequestVO.setInsttnId(usrVO.getInsttnId());
+	   	 	rsmSearchRequestVO.setUsrId(usrVO.getUsrMl());
 
 			// 이력서를 가져온다.
 			RsmListVO rsmListVO = this.rsmService.getAllRsm(rsmSearchRequestVO);
@@ -33,7 +37,7 @@ public class RsmController {
 
 			// 총 페이지의 수, 현재 페이지 번호를 알 수 있는 flArchSearchRequestVO를 model에 넣어서 알려줌.
 			model.addAttribute("pagination", rsmSearchRequestVO);
-			return "bbs/rsm/rsmboardlistusr";
+			return "dashboard/usr/rsm/dashboardusrmyresumelist";
 		}
 
 }

@@ -74,8 +74,6 @@
 		, FL_ARCH_TTL
 		, FL_ARCH_CTT
 		, FL_ARCH_VIEW_CNT
-		, FL_ARCH_ORG_TYPE
-		, FL_ARCH_MDFY_TYPE
 		, FL_ARCH_RGST_DT
 		, FL_ARCH_UPDT_DT
 		, FL_ARCH_DEL_DT
@@ -89,8 +87,6 @@
 		, #{flArchTtl}
 		, #{flArchCtt}
 		, 0
-		, ''
-		, ''
 		, SYSDATE
 		, ''
 		, ''
