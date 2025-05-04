@@ -559,6 +559,39 @@ $(document).ready(function () {
   				    window.location.href = `/eduad/${eduadDashBoardInsttnId}/dashboard`; 
   				});
   				/* 강사 대시보드(강사)에서 개인정보관리 버튼 클릭시 개인정보 관리 페이지 보여주는 event end  */
+				
+		
+				/* 다음 도로명 주소 api 이벤트 적용 start */
+				$('#daumPostcode').on('click', function () {
+				    new daum.Postcode({
+				      oncomplete: function (data) {
+				        var roadAddr = data.roadAddress; // 도로명 주소
+				        var jibunAddr = data.jibunAddress; // 지번 주소
+				        var extraAddr = '';
+
+				        // 상세 주소 추가
+				        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+				          extraAddr += data.bname;
+				        }
+				        if (data.buildingName !== '' && data.apartment === 'Y') {
+				          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				        }
+				        if (extraAddr !== '') {
+				          extraAddr = ' (' + extraAddr + ')';
+				        }
+
+				        // 전체 주소
+				        var fullAddr = roadAddr !== '' ? roadAddr : jibunAddr;
+				        fullAddr += extraAddr;
+
+				        // jQuery로 값 설정
+				        $('#usrAdrs').val(fullAddr);
+				      },
+				    }).open();
+				  });
+				  /* 다음 도로명 주소 api 이벤트 적용 end */
+
+				
             // 소희 Part end ----------------------------------
 
   /* ================================= */
