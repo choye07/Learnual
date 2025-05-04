@@ -56,8 +56,9 @@
 						class="flarch-write-form" enctype="multipart/form-data">
 
 						<div class="author-area form-group">
-							<label for="author">작성자</label> <input type="text" id="author"
-								name="instrId" value="${flArchWriteRequestVO.instrId}" required />
+							<label for="author">작성자</label> 
+							<div id="author">${sessionScope.__LOGIN_INSTR__.instrNm}</div>
+							<input type="hidden" name="author" value="${sessionScope.__LOGIN_INSTR__.instrNm}" />
 						</div>
 						<div class="title-area form-group">
 							<label for="title">제목</label> <input type="text" id="title"
@@ -70,7 +71,8 @@
 							<div class="file-container">
 								<div class="file-item">
 									<input type="file" id="file" name="flList" />
-									<button type="button" class="btn-file-remove btn">x</button>
+									<button type="button" class="btn-file-add btn">+</button>
+									<button type="button" class="btn-file-remove btn">-</button>
 								</div>
 							</div>
 						</div>
@@ -101,8 +103,9 @@
 	<!-- 파일 아이템 추가를 위한 템플릿 생성 -->
 	<template id="flarch-file-item-template">
 		<div class="file-item">
-			<input type="file" id="file" name="files" />
-			<button type="button" class="btn-file-remove btn">x</button>
+			<input type="file" id="file" name="flList" />
+			<button type="button" class="btn-file-add btn">+</button>
+			<button type="button" class="btn-file-remove btn">-</button>
 		</div>
 	</template>
 </body>

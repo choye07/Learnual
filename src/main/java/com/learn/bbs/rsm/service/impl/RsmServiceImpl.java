@@ -71,7 +71,7 @@ public class RsmServiceImpl implements RsmService {
 					flVO.setFlObfsNm(storedFile.getRealFileName());
 					flVO.setFlObfsPth(storedFile.getRealFilePath());
 					flVO.setFlSz(storedFile.getFileSize());
-					flVO.setFlTypeNm(storedFile.getFileType());
+					flVO.setArtcId(rsmWriteRequestVO.getArtcId());
 					// 데이터 베이스에 파일 테이블에 파일 정보를 저장한다
 					this.flDao.insertNewFile(flVO);
 				}
@@ -135,7 +135,7 @@ public class RsmServiceImpl implements RsmService {
 					flVO.setFlObfsNm(storedFile.getRealFileName());
 					flVO.setFlObfsPth(storedFile.getRealFilePath());
 					flVO.setFlSz(storedFile.getFileSize());
-					flVO.setFlTypeNm(storedFile.getFileType());
+					flVO.setArtcId(rsmUpdateRequestVO.getArtcId());
 					// 데이터 베이스에 파일 테이블에 파일 정보를 저장한다
 					this.flDao.insertNewFile(flVO);
 				}

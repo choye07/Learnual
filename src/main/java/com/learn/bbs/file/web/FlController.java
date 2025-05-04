@@ -35,7 +35,7 @@ public class FlController {
     @Autowired
     private FlService flService;
     
-    @GetMapping("/eduad/file/{id}/{flId}")
+    @GetMapping("/file/{id}/{flId}")
     public ResponseEntity<Resource> doDownloadFile(@PathVariable String id, @PathVariable String flId) {
     	
     	// 다운로드 요청한 파일 정보를 담는 fileDownloadRequestVO를 만든다.

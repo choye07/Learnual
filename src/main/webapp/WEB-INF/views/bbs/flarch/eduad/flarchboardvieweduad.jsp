@@ -77,7 +77,7 @@
 					<label>작성날짜</label>
 					<div>${flArchVO.flArchRgstDt}</div>
 					<label>이메일</label>
-					<div>instr@learnual.com</div>
+					<div id="email">${sessionScope.__LOGIN_INSTR__.instrMl}</div>
 					<label>조회수</label>
 					<div>${flArchVO.flArchViewCnt}</div>
 					<label>제목</label>
@@ -94,7 +94,7 @@
 							<c:otherwise>
 								<c:forEach items="${flArchVO.flList}" var="file">
 									<div>
-										<a href="/eduad/file/${flArchVO.flArchId}/${file.flId}">
+										<a href="/file/${flArchVO.flArchId}/${file.flId}">
 											${file.flNm}</a>
 									</div>
 								</c:forEach>

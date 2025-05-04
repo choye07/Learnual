@@ -1,9 +1,5 @@
 package com.learn.bbs.eduad.todo.vo;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import jakarta.validation.constraints.NotEmpty;
-
 public class TodoWriteRequestVO {
 
     private String todoId;
@@ -16,10 +12,7 @@ public class TodoWriteRequestVO {
     
     private String artcId;
     
-    // 업로드한 강의 계획서 파일
-    private MultipartFile file;
     
-
 	public String getTodoId() {
 		return todoId;
 	}
@@ -59,14 +52,5 @@ public class TodoWriteRequestVO {
 	public void setArtcId(String artcId) {
 		this.artcId = artcId;
 	}
-
-	public MultipartFile getFile() {
-		return file;
-	}
-
-	public void setFile(MultipartFile file) {
-		this.file = file;
-	}
-
 
 }

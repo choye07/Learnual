@@ -3,11 +3,10 @@ package com.learn.bbs.eduad.todo.service;
 
 
 import com.learn.bbs.eduad.todo.vo.TodoDeleteRequestVO;
+import com.learn.bbs.eduad.todo.vo.TodoFileVO;
 import com.learn.bbs.eduad.todo.vo.TodoListVO;
 import com.learn.bbs.eduad.todo.vo.TodoUpdateRequestVO;
-import com.learn.bbs.eduad.todo.vo.TodoVO;
 import com.learn.bbs.eduad.todo.vo.TodoWriteRequestVO;
-import com.learn.bbs.file.vo.FlVO;
 
 public interface TodoService {
 	
@@ -16,7 +15,7 @@ public interface TodoService {
 		public TodoListVO getAllMyTodo(String lgnId);
 		
 		// 강좌에 올라갈 학습목표이자 강사의 모든 강좌 투두를 추가
-		public boolean createNewTodoByFile(TodoWriteRequestVO todoWriteRequestVO);
+		public boolean createNewTodoByFile(TodoFileVO todoFileVO);
 		
 		// 투두 추가
 		public boolean createNewTodo(TodoWriteRequestVO todoWriteRequestVO);

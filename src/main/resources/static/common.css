@@ -691,13 +691,20 @@ label {
             display: flex;
             align-items: center;
             gap: 0.3rem;
+           
+           input[type='file'] {
+ 			 flex: 1;
+			}
             /* border: 1px solid green; */
+            > .btn-file-add,
             > .btn-file-remove {
-              background-color: #aaa;
+              background-color: var(--course-color);
               padding: 0.5rem 0.8rem;
+               width: 2.5rem;
+  			   text-align: center;
 
               &:hover {
-                background-color: #ccc;
+                background-color: var(--course-color);
               }
             }
           }
@@ -765,17 +772,36 @@ label {
           display: flex;
           flex-direction: column;
           gap: 0.35rem;
+
           .file-item {
             display: flex;
             align-items: center;
             gap: 0.3rem;
-            /* border: 1px solid green; */
+
+            input[type='file'] {
+              flex: 1;
+            }
+
             > .btn-file-remove {
               background-color: #aaa;
               padding: 0.5rem 0.8rem;
+              width: 2.5rem;
+              text-align: center;
 
               &:hover {
                 background-color: #ccc;
+              }
+            }
+
+            > .btn-file-add,
+             > .btn-file-remove {
+              background-color: var(--course-color);
+              padding: 0.5rem 0.8rem;
+              width: 2.5rem;
+              text-align: center;
+
+              &:hover {
+                background-color: var(--course-color);
               }
             }
           }
@@ -783,6 +809,7 @@ label {
       }
     }
   }
+
   .btn-area {
     display: flex;
     justify-content: flex-end;
@@ -794,13 +821,25 @@ label {
     }
   }
 }
+
 /* 자료실 게시판 목록보기 css end */
 /* ---------------------------------- */
 /* 이력서 게시판 custom css */
 .board.rsm-board {
   box-shadow: none;
+
+  .board-header {
+    .board-toolbox {
+      .btn-write {
+        .btn-rsm-regist {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  /* 이력서 게시판 목록보기 css start */
   .board-body {
-    /* 이력서 게시판 목록보기 css start */
     .board-list-top {
       grid-template-columns: 3fr 2fr;
     }
@@ -830,14 +869,19 @@ label {
             justify-content: center;
             align-items: center;
             gap: 0.5rem;
-            > a {
+
+            > a,
+  			> button {
               display: inline-block;
+              width: 5rem;
+              height: 2.5rem;
+              line-height: 2.5rem;
+              text-align: center;
               font-size: 0.85rem;
               color: #eee;
               background: var(--student-color);
               border-radius: 0.625rem;
-              padding: 0.5rem 0.8rem;
-              width: 5rem;
+              padding: 0;
 
               &:hover {
                 background: var(--student-medium-color);
@@ -848,38 +892,83 @@ label {
         }
       }
     }
-    /* 이력서 게시판 목록보기 css end */
   }
 }
+  /* 이력서 게시판 목록보기 css end */
 
-/* 이력서 게시판 작성,수정 css start */
-.board.rsm-board.write,
-.board.rsm-board.edit {
+
+/* 이력서 게시판 작성 css start */
+.board.rsm-board {
   .board-body {
-    .board-wrapper {
-      #rsm-form {
-        .form-group {
-          label {
-            width: 8rem;
-          }
+    .board-list-wrapper {
+      .rsm-write-form {
+        margin: 1rem 0;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        background: #fff;
 
-          /* 작성자는 세션으로 받아오기 때문에 input 수정 불가 적용 */
-          &.writer-area {
-            input {
-              pointer-events: none;
-              border: 0;
+        .form-group {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+
+          label {
+            width: 6rem;
+            font-weight: bold;
+          }
+         
+          .file-container {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+
+            .file-item {
+              display: flex;
+              align-items: center;
+              gap: 0.3rem;
+
+              input[type='file'] { 
+                flex: 1;  
+                width: 40rem;
+              }
+
+              > .btn-rsm-remove {
+                background-color: #aaa;
+                padding: 0.5rem 0.8rem;
+                width: 2.5rem;
+                text-align: center;
+
+                &:hover {
+                  background: #ccc;
+                }
+              }
             }
           }
         }
 
-        .btn-area {
-          justify-content: flex-start;
+        .form-submit {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 1rem;
+
+          button[type="submit"] {
+            padding: 0.5rem 1rem;
+            background: var(--student-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 12rem;
+            
+            &:hover {
+              background: var(--student-medium-color);
+            }
+          }
         }
       }
     }
   }
 }
-/* 이력서 게시판 작성,수정 css end */
+/* 이력서 게시판 작성 css end */
 
 /* ---------------------------------- */
 /* 상담요청 게시판 custom css */

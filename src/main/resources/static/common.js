@@ -592,8 +592,7 @@ $(document).ready(function () {
 				  /* 다음 도로명 주소 api 이벤트 적용 end */
 
 				
-            // 소희 Part end ----------------------------------
-
+// 소희 Part end ----------------------------------
   /* ================================= */
   /* 0419 유진 파트 start */
    /* 자료실 게시판 - 게시글 생성 이벤트 start */
@@ -624,7 +623,7 @@ $(document).ready(function () {
 
    $("form.flarch-write-form, form.flarch-modify-form")
      .find(".file-container")
-     .on("change", "input[type='file']", function () {
+     .on("click", ".btn-file-add", function () {
        var $form = $(this).closest("form");
 
        var maxFiles = 4;
@@ -632,7 +631,31 @@ $(document).ready(function () {
        // 현재까지 실제로 선택된 파일 input 개수
        var totalFilesCount = getValidFileInputCount($form);
 
-       if (this.files.length === 0) {
+	   // 파일이 선택되지 않았을 경우 아무것도 하지 않음
+	       var fileInput = $(this).closest('.file-item').find('input[type="file"]')[0];
+	       if (fileInput && fileInput.files && fileInput.files.length === 0) {
+	         return;
+	       }
+
+	       // 첨부 파일이 4개를 초과할 경우 경고
+	       if (totalFilesCount >= maxFiles) {
+	         alert("파일은 최대 4개까지만 첨부할 수 있습니다.");
+	         return;
+	       }
+
+	       // "빈 input"이 하나라도 있으면 append 하지 않도록 수정 (중복 방지 핵심)
+	       var hasEmptyInput =
+	         $form.find(".file-container input[type='file']").filter(function () {
+	           return !this.files || this.files.length === 0;
+	         }).length > 0;
+
+	       // append는 조건 만족할 때만 하도록 제한
+	       if (!hasEmptyInput && totalFilesCount < maxFiles) {
+	         var newItemDom = $($("#flarch-file-item-template").html());
+	         $form.find(".file-container").append(newItemDom);
+	       }
+		   
+      /* if (this.files.length === 0) {
          // 파일을 선택하지 않았으면 아무것도 하지 않음
          return;
        }
@@ -652,15 +675,13 @@ $(document).ready(function () {
        if (!hasEmptyInput && totalFilesCount < maxFiles) {
          var newItemDom = $($("#flarch-file-item-template").html());
          $form.find(".file-container").append(newItemDom);
-       }
+       }*/
      });
 
    // 3. 파일 삭제 처리 - 동적으로 추가된 파일에 대해 위임 방식으로 이벤트 처리
    // - 수정 페이지에서 동일한 파일 관련 이벤트
    $("form.flarch-write-form, form.flarch-modify-form").on(
-     "click",
-     ".btn-file-remove",
-     function () {
+     "click", ".btn-file-remove", function () {
        var $form = $(this).closest("form");
        var maxFiles = 4;
 
@@ -723,7 +744,6 @@ $(document).ready(function () {
    $("form.flarch-modify-form")
      .find(".btn-flarch-submit")
      .on("click", function () {
-       console.log("수정완료 클릭");
 
        // 유효성 검사
        var invalidInputs = $("input:invalid,textarea:invalid");
@@ -734,7 +754,6 @@ $(document).ready(function () {
        var flArchId = $("form.flarch-modify-form")
          .find("input[name='flArchId']")
          .val();
-       console.log(flArchId);
 
        // 삭제할 파일 정보가 있는지 확인하고, 없는 경우 deleteFileIds hidden input을 제거
        var deleteFileIds = $("input[name='deleteFileIds']").length;
@@ -757,14 +776,17 @@ $(document).ready(function () {
   	/* 이력서 관리 게시판 - 게시글 생성 이벤트 start */
   	// 이력서 목록 조회
   	function loadRsmList() {
+		var insttnId = $(".board-list-wrapper").data("insttn-id");
+		
   		$.ajax({
-  			url: "/mypageinfo/rsm/ajax/list", // 목록 조회 API
+  			url: `/usr/${insttnId}/dashboard/ajax/rsm/list`, // 목록 조회 API
   			method: "GET",
   			success: function(data) {
   				var list = data.data.rsmList; // AjaxResponse로 감싸져 있어서 내부 구조 접근
   				var $container = $(".board-list-wrapper"); // 이력서 목록 영역
-  				location.reload();
-
+  				
+				location.reload();
+				//$container.find("li").remove(); // 기존 목록 제거
 
   				// 새 목록 append
   				list.forEach(rsm => {
@@ -775,7 +797,7 @@ $(document).ready(function () {
     							<span class="rsm-content-time">${rsm.rsmRgstDt}</span>
     							</div>
     							<div class="rsm-manage-area">
-    								<a href="/eduad/file/${rsm.rsmId}/${rsm.file.flId}">다운로드</a>
+    								<a href="/file/${rsm.rsmId}/${rsm.file.flId}">다운로드</a>
     							<button type="button" class="btn-file-remove btn"
     								onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
     							</div>
@@ -786,6 +808,7 @@ $(document).ready(function () {
   			}
   		});
   	}
+	
   	// 글 작성 이벤트 
   	$(".rsm-board").on("click", ".btn-rsm-regist", function() {
 
@@ -794,10 +817,8 @@ $(document).ready(function () {
   			alert("이미 작성 중인 이력서 폼이 있습니다.");
   			return;
   		}
-
   		var $template = $(".rsm-form-container"); // DOM 선택
   		var $formContent = $($template.prop("content")).clone(); // 템플릿 복제 
-
   		// 폼 이벤트 바인딩
   		$formContent.find("form.rsm-write-form").on("submit", function(e) {
   			e.preventDefault();
@@ -805,9 +826,10 @@ $(document).ready(function () {
   			// 여기에 파일을 직접 넣어줘야한다.
   			var inputFile = $("input[name='file']")[0]; // DOM Element
   			formData.append("file", inputFile.files[0]); // 실제 파일 객체
-
+			
+			var insttnId = $(".board-list-wrapper").data("insttn-id");
   			$.ajax({
-  				url: "/mypageinfo/rsm/write",
+  				url: `/usr/${insttnId}/dashboard/rsm/write`,
   				method: "POST",
   				data: formData,
   				processData: false,
@@ -831,21 +853,29 @@ $(document).ready(function () {
   		// 등록 폼 추가
   		$(".board-list-wrapper").append($formContent);
   	});
+	
+	// 글 작성 중 파일 다시 선택할 수 있도록 처리
+	$(".rsm-board").on("click", ".btn-rsm-remove", function () {
+		console.log($(".btn-rsm-remove").length);
+	    var $form = $(this).closest(".rsm-write-form");
 
+	    // 파일 input 값 리셋
+	    $form.find('input[type="file"]').val("");
+	});
   	// 이력서 등록 이벤트 끝
 
   	// 이력서 삭제 이벤트 시작
   	$(".rsm-body").on("click", ".btn-file-remove", function() {
   		if (!confirm("정말 삭제하시겠습니까?")) return;
 
+		var insttnId = $(".board-list-wrapper").data("insttn-id");
   		var rsmId = $(this).closest("li").data("rsm-id");
 
   		$.ajax({
-  			url: `/mypageinfo/rsm/delete/${rsmId}`,
+  			url: `/usr/${insttnId}/dashboard/rsm/delete/${rsmId}`,
   			method: "GET",
   			success: function() {
   				alert("삭제되었습니다.");
-  				console.log("불러온 리스트:", data);
   				location.reload();
   			},
   			error: function() {
@@ -1055,9 +1085,6 @@ $(document).ready(function () {
 	/* 0419 유진 파트 end */
 	/* ================================= */
 
-
-	/* 0419 유진 파트 end */
-	/* ================================= */
 
   /* 강준식 기능들 */
   /* ------------강준식----------------- */

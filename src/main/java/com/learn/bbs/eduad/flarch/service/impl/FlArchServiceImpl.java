@@ -19,9 +19,7 @@ import com.learn.bbs.eduad.flarch.vo.FlArchUpdateRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchWriteRequestVO;
 import com.learn.bbs.file.dao.FlDao;
-import com.learn.bbs.file.dao.FlTypeDao;
 import com.learn.bbs.file.vo.FlDeleteRequestVO;
-import com.learn.bbs.file.vo.FlTypeVO;
 import com.learn.bbs.file.vo.FlVO;
 import com.learn.beans.FileHandler;
 import com.learn.beans.FileHandler.StoredFile;
@@ -39,8 +37,6 @@ public class FlArchServiceImpl implements FlArchService {
 	private FileHandler fileHandler;
 	@Autowired
 	private FlDao flDao;
-	@Autowired
-	private FlTypeDao flTypeDao;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -76,18 +72,19 @@ public class FlArchServiceImpl implements FlArchService {
 
 					if (storedFile != null) {
 						FlVO flVO = new FlVO();
-						flVO.setId(flArchWriteRequestVO.getFlArchId());  // 이 값이 이제 null이 아님!
 						flVO.setFlNm(storedFile.getFileName());
 						flVO.setFlObfsNm(storedFile.getRealFileName());
 						flVO.setFlObfsPth(storedFile.getRealFilePath());
 						flVO.setFlSz(storedFile.getFileSize());
-						flVO.setFlTypeNm(storedFile.getFileType());
+						flVO.setArtcId(flArchWriteRequestVO.getArtcId());
+						flVO.setId(flArchWriteRequestVO.getFlArchId());
 						// 데이터 베이스에 파일 테이블에 파일 정보를 저장한다
 						this.flDao.insertNewFile(flVO);
 					}
 				}
 			} else {
-				flArchWriteRequestVO.setFlList(new ArrayList<>()); // 선택 사항
+				// 첨부파일이 없는 게시글인 경우
+				flArchWriteRequestVO.setFlList(new ArrayList<>());
 			}
 		}
 
@@ -97,9 +94,6 @@ public class FlArchServiceImpl implements FlArchService {
 	@Transactional
 	@Override
 	public FlArchVO getOneFlArchBoard(String flArchId, boolean isIncrease) {
-		
-		System.out.println("서비스");
-		System.out.println("flArchId: " + flArchId);
 		
 		if (isIncrease) {
 			// 조회하려는 게시글의 조회수를 증가시킨다.
@@ -119,27 +113,9 @@ public class FlArchServiceImpl implements FlArchService {
 		
 		// 첨부파일이 없는 게시글인 경우 
 		// flList가 null이 아니라 빈 리스트라도 들어가도록 유효성 처리
-		// 파일 정보가 아예 조회되지 않음 = null 상태로 남음 = 예외 처리 구간에서 문제가 됨.
 		List<FlVO> fileList = this.flDao.selectFilesById(flArchId);
 		flArchVO.setFlList(fileList != null ? fileList : new ArrayList<>());
 
-		// 파일 확장자 변환 기능 - 추후에 추가하는 기능
-//		if (flArchVO != null && flArchVO.getFlList() != null) {
-//			for (FlVO file : flArchVO.getFlList()) {
-//				// 예: ".hwp", ".docx" 등에서 확장자만 뽑거나 가공
-//				String fileExt = file.getFlTypeNm();
-//
-//				// FL_TYPE 테이블에 존재하는 변환 가능한 확장자를 조회한다.
-//				List<String> convertibleTypeNm = new ArrayList<>();
-//				List<FlTypeVO> convertibleTypes = this.flTypeDao.selectFlMdfyTypes(fileExt);
-//				for (FlTypeVO fltypeVO : convertibleTypes) {
-//					convertibleTypeNm.add(fltypeVO.getFlMdfyType());
-//				}
-//
-//				// 뷰로 드롭박스에서 확장자 선택을 받아온다 -> Controller에서 model 받아야함
-//				
-//			}
-//		}
 		// 게시글 반환.
 		return flArchVO;
 	}
@@ -201,18 +177,17 @@ public class FlArchServiceImpl implements FlArchService {
 
 	            if (storedFile != null) {
 	                FlVO flVO = new FlVO();
-	                flVO.setId(flArchId);
 	                flVO.setFlNm(storedFile.getFileName());
 	                flVO.setFlObfsNm(storedFile.getRealFileName());
 	                flVO.setFlObfsPth(storedFile.getRealFilePath());
 	                flVO.setFlSz(storedFile.getFileSize());
-	                flVO.setFlTypeNm(storedFile.getFileType());
+	                flVO.setArtcId(flArchUpdateRequestVO.getArtcId());
+	                flVO.setId(flArchId);
 
 	                this.flDao.insertNewFile(flVO);
 	            }
 	        }
 	    }
-
-	    return true;
+	    return updateCount > 0;
 	}
 }

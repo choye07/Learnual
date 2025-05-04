@@ -71,13 +71,6 @@ public class FlVO {
     private String flDelYn;
 
     /**
-     * @ColumnName FL_TYPE_NM
-     * @ColumnType VARCHAR2(5)
-     * @ColumnComment 파일 확장자명(기존 확장자)
-     */
-    private String flTypeNm;
-
-    /**
      * @ColumnName ARTC_ID
      * @ColumnType VARCHAR2(50)
      * @ColumnComment 게시판을 구분할 고유한 문자열
@@ -162,14 +155,6 @@ public class FlVO {
     public void setFlDelYn(String flDelYn) {
         this.flDelYn = flDelYn;
     }
-    
-    public String getFlTypeNm() {
-		return flTypeNm;
-	}
-
-	public void setFlTypeNm(String flTypeNm) {
-		this.flTypeNm = flTypeNm;
-	}
 
 	public String getArtcId() {
         return this.artcId;
@@ -189,6 +174,6 @@ public class FlVO {
     
     @Override
     public String toString() {
-        return "FlVO(flId: " + flId + ", flNm: " + flNm + ", flObfsNm: " + flObfsNm + ", flObfsPth: " + flObfsPth + ", flSz: " + flSz + ", flRgstDt: " + flRgstDt + ", flUpdtDt: " + flUpdtDt + ", flDelDt: " + flDelDt + ", flDelYn: " + flDelYn + ", flTypeNm: " + flTypeNm + ", artcId: " + artcId + ", id: " + id + ", )";
+        return "FlVO(flId: " + flId + ", flNm: " + flNm + ", flObfsNm: " + flObfsNm + ", flObfsPth: " + flObfsPth + ", flSz: " + flSz + ", flRgstDt: " + flRgstDt + ", flUpdtDt: " + flUpdtDt + ", flDelDt: " + flDelDt + ", flDelYn: " + flDelYn + ", artcId: " + artcId + ", id: " + id + ", )";
     }
 }

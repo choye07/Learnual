@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.constraints.NotEmpty;
 
 public class FlArchWriteRequestVO {
+	// 작성자 이름
+	private String author;
 
 	@NotEmpty(message = "제목은 필수 입력값입니다.")
 	private String flArchTtl;
@@ -26,9 +28,18 @@ public class FlArchWriteRequestVO {
 	// 로그인 아이디 (학생, 강사 로그인 아이디)
 	private String lgnId;
 
-
 	// 첨부파일이 여러개인 경우 List이다.
 	private List<MultipartFile> flList;
+
+	
+	
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
 	public String getFlArchTtl() {
 		return flArchTtl;

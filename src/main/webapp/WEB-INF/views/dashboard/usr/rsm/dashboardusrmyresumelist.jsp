@@ -33,16 +33,17 @@
 									<a href="#">user-info-img</a>
 								</div>
 								<p class="user-greeting">
-									<span class="user-name">홍길동</span> 님 안녕하세요!
+									<span class="user-name">${sessionScope.__LOGIN_USER__.usrNm}</span>
+									님 안녕하세요!
 								</p>
 							</div>
 							<!-- 대시보드 좌측 탭 메뉴 -->
 							<ul class="menu-wrapper">
-								<li class="menu-item"><a href="#">개인정보관리</a></li>
-								<li class="menu-item"><a href="#">나의
-										수강 목록</a></li>
-								<li class="menu-item on"><a href="#">나의
-										이력서 목록</a></li>
+								<li class="menu-item"><a href="/usr/${insttnId}/dashboard">개인정보관리</a></li>
+								<li class="menu-item"><a
+									href="/usr/${insttnId}/dashboard/courselist">나의 수강 목록</a></li>
+								<li class="menu-item on"><a
+									href="/usr/${insttnId}/dashboard/rsm/list">나의 이력서 목록</a></li>
 							</ul>
 						</div>
 
@@ -53,37 +54,43 @@
 									<h1>이력서 목록</h1>
 									<div class="board-toolbox">
 										<div class="btn-write">
-											<a href="#">이력서 작성</a>
+											<button type="button" class="btn-rsm-regist">이력서 등록</button>
 										</div>
 									</div>
 								</div>
 
-								<div class="board-body">
+								<div class="board-body rsm-body">
 									<div class="board-list-top">
 										<div>이력서 제목</div>
 										<div>이력서 관리</div>
 									</div>
 									<!-- 이력서 목록 -->
-									<ul class="board-list-wrapper">
+									<ul class="board-list-wrapper"
+										data-insttn-id="${sessionScope.__LOGIN_USER__.insttnId}">
 										<!-- 이력서 view 페이지가 없기 때문에 a태그로 감싸지 않음 -->
-										<li>
-											<div class="rsm-content-area">
-												<div class="rsm-content-title">내가 작성한 이력서 제목1</div>
-												<span class="rsm-content-time">2025-04-19</span>
-											</div>
-											<div class="rsm-manage-area">
-												<a href="#">재등록</a> <a href="#">다운로드</a> <a href="#">삭제</a>
-											</div>
-										</li>
-										<li>
-											<div class="rsm-content-area">
-												<div class="rsm-content-title">내가 작성한 이력서 제목2</div>
-												<span class="rsm-content-time">2025-04-21</span>
-											</div>
-											<div class="rsm-manage-area">
-												<a href="#">재등록</a> <a href="#">다운로드</a> <a href="#">삭제</a>
-											</div>
-										</li>
+										<c:choose>
+											<c:when test="${not empty rsmListVO.rsmList}">
+												<c:forEach items="${rsmListVO.rsmList}" var="rsm"
+													varStatus="status">
+
+													<li data-rsm-id="${rsm.rsmId}">
+														<div class="rsm-content-area">
+															<div class="rsm-content-title">${rsm.rsmTtl}</div>
+															<span class="rsm-content-time">${rsm.rsmRgstDt}</span>
+														</div>
+														<div class="rsm-manage-area">
+															<a href="/file/${rsm.rsmId}/${rsm.file.flId}">다운로드</a>
+															<button type="button" class="btn-file-remove btn">삭제</button>
+														</div>
+													</li>
+
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<li class="empty">등록된 이력서가 없습니다.</li>
+											</c:otherwise>
+										</c:choose>
+										<!-- 등록/수정 폼이 붙을 영역 -->
 									</ul>
 
 									<ul class="pagination">
@@ -176,6 +183,27 @@
 			</div>
 		</div>
 	</div>
+	<template class="rsm-form-container">
+		<form class="rsm-write-form" enctype="multipart/form-data">
+			<div class="title-area form-group">
+				<label for="title">제목</label> 
+				<input type="text" id="title" name="rsmTtl" placeholder="이력서 제목 입력" required />
+				<div class="error rsmTtl-error"></div>
+			</div>
+			<div class="file-area form-group">
+				<label>첨부파일</label>
+				<div class="file-container">
+					<div class="file-item">
+						<input type="file" id="file" name="file" />
+						<button type="button" class="btn-rsm-remove btn">x</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-submit">
+				<button type="submit">등록</button>
+			</div>
+		</form>
+	</template>
 </body>
 
 </html>

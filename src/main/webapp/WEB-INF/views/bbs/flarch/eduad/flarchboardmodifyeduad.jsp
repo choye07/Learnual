@@ -68,16 +68,17 @@
 						<c:forEach var="file" items="${flArchVO.flList}">
 							<div class="file-item">
 								<a href="/file/download/${file.flObfsNm}" target="_blank">${file.flNm}</a>
-								<button type="button" class="btn-file-remove btn"
-									data-fl-id="${file.flId}">x</button>
+								<button type="button" class="btn-file-add btn" data-fl-id="${file.flId}">+</button>
+								<button type="button" class="btn-file-remove btn" data-fl-id="${file.flId}">-</button>
 							</div>
 						</c:forEach>
 					</c:if>
 
 					<c:if test="${fn:length(flArchVO.flList) < 4}">
 						<div class="file-item">
-							<input type="file" name="flList" />
-							<button type="button" class="btn-file-remove btn">x</button>
+							<input type="file" id="file" name="flList" />
+							<button type="button" class="btn-file-add btn">+</button>
+							<button type="button" class="btn-file-remove btn">-</button>
 						</div>
 					</c:if>
 				</div>
@@ -88,7 +89,7 @@
 				<textarea id="content" name="flArchCtt" rows="5" required>${flArchVO.flArchCtt}</textarea>
 			</div>
 			<div class="btn-area">
-				<a href="/eduad/flarch/list">
+				<a href="/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/list">
 					<button type="button" class="btn-flarch-list btn">목록 보기</button>
 				</a>
 				<button type="submit" class="btn-flarch-submit btn">작성 완료</button>
@@ -112,8 +113,9 @@
 	<!-- 파일 아이템 추가를 위한 템플릿 생성 -->
 	<template id="flarch-file-item-template">
 		<div class="file-item">
-			<input type="file" id="file" name="files" />
-			<button type="button" class="btn-file-remove btn">x</button>
+			<input type="file" id="file" name="flList" />
+			<button type="button" class="btn-file-add btn">+</button>
+			<button type="button" class="btn-file-remove btn">-</button>
 		</div>
 	</template>
 </body>

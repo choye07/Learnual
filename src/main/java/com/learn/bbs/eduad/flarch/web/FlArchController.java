@@ -30,7 +30,6 @@ public class FlArchController {
 
 	@Autowired
 	private FlArchService flArchService;
-	private String flArchId;
 	// 강사 자료실 목록 뷰
 	@GetMapping("/test11")
 	public String testInstr() {
@@ -193,6 +192,7 @@ public class FlArchController {
 		flArchWriteRequestVO.setCrsInfId("CRS_INF-20250428-000014");
 		flArchWriteRequestVO.setArtcId("ARTC-20250428-000004");
 		flArchWriteRequestVO.setLgnId(instrVO.getInstrLgnId());
+		flArchWriteRequestVO.setAuthor(instrVO.getInstrNm());
 		
 		boolean isCreated = this.flArchService.createNewFlArchBoard(flArchWriteRequestVO);
 
@@ -251,9 +251,9 @@ public class FlArchController {
 
 		// 본인이 작성한 글이 아니면 수정 못함
 		// 현재 로그인된 사용자의 이메일(memberVO.getEmail())과 작성자(instrId)를 비교
-		if (!instrVO.getInstrLgnId().equals(flArchVO.getLgnId())) {
-			return "redirect:/eduad/" + instrVO.getInsttnId() + "/" + "CRS_INF-20250428-000014" + "/" + "ARTC-20250428-000004" + "/flarch/list";
-		}
+//		if (!instrVO.getInstrLgnId().equals(flArchVO.getLgnId())) {
+//			return "redirect:/eduad/" + instrVO.getInsttnId() + "/" + "CRS_INF-20250428-000014" + "/" + "ARTC-20250428-000004" + "/flarch/list";
+//		}
 
 		model.addAttribute("flArchVO", flArchVO);
 		// 게시글 수정 화면으로 리턴
@@ -261,12 +261,12 @@ public class FlArchController {
 	}
 
 	@PostMapping("/eduad/{insttnId}/{crsInfId}/{artcId}/flarch/modify/{flArchId}")
-	public String doUpdateOneBoard(@PathVariable String insttnId, 
+	public String doUpdateOneBoard(@Valid FlArchUpdateRequestVO flArchUpdateRequestVO, 
+								   BindingResult bindingResult,
+								   @PathVariable String insttnId, 
 			                       @PathVariable String crsInfId,
 			                       @PathVariable String artcId,
 			                       @PathVariable String flArchId,
-			                       @Valid FlArchUpdateRequestVO flArchUpdateRequestVO, 
-			                       BindingResult bindingResult,
 			                       @SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO) {
 
 		// 유효성 검사

@@ -1,7 +1,5 @@
 package com.learn.bbs.rsm.vo;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.learn.bbs.file.vo.FlVO;
 
 /**
@@ -59,13 +57,24 @@ public class RsmVO {
 	// 저장된 이력서 파일
 	private FlVO file;
 	
-
 	/**
 	 * @ColumnName ARTC_ID
 	 * @ColumnType VARCHAR2(50)
 	 * @ColumnComment 게시판을 구분할 고유한 문자열
 	 */
 	private String artcId;
+	
+	// 학원 아이디
+	private String InsttnId;
+	
+
+	public String getInsttnId() {
+		return InsttnId;
+	}
+
+	public void setInsttnId(String insttnId) {
+		InsttnId = insttnId;
+	}
 
 	public String getRsmId() {
 		return this.rsmId;
