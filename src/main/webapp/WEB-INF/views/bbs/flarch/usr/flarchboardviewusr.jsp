@@ -84,7 +84,7 @@
 							<c:otherwise>
 								<c:forEach items="${flArchVO.flList}" var="file">
 									<div>
-										<a href="/eduad/file/${flArchVO.flArchId}/${file.flId}">
+										<a href="/file/${flArchVO.flArchId}/${file.flId}">
 											${file.flNm}</a>
 									</div>
 								</c:forEach>
