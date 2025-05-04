@@ -14,7 +14,7 @@
 
 <body>
 	<jsp:include
-			page="/WEB-INF/views/common/component/quicknav/quicknavlearnual.jsp" />
+		page="/WEB-INF/views/common/component/quicknav/quicknavlearnual.jsp" />
 
 	<div class="wrapper">
 		<jsp:include
@@ -22,7 +22,7 @@
 
 		<div class="home-main">
 
-			<div>
+			<div style="display: none">
 				<jsp:include page="/WEB-INF/views/main/mainloginstatus.jsp" />
 			</div>
 			<div class="visual">main visual</div>
@@ -31,7 +31,7 @@
 				<div class="learnual-notice article">
 					<div>
 						<h2>러뉴얼 공지사항</h2>
-						<a href="/ntc/list">더보기</a>
+						<a href="learnual/ntc/list">더보기</a>
 					</div>
 
 					<div>
@@ -42,18 +42,100 @@
 				</div>
 
 				<div class="usr-section">
-					<!-- 로그인하지 않을 경우 보이는 div / search 비활성 -->
+
 					<div class="login-status-section">
-						<p>학원 또는 강좌명 검색은 로그인이 필요합니다.</p>
-						<div class="btn-area">
-							<a href="/login">
-								<div class="login-overlay">login-overlay</div> <span>러뉴얼
-									로그인</span>
-							</a> <a href="/regist/agreement">
-								<div class="login-overlay">login-overlay</div> <span>회원
-									가입</span>
-							</a>
-						</div>
+						<c:choose>
+							<c:when
+								test="${empty sessionScope.__LOGIN_USER__ and empty sessionScope.__LOGIN_PLTADM__ and empty sessionScope.__LOGIN_INSTR__ and empty sessionScope.__LOGIN_SPRAD__}">
+								<p>학원 또는 강좌명 검색은 로그인이 필요합니다.</p>
+								<div class="btn-area">
+									<a href="/login">
+										<div class="login-overlay">login-overlay</div> <span>러뉴얼
+											로그인</span>
+									</a> <a href="/regist/agreement">
+										<div class="login-overlay">login-overlay</div> <span>회원
+											가입</span>
+									</a>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="lgn-info-area">
+									<c:if test="${not empty sessionScope.__LOGIN_SPRAD__}"><div class="badge-lgn-info spradm">슈퍼관리자</div></c:if>
+									<c:if test="${not empty sessionScope.__LOGIN_PLTADM__}"><div class="badge-lgn-info pltadm">플랫폼관리자</div></c:if>
+									<c:if test="${not empty sessionScope.__LOGIN_INSTR__}"><div class="badge-lgn-info instr">학습관리자</div></c:if>
+									<c:if test="${not empty sessionScope.__LOGIN_USER__}"><div class="badge-lgn-info usr">사용자</div></c:if>
+									
+									<c:if test="${not empty sessionScope.__LOGIN_USER__.usrNm}">
+										<div class="lgn-name-area data-area">
+											<span>${sessionScope.__LOGIN_USER__.usrNm}</span> 님 환영합니다!
+										</div>
+									</c:if>
+									<c:if
+										test="${not empty sessionScope.__LOGIN_PLTADM__.pltadmNm}">
+										<div class="lgn-name-area data-area">
+											<span>${sessionScope.__LOGIN_PLTADM__.pltadmNm}</span> 님
+											환영합니다!
+										</div>
+									</c:if>
+									<c:if test="${not empty sessionScope.__LOGIN_INSTR__.instrNm}">
+										<div class="lgn-name-area data-area">
+											<span>${sessionScope.__LOGIN_INSTR__.instrNm}</span> 님 환영합니다!
+										</div>
+									</c:if>
+									<c:if test="${not empty sessionScope.__LOGIN_SPRAD__.spradmNm}">
+										<div class="lgn-name-area data-area">
+											<span>${sessionScope.__LOGIN_SPRAD__.spradmNm}</span> 님
+											환영합니다!
+										</div>
+									</c:if>
+									<c:if test="${not empty sessionScope.__LOGIN_USER__.usrMl}">
+										<div class="lgn-email-area data-area">계정아이디:
+											${sessionScope.__LOGIN_USER__.usrMl}</div>
+									</c:if>
+									<c:if
+										test="${not empty sessionScope.__LOGIN_PLTADM__.pltadmLgnId}">
+										<div class="lgn-id-area data-area">계정아이디:
+											${sessionScope.__LOGIN_PLTADM__.pltadmLgnId}</div>
+									</c:if>
+									<c:if
+										test="${not empty sessionScope.__LOGIN_INSTR__.instrLgnId}">
+										<div class="lgn-id-area data-area">계정아이디:
+											${sessionScope.__LOGIN_INSTR__.instrLgnId}</div>
+									</c:if>
+									<c:if
+										test="${not empty sessionScope.__LOGIN_SPRAD__.spradmLgnId}">
+										<div class="lgn-id-area data-area">계정아이디:
+											${sessionScope.__LOGIN_SPRAD__.spradmLgnId}</div>
+									</c:if>
+									<c:if test="${not empty sessionScope.__LOGIN_USER__.insttnId}">
+										<div class="lgn-insttn-id-area data-area">기관아이디: ${sessionScope.__LOGIN_USER__.insttnId}</div>
+									</c:if>
+									<c:if
+										test="${not empty sessionScope.__LOGIN_PLTADM__.insttnId}">
+                        <div class="lgn-insttn-id-area data-area">기관아이디: ${sessionScope.__LOGIN_PLTADM__.insttnId}</div>
+                    </c:if>
+									<c:if test="${not empty sessionScope.__LOGIN_INSTR__.insttnId}">
+                        <div class="lgn-insttn-id-area data-area">기관아이디: ${sessionScope.__LOGIN_INSTR__.insttnId}</div>
+                    </c:if>
+								</div>
+								<div class="logout-area">
+									<c:choose>
+										<c:when test="${not empty sessionScope.__LOGIN_USER__}">
+											<a class="btn-logout" href="/usr/logout">로그아웃</a>
+										</c:when>
+										<c:when test="${not empty sessionScope.__LOGIN_PLTADM__}">
+											<a class="btn-logout" href="/plta/logout">로그아웃</a>
+										</c:when>
+										<c:when test="${not empty sessionScope.__LOGIN_INSTR__}">
+											<a class="btn-logout" href="/instr/logout">로그아웃</a>
+										</c:when>
+										<c:when test="${not empty sessionScope.__LOGIN_SPRAD__}">
+											<a class="btn-logout" href="/sprad/logout">로그아웃</a>
+										</c:when>
+									</c:choose>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- 로그인했을 경우 보이는 div / search 활성 -->
 					<div class="search-section">
@@ -61,7 +143,7 @@
 						<div class="search-area academy">
 							<form id="search-academy-form" class="search-form" action="#">
 								<div class="search-input-area">
-									<select name="select-search-cat">
+									<select id="select-search-cat" name="select-search-cat">
 										<option selected>학원</option>
 										<option>과정</option>
 										<c:if test="${not empty Search.writeInsttnNm }">
@@ -110,7 +192,7 @@
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
-									<li><a href="#"><p>일치하는 학원 / 과정이 없습니다.</p></a></li>
+									<li class="empty-search-result">일치하는 학원 / 과정이 없습니다.</li>
 								</c:otherwise>
 							</c:choose>
 						</ul>

@@ -13,9 +13,13 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
 
 		<div class="home-main">
+			<div>
+				<jsp:include page="/WEB-INF/views/main/mainloginstatus.jsp" />
+			</div>
 			<div class="visual">main visual</div>
 
 			<div class="contents">
@@ -26,23 +30,20 @@
 						<div class="board-toolbox">
 							<div class="board-user-toolbox">
 								<div class="btn-go-list">
-									<a href="/ntc/list">목록 보기</a>
+									<a href="/learnual/ntc/list">목록 보기</a>
 								</div>
-								<div class="btn-add">
-									<a href="#">게시글 작성</a>
-								</div>
-								<div class="btn-modify">
-									<a href="/ntc/modify/${selectedNotice.ntcId}">게시글 수정</a>
-								</div>
-								<div class="btn-delete">
-									<a href="/ntc/delete/${selectedNotice.ntcId}">게시글 삭제</a>
-								</div>
+								<c:if test="${not empty sessionScope.__LOGIN_SPRAD__}">
+									<div class="btn-modify">
+										<a href="/learnual/ntc/modify/${selectedNotice.ntcId}">게시글
+											수정</a>
+									</div>
+									<div class="btn-delete">
+										<a href="/learnual/ntc/delete/${selectedNotice.ntcId}">게시글
+											삭제</a>
+									</div>
+								</c:if>
 							</div>
-							<div class="board-manager-toolbox">
-								<div class="btn-add-notice">
-									<a href="#">공지글 작성</a>
-								</div>
-							</div>
+
 						</div>
 					</div>
 
@@ -67,7 +68,8 @@
 			</div>
 		</div>
 
-		<jsp:include page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
+		<jsp:include
+			page="/WEB-INF/views/common/component/footer/learnualfooter.jsp" />
 	</div>
 
 </body>
