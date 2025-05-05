@@ -65,7 +65,7 @@ $(document).ready(function () {
           // 상단고정여부가 Y면 pinned-list class 및 pin img추가
           if (mainNotice.ntcPinnedYn === "Y") {
             var listItem = `<li class="pinned-notice">
-						        <a href="/ntc/view/${mainNotice.ntcId}">
+						        <a href="/learnual/ntc/view/${mainNotice.ntcId}">
 						            <h3>${mainNotice.ntcTtl}</h3>
 						            <span>${mainNotice.ntcRgstDt}</span>
 						        </a>
@@ -77,7 +77,7 @@ $(document).ready(function () {
           // 상단고정여부가 N이면 pin img없음
           else {
             var listItem = `<li>
-						        <a href="/ntc/view/${mainNotice.ntcId}">
+						        <a href="/learnual/ntc/view/${mainNotice.ntcId}">
 						            <h3>${mainNotice.ntcTtl}</h3>
 						            <span>${mainNotice.ntcRgstDt}</span>
 						        </a>
