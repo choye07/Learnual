@@ -33,7 +33,7 @@
 						<input type="hidden" name="ntcId" value="${toModifyNtcVO.ntcId}" />
 						<div class="writer-area form-group">
 							<label for="ntcWrtrId">작성자</label> <input type="text" id="ntcWrtrId"
-								name="ntcWrtrId" value="작성자" />
+								name="ntcWrtrId" value="${toModifyNtcVO.ntcWrtrId}" />
 						</div>
 						<div class="ntcTtl-area form-group">
 							<label for="ntcTtl">제목</label> <input type="text" id="ntcTtl" value="${toModifyNtcVO.ntcTtl}"
@@ -48,7 +48,7 @@
 						<div class="btn-area">
 							<button type="button" class="btn-list btn"
 								onclick='location.href="/ntc/list"'>목록 보기</button>
-							<button type="button" class="btn-submit btn">수정 완료</button>
+							<button type="submit" class="btn-edit btn">수정 완료</button>
 						</div>
 					</form:form>
 				</div>

@@ -118,7 +118,7 @@ public class MainNtcController {
 	
 	// 메인 공지사항 하나 수정하기 (post -> do)
 	// p -> r -> g 유의
-	@PostMapping("/ntc/modify/{id}")
+	@PostMapping("/learnual/ntc/modify/{id}")
 	public String modifyOneMainNotice(
 			@Valid @ModelAttribute NtcUpdateRequestVO ntcUpdateRequestVO,
 			@PathVariable String id, 
@@ -134,9 +134,9 @@ public class MainNtcController {
 		boolean isSuccess = this.mainNtcService.updateOneMainNoticeBy(ntcUpdateRequestVO);
 		if(isSuccess) {
 			// id를 @PathVariable로 받아오는 것은 redirect를 위함
-			return "redirect:/ntc/view/" + id;
+			return "redirect:/learnual/ntc/view/" + id;
 		}
-		return "redirect:/ntc/list";
+		return "redirect:/learnual/ntc/list";
 	}
 	
 }

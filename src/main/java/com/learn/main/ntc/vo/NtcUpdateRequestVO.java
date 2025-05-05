@@ -11,16 +11,7 @@ public class NtcUpdateRequestVO {
 	@NotEmpty(message = "수정할 내용은 필수 입력값입니다.")
 	private String ntcCtt; // NTC_CTT
 
-	private String ntcWrtrId; // NTC_WRTR_ID
-
-	private String ntcPinnedYn; // NTC_PINNED_YN
-
-//	private String ntcRgstDt; //NTC_RGST_DT
-//	private String ntcUpdtDt; //NTC_UPDT_DT
-//	private String ntcDelDt; //NTC_DEL_DT
-//	private String ntcDelYn; //NTC_DEL_YN
-
-	private String artcId; // ARTC_ID
+	private String ntcUpdtDt; //NTC_UPDT_DT
 
 	public String getNtcId() {
 		return ntcId;
@@ -46,27 +37,12 @@ public class NtcUpdateRequestVO {
 		this.ntcCtt = ntcCtt;
 	}
 
-	public String getNtcWrtrId() {
-		return ntcWrtrId;
+	public String getNtcUpdtDt() {
+		return ntcUpdtDt;
 	}
 
-	public void setNtcWrtrId(String ntcWrtrId) {
-		this.ntcWrtrId = ntcWrtrId;
+	public void setNtcUpdtDt(String ntcUpdtDt) {
+		this.ntcUpdtDt = ntcUpdtDt;
 	}
 
-	public String getNtcPinnedYn() {
-		return ntcPinnedYn;
-	}
-
-	public void setNtcPinnedYn(String ntcPinnedYn) {
-		this.ntcPinnedYn = ntcPinnedYn;
-	}
-
-	public String getArtcId() {
-		return artcId;
-	}
-
-	public void setArtcId(String artcId) {
-		this.artcId = artcId;
-	}
 }
