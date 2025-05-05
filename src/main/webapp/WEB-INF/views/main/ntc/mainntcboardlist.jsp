@@ -17,6 +17,9 @@
 			page="/WEB-INF/views/common/component/header/learnualheader.jsp" />
 
 		<div class="home-main">
+			<div>
+				<jsp:include page="/WEB-INF/views/main/mainloginstatus.jsp" />
+			</div>
 			<div class="visual">main visual</div>
 
 			<div class="contents">
@@ -28,9 +31,11 @@
 							<div class="btn-goMain">
 								<a href="/learnual">홈으로</a>
 							</div>
-							<div class="btn-add-notice">
-								<a href="/learnual/ntc/write">공지글 작성</a>
-							</div>
+							<c:if test="${not empty sessionScope.__LOGIN_SPRAD__}">
+								<div class="btn-add-notice">
+									<a href="/learnual/ntc/write">공지글 작성</a>
+								</div>
+							</c:if>
 						</div>
 					</div>
 
@@ -49,9 +54,10 @@
 									<c:forEach items="${mainNtcList.ntcList}" var="mainNtc">
 										<c:if
 											test="${mainNtc.ntcDelYn != 'Y' && mainNtc.ntcPinnedYn == 'Y'}">
-											<li class="pinned-notice-list"><a href="/ntc/view/${mainNtc.ntcId}">
+											<li class="pinned-notice-list"><a
+												href="/learnual/ntc/view/${mainNtc.ntcId}">
 													<div class="board-list-title">${mainNtc.ntcTtl}</div>
-													<div class="board-list-writer">작성자이름</div>
+													<div class="board-list-writer">${mainNtc.ntcWrtrId}</div>
 													<div class="board-list-time">${mainNtc.ntcRgstDt}</div>
 											</a></li>
 											<c:set var="hasVisibleNotice" value="true" />
@@ -62,9 +68,9 @@
 									<c:forEach items="${mainNtcList.ntcList}" var="mainNtc">
 										<c:if
 											test="${mainNtc.ntcDelYn != 'Y' && mainNtc.ntcPinnedYn == 'N'}">
-											<li><a href="/ntc/view/${mainNtc.ntcId}">
+											<li><a href="/learnual/ntc/view/${mainNtc.ntcId}">
 													<div class="board-list-title">${mainNtc.ntcTtl}</div>
-													<div class="board-list-writer">작성자이름</div>
+													<div class="board-list-writer">${mainNtc.ntcWrtrId}</div>
 													<div class="board-list-time">${mainNtc.ntcRgstDt}</div>
 											</a></li>
 											<c:set var="hasVisibleNotice" value="true" />

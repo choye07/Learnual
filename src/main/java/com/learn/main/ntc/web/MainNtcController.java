@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.learn.bbs.usr.vo.UsrVO;
 import com.learn.main.ntc.service.MainNtcService;
 import com.learn.main.ntc.vo.NtcListVO;
 import com.learn.main.ntc.vo.NtcUpdateRequestVO;
 import com.learn.main.ntc.vo.NtcVO;
 import com.learn.main.ntc.vo.NtcWriteRequestVO;
+import com.learn.main.sprad.vo.SpradmVO;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -29,6 +32,8 @@ public class MainNtcController {
     private MainNtcService mainNtcService;
     
     // 메인 공지사항 list 보기
+    // 0504 추가 내용
+    // 플랫폼관리자만 '작성'버튼 실행할 수 있다.
     @GetMapping("/learnual/ntc/list") // 경로 바뀔 수 있음
     public String viewMainNoticeList(Model model) {
     	NtcListVO ntcListVO = this.mainNtcService.getAllMainNotice();
@@ -36,9 +41,13 @@ public class MainNtcController {
     	
     	return "/main/ntc/mainntcboardlist";
     }
+    
     // 메인 공지사항 작성하기(관리자만 가능)
 	@GetMapping("/learnual/ntc/write")
-	public String viewMainNoticeWritePage() {
+	public String viewMainNoticeWritePage(Model model, HttpSession session) {
+		// write view는 슈퍼관리자만 접근 가능, 다른 권한자의 경우는 고려하지 않는다.
+		SpradmVO spradmVO = (SpradmVO) session.getAttribute("__LOGIN_SPRAD__");
+		model.addAttribute("spradmVO", spradmVO);
 		return "/main/ntc/mainntcboardwrite";
 	}
 
@@ -47,7 +56,8 @@ public class MainNtcController {
 	public String doMainNoticeWrite(
 			@Valid @ModelAttribute NtcWriteRequestVO ntcWriteRequestVO,
 			BindingResult bindingResult,
-			Model model
+			Model model,
+			HttpSession session
 			) {
 		
 	    // 체크박스 상태에 따라 ntcPinnedYn 값 설정
@@ -62,6 +72,9 @@ public class MainNtcController {
 			model.addAttribute("usrWriteNtc", ntcWriteRequestVO);
 			return "/main/ntc/mainntcboardwrite";
 		}
+		
+		SpradmVO spradmVO = (SpradmVO) session.getAttribute("__LOGIN_SPRAD__");
+		ntcWriteRequestVO.setNtcWrtrId(spradmVO.getSpradmId());
 		
 		boolean isCreated = this.mainNtcService.createNewMainNotice(ntcWriteRequestVO);
 		if(isCreated) {
@@ -80,18 +93,18 @@ public class MainNtcController {
 	}
 	
 	// 메인 공지사항 하나 삭제하기
-	@GetMapping("ntc/delete/{id}") // 경로 바뀔 수 있음
+	@GetMapping("/learnual/ntc/delete/{id}") // 경로 바뀔 수 있음
 	public String deleteOneMainNotice(@PathVariable String id) {
 		boolean isSuccess = this.mainNtcService.deleteOneMainNoticeBy(id);
 		
 		if(isSuccess) {
-			return "redirect:/ntc/list";	
+			return "redirect:/learnual/ntc/list";	
 		}
-		return "redirect:/ntc/list";
+		return "redirect:/learnual/ntc/list";
 	}
 	
 	// 메인 공지사항 하나 수정하기 (get -> page)
-	@GetMapping("/ntc/modify/{id}")
+	@GetMapping("/learnual/ntc/modify/{id}")
 	public String viewMainNoticeModifyPage(@PathVariable String id, Model model) {
 		// 수정의 getMapping에서는 수정하고자 하는 VO를 가져오기만 한다.
 		// 실제 수정 로직은 postMapping에서 이루어진다.

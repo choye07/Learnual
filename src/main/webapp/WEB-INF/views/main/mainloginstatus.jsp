@@ -74,16 +74,16 @@
 				</li>
 				<li><c:choose>
 						<c:when test="${not empty sessionScope.__LOGIN_USER__}">
-							<a href="/usr/logout">로그아웃</a>
+							<a class="btn-logout" href="/usr/logout">로그아웃</a>
 						</c:when>
 						<c:when test="${not empty sessionScope.__LOGIN_PLTADM__}">
-							<a href="/plta/logout">로그아웃</a>
+							<a class="btn-logout" href="/plta/logout">로그아웃</a>
 						</c:when>
 						<c:when test="${not empty sessionScope.__LOGIN_INSTR__}">
-							<a href="/instr/logout">로그아웃</a>
+							<a class="btn-logout" href="/instr/logout">로그아웃</a>
 						</c:when>
 						<c:when test="${not empty sessionScope.__LOGIN_SPRAD__}">
-							<a href="/sprad/logout">로그아웃</a>
+							<a class="btn-logout" href="/sprad/logout">로그아웃</a>
 						</c:when>
 					</c:choose></li>
 			</c:otherwise>

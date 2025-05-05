@@ -22,26 +22,23 @@
 		 , NTC_RGST_DT
 		 , ARTC_ID)
 		VALUES
-		  (#{ntcId}
-		 , #{ntcTtl}
-		 , #{ntcCtt}
-		 , (SELECT USR_ID
-		      FROM USR
-		     WHERE USR_NM = 'test')
-		 , #{ntcPinnedYn}
-		 , SYSDATE
-		 , (SELECT ARTC_ID 
-		 	  FROM ARTC 
-		 	 WHERE ARTC_NM = 'ln_ntc')
-		 )
+		 ( #{ntcId}
+		, #{ntcTtl}
+		, #{ntcCtt}
+		, #{ntcWrtrId}
+		, #{ntcPinnedYn}
+		, SYSDATE
+		, (SELECT ARTC_ID 
+		  	 FROM ARTC 
+		 	WHERE INSTTN_ID = 'learnual'))
 	</insert>
 	
 	<select id="selectMainNoticeAllCount">
 		SELECT count(1)
 		  FROM NTC
 		 WHERE ARTC_ID = (SELECT ARTC_ID 
-		 	  				FROM ARTC 
-		 	 			   WHERE ARTC_NM = 'ln_ntc')
+						  	FROM ARTC 
+						   WHERE INSTTN_ID = 'learnual')
 	</select>
 	
 	<select id="selectMainNoticeAll">
@@ -57,8 +54,8 @@
 			 , ARTC_ID
 		  FROM NTC
 		 WHERE ARTC_ID = (SELECT ARTC_ID 
-		 	  				FROM ARTC 
-		 	 			   WHERE ARTC_NM = 'ln_ntc')
+						  	FROM ARTC 
+						   WHERE INSTTN_ID = 'learnual')
 		 ORDER BY NTC_ID DESC
 	</select>
 	

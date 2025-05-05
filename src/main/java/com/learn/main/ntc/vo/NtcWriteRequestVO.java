@@ -11,14 +11,9 @@ public class NtcWriteRequestVO {
 	@NotEmpty(message = "내용은 필수 입력값입니다.")
 	private String ntcCtt; // NTC_CTT
 	
-	private String ntcWrtrId; // NTC_WRTR_ID
+	 private String ntcWrtrId; // NTC_WRTR_ID
 	
 	private String ntcPinnedYn; // NTC_PINNED_YN
-	
-//	private String ntcRgstDt; //NTC_RGST_DT
-//	private String ntcUpdtDt; //NTC_UPDT_DT
-//	private String ntcDelDt; //NTC_DEL_DT
-//	private String ntcDelYn; //NTC_DEL_YN
 	
 	private String artcId; // ARTC_ID
 	
@@ -46,14 +41,6 @@ public class NtcWriteRequestVO {
 		this.ntcCtt = ntcCtt;
 	}
 
-	public String getNtcWrtrId() {
-		return ntcWrtrId;
-	}
-
-	public void setNtcWrtrId(String ntcWrtrId) {
-		this.ntcWrtrId = ntcWrtrId;
-	}
-
 	public String getNtcPinnedYn() {
 		return ntcPinnedYn;
 	}
@@ -70,4 +57,12 @@ public class NtcWriteRequestVO {
 		this.artcId = artcId;
 	}
 
+	public String getNtcWrtrId() {
+		return ntcWrtrId;
+	}
+
+	public void setNtcWrtrId(String ntcWrtrId) {
+		this.ntcWrtrId = ntcWrtrId;
+	}
+	
 }

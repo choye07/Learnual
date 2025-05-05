@@ -32,8 +32,8 @@
 						id="learnual-notice-form">
 						<input type="hidden" name="ntcId" value="${toModifyNtcVO.ntcId}" />
 						<div class="writer-area form-group">
-							<label for="writer">작성자</label> <input type="text" id="writer"
-								name="writer" value="작성자" required />
+							<label for="ntcWrtrId">작성자</label> <input type="text" id="ntcWrtrId"
+								name="ntcWrtrId" value="작성자" />
 						</div>
 						<div class="ntcTtl-area form-group">
 							<label for="ntcTtl">제목</label> <input type="text" id="ntcTtl" value="${toModifyNtcVO.ntcTtl}"
