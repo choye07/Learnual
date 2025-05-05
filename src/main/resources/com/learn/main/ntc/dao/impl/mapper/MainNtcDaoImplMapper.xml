@@ -25,7 +25,15 @@
 		 ( #{ntcId}
 		, #{ntcTtl}
 		, #{ntcCtt}
-		, #{ntcWrtrId}
+		, (SELECT DISTINCT S.SPRADM_NM 
+		     FROM NTC N
+		    INNER JOIN ARTC A
+		       ON N.ARTC_ID = A.ARTC_ID 
+		    INNER JOIN INSTTN I
+		       ON A.INSTTN_ID = I.INSTTN_ID 
+		    INNER JOIN SPRADM S
+		       ON I.INSTTN_ID = S.INSTTN_ID
+		    WHERE S.SPRADM_ID = #{ntcWrtrId})
 		, #{ntcPinnedYn}
 		, SYSDATE
 		, (SELECT ARTC_ID 

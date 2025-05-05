@@ -42,8 +42,8 @@
 										id="ntcPinnedYn" name="ntcPinnedYn" />
 								</div>
 								<div class="writer-area form-group">
-									<label for="ntcWrtrId">작성자 아이디</label> <input type="text" id="ntcWrtrId"
-										name="ntcWrtrId" value="${spradmVO.spradmId}" />
+									<label for="ntcWrtrId">작성자</label> <input type="text" id="ntcWrtrId"
+										name="ntcWrtrId" value="${spradmVO.spradmNm}" />
 								</div>
 								<div class="ntcTtl-area form-group">
 									<label for="ntcTtl">제목</label> <input type="text" id="ntcTtl"
