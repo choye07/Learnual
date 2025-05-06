@@ -18,6 +18,7 @@ import com.learn.bbs.eduad.flarch.vo.FlArchSearchRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchUpdateRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchWriteRequestVO;
+import com.learn.bbs.eduad.flarch.vo.FlarchViewRequestVO;
 import com.learn.bbs.file.dao.FlDao;
 import com.learn.bbs.file.vo.FlDeleteRequestVO;
 import com.learn.bbs.file.vo.FlVO;
@@ -93,27 +94,27 @@ public class FlArchServiceImpl implements FlArchService {
 
 	@Transactional
 	@Override
-	public FlArchVO getOneFlArchBoard(String flArchId, boolean isIncrease) {
+	public FlArchVO getOneFlArchBoard(FlarchViewRequestVO flarchViewRequestVO, boolean isIncrease) {
 		
 		if (isIncrease) {
 			// 조회하려는 게시글의 조회수를 증가시킨다.
-			int updatedCount = this.flArchDao.updateViewCountBy(flArchId);
+			int updatedCount = this.flArchDao.updateViewCountBy(flarchViewRequestVO.getFlArchId());
 
 			// 게시글 조회수 증가 방지
 			if (updatedCount == 0) {
-				throw new PageNotFoundException(flArchId);
+				throw new PageNotFoundException(flarchViewRequestVO.getFlArchId());
 			}
 		}
 
-		FlArchVO flArchVO = this.flArchDao.selectOneFlArchBoard(flArchId);
+		FlArchVO flArchVO = this.flArchDao.selectOneFlArchBoard(flarchViewRequestVO);
 
 		if (flArchVO == null) {
-			throw new PageNotFoundException(flArchId);
+			throw new PageNotFoundException(flarchViewRequestVO.getFlArchId());
 		}
 		
 		// 첨부파일이 없는 게시글인 경우 
 		// flList가 null이 아니라 빈 리스트라도 들어가도록 유효성 처리
-		List<FlVO> fileList = this.flDao.selectFilesById(flArchId);
+		List<FlVO> fileList = this.flDao.selectFilesById(flarchViewRequestVO.getFlArchId());
 		flArchVO.setFlList(fileList != null ? fileList : new ArrayList<>());
 
 		// 게시글 반환.

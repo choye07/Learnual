@@ -75,7 +75,7 @@
 										<li><a href="/usr/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/view/${board.flArchId}">
 												<div class="board-list-no">${flArchList.flArchCnt - status.index}</div>
 												<div class="board-list-title">${board.flArchTtl}</div>
-												<div class="board-list-writer">김강사</div>
+												<div class="board-list-writer">${board.instrVO.instrNm}</div>
 												<div class="board-list-time">${board.flArchRgstDt}</div>
 										</a></li>
 									</c:forEach>
