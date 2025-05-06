@@ -591,29 +591,20 @@ public class CrsInfController {
 	// 마감
 	@PostMapping("/pltad/{insttnId}/{crsInfId}/end")
 	public String doEndCourse(@PathVariable String crsInfId, HttpSession session) {
-		PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+	    PltadmVO pltadmVO = (PltadmVO) session.getAttribute("__LOGIN_PLTADM__");
+	    // 로그인 x or 플랫폼 관리자의 계정이 아님
+	    if (pltadmVO == null) {
+	        throw new AccessDeniedException();
+	    }
 
-		// 만약 로그인이 안되어 있거나 플랫폼관리자의 계정으로 로그인 하지 않은 경우
-		if (pltadmVO == null) {
-			throw new AccessDeniedException();
-		}
+	    CrsInfEndUpdateRequestVO requestVO = new CrsInfEndUpdateRequestVO();
+	    requestVO.setCrsInfId(crsInfId);
+	    requestVO.setInsttnId(pltadmVO.getInsttnId());
 
-		CrsInfEndUpdateRequestVO crsInfEndUpdateRequestVO = new CrsInfEndUpdateRequestVO();
+	    // 컨트롤러 내에서는 서비스 하나만 불러오게 개선
+	    this.crsInfService.endCourseWithUserRegistration(requestVO);
 
-		crsInfEndUpdateRequestVO.setCrsInfId(crsInfId);
-		
-		// 기관아이디 추가
-		crsInfEndUpdateRequestVO.setInsttnId(pltadmVO.getInsttnId());
-		
-		this.crsInfService.endOneCourse(crsInfEndUpdateRequestVO);
-
-		try {
-			this.crsInfService.insertRegisteredUsers(pltadmVO.getInsttnId());
-		} catch (CnfrHstrInsertException e) {
-
-		}
-
-		return "redirect:/pltad/" + pltadmVO.getInsttnId();
+	    return "redirect:/pltad/" + pltadmVO.getInsttnId();
 	}
 
 	@GetMapping("/pltad/{insttnId}/{crsInfId}/confirm")

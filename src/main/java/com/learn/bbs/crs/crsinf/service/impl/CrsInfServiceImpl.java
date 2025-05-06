@@ -226,7 +226,7 @@ public class CrsInfServiceImpl implements CrsInfService {
 		return this.crsInfDao.selectAvailableCoursesForUser(insttnId);
 	}
 	
-    @Transactional(readOnly = true)
+    @Transactional
 	@Override
 	public int insertRegisteredUsers(String insttnId) {
 		int isInserted = this.cnfrHstrDao.insertRegisteredUsers(insttnId);
@@ -289,13 +289,13 @@ public class CrsInfServiceImpl implements CrsInfService {
     @Transactional(readOnly = true)
     @Override
     public List<SbjVO> getSubjectList() {
-        return sbjDao.selectAllSubjects();
+        return this.sbjDao.selectAllSubjects();
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<InstrVO> getInstrList() {
-        return instrDao.selectAllInstrs();
+        return this.instrDao.selectAllInstrs();
     }
 
     @Transactional
@@ -357,5 +357,19 @@ public class CrsInfServiceImpl implements CrsInfService {
 	@Override
 	public List<CrsInfAvailableReadResponseVO> selectFourCoursesForInstr(String instrId, String insttnId) {
 		return this.crsInfDao.selectFourCoursesForInstr(instrId, insttnId);
+	}
+	
+	// 컨트롤러 내에서 서비스를 하나만 쓰게하기 위해 생성
+	@Transactional
+	@Override
+	public void endCourseWithUserRegistration(CrsInfEndUpdateRequestVO crsInfEndUpdateRequestVO) {
+	    this.endOneCourse(crsInfEndUpdateRequestVO); // 수업을 마감 시킨 뒤에
+
+	    // 수강생을 등록한다; 단, 0명일 시 등록하지 않음
+	    try {
+	        this.insertRegisteredUsers(crsInfEndUpdateRequestVO.getInsttnId());
+	    } catch (CnfrHstrInsertException e) {
+	    	
+	    }
 	}
 }

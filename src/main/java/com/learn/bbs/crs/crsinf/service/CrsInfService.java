@@ -71,4 +71,7 @@ public interface CrsInfService {
     public CrsInfStartAndEndTimeRequestVO getCourseTimeStartAndEnd  (String crsInfId);
     
     public List<CrsInfAvailableReadResponseVO> selectFourCoursesForInstr(String instrId, String insttnId);
+
+    // 강좌 마감 시 로직 개선 - 준식
+	public void endCourseWithUserRegistration(CrsInfEndUpdateRequestVO crsInfEndUpdateRequestVO);
 }
