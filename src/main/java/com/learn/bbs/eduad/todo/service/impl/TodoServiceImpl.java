@@ -1,6 +1,7 @@
 package com.learn.bbs.eduad.todo.service.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,6 @@ public class TodoServiceImpl implements TodoService {
 	@Transactional(readOnly = true)
 	@Override
 	public TodoListVO getAllMyTodo(String lgnId) {
-
 		// 오늘의 모든 투두 조회
 		// 강사 대시보드 = 강의 계획서 + 강사 직접 추가한 투두
 
@@ -45,6 +45,10 @@ public class TodoServiceImpl implements TodoService {
 		int count = this.todoDao.selectAllCountTodo(lgnId);
 
 		List<TodoVO> todoList = this.todoDao.selectMyAllTodo(lgnId);
+
+		if (todoList == null) {
+			todoList = new ArrayList<>();
+		}
 
 		TodoListVO todoListVO = new TodoListVO();
 		todoListVO.setTodoCnt(count);
@@ -59,22 +63,23 @@ public class TodoServiceImpl implements TodoService {
 
 		// 강좌 마다 하나의 학습 계획서가 있다.
 		// 업로드한 강의 계획서를 FlVO로 생성하여 데이터베이스에 저장한다(insert)
+		
 		MultipartFile file = todoFileVO.getFile();
+		
+		if (file == null || file.isEmpty()) {
+			throw new IllegalArgumentException("파일이 비어 있습니다.");
+		}
 
 		// 사용자가 업로드한 파일을 서버에 저장하는 객체
 		StoredFile storedFile = this.fileHandler.store(file);
 
 		if (storedFile != null) {
-			System.out.println("파일이 성공적으로 저장되었습니다: " + storedFile.getFileName());
 
 			// 업로드한 파일에서 오늘의 날짜의 과목명과 학습내용을 읽어온다.
 			Read<ReadExceTodoFile> read = new Read<>(storedFile.getStoredPath(), ReadExceTodoFile.class);
 
 			// 오늘의 날짜를 알아온다.
 			LocalDate today = LocalDate.now();
-
-			// TODO 오늘 날짜가 잘 나온다면 지워질 코드
-			System.out.println("오늘 날짜는: " + today);
 
 			// 엑셀 파일에서 컬럼의 데이터를 읽어와 리스트로 저장한다.
 			List<ReadExceTodoFile> result = read.read();
@@ -84,15 +89,18 @@ public class TodoServiceImpl implements TodoService {
 
 			for (ReadExceTodoFile tc : result) {
 				LocalDate tmpDate = LocalDate.parse(tc.getDate());
-				System.out.println("엑셀에서 읽은 날짜: " + tc.getDate());
-				System.out.println("엑셀에서 읽은 과목: " + tc.getSubject());
-				System.out.println("엑셀에서 읽은 내용: " + tc.getContent());
 
 				if (today.equals(tmpDate)) {
+					
 					String fileTodoCtt = tc.getContent();
-					System.out.println("오늘 날짜와 일치하는 투두를 찾았습니다: " + tc.getContent());
 
-					// 오늘의 투두로 만들기
+					// 1. 공백, null 체크
+					if (fileTodoCtt == null || fileTodoCtt.trim().isEmpty()) {
+						// 오늘의 투두 내용이 비어 있어 저장하지 않습니다.
+						throw new IllegalStateException("오늘 날짜의 투두 내용이 비어 있습니다.");
+					}
+
+					// 2. 오늘의 투두로 만들기
 					TodoWriteRequestVO todoWriteRequestVO = new TodoWriteRequestVO();
 					todoWriteRequestVO.setTodoCtt(fileTodoCtt);
 					todoWriteRequestVO.setLgnId(todoFileVO.getLgnId());
@@ -109,11 +117,12 @@ public class TodoServiceImpl implements TodoService {
 					flVO.setFlObfsNm(storedFile.getRealFileName());
 					flVO.setFlObfsPth(storedFile.getRealFilePath());
 					flVO.setFlSz(storedFile.getFileSize());
+					flVO.setArtcId(todoWriteRequestVO.getArtcId());
 
 					this.flDao.insertNewFile(flVO);
 				}
 			}
-		
+
 			// 투두 DB에 저장한 row의 수
 			return insertCount > 0;
 		}

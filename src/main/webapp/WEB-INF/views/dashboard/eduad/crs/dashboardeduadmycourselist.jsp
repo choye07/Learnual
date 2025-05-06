@@ -159,7 +159,10 @@
 										<div class="today-todo">
 											<ul>
 												<c:forEach var="todo" items="${todoList.todoList}">
-													<li>${todo.todoCtt}</li>
+													<li class="todo-item" data-todo-id="${todo.todoId}">
+											            	<div class="todo-item-content ${todo.todoFinishYn eq 'Y' ? 'done' : ''}">${todo.todoCtt}</div>
+											            <button type="button" class="btn-todo-delete">x</button>
+											        </li>
 												</c:forEach>
 											</ul>
 										</div>
@@ -190,7 +193,10 @@
 								<div class="todo-edit-area">
 									<input class="custom-todo-input" type="text"
 										placeholder="추가할 계획을 작성하세요" />
+									<!-- "추가" 버튼을 누르면 DOM에만 todo 항목이 추가됨 (서버 저장은 아님) -->
 									<button class="btn-add">추가</button>
+									<!-- "저장" 버튼을 따로 눌러야 서버에 todo를 등록함 -->
+									<button class="btn-save-todo">등록</button>
 								</div>
 							</div>
 						</div>
@@ -211,6 +217,7 @@
 			<div class="todo-item-content"></div>
 			<div class="todo-item-manage on">
 				<div class="btn-todo-delete">
+					<!-- 삭제 버튼 -->
 					<a href="#">del</a>
 				</div>
 			</div>

@@ -36,19 +36,17 @@
 
 		SELECT CI.INSTR_ID
 		, CI.CRS_INF_NM
+		, TODO.TODO_ID
 		, TODO.TODO_CTT
-		,
-		TODO.TODO_FINISH_YN
+		, TODO.TODO_FINISH_YN
 		, TODO.TODO_RGST_DT
 		FROM TODO
 		INNER JOIN CRS_INF CI
 		ON CI.CRS_INF_ID = TODO.CRS_INF_ID
 		WHERE TODO.LGN_ID = #{lgnId}
-		AND
-		TRUNC(TODO.TODO_RGST_DT) = TRUNC(SYSDATE)
+		AND TRUNC(TODO.TODO_RGST_DT) = TRUNC(SYSDATE)
 		AND TODO_DEL_YN = 'N'
-		ORDER BY
-		TODO_ID ASC
+		ORDER BY TODO_ID ASC
 	</select>
 
 	<select id="selectAllTodo" parameterType="string"
@@ -98,15 +96,12 @@
 		(TODO_ID
 		, TODO_CTT
 		, TODO_FINISH_YN
-		,
-		TODO_RGST_DT
-		,
-		TODO_UPDT_DT
+		, TODO_RGST_DT
+		, TODO_UPDT_DT
 		, TODO_DEL_DT
 		, TODO_DEL_YN
 		, LGN_ID
-		,
-		CRS_INF_ID
+		, CRS_INF_ID
 		, ARTC_ID)
 		VALUES(
 		#{todoId}
@@ -115,30 +110,24 @@
 		, SYSDATE
 		, ''
 		, ''
-		,
-		'N'
+		, 'N'
 		, #{lgnId}
-		,
-		#{crsInfId}
+		, #{crsInfId}
 		, #{artcId})
 	</insert>
 
-	<delete id="deleteOneTodo"
+	<update id="deleteOneTodo"
 		parameterType="com.learn.bbs.eduad.todo.vo.TodoDeleteRequestVO">
 		UPDATE TODO
-		SET
-		TODO_DEL_DT = SYSDATE
+		SET TODO_DEL_DT = SYSDATE
 		, TODO_DEL_YN = 'Y'
 		WHERE TODO_ID = #{todoId}
-	</delete>
+	</update>
 
 	<update id="updateOneTodo"
 		parameterType="com.learn.bbs.eduad.todo.vo.TodoUpdateRequestVO">
 		UPDATE TODO
-		SET TODO_CTT= #{todoCtt}
-		,
-		TODO_FINISH_YN =
-		#{todoFinishYn}
+		SET TODO_FINISH_YN = #{todoFinishYn}
 		, TODO_UPDT_DT = SYSDATE
 		WHERE TODO_ID = #{todoId}
 	</update>
