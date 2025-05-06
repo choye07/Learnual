@@ -596,204 +596,182 @@ $(document).ready(function () {
 
 				
 // 소희 Part end ----------------------------------
-  /* ================================= */
-  /* 0419 유진 파트 start */
-   /* 자료실 게시판 - 게시글 생성 이벤트 start */
-   /* 자료실 게시판 - 게시글 생성 이벤트 start */
-   // 글 작성 페이지 이벤트
+/* ================================= */
+	/* 0419 유진 파트 start */
+	/* 자료실 게시판 - 게시글 생성 이벤트 start */
+	// 글 작성 페이지 이벤트
 
-   // 1. 글 작성시 파일을 추가하면 밑에 또 파일을 추가하는 input이 생긴다.
-   // 2. 파일을 첨부할 수 있는 최대 개수는 4개로 제한한다.
+	// 1. 글 작성시 파일을 추가하면 밑에 또 파일을 추가하는 input이 생긴다.
+	// 2. 파일을 첨부할 수 있는 최대 개수는 4개로 제한한다.
 
-   // 유효한 파일 input 개수 세는 함수
-   function getValidFileInputCount($form) {
-     // 1. input에 파일이 들어 있는 경우
-     var realInputs = $form
-       .find(".file-container input[type='file']")
-       .filter(function () {
-         return this.files && this.files.length > 0;
-       }).length;
+	// 유효한 파일 input 개수 세는 함수
+	function getValidFileInputCount($form) {
+		// 1. input에 파일이 들어 있는 경우
+		var realInputs = $form
+			.find(".file-container input[type='file']")
+			.filter(function() {
+				return this.files && this.files.length > 0;
+			}).length;
 
-     // 2. 기존 파일 항목: input 없이 a 태그만 있는 .file-item
-     var existFiles = $form
-       .find(".file-container .file-item")
-       .filter(function () {
-         return $(this).find("input[type='file']").length === 0;
-       }).length;
+		// 2. 기존 파일 항목: input 없이 a 태그만 있는 .file-item
+		var existFiles = $form
+			.find(".file-container .file-item")
+			.filter(function() {
+				return $(this).find("input[type='file']").length === 0;
+			}).length;
 
-     return realInputs + existFiles;
-   }
+		return realInputs + existFiles;
+	}
 
-   $("form.flarch-write-form, form.flarch-modify-form")
-     .find(".file-container")
-     .on("click", ".btn-file-add", function () {
-       var $form = $(this).closest("form");
+	$("form.flarch-write-form, form.flarch-modify-form")
+		.find(".file-container")
+		.on("click", ".btn-file-add", function() {
+			var $form = $(this).closest("form");
 
-       var maxFiles = 4;
+			var maxFiles = 4;
 
-       // 현재까지 실제로 선택된 파일 input 개수
-       var totalFilesCount = getValidFileInputCount($form);
+			// 현재까지 실제로 선택된 파일 input 개수
+			var totalFilesCount = getValidFileInputCount($form);
 
-	   // 파일이 선택되지 않았을 경우 아무것도 하지 않음
-	       var fileInput = $(this).closest('.file-item').find('input[type="file"]')[0];
-	       if (fileInput && fileInput.files && fileInput.files.length === 0) {
-	         return;
-	       }
+			// 파일이 선택되지 않았을 경우 아무것도 하지 않음
+			var fileInput = $(this).closest('.file-item').find('input[type="file"]')[0];
+			if (fileInput && fileInput.files && fileInput.files.length === 0) {
+				return;
+			}
 
-	       // 첨부 파일이 4개를 초과할 경우 경고
-	       if (totalFilesCount >= maxFiles) {
-	         alert("파일은 최대 4개까지만 첨부할 수 있습니다.");
-	         return;
-	       }
+			// 첨부 파일이 4개를 초과할 경우 경고
+			if (totalFilesCount >= maxFiles) {
+				alert("파일은 최대 4개까지만 첨부할 수 있습니다.");
+				return;
+			}
 
-	       // "빈 input"이 하나라도 있으면 append 하지 않도록 수정 (중복 방지 핵심)
-	       var hasEmptyInput =
-	         $form.find(".file-container input[type='file']").filter(function () {
-	           return !this.files || this.files.length === 0;
-	         }).length > 0;
+			// "빈 input"이 하나라도 있으면 append 하지 않도록 수정 (중복 방지 핵심)
+			var hasEmptyInput =
+				$form.find(".file-container input[type='file']").filter(function() {
+					return !this.files || this.files.length === 0;
+				}).length > 0;
 
-	       // append는 조건 만족할 때만 하도록 제한
-	       if (!hasEmptyInput && totalFilesCount < maxFiles) {
-	         var newItemDom = $($("#flarch-file-item-template").html());
-	         $form.find(".file-container").append(newItemDom);
-	       }
-		   
-      /* if (this.files.length === 0) {
-         // 파일을 선택하지 않았으면 아무것도 하지 않음
-         return;
-       }
+			// append는 조건 만족할 때만 하도록 제한
+			if (!hasEmptyInput && totalFilesCount < maxFiles) {
+				var newItemDom = $($("#flarch-file-item-template").html());
+				$form.find(".file-container").append(newItemDom);
+			}
 
-       if (totalFilesCount >= maxFiles) {
-         alert("파일은 최대 4개까지만 첨부할 수 있습니다.");
-         return;
-       }
+		});
 
-       // "빈 input"이 하나라도 있으면 append 하지 않도록 수정 (중복 방지 핵심)
-       var hasEmptyInput =
-         $form.find(".file-container input[type='file']").filter(function () {
-           return !this.files || this.files.length === 0;
-         }).length > 0;
+	// 3. 파일 삭제 처리 - 동적으로 추가된 파일에 대해 위임 방식으로 이벤트 처리
+	// - 수정 페이지에서 동일한 파일 관련 이벤트
+	$("form.flarch-write-form, form.flarch-modify-form").on(
+		"click", ".btn-file-remove", function() {
+			var $form = $(this).closest("form");
+			var maxFiles = 4;
 
-       // append는 조건 만족할 때만 하도록 제한
-       if (!hasEmptyInput && totalFilesCount < maxFiles) {
-         var newItemDom = $($("#flarch-file-item-template").html());
-         $form.find(".file-container").append(newItemDom);
-       }*/
-     });
+			var wrappers = $form.find(".file-item");
 
-   // 3. 파일 삭제 처리 - 동적으로 추가된 파일에 대해 위임 방식으로 이벤트 처리
-   // - 수정 페이지에서 동일한 파일 관련 이벤트
-   $("form.flarch-write-form, form.flarch-modify-form").on(
-     "click", ".btn-file-remove", function () {
-       var $form = $(this).closest("form");
-       var maxFiles = 4;
+			// 첨부파일 레이아웃 깨짐 방지
+			if (wrappers.length <= 1) {
+				return;
+			}
 
-       var wrappers = $form.find(".file-item");
+			// 삭제할 파일 ID 처리 (수정 폼만 해당)
+			var flId = $(this).data("fl-id");
+			if (flId) {
+				var hiddenInput = $("<input>")
+					.attr("type", "hidden")
+					.attr("name", "deleteFileIds")
+					.val(flId);
+				$("#delete-file-container").append(hiddenInput);
+			}
 
-       // 첨부파일 레이아웃 깨짐 방지
-       if (wrappers.length <= 1) {
-         return;
-       }
+			// 해당 input 제거
+			$(this).closest(".file-item").remove();
 
-       // 삭제할 파일 ID 처리 (수정 폼만 해당)
-       var flId = $(this).data("fl-id");
-       if (flId) {
-         var hiddenInput = $("<input>")
-           .attr("type", "hidden")
-           .attr("name", "deleteFileIds")
-           .val(flId);
-         $("#delete-file-container").append(hiddenInput);
-       }
+			// file-item template을 이용하여 새 input을 추가
+			// 이미 빈 input이 있으면 새로운 input 추가 안 한다.
+			var totalFilesCount = getValidFileInputCount($form);
+			var hasEmptyInput =
+				$form.find(".file-container input[type='file']").filter(function() {
+					return !this.files || this.files.length === 0;
+				}).length > 0;
 
-       // 해당 input 제거
-       $(this).closest(".file-item").remove();
+			// 삭제 후 파일이 4개 미만이라면, 새 파일 input 추가
+			if (!hasEmptyInput && totalFilesCount < maxFiles) {
+				var newItemDom = $($("#flarch-file-item-template").html());
+				$form.find(".file-container").append(newItemDom);
+			}
+		}
+	);
 
-       // file-item template을 이용하여 새 input을 추가
-       // 이미 빈 input이 있으면 새로운 input 추가 안 한다.
-       var totalFilesCount = getValidFileInputCount($form);
-       var hasEmptyInput =
-         $form.find(".file-container input[type='file']").filter(function () {
-           return !this.files || this.files.length === 0;
-         }).length > 0;
+	// 글 작성 페이지 submit 처리
+	$("form.flarch-write-form")
+		.find(".btn-flarch-submit")
+		.on("click", function() {
+			// 유효성 검사
+			var invalidInputs = $("input:invalid,textarea:invalid");
+			if (invalidInputs.length > 0) {
+				return;
+			}
 
-       // 삭제 후 파일이 4개 미만이라면, 새 파일 input 추가
-       if (!hasEmptyInput && totalFilesCount < maxFiles) {
-         var newItemDom = $($("#flarch-file-item-template").html());
-         $form.find(".file-container").append(newItemDom);
-       }
-     }
-   );
+			// POST 전송
+			$("form.flarch-write-form")
+				.attr({
+					method: "POST",
+					action: "/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/write",
+				})
+				.submit();
+		});
 
-   // 글 작성 페이지 submit 처리
-   $("form.flarch-write-form")
-     .find(".btn-flarch-submit")
-     .on("click", function () {
-       // 유효성 검사
-       var invalidInputs = $("input:invalid,textarea:invalid");
-       if (invalidInputs.length > 0) {
-         return;
-       }
+	// 3. 글 수정 시 submit 처리
+	$("form.flarch-modify-form")
+		.find(".btn-flarch-submit")
+		.on("click", function() {
 
-       // POST 전송
-       $("form.flarch-write-form")
-         .attr({
-           method: "POST",
-           action: "/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/write",
-         })
-         .submit();
-     });
+			// 유효성 검사
+			var invalidInputs = $("input:invalid,textarea:invalid");
+			if (invalidInputs.length > 0) {
+				return;
+			}
 
-   // 3. 글 수정 시 submit 처리
-   $("form.flarch-modify-form")
-     .find(".btn-flarch-submit")
-     .on("click", function () {
+			var flArchId = $("form.flarch-modify-form")
+				.find("input[name='flArchId']")
+				.val();
 
-       // 유효성 검사
-       var invalidInputs = $("input:invalid,textarea:invalid");
-       if (invalidInputs.length > 0) {
-         return;
-       }
+			// 삭제할 파일 정보가 있는지 확인하고, 없는 경우 deleteFileIds hidden input을 제거
+			var deleteFileIds = $("input[name='deleteFileIds']").length;
+			if (deleteFileIds === 0) {
+				// 삭제할 파일이 없을 경우 삭제 정보가 없도록 폼에서 관련 데이터 제거
+				$("#delete-file-container").empty();
+			}
 
-       var flArchId = $("form.flarch-modify-form")
-         .find("input[name='flArchId']")
-         .val();
+			$("form.flarch-modify-form")
+				.attr({
+					method: "POST",
+					action: "/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/modify/" + flArchId,
+				})
+				.submit();
+		});
 
-       // 삭제할 파일 정보가 있는지 확인하고, 없는 경우 deleteFileIds hidden input을 제거
-       var deleteFileIds = $("input[name='deleteFileIds']").length;
-       if (deleteFileIds === 0) {
-         // 삭제할 파일이 없을 경우 삭제 정보가 없도록 폼에서 관련 데이터 제거
-         $("#delete-file-container").empty();
-       }
+	// 글 수정 페이지 이벤트 종료
 
-       $("form.flarch-modify-form")
-         .attr({
-           method: "POST",
-           action: "/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/modify/" + flArchId,
-         })
-         .submit();
-     });
-
-   // 글 수정 페이지 이벤트 종료
-   
-  	/* 0423 유진 파트 start */
-  	/* 이력서 관리 게시판 - 게시글 생성 이벤트 start */
-  	// 이력서 목록 조회
-  	function loadRsmList() {
+	/* 0423 유진 파트 start */
+	/* 이력서 관리 게시판 - 게시글 생성 이벤트 start */
+	// 이력서 목록 조회
+	function loadRsmList() {
 		var insttnId = $(".board-list-wrapper").data("insttn-id");
-		
-  		$.ajax({
-  			url: `/usr/${insttnId}/dashboard/ajax/rsm/list`, // 목록 조회 API
-  			method: "GET",
-  			success: function(data) {
-  				var list = data.data.rsmList; // AjaxResponse로 감싸져 있어서 내부 구조 접근
-  				var $container = $(".board-list-wrapper"); // 이력서 목록 영역
-  				
+
+		$.ajax({
+			url: `/usr/${insttnId}/dashboard/ajax/rsm/list`, // 목록 조회 API
+			method: "GET",
+			success: function(data) {
+				var list = data.data.rsmList; // AjaxResponse로 감싸져 있어서 내부 구조 접근
+				var $container = $(".board-list-wrapper"); // 이력서 목록 영역
+
 				location.reload();
 				//$container.find("li").remove(); // 기존 목록 제거
 
-  				// 새 목록 append
-  				list.forEach(rsm => {
-  					var html = `
+				// 새 목록 append
+				list.forEach(rsm => {
+					var html = `
     						<li data-rsm-id="${rsm.rsmId}">
     								<div class="rsm-content-area">
     								<div class="rsm-content-title">${rsm.rsmTtl}</div>
@@ -806,90 +784,91 @@ $(document).ready(function () {
     							</div>
     						</li>
     						`;
-  					$container.append(html);
-  				});
-  			}
-  		});
-  	}
-	
-  	// 글 작성 이벤트 
-  	$(".rsm-board").on("click", ".btn-rsm-regist", function() {
+					$container.append(html);
+				});
+			}
+		});
+	}
 
-  		// 기존에 등록폼이 있는지 확인
-  		if ($(".board-list-wrapper").find(".rsm-write-form").length > 0) {
-  			alert("이미 작성 중인 이력서 폼이 있습니다.");
-  			return;
-  		}
-  		var $template = $(".rsm-form-container"); // DOM 선택
-  		var $formContent = $($template.prop("content")).clone(); // 템플릿 복제 
-  		// 폼 이벤트 바인딩
-  		$formContent.find("form.rsm-write-form").on("submit", function(e) {
-  			e.preventDefault();
-  			var formData = new FormData(this);
-  			// 여기에 파일을 직접 넣어줘야한다.
-  			var inputFile = $("input[name='file']")[0]; // DOM Element
-  			formData.append("file", inputFile.files[0]); // 실제 파일 객체
-			
+	// 글 작성 이벤트 
+	$(".rsm-board").on("click", ".btn-rsm-regist", function() {
+
+		// 기존에 등록폼이 있는지 확인
+		if ($(".board-list-wrapper").find(".rsm-write-form").length > 0) {
+			alert("이미 작성 중인 이력서 폼이 있습니다.");
+			return;
+		}
+		var $template = $(".rsm-form-container"); // DOM 선택
+		var $formContent = $($template.prop("content")).clone(); // 템플릿 복제 
+		
+		// 폼 이벤트 바인딩
+		$formContent.find("form.rsm-write-form").on("submit", function(e) {
+			e.preventDefault();
+			var formData = new FormData(this);
+			// 여기에 파일을 직접 넣어줘야한다.
+			var inputFile = $("input[name='file']")[0]; // DOM Element
+			formData.append("file", inputFile.files[0]); // 실제 파일 객체
+
 			var insttnId = $(".board-list-wrapper").data("insttn-id");
-  			$.ajax({
-  				url: `/usr/${insttnId}/dashboard/rsm/write`,
-  				method: "POST",
-  				data: formData,
-  				processData: false,
-  				contentType: false,
-  				success: function() {
-  					alert("이력서가 등록되었습니다.");
-  					$formContent.remove(); // 폼 닫기
-  					loadRsmList(); // 목록만 새로 불러오기
-  				},
-  				error: function(xhr) {
-  					if (xhr.status === 400) {
-  						var errors = xhr.responseJSON.data;
-  						$formContent.find(".rsmTtl-error").text(errors.rsmTtl || "");
-  					} else {
-  						alert("파일을 첨부해야합니다.");
-  					}
-  				},
-  			});
-  		});
+			$.ajax({
+				url: `/usr/${insttnId}/dashboard/rsm/write`,
+				method: "POST",
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function() {
+					alert("이력서가 등록되었습니다.");
+					$formContent.remove(); // 폼 닫기
+					loadRsmList(); // 목록만 새로 불러오기
+				},
+				error: function(xhr) {
+					if (xhr.status === 400) {
+						var errors = xhr.responseJSON.data;
+						$formContent.find(".rsmTtl-error").text(errors.rsmTtl || "");
+					} else {
+						alert("파일을 첨부해야합니다.");
+					}
+				},
+			});
+		});
 
-  		// 등록 폼 추가
-  		$(".board-list-wrapper").append($formContent);
-  	});
-	
-	// 글 작성 중 파일 다시 선택할 수 있도록 처리
-	$(".rsm-board").on("click", ".btn-rsm-remove", function () {
-		console.log($(".btn-rsm-remove").length);
-	    var $form = $(this).closest(".rsm-write-form");
-
-	    // 파일 input 값 리셋
-	    $form.find('input[type="file"]').val("");
+		// 등록 폼 추가
+		$(".board-list-wrapper").append($formContent);
 	});
-  	// 이력서 등록 이벤트 끝
 
-  	// 이력서 삭제 이벤트 시작
-  	$(".rsm-body").on("click", ".btn-file-remove", function() {
-  		if (!confirm("정말 삭제하시겠습니까?")) return;
+	// 글 작성 중 파일 다시 선택할 수 있도록 처리
+	$(".rsm-board").on("click", ".btn-rsm-remove", function() {
+		console.log($(".btn-rsm-remove").length);
+		var $form = $(this).closest(".rsm-write-form");
+
+		// 파일 input 값 리셋
+		$form.find('input[type="file"]').val("");
+	});
+	// 이력서 등록 이벤트 끝
+
+	// 이력서 삭제 이벤트 시작
+	$(".rsm-body").on("click", ".btn-file-remove", function() {
+		if (!confirm("정말 삭제하시겠습니까?")) return;
 
 		var insttnId = $(".board-list-wrapper").data("insttn-id");
-  		var rsmId = $(this).closest("li").data("rsm-id");
+		var rsmId = $(this).closest("li").data("rsm-id");
 
-  		$.ajax({
-  			url: `/usr/${insttnId}/dashboard/rsm/delete/${rsmId}`,
-  			method: "GET",
-  			success: function() {
-  				alert("삭제되었습니다.");
-  				location.reload();
-  			},
-  			error: function() {
-  				alert("삭제에 실패했습니다.");
-  			}
-  		});
-  	});
-  	// 이력서 삭제 이벤트 끝
-  	/* 0424 유진 파트 end */
-  	/* ================================= */
-	/* 0426 유진 파트 start */
+		$.ajax({
+			url: `/usr/${insttnId}/dashboard/rsm/delete/${rsmId}`,
+			method: "GET",
+			success: function() {
+				alert("삭제되었습니다.");
+				location.reload();
+			},
+			error: function() {
+				alert("삭제에 실패했습니다.");
+			}
+		});
+	});
+	// 이력서 삭제 이벤트 끝
+	/* 0424 유진 파트 end */
+	/* ================================= */
+	/* 0426 유진 투두 파트 start */
 	/* 강사 투두 대시보드 이벤트 start */
 
 	// 강사 전용 대시보드에만 적용될 로직
@@ -898,17 +877,20 @@ $(document).ready(function () {
 		$(".todo-date1-month").text(month);
 		$(".todo-date1-year").text(year);
 		$(".todo-date2-day").text(dayOfWeek);
+
 		var todoListExists = (typeof todoList !== "undefined" && todoList.todoList && todoList.todoList.length > 0);
 
 		// 강의 계획서가 이미 있으면 투두 리스트를 보여준다. 
-		if (todoListExists === true || todoListExists === 'true') {
+		//if (todoListExists === true || todoListExists === 'true') {
 			// 투두리스트가 있을 때 즉, 강의 계획서가 이미 올라가서 투두로 저장되어 있는 상태이므로 
 			// 강의 계획서 첨부 영역을 보여주지 않는다.
 			$(".file-area").hide();
+			// 이번 투두는 강의 계획서 안보여준다.
+			$(".btn-planner-add").hide();
 
-		} else { // 투두리스트가 없을 때
-			$(".file-area").show();
-		}
+		//} else { // 투두리스트가 없을 때
+		//	$(".file-area").show();
+		//}
 	});
 
 	// 강의 계획서 등록 버튼 클릭 시 투두로 추가되는 이벤트
@@ -926,7 +908,7 @@ $(document).ready(function () {
 
 		$.ajax({
 			type: "POST",
-			url: "/eduad/todo/write",
+			url: "/eduad/todo/readfile",
 			data: formData,
 			processData: false,
 			contentType: false,
@@ -945,150 +927,157 @@ $(document).ready(function () {
 		});
 	});
 
+	// 추가 계획 등록 버튼 클릭 시 투두로 추가되는 이벤트
 	/* 
 		1. +버튼 클릭 시 
 		  1-1. input영역 미끄러져 내려오기 (toggle)
 		  1-2. 삭제 버튼 보이기
-		*/
+	*/
 	$(".btn-todo-edit").on("click", function() {
-		$(".todo-edit-area").show();
+		$(".todo-edit-area").slideToggle(300);
+		//$(".todo-edit-area").show();
 		$(".todo-item-manage").toggleClass("on");
 	});
 
-	/* 2. input에 값을 적고 추가 버튼 클릭할 경우 todo-item append */
-	$(".todo-edit-area")
-		.find(".btn-add")
-		.on("click", function() {
+	/* 2. 투두 추가
+		  input에 값을 적고 추가 버튼 클릭할 경우 todo-item 템플릿 append (서버 저장X) */
+	$(".todo-edit-area").find(".btn-add").on("click", function() {
+		var $input = $(this).closest(".todo-edit-area").find(".custom-todo-input");
+		var userInput = $.trim($input.val());
 
-			var userInput = $(this)
-				.closest(".todo-edit-area")
-				.find(".custom-todo-input")
-				.val();
+		if (userInput === "") {
+			alert("추가하려는 투두의 내용을 입력해주세요.");
+			return;
+		}
 
-			// 유효성 검사: 추가하려는 입력값이 비어있는지 확인
-			if ($.trim(userInput) === "") {
-				alert("추가하려는 투두의 내용을 입력해주세요.");
-				return;
-			}
+		// 템플릿 복사 및 내용 삽입
+		var todoItemDom = $($("#todo-item-template").html());
+		todoItemDom.find(".todo-item-content").text(userInput);
 
-			var todoItemDom = $($("#todo-item-template").html());
-			todoItemDom.find(".todo-item-content").text(userInput);
+		// '새 항목' 표시
+		todoItemDom.attr("data-new-todo", "true");
 
-			// 완료 토글
-			todoItemDom.on("click", function() {
-				$(this).toggleClass("done");
+		// 리스트에 추가
+		$(".right-widget.todo").find(".todo-item-wrapper").append(todoItemDom);
+
+		// 입력 초기화
+		$input.val("");
+	});
+
+	// 3. 투두 삭제
+	$(".todo").on("click", ".btn-todo-delete", function(e) {
+		e.preventDefault();
+		var $item = $(this).closest(".todo-item");
+		var todoId = $item.data("todo-id");
+
+		// 등록 버튼을 누르지 않은 새 항목이면 바로 UI 삭제
+		if (!todoId && $item.attr("data-new-todo") === "true") {
+			$item.remove();
+			return;
+		}
+
+		// 서버에 등록된 투두만 삭제
+		if (todoId) {
+			$.ajax({
+				type: "GET",
+				url: `/eduad/todo/delete/${todoId}`,
+				success: function(result) {
+					if (result && result.status === 200 && result.data) {
+						$item.remove();
+					} else {
+						alert("투두 삭제에 실패했습니다.");
+					}
+				},
+				error: function() {
+					alert("서버 통신 오류 발생");
+				}
 			});
+		}
+	});
 
+	// 4. 투두 저장 (새 항목만 POST)
+	$(".todo-edit-area").find(".btn-save-todo").on("click", function() {
+		var $editArea = $(this).closest(".todo-edit-area");
+		var $input = $editArea.find(".custom-todo-input");
+		var userInput = $.trim($input.val());
 
-			// 투두 내용 리스트에 추가
-			$(".right-widget.todo").find(".todo-item-wrapper").append(todoItemDom);
+		// 1. 입력값이 있다면, 리스트에 먼저 추가
+		if (userInput !== "") {
+			var newItem = $($("#todo-item-template").html());
+			newItem.find(".todo-item-content").text(userInput);
+			newItem.attr("data-new-todo", "true");
+			$(".todo-item-wrapper").append(newItem);
+			$input.val(""); // 입력창 비우기
+
+			// 삭제 버튼 바인딩
+			newItem.find(".btn-todo-delete").on("click", function(e) {
+				e.preventDefault();
+				$(this).closest(".todo-item").remove();
+			});
+		}
+
+		// 2. 아직 저장되지 않은 투두 항목들 전부 서버로 전송
+		$(".todo-item-wrapper .todo-item[data-new-todo=true]").each(function() {
+			var $item = $(this);
+			var content = $item.find(".todo-item-content").text();
 
 			var formData = new FormData();
-			formData.append("todoCtt", userInput);
+			formData.append("todoCtt", content);
 
-			// AJAX로 서버에 전송
 			$.ajax({
 				type: "POST",
 				url: "/eduad/todo/write",
 				data: formData,
 				contentType: false,
 				processData: false,
-				success: function(result) {
-					//TODO 나중에 reload빼기
+				success: function() {
 					location.reload();
 				},
 				error: function(xhr) {
-					alert("투두 등록 실패!");
-					console.log(xhr.status);       // TODO ex) 400, 500
-					console.log(xhr.responseText); // 에러 메세지
+					alert("저장 중 오류 발생");
+					console.log(xhr.status, xhr.responseText);
 				}
 			});
 		});
-	// 강의 계획서 등록 이벤트 끝
+	});
 
+	// 5. 완료 토글 처리
+	$(".todo").on("click", ".todo-item-content", function() {
+		var $this = $(this);
+		var $todoItem = $this.closest(".todo-item");
+		var todoId = $todoItem.data("todo-id");
 
-	/* 
-	1. +버튼 클릭 시 
-	  1-1. input영역 미끄러져 내려오기 (toggle)
-	  1-2. 삭제 버튼 보이기
-	*/
-/*	$(".btn-todo-edit").on("click", function() {
-		$(".todo-edit-area").slideToggle(300); 
-		$(".todo-item-manage").toggleClass("on");
-	});*/
+		if (!todoId) {
+			alert("서버에 저장되지 않은 투두는 완료 처리가 불가능합니다.");
+			return;
+		}
 
-	/*	// 일반 투두 추가
-		 2. input에 값을 적고 추가 버튼 클릭할 경우 todo-item append
-		$(".todo-edit-area")
-			.find(".btn-add")
-			.on("click", function() {
-				var userInput = $(this)
-					.closest(".todo-edit-area")
-					.find(".custom-todo-input")
-					.val();
+		$this.toggleClass("done");
+		const isDone = $this.hasClass("done") ? "Y" : "N";
 
-				// 유효성 검사: 추가하려는 입력값이 비어있는지 확인
-				if ($.trim(userInput) === "") {
-					alert("추가하려는 투두의 내용을 입력해주세요.");
-					return;
+		$.ajax({
+			type: "POST",
+			url: `/eduad/todo/update/${todoId}`,
+			data: {
+				todoFinishYn: isDone
+			},
+			success: function(res) {
+				if (res && res.status === 200 && res.data === true) {
+					console.log("투두 완료 상태 업데이트 성공");
+				} else {
+					alert("업데이트 실패");
 				}
+			},
+			error: function() {
+				alert("서버 통신 오류");
+			}
+		});
+	});
 
-				var todoItemDom = $($("#todo-item-template").html());
-				todoItemDom.find(".todo-item-content").text(userInput);
-
-				// 완료 토글
-				todoItemDom.on("click", function() {
-					$(this).toggleClass("done");
-				});
-
-
-				todoItemDom.find(".btn-todo-delete").on("click", function() {
-					$(this).closest(".todo-item").remove();
-				});
-
-				$(".right-widget.todo").find(".todo-item-wrapper").append(todoItemDom);
-
-				var formData = new FormData();
-				formData.append("todoCtt", userInput);
-
-				// AJAX로 서버에 전송
-				$.ajax({
-					type: "POST",
-					url: "/eduad/todo/write",
-					data: formData,
-					contentType: false,
-					processData: false,
-					success: function(result) {
-						location.reload();
-					},
-					error: function(xhr) {
-						alert("투두 등록 실패!");
-						console.log(xhr.status);       // TODO ex) 400, 500
-						console.log(xhr.responseText); // 에러 메세지
-					}
-				});
-
-			});*/
-
-	/* 3. todo-item을 클릭하면 done toggle 처리 */
-	// $(".right-widget.todo")
-	//   .find(".todo-item")
-	//   .on("click", function () {
-	//     $(this).toggleClass("done");
-	//   });
-
-	/* 4. todo-item 삭제버튼을 클릭하면 todo-item 지워짐*/
-	// $(".right-widget.todo")
-	//   .find(".todo-item")
-	//   .find(".btn-todo-delete")
-	//   .on(".click", function () {
-	//     $(this).closest(".todo-item").remove();
-	//   });
-
-	/* 0419 유진 파트 end */
+	/* 유진 투두 기능 end */
 	/* ================================= */
 
-
+	
   /* 강준식 기능들 */
   /* ------------강준식----------------- */
 
