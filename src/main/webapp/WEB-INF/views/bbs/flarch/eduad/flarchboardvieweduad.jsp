@@ -73,11 +73,11 @@
 			<div class="board-wrapper">
 				<div class="board-info">
 					<label>작성자</label>
-					<div>김강사</div>
+					<div>${flArchVO.instrVO.instrNm}</div>
 					<label>작성날짜</label>
 					<div>${flArchVO.flArchRgstDt}</div>
 					<label>이메일</label>
-					<div id="email">${sessionScope.__LOGIN_INSTR__.instrMl}</div>
+					<div id="email">${flArchVO.instrVO.instrMl}</div>
 					<label>조회수</label>
 					<div>${flArchVO.flArchViewCnt}</div>
 					<label>제목</label>

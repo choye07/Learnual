@@ -17,12 +17,9 @@ import com.learn.bbs.eduad.flarch.vo.FlArchSearchRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchUpdateRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchWriteRequestVO;
+import com.learn.bbs.eduad.flarch.vo.FlarchViewRequestVO;
 import com.learn.bbs.pltad.instr.vo.InstrVO;
-import com.learn.bbs.pltad.vo.PltadmVO;
 import com.learn.bbs.usr.vo.UsrVO;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -30,6 +27,7 @@ public class FlArchController {
 
 	@Autowired
 	private FlArchService flArchService;
+	
 	// 강사 자료실 목록 뷰
 	@GetMapping("/test11")
 	public String testInstr() {
@@ -41,17 +39,14 @@ public class FlArchController {
 		return "bbs/flarch/usr/flarchboardlistusr"; 
 	}
 
-	// TODO 자료실 게시판: /eduad/{insttnId}/{crsInfId}/{artcId}
 	// 게시글 목록 - 강사 조회
 	@GetMapping("/eduad/{insttnId}/{crsInfId}/{artcId}/flarch/list")
 	public String viewEuadFlArchBoardList(FlArchSearchRequestVO flArchSearchRequestVO,
 			                              @PathVariable String insttnId,
                                           @PathVariable String crsInfId,
                                           @PathVariable String artcId,
-                                          HttpSession session,
-                                          Model model ) {
-
-		InstrVO instrVO= (InstrVO) session.getAttribute("__LOGIN_INSTR__");
+                                          Model model,
+                                          @SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO) {
 
 		flArchSearchRequestVO.setInsttnId(instrVO.getInsttnId());
 		flArchSearchRequestVO.setCrsInfId("CRS_INF-20250428-000014");
@@ -72,11 +67,8 @@ public class FlArchController {
 			                             @PathVariable String insttnId,
                                          @PathVariable String crsInfId,
                                          @PathVariable String artcId,
-                                         HttpSession session,
-			                             Model model ) {
-
-		
-		UsrVO usrVO = (UsrVO) session.getAttribute("__LOGIN_USER__");
+			                             Model model,
+			                             @SessionAttribute("__LOGIN_USER__") UsrVO usrVO) {
 
 		flArchSearchRequestVO.setInsttnId(usrVO.getInsttnId());
 		flArchSearchRequestVO.setCrsInfId("CRS_INF-20250428-000014");
@@ -92,76 +84,66 @@ public class FlArchController {
 	}
 
 	// 게시글 조회 - 강사
-	@GetMapping("/eduad/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/view/{flArchId}")
-	public String viewOneFlArchBoardPageInstr (
+	@GetMapping("/eduad/{insttnId}/{crsInfId}/{artcId}/flarch/view/{flArchId}")
+	public String viewOneFlArchBoardPageInstr (FlarchViewRequestVO flarchViewRequestVO,
+											   @PathVariable String insttnId,
+											   @PathVariable String crsInfId,
+											   @PathVariable String artcId,
                                                @PathVariable String flArchId,
                                                Model model, 
 			                                   @SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO ) {
-
-		// 원래 파라미터
-//		 (@PathVariable String insttnId,
-//                 @PathVariable String crsInfId,
-//                 @PathVariable String artcId,
-//                 @PathVariable String flArchId,
-//                 Model model, 
-//                 @SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO ) {
-		// 세션 가져오기
-		// 해당 학원의 강좌를 듣는 학생이나 강사가 아니면 게시글을 조회할 수 없다.
+		
+		flarchViewRequestVO.setInsttnId(instrVO.getInsttnId());
+		flarchViewRequestVO.setCrsInfId("CRS_INF-20250428-000014");
+		flarchViewRequestVO.setArtcId("ARTC-20250428-000004");
+		flarchViewRequestVO.setFlArchId(flArchId);
 		
 		// 게시글 가져오기
-		FlArchVO flArchVO = this.flArchService.getOneFlArchBoard(flArchId, true);
-
-		// 학원, 강좌 체크
-//		if (!insttnId.equals(flArchVO.getInsttnId()) || !crsInfId.equals(flArchVO.getCrsInfId())) {
-//			//return "redirect:/eduad/flarch/list";
-//			return "redirect:/eduad/" + "INSTTN-20250424-000001" + "/" + "CRS_INF-20250428-000014" + "/" + "ARTC-20250428-000004" + "/flarch/list";
-//		}
+		FlArchVO flArchVO = this.flArchService.getOneFlArchBoard(flarchViewRequestVO, true);
 
 		model.addAttribute("flArchVO", flArchVO);
 		return "bbs/flarch/eduad/flarchboardvieweduad";
 	}
 	
 	// 게시글 조회 - 회원
-		@GetMapping("/usr/INSTTN-20250424-000001/CRS_INF-20250428-000014/ARTC-20250428-000004/flarch/view/{flArchId}")
-		public String viewOneFlArchBoardPageUsr (@PathVariable String flArchId,
-	                                            Model model, 
-				                                @SessionAttribute("__LOGIN_USER__") UsrVO usrVO) {
+	@GetMapping("/usr/{insttnId}/{crsInfId}/{artcId}/flarch/view/{flArchId}")
+	public String viewOneFlArchBoardPageUsr(FlarchViewRequestVO flarchViewRequestVO, 
+			                                @PathVariable String insttnId,
+			                                @PathVariable String crsInfId, 
+			                                @PathVariable String artcId, 
+			                                @PathVariable String flArchId,
+			                                Model model,
+			                                @SessionAttribute("__LOGIN_USER__") UsrVO usrVO) {
 
-//			@PathVariable String insttnId,
-//            @PathVariable String crsInfId,
-//            @PathVariable String artcId,
-//            @PathVariable String flArchId,
-//           Model model, 
-//           @SessionAttribute("__LOGIN_USER__") UsrVO usrVO) {
-        	   
-			// 게시글 가져오기
-			FlArchVO flArchVO = this.flArchService.getOneFlArchBoard(flArchId, true);
+		flarchViewRequestVO.setInsttnId(usrVO.getInsttnId());
+		flarchViewRequestVO.setCrsInfId("CRS_INF-20250428-000014");
+		flarchViewRequestVO.setArtcId("ARTC-20250428-000004");
+		flarchViewRequestVO.setFlArchId(flArchId);
 
-			// 세션 가져오기
-			// 해당 학원의 강좌를 듣는 학생이나 강사가 아니면 게시글을 조회할 수 없다.
-			
-			// 학원, 강좌 체크
-//			if (!insttnId.equals(flArchVO.getInsttnId()) || !crsInfId.equals(flArchVO.getCrsInfId())) {
-//				//return "redirect:/eduad/flarch/list";
-//				return "redirect:/usr/" + insttnId + "/" + "CRS_INF-20250428-000014" + "/" + "ARTC-20250428-000004" + "/flarch/list";
-//			}
+		// 게시글 가져오기
+		FlArchVO flArchVO = this.flArchService.getOneFlArchBoard(flarchViewRequestVO, true);
 
-			model.addAttribute("flArchVO", flArchVO);
-			return "bbs/flarch/usr/flarchboardviewusr";
-		}
+		model.addAttribute("flArchVO", flArchVO);
+		return "bbs/flarch/usr/flarchboardviewusr";
+	}
 
+	
 	/*
 	 * 게시글 등록과 수정, 삭제는 강사만 할 수 있다.(학생은 오직 읽기만 가능하다.)
 	 */
 		
+	
 	// 게시글 등록
 	@GetMapping("/eduad/{insttnId}/{crsInfId}/{artcId}/flarch/write")
-	public String viewFlArchBoardWritePage(HttpSession session) {
-		 // 무조건 고정값 세팅
-		InstrVO instrVO= (InstrVO) session.getAttribute("__LOGIN_INSTR__");
-	    String insttnId = instrVO.getInsttnId();
-	    String crsInfId = "CRS_INF-20250428-000014";
-	    String artcId = "ARTC-20250428-000004";
+	public String viewFlArchBoardWritePage(@PathVariable String insttnId,
+			                               @PathVariable String crsInfId,
+			                               @PathVariable String artcId,
+                                           @SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO) {
+
+	    insttnId = instrVO.getInsttnId();
+	    crsInfId = "CRS_INF-20250428-000014";
+	    artcId = "ARTC-20250428-000004";
+	    
 		return "bbs/flarch/eduad/flarchboardwriteeduad";
 	}
 
@@ -180,13 +162,6 @@ public class FlArchController {
 			model.addAttribute("flArchWriteRequestVO", flArchWriteRequestVO);
 			return "bbs/flarch/eduad/flarchboardwriteeduad";
 		}
-
-		// 로그인된 사용자 정보 설정
-		/*
-		 * String loginEmail = null; if (instrVO != null) { loginEmail =
-		 * instrVO.getInstrMl(); // 강사 이메일 } else { return "redirect:/login"; // 로그인 안
-		 * 되어 있으면 로그인 페이지로 리다이렉트 }
-		 */
 
 		flArchWriteRequestVO.setInsttnId(instrVO.getInsttnId());
 		flArchWriteRequestVO.setCrsInfId("CRS_INF-20250428-000014");
@@ -238,22 +213,23 @@ public class FlArchController {
                                       @PathVariable String crsInfId,
                                       @PathVariable String artcId,
 			                          @PathVariable String flArchId,
-			                          @SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO
-			                          , Model model) {
-		// 세션값 지정
+			                          @SessionAttribute("__LOGIN_INSTR__") InstrVO instrVO,
+			                          Model model) {
+
 		insttnId = instrVO.getInsttnId();       
 		crsInfId = "CRS_INF-20250428-000014";   
 		artcId = "ARTC-20250428-000004";        
-		String lgnId = instrVO.getInstrLgnId(); 
+		String lgnId = instrVO.getInstrLgnId();
+		
+		FlarchViewRequestVO flarchViewRequestVO = new FlarchViewRequestVO();
+		
+		flarchViewRequestVO.setInsttnId(instrVO.getInsttnId());
+		flarchViewRequestVO.setCrsInfId("CRS_INF-20250428-000014");
+		flarchViewRequestVO.setArtcId("ARTC-20250428-000004");
+		flarchViewRequestVO.setFlArchId(flArchId);
 		
 		// 수정된 게시글을 보여주기 때문에 조회수 증가를 방지하기 위해 false를 준다.
-		FlArchVO flArchVO = this.flArchService.getOneFlArchBoard(flArchId, false);
-
-		// 본인이 작성한 글이 아니면 수정 못함
-		// 현재 로그인된 사용자의 이메일(memberVO.getEmail())과 작성자(instrId)를 비교
-//		if (!instrVO.getInstrLgnId().equals(flArchVO.getLgnId())) {
-//			return "redirect:/eduad/" + instrVO.getInsttnId() + "/" + "CRS_INF-20250428-000014" + "/" + "ARTC-20250428-000004" + "/flarch/list";
-//		}
+		FlArchVO flArchVO = this.flArchService.getOneFlArchBoard(flarchViewRequestVO, false);
 
 		model.addAttribute("flArchVO", flArchVO);
 		// 게시글 수정 화면으로 리턴
@@ -276,17 +252,11 @@ public class FlArchController {
 
 		// DB에서도 내가 쓴 글이 아니라면 수정하지 못하도록 한다.
                                
-         flArchUpdateRequestVO.setFlArchId(flArchId);                  
-         flArchUpdateRequestVO.setInsttnId(instrVO.getInsttnId());     
-         flArchUpdateRequestVO.setCrsInfId("CRS_INF-20250428-000014"); 
-         flArchUpdateRequestVO.setArtcId("ARTC-20250428-000004");      
-         flArchUpdateRequestVO.setLgnId(instrVO.getInstrLgnId());      
-                               
-		//flArchUpdateRequestVO.setInsttnId(insttnId);
-		//flArchUpdateRequestVO.setCrsInfId(crsInfId);
-		//flArchUpdateRequestVO.setArtcId(artcId);
-		//flArchUpdateRequestVO.setFlArchId(flArchId);
-		//flArchUpdateRequestVO.setLgnId(instrVO.getInstrMl());
+        flArchUpdateRequestVO.setFlArchId(flArchId);                  
+        flArchUpdateRequestVO.setInsttnId(instrVO.getInsttnId());     
+        flArchUpdateRequestVO.setCrsInfId("CRS_INF-20250428-000014"); 
+        flArchUpdateRequestVO.setArtcId("ARTC-20250428-000004");      
+        flArchUpdateRequestVO.setLgnId(instrVO.getInstrLgnId());      
 
 		boolean isSuccess = this.flArchService.updateOneFlArchBoard(flArchUpdateRequestVO);
 

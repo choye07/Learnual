@@ -8,6 +8,11 @@
 	<resultMap type="com.learn.bbs.eduad.flarch.vo.FlArchVO"
 		id="FlArchFileVOMap" autoMapping="true">
 		<id column="FL_ARCH_ID" property="flArchId" />
+		
+		<association property="instrVO"
+			javaType="com.learn.bbs.pltad.instr.vo.InstrVO" autoMapping="true">
+			<id column="INSTR_ID" property="instrId" />
+		</association>
 
 		<collection property="flList"
 			ofType="com.learn.bbs.file.vo.FlVO" autoMapping="true">
@@ -97,21 +102,38 @@
 		, #{insttnId} )
 	</insert>
 
-	<select id="selectOneFlArchBoard" parameterType="string"
+	<select id="selectOneFlArchBoard" parameterType="com.learn.bbs.eduad.flarch.vo.FlarchViewRequestVO"
 		resultMap="FlArchFileVOMap">
 		SELECT FA.FL_ARCH_ID
              , FA.FL_ARCH_TTL
              , FA.FL_ARCH_CTT
              , FA.FL_ARCH_VIEW_CNT
-             , TO_CHAR(FA.FL_ARCH_RGST_DT, 'YYYY-MM-DD') AS FL_ARCH_RGST_DT
-             , TO_CHAR(FA.FL_ARCH_UPDT_DT, 'YYYY-MM-DD') AS FL_ARCH_UPDT_DT
+             , FA.INSTR_NM
+             , FA.INSTR_ML
+             , FA.FL_ARCH_RGST_DT
              , FL.FL_ID
              , FL.FL_NM
              , FL.FL_OBFS_NM
              , FL.FL_OBFS_PTH
              , FL.FL_SZ
              , FL.ID
-        FROM FL_ARCH FA
+        FROM (
+        SELECT FL_ARCH.FL_ARCH_ID
+             , FL_ARCH.FL_ARCH_TTL
+             , FL_ARCH.FL_ARCH_CTT
+             , FL_ARCH.FL_ARCH_VIEW_CNT
+             , FL_ARCH.FL_ARCH_DEL_YN
+             , TO_CHAR(FL_ARCH.FL_ARCH_RGST_DT, 'YYYY-MM-DD') AS FL_ARCH_RGST_DT
+             , INSTR.INSTR_ID
+             , INSTR.INSTR_NM
+             , INSTR.INSTR_ML
+          FROM FL_ARCH
+         INNER JOIN INSTR
+            ON INSTR.INSTR_LGN_ID= FL_ARCH.LGN_ID  
+         WHERE FL_ARCH.ARTC_ID = #{artcId}
+         AND FL_ARCH.CRS_INF_ID = #{crsInfId}
+         AND FL_ARCH.INSTTN_ID = #{insttnId}
+        ) FA
         LEFT OUTER JOIN FL
         ON FA.FL_ARCH_ID = FL.ID
         WHERE FA.FL_ARCH_ID = #{flArchId}

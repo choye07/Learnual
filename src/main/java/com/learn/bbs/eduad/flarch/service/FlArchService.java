@@ -6,6 +6,7 @@ import com.learn.bbs.eduad.flarch.vo.FlArchSearchRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchUpdateRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchWriteRequestVO;
+import com.learn.bbs.eduad.flarch.vo.FlarchViewRequestVO;
 
 public interface FlArchService {
 
@@ -16,7 +17,7 @@ public interface FlArchService {
 		public boolean createNewFlArchBoard(FlArchWriteRequestVO flArchWriteRequestVO);	
 		
 		// 게시글 조회
-		public FlArchVO getOneFlArchBoard(String flArchId, boolean isIncrease);
+		public FlArchVO getOneFlArchBoard(FlarchViewRequestVO flarchViewRequestVO, boolean isIncrease);
 
 		// 게시글 삭제
 		public boolean deleteOneFlArchBoard(FlArchDeleteRequestVO flArchDeleteRequestVO);

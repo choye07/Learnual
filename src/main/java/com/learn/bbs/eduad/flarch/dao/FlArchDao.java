@@ -7,6 +7,7 @@ import com.learn.bbs.eduad.flarch.vo.FlArchSearchRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchUpdateRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchWriteRequestVO;
+import com.learn.bbs.eduad.flarch.vo.FlarchViewRequestVO;
 
 public interface FlArchDao {
 
@@ -23,7 +24,7 @@ public interface FlArchDao {
 	public int updateViewCountBy(String flArchId);
 
 	// 게시글 조회
-	public FlArchVO selectOneFlArchBoard(String flArchId);
+	public FlArchVO selectOneFlArchBoard(FlarchViewRequestVO flarchViewRequestVO);
 
 	// 게시글 삭제
 	public int deleteOneFlArchBoard(FlArchDeleteRequestVO flArchDeleteRequestVO);

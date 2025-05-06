@@ -13,6 +13,7 @@ import com.learn.bbs.eduad.flarch.vo.FlArchSearchRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchUpdateRequestVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchVO;
 import com.learn.bbs.eduad.flarch.vo.FlArchWriteRequestVO;
+import com.learn.bbs.eduad.flarch.vo.FlarchViewRequestVO;
 
 @Repository
 public class FlArchDaoImpl extends SqlSessionDaoSupport implements FlArchDao {
@@ -46,8 +47,8 @@ public class FlArchDaoImpl extends SqlSessionDaoSupport implements FlArchDao {
 	}
 
 	@Override
-	public FlArchVO selectOneFlArchBoard(String flArchId) {
-		return getSqlSession().selectOne(NAME_SPACE + "selectOneFlArchBoard", flArchId);
+	public FlArchVO selectOneFlArchBoard(FlarchViewRequestVO flarchViewRequestVO) {
+		return getSqlSession().selectOne(NAME_SPACE + "selectOneFlArchBoard", flarchViewRequestVO);
 	}
 
 	@Override
